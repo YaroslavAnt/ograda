@@ -1,0 +1,35 @@
+// -----------------------Colors---------------------
+.light-pink-bg {
+  background-color: var(--pink-light);
+}
+
+.bg-pink {
+  background: var(--pink);
+}
+.bg-yellow {
+  background: var(--accent);
+}
+.bg-blue {
+  background: var(--blue);
+}
+
+.bg-secondary {
+  background: var(--primary);
+}
+
+.color-pink {
+  color: var(--pink);
+}
+
+.color-blue {
+  color: var(--blue);
+}
+
+// -----------------------Appear---------------------
+.mobile-hide {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: inherit;
+  }
+}

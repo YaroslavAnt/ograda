@@ -1,0 +1,25 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(180deg, #fbfbfb 0%, #effaff 100%);
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-padding {
+  padding: 40px 16px;
+
+  @media (min-width: 1200px) {
+    padding: 80px 70px;
+  }
+}
