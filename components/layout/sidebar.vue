@@ -12,7 +12,7 @@
           :class="{
             'open-submenu': activeSubmenu===item.name,
             'with-submenu': item.submenu,
-            'active': current_page===item.name
+            'active': current_page===item.path
           }"
         >{{item.name}}</p>
         <ul class="sidebar-subnav" :class="{'open-submenu': activeSubmenu===item.name}">
@@ -42,15 +42,16 @@ export default {
     },
     setRoute(path) {
       this.$router.push(path);
-      this.$parent.toggleMenu();
+      // this.$parent.toggleMenu();
     }
   },
+  props: ["current_page"],
   data() {
     return {
       activeSubmenu: null,
-      current_page: this.$router.path,
+      // current_page: this.$router.path,
       menu_list: [
-        { name: "О нас", path: "/about" },
+        { name: "Главная", path: "/home" },
         {
           name: "Ограждения",
           submenu: [
@@ -59,7 +60,7 @@ export default {
           ]
         },
         { name: "Ворота и калитки", path: "/vorota-i-kalitki" },
-        { name: "Бетонные столбики", path: "/stolbiki" },
+        { name: "Виноградные столбики", path: "/stolbiki" },
         { name: "Услуги", path: "/uslugi" },
         { name: "Каталог", path: "/katalog" },
         { name: "Наши работы", path: "/blog" },
@@ -80,14 +81,15 @@ nav {
 }
 
 .logo {
-  height: 220px;
-  background: url("../../assets/img/logo.png") center bottom,
-    url("../../assets/img/fence.png") bottom;
+  height: 200px;
+  background: url("../../assets/img/grass2.png") bottom,
+    url("../../assets/img/image.png") center bottom,
+    url("../../assets/img/plita172.png") bottom;
   // background-position: center;
-  background-repeat: no-repeat;
-  background-size: 60%, contain;
+  background-repeat: repeat-x, no-repeat, no-repeat;
+  background-size: 50%, 60%, 100%;
   background-color: var(--light-blue);
-  border-bottom: 6px solid var(--primary);
+  /* border-bottom: 6px solid var(--primary); */
   flex-shrink: 0;
 }
 
@@ -111,10 +113,11 @@ nav {
     font-size: 18px;
     font-weight: 500;
     position: relative;
+    transition-duration: 0.2s;
 
     &.with-submenu {
       &::after {
-        transition-duration: 0.3s;
+        transition-duration: 0.2s;
         content: "";
         position: absolute;
         display: block;

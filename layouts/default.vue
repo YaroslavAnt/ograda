@@ -1,10 +1,10 @@
 ﻿<template>
   <div class="page">
     <div class="sidebar">
-      <app-sidebar></app-sidebar>
+      <app-sidebar :current_page="current_page"></app-sidebar>
     </div>
     <div class="content">
-      <app-header></app-header>
+      <app-header :current_page="current_page"></app-header>
       <nuxt />
       <app-footer></app-footer>
     </div>
@@ -19,13 +19,14 @@
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
+  box-shadow: 0px 4px 18px #ccc;
 }
 .sidebar {
   height: 100vh;
   width: 280px;
   flex-grow: 0;
   flex-shrink: 0;
-  box-shadow: -8px 4px 18px #ccc;
+  border-right: 1px solid var(--dark);
 }
 .content {
   flex: 1;
@@ -44,6 +45,19 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue
+  },
+  watch: {
+    $route(to) {
+      this.current_page = to.path;
+    }
+  },
+  created() {
+    this.current_page = this.$route.path;
+  },
+  data() {
+    return {
+      current_page: "/"
+    };
   }
 };
 </script>
