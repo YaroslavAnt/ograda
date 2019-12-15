@@ -6,10 +6,10 @@
 
 <script>
 import SliderVue from "../../../components/common/Slider.vue";
-import zabor from "../../../assets/img/but_2.jpg";
-import rabitsa from "../../../assets/img/but_rovnyi_1.jpg";
-import vorota from "../../../assets/img/fagot_1.jpg";
-import stolbiki from "../../../assets/img/but_loza_3.jpg";
+import zabor from "../../../assets/img/but/but_2.jpg";
+import rabitsa from "../../../assets/img/but_rovnyi/but_rovnyi_1.jpg";
+import vorota from "../../../assets/img/fagot/fagot_1.jpg";
+import stolbiki from "../../../assets/img/but_loza/but_loza_3.jpg";
 export default {
   name: "hero.vue",
   components: {
