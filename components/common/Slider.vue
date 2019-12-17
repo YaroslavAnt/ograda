@@ -5,19 +5,19 @@
       :key="idx"
       class="slider-item section-padding"
       :class="{'active-slide': current_slide===idx}"
-      :style="{ 'background': `linear-gradient(
-          rgba(0, 0, 0, 0.5), 
-          rgba(0, 0, 0, 0.5)
-        ),url(${slide.img})`}"
+      :style="{ 'background': `100% linear-gradient(
+          rgba(0, 0, 0, 0.3), 
+          rgba(0, 0, 0, 0.3)
+        ),url(${slide.img})`, 'height': `${height}`}"
     >
       <div class="slider-content">
-        <h3 class="slider-heading large-font">{{ slide.heading }}</h3>
-        <p class="slider-text base-font">{{ slide.text }}</p>
+        <h3 v-if="slide.heading" class="slider-heading huge-font">{{ slide.heading }}</h3>
+        <p v-if="slide.text" class="slider-text base-font">{{ slide.text }}</p>
         <app-button
+          v-if="slide.link"
           class="slider-btn"
           :text="'Подробнее'"
-          :color="'#ff5b00'"
-          @click.native="$router.push(slider.link)"
+          @click.native="$router.push(slide.link)"
         ></app-button>
       </div>
 
@@ -95,100 +95,100 @@ export default {
       intervalid1: null
     };
   },
-  props: ["slider_items"]
+  props: ["slider_items", "height"]
 };
 </script>
 
 <style lang="scss" scoped>
-.slider {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-  color: var(--white);
-
-  &-item {
-    opacity: 0;
-    height: calc(100vh - 80px);
-    max-height: 800px;
-    position: absolute;
-    width: 100%;
+  .slider {
     display: flex;
     align-items: center;
-    transition-duration: 1s;
-    z-index: -1;
+    overflow: hidden;
+    position: relative;
+    color: var(--white);
 
-    &.active-slide {
-      opacity: 1;
-      z-index: 1;
-      position: relative;
-    }
-  }
-
-  &-content {
-    width: 66%;
-  }
-
-  &-btn,
-  &-text {
-    margin-top: 20px;
-  }
-
-  .arrows {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--dark);
-
-    .arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    &-item {
+      opacity: 0;
+      height: calc(100vh - 105px);
+      max-height: 800px;
+      position: absolute;
+      width: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
-      background: #fff;
-      opacity: 0.7;
-      cursor: pointer;
+      transition-duration: 1s;
+      z-index: -1;
 
-      &-left {
-        transform: rotate(90deg);
-      }
-      &-right {
-        transform: rotate(-90deg);
-      }
-
-      &:hover {
+      &.active-slide {
         opacity: 1;
+        z-index: 1;
+        position: relative;
+      }
+    }
+
+    &-content {
+      width: 66%;
+    }
+
+    &-btn,
+    &-text {
+      margin-top: 20px;
+    }
+
+    .arrows {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--dark);
+
+      .arrow {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+        opacity: 0.7;
+        cursor: pointer;
+
+        &-left {
+          transform: rotate(90deg);
+        }
+        &-right {
+          transform: rotate(-90deg);
+        }
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .indicator {
+      /* position: absolute;
+                  bottom: 0;
+                  left: 50%;
+                  transform: translate(-50%, -100%); */
+      width: 100px;
+      display: flex;
+      justify-content: space-between;
+
+      .button {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #fff;
+        opacity: 0.5;
+        cursor: pointer;
+
+        &.active {
+          opacity: 1;
+        }
       }
     }
   }
-
-  .indicator {
-    /* position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -100%); */
-    width: 100px;
-    display: flex;
-    justify-content: space-between;
-
-    .button {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: #fff;
-      opacity: 0.5;
-      cursor: pointer;
-
-      &.active {
-        opacity: 1;
-      }
-    }
-  }
-}
 </style>

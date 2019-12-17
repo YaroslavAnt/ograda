@@ -1,7 +1,6 @@
 ﻿<template>
   <section class="section-padding">
     <span class="intro">{{section_intro}}</span>
-    <h2 class="heading big-font" v-html="heading"></h2>
     <div class="grid-box">
       <div v-for="(section,idx) in intro_list" :key="idx">
         <intro
@@ -53,16 +52,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.intro {
-  color: var(--red);
-}
-.heading {
-  max-width: 1000px;
-  padding: 40px 0;
-  font-weight: 700;
-}
-.grid-box {
-  display: grid;
-  row-gap: 40px;
-}
+  .intro {
+    color: var(--orange);
+  }
+  .heading {
+    max-width: 1000px;
+    padding: 40px 0;
+    font-weight: 700;
+  }
+  .grid-box {
+    display: grid;
+    row-gap: 40px;
+  }
 </style>

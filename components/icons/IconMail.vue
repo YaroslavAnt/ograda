@@ -1,7 +1,7 @@
 ﻿<template>
   <svg
     version="1.1"
-    id="Capa_1"
+    id="Capa_13"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0px"
@@ -27,3 +27,9 @@
     </g>
   </svg>
 </template>
+
+<script>
+export default {
+  name: "IconMail.vue"
+};
+</script>

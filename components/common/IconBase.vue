@@ -3,7 +3,7 @@
     xmlns="http://www.w3.org/2000/svg"
     :width="width"
     :height="height"
-    viewBox="0 0 18 18"
+    viewBox="0 0 36 36"
     :aria-labelledby="iconName"
     role="presentation"
   >
@@ -24,11 +24,11 @@ export default {
     },
     width: {
       type: [Number, String],
-      default: 18
+      default: 36
     },
     height: {
       type: [Number, String],
-      default: 18
+      default: 36
     },
     iconColor: {
       type: String,

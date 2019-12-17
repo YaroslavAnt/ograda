@@ -1,5 +1,5 @@
 ﻿<template>
-  <nav>
+  <div class="nav">
     <div class="logo"></div>
     <ul class="sidebar-nav">
       <li
@@ -26,7 +26,7 @@
         </ul>
       </li>
     </ul>
-  </nav>
+  </div>
 </template>
 
 <script>
@@ -55,14 +55,14 @@ export default {
         {
           name: "Ограждения",
           submenu: [
-            { name: "Бетонные заборы", path: "/zabor-iz-betona" },
-            { name: "Сетка рабица", path: "/setka-rabitsa" }
+            { name: "Бетонные заборы", path: "/fence-koncrete" },
+            { name: "Сетка рабица", path: "/fence-rabitz" }
           ]
         },
-        { name: "Ворота и калитки", path: "/vorota-i-kalitki" },
-        { name: "Виноградные столбики", path: "/stolbiki" },
-        { name: "Услуги", path: "/uslugi" },
-        { name: "Каталог", path: "/katalog" },
+        { name: "Ворота и калитки", path: "/gate" },
+        { name: "Виноградные столбики", path: "/pillar" },
+        { name: "Услуги", path: "/services" },
+        { name: "Каталог", path: "/catalog" },
         { name: "Наши работы", path: "/blog" },
         { name: "Контакты", path: "/contact" }
       ]
@@ -72,94 +72,94 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-nav {
-  height: 100%;
-  color: var(--dark);
-  background-color: var(--white);
-  display: flex;
-  flex-direction: column;
-}
-
-.logo {
-  height: 200px;
-  background: url("../../assets/img/grass2.png") bottom,
-    url("../../assets/img/image.png") center bottom,
-    url("../../assets/img/plita172.png") bottom;
-  // background-position: center;
-  background-repeat: repeat-x, no-repeat, no-repeat;
-  background-size: 50%, 60%, 100%;
-  background-color: var(--light-blue);
-  /* border-bottom: 6px solid var(--primary); */
-  flex-shrink: 0;
-}
-
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 0px; /* Remove scrollbar space */
-    background: transparent; /* Optional: just make scrollbar invisible */
+  .nav {
+    height: 100%;
+    color: var(--dark);
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
   }
 
-  li {
-    cursor: pointer;
+  .logo {
+    height: 210px;
+    background: url("../../assets/img/grass2.png") bottom,
+      url("../../assets/img/image.png") center bottom,
+      url("../../assets/img/plita172.png") bottom;
+    // background-position: center;
+    background-repeat: repeat-x, no-repeat, no-repeat;
+    background-size: 50%, 60%, 100%;
+    background-color: var(--light-blue);
+    /* border-bottom: 6px solid var(--primary); */
+    flex-shrink: 0;
   }
 
-  .nav-link,
-  .subnav-link {
-    padding: 16px;
-    font-size: 18px;
-    font-weight: 500;
-    position: relative;
-    transition-duration: 0.2s;
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 
-    &.with-submenu {
-      &::after {
-        transition-duration: 0.2s;
-        content: "";
-        position: absolute;
-        display: block;
-        width: 12px;
-        height: 12px;
-        border-left: 3px solid;
-        border-top: 3px solid;
-        top: 15px;
-        right: 15px;
-        transform: rotate(-135deg);
-        box-sizing: border-box;
+    &::-webkit-scrollbar {
+      width: 0px; /* Remove scrollbar space */
+      background: transparent; /* Optional: just make scrollbar invisible */
+    }
+
+    li {
+      cursor: pointer;
+    }
+
+    .nav-link,
+    .subnav-link {
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 500;
+      position: relative;
+      transition-duration: 0.2s;
+
+      &.with-submenu {
+        &::after {
+          transition-duration: 0.2s;
+          content: "";
+          position: absolute;
+          display: block;
+          width: 12px;
+          height: 12px;
+          border-left: 3px solid;
+          border-top: 3px solid;
+          top: 15px;
+          right: 15px;
+          transform: rotate(-135deg);
+          box-sizing: border-box;
+        }
+      }
+
+      &.active {
+        color: var(--green);
+      }
+
+      &:hover {
+        background-color: var(--green);
+        color: var(--white);
+      }
+
+      &.open-submenu.with-submenu {
+        &::after {
+          top: 20px;
+          transform: rotate(45deg);
+        }
       }
     }
+  }
 
-    &.active {
-      color: var(--accent);
-    }
+  .sidebar-subnav {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-left: 16px;
+    transition-duration: 0.3s;
 
-    &:hover {
-      background-color: var(--primary);
-      color: var(--white);
-    }
-
-    &.open-submenu.with-submenu {
-      &::after {
-        top: 20px;
-        transform: rotate(45deg);
-      }
+    &.open-submenu {
+      opacity: 1;
+      max-height: 100px;
     }
   }
-}
-
-.sidebar-subnav {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  padding-left: 16px;
-  transition-duration: 0.3s;
-
-  &.open-submenu {
-    opacity: 1;
-    max-height: 100px;
-  }
-}
 </style>

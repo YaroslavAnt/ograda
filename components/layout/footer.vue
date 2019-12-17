@@ -4,7 +4,7 @@
       <div class="contact-item">
         <svg
           version="1.1"
-          id="Capa_1"
+          id="Capa_15"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -51,7 +51,7 @@
       <div class="contact-item">
         <svg
           version="1.1"
-          id="Capa_1"
+          id="Capa_16"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -83,7 +83,7 @@
         <div class="icon">
           <svg
             version="1.1"
-            id="Layer_1"
+            id="Layer_15"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             x="0px"
@@ -120,7 +120,7 @@
     <div class="social">
       <svg
         version="1.1"
-        id="Capa_1"
+        id="Capa_17"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         x="0px"
@@ -156,35 +156,35 @@
 </template>
 
 <style lang="scss" scoped>
-footer {
-  background-color: var(--dark);
-  color: var(--white);
-  font-weight: 500;
+  footer {
+    background-color: var(--dark);
+    color: var(--white);
+    font-weight: 500;
 
-  svg {
-    height: 30px;
-    max-width: 50px;
-  }
-}
-
-.contact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  &-item {
-    display: flex;
-    align-items: center;
-    margin-right: 24px;
-  }
-
-  svg {
-    margin-right: 12px;
-    path {
-      fill: var(--red);
+    svg {
+      height: 30px;
+      max-width: 50px;
     }
   }
-}
+
+  .contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      margin-right: 24px;
+    }
+
+    svg {
+      margin-right: 12px;
+      path {
+        fill: var(--orange);
+      }
+    }
+  }
 </style>
 
 <script>
