@@ -1,30 +1,24 @@
 <template>
   <main>
-    <!-- <slider></slider> -->
     <hero />
-    <advantages />
-    <services />
     <popular />
-    <!-- <about /> -->
+    <services />
+    <news />
   </main>
 </template>
 
 <script>
 import heroVue from "./sections/hero.vue";
-import aboutVue from "./sections/about.vue";
-import servicesVue from "./sections/services.vue";
-import SliderVue from "../../components/common/Slider.vue";
-import advantagesVue from "./sections/advantages.vue";
 import popularVue from "./sections/popular.vue";
+import servicesVue from "./sections/services.vue";
+import newsVue from "./sections/news.vue";
 
 export default {
   components: {
-    slider: SliderVue,
     hero: heroVue,
-    about: aboutVue,
+    popular: popularVue,
     services: servicesVue,
-    advantages: advantagesVue,
-    popular: popularVue
+    news: newsVue
   }
 };
 </script>

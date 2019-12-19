@@ -1,8 +1,8 @@
 ﻿<template>
-  <app-section :heading="section_intro">
+  <app-section :heading="section_intro" class="section">
     <div class="grid">
       <div class="grid-item" v-for="(card,idx) in card_list" :key="idx">
-        <img class="grid-item-icon" :src="card.icon" alt="icon" />
+        <img class="grid-item-icon lazyload" :data-src="card.icon" alt="icon" />
         <p class="grid-item-text medium-font">{{card.heading}}</p>
       </div>
     </div>
@@ -31,7 +31,7 @@ export default {
       card_list: [
         {
           icon: goal,
-          heading: "10+ лет производства"
+          heading: "10+ лет опыта производства ограждений"
         },
         {
           icon: flag,
@@ -53,17 +53,29 @@ export default {
 
 <style lang="scss" scoped>
   .section {
-    &-intro {
-      color: var(--dark);
-    }
+    background-color: #fff;
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       grid-gap: 24px;
+
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 36px;
+      }
 
       &-item {
         text-align: center;
+
+        .icon-box {
+          display: inline-flex;
+          padding: 30px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background-color: var(--red);
+        }
 
         &-icon {
           width: 70px;

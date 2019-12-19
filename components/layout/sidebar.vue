@@ -15,7 +15,11 @@
             'active': current_page===item.path
           }"
         >{{item.name}}</p>
-        <ul class="sidebar-subnav" :class="{'open-submenu': activeSubmenu===item.name}">
+        <ul
+          v-if="item.submenu"
+          class="sidebar-subnav"
+          :class="{'open-submenu': activeSubmenu===item.name}"
+        >
           <li
             v-for="(subitem, index) in item.submenu"
             :key="index + 'sublink'"
@@ -56,11 +60,13 @@ export default {
           name: "Ограждения",
           submenu: [
             { name: "Бетонные заборы", path: "/fence-koncrete" },
-            { name: "Сетка рабица", path: "/fence-rabitz" }
+            { name: "Сетка рабица", path: "/fence-rabitz" },
+            { name: "Забор из профнастила", path: "/fence-steel" }
           ]
         },
-        { name: "Ворота и калитки", path: "/gate" },
-        { name: "Виноградные столбики", path: "/pillar" },
+        { name: "Ворота и калитки", path: "/gates" },
+        { name: "Бетонные столбики", path: "/pillar" },
+        { name: "Садовые дорожки", path: "/lane" },
         { name: "Услуги", path: "/services" },
         { name: "Каталог", path: "/catalog" },
         { name: "Наши работы", path: "/blog" },
@@ -82,15 +88,14 @@ export default {
 
   .logo {
     height: 210px;
-    background: url("../../assets/img/grass2.png") bottom,
-      url("../../assets/img/image.png") center bottom,
-      url("../../assets/img/plita172.png") bottom;
-    // background-position: center;
+    background: url("../../assets/img/grass2-min.png") bottom,
+      url("../../assets/img/image-min.png") center bottom,
+      url("../../assets/img/plita172-min.png") bottom;
     background-repeat: repeat-x, no-repeat, no-repeat;
     background-size: 50%, 60%, 100%;
     background-color: var(--light-blue);
-    /* border-bottom: 6px solid var(--primary); */
     flex-shrink: 0;
+    transform: rotateY(180deg);
   }
 
   .sidebar-nav {
@@ -133,11 +138,11 @@ export default {
       }
 
       &.active {
-        color: var(--green);
+        color: var(--red);
       }
 
       &:hover {
-        background-color: var(--green);
+        background-color: var(--red);
         color: var(--white);
       }
 
@@ -159,7 +164,7 @@ export default {
 
     &.open-submenu {
       opacity: 1;
-      max-height: 100px;
+      max-height: 500px;
     }
   }
 </style>

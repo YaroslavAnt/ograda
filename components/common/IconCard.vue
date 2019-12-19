@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="card">
-    <img :src="icon_src" alt="icon" class="card-icon" />
+    <img :data-src="icon_src" alt="icon" class="card-icon lazyload" />
     <h5 class="card-heading medium-font">{{heading}}</h5>
     <p v-if="text" class="card-text small-font">{{text}}</p>
     <span v-if="link" class="card-link base-font">Подробнее &rarr;</span>

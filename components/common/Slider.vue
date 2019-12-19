@@ -3,21 +3,21 @@
     <div
       v-for="(slide, idx) in slider_items"
       :key="idx"
-      class="slider-item section-padding"
+      class="slider-item"
       :class="{'active-slide': current_slide===idx}"
-      :style="{ 'background': `100% linear-gradient(
-          rgba(0, 0, 0, 0.3), 
-          rgba(0, 0, 0, 0.3)
-        ),url(${slide.img})`, 'height': `${height}`}"
     >
-      <div class="slider-content">
+      <div class="slider-filter">
+        <app-image :img_src="slide.img_src" :img_alt="slide.img_alt" :lazy="true" :ratio="56.25" />
+      </div>
+
+      <div class="slider-content section-padding">
         <h3 v-if="slide.heading" class="slider-heading huge-font">{{ slide.heading }}</h3>
         <p v-if="slide.text" class="slider-text base-font">{{ slide.text }}</p>
         <app-button
-          v-if="slide.link"
+          v-if="slide.path"
           class="slider-btn"
           :text="'Подробнее'"
-          @click.native="$router.push(slide.link)"
+          @click.native="$router.push(slide.path)"
         ></app-button>
       </div>
 
@@ -47,12 +47,14 @@
 <script>
 import ButtonVue from "./Button.vue";
 import ArrowVue from "./Arrow.vue";
+import ImageBaseVue from "./ImageBase.vue";
 
 export default {
   name: "Slider.vue",
   components: {
     "app-button": ButtonVue,
-    "app-arrow": ArrowVue
+    "app-arrow": ArrowVue,
+    "app-image": ImageBaseVue
   },
   methods: {
     forvard() {
@@ -106,11 +108,11 @@ export default {
     overflow: hidden;
     position: relative;
     color: var(--white);
+    height: 100%;
 
     &-item {
       opacity: 0;
-      height: calc(100vh - 105px);
-      max-height: 800px;
+      height: 100%;
       position: absolute;
       width: 100%;
       display: flex;
@@ -125,8 +127,24 @@ export default {
       }
     }
 
+    &-filter {
+      width: 100%;
+      height: 100%;
+      &::after {
+        background: 100% linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+        position: absolute;
+        content: "";
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     &-content {
       width: 66%;
+      position: absolute;
     }
 
     &-btn,
@@ -169,17 +187,13 @@ export default {
     }
 
     .indicator {
-      /* position: absolute;
-                  bottom: 0;
-                  left: 50%;
-                  transform: translate(-50%, -100%); */
-      width: 100px;
       display: flex;
       justify-content: space-between;
 
       .button {
         width: 20px;
         height: 20px;
+        margin: 0 5px;
         border-radius: 50%;
         background-color: #fff;
         opacity: 0.5;
