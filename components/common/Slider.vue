@@ -6,7 +6,7 @@
       class="slider-item"
       :class="{'active-slide': current_slide===idx}"
     >
-      <div class="slider-filter">
+      <div class="slider-filterbox" :class="{'with-filter': withFilter}">
         <app-image :img_src="slide.img_src" :img_alt="slide.img_alt" :lazy="true" :ratio="56.25" />
       </div>
 
@@ -80,13 +80,17 @@ export default {
     }
   },
   mounted() {
-    this.start();
+    if (this.withAutoPlay) {
+      this.start();
+    }
   },
   beforeUpdate() {
     this.stop();
   },
   updated() {
-    this.start();
+    if (this.withAutoPlay) {
+      this.start();
+    }
   },
   beforeDestroy() {
     this.stop();
@@ -97,14 +101,12 @@ export default {
       intervalid1: null
     };
   },
-  props: ["slider_items", "height"]
+  props: ["slider_items", "height", "withPreview", "withAutoPlay", "withFilter"]
 };
 </script>
 
 <style lang="scss" scoped>
   .slider {
-    display: flex;
-    align-items: center;
     overflow: hidden;
     position: relative;
     color: var(--white);
@@ -119,6 +121,8 @@ export default {
       align-items: center;
       transition-duration: 1s;
       z-index: -1;
+      top: 0;
+      left: 0;
 
       &.active-slide {
         opacity: 1;
@@ -126,27 +130,14 @@ export default {
         position: relative;
       }
     }
-
-    &-filter {
+    &-filterbox {
       width: 100%;
       height: 100%;
-      &::after {
-        background: 100% linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
-        position: absolute;
-        content: "";
-        display: block;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
     }
-
     &-content {
       width: 66%;
       position: absolute;
     }
-
     &-btn,
     &-text {
       margin-top: 20px;
@@ -202,6 +193,30 @@ export default {
         &.active {
           opacity: 1;
         }
+      }
+    }
+
+    .preview {
+      display: flex;
+      justify-content: space-between;
+
+      &-item {
+        &-active {
+          border: 1px solid var(--red);
+        }
+      }
+    }
+
+    .with-filter {
+      &::after {
+        background: 100% linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+        position: absolute;
+        content: "";
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
       }
     }
   }

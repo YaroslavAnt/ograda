@@ -3,7 +3,7 @@
     <div class="section-padding section-intro">
       <h2 class="hero-heading with-skewed-bg">{{section_heading}}</h2>
     </div>
-    <slider :slider_items="slider_items" />
+    <slider :slider_items="slider_items" :withAutoPlay="true" :withFilter="true" />
   </section>
 </template>
 

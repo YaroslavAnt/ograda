@@ -1,11 +1,13 @@
 ﻿<template>
   <div class="picture" :style="{'padding-bottom': `${ratio}%`}">
     <img
+      v-if="lazy"
       :data-src="img_src"
       :alt="img_alt"
       class="picture-img"
       :class="{lazyload:lazy, square:ratio>70}"
     />
+    <img v-if="!lazy" :src="img_src" :alt="img_alt" class="picture-img" :class="{square:ratio>70}" />
   </div>
 </template>
 
