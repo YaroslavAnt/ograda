@@ -5,12 +5,11 @@
 </template>
 
 <script>
-import ProductPageVue from "../../components/pages/ProductPage";
-
+import ProductPage from "../../../components/pages/ProductPage";
 export default {
   name: "product.vue",
   components: {
-    "product-page": ProductPageVue
+    "product-page": ProductPage
   }
 };
 </script>

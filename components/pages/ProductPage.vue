@@ -18,7 +18,7 @@
               :key="idx"
               @click="setActiveImg(idx)"
             >
-              <app-image :img_src="img.img_src" :img_alt="img.img_src" :lazy="true" :ratio="80" />
+              <app-image :img_src="img.img_src" :img_alt="img.img_src" :lazy="true" :ratio="100" />
             </div>
           </div>
         </div>
@@ -36,9 +36,9 @@
 
 <script>
 import SliderVue from "../common/Slider";
-import but_loza_1 from "../../assets/img/but_loza/but_loza_1.jpg";
-import but_loza_2 from "../../assets/img/but_loza/but_loza_2.jpg";
-import but_loza_3 from "../../assets/img/but_loza/but_loza_3.jpg";
+import but_loza_1 from "~/assets/img/fence/but_loza/but_loza_1.jpg";
+import but_loza_2 from "~/assets/img/fence/but_loza/but_loza_2.jpg";
+import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
 import ImageBaseVue from "../common/ImageBase.vue";
 export default {
   name: "Product.vue",

@@ -23,7 +23,7 @@
           <li
             v-for="(subitem, index) in item.submenu"
             :key="index + 'sublink'"
-            @click="onClickNavItem(subitem.path)"
+            @click="onClickSubNavItem(subitem.path, subitem.subCategory)"
           >
             <p class="subnav-link">{{subitem.name}}</p>
           </li>
@@ -40,12 +40,19 @@ export default {
     onClickNavItem(path, submenu, name) {
       return submenu ? this.setActiveSubmenu(name) : this.setRoute(path);
     },
+    onClickSubNavItem(path, query) {
+      this.setRoute(path, query);
+    },
     setActiveSubmenu(submenuName) {
       this.activeSubmenu =
         this.activeSubmenu === submenuName ? null : submenuName;
     },
-    setRoute(path) {
-      this.$router.push(path);
+    setRoute(path, query) {
+      console.log({ path, query });
+      query
+        ? this.$router.push({ path: path, query: { subcategory: query } })
+        : this.$router.push(path);
+
       // this.$parent.toggleMenu();
     }
   },
@@ -59,14 +66,26 @@ export default {
         {
           name: "Ограждения",
           submenu: [
-            { name: "Бетонные заборы", path: "/fence-koncrete" },
-            { name: "Сетка рабица", path: "/fence-rabitz" },
-            { name: "Забор из профнастила", path: "/fence-steel" }
+            {
+              name: "Бетонные заборы",
+              path: "/products/fence",
+              subCategory: "koncrete"
+            },
+            {
+              name: "Сетка рабица",
+              path: "/products/fence",
+              subCategory: "rabitz"
+            },
+            {
+              name: "Забор из профнастила",
+              path: "/products/fence",
+              subCategory: "steel"
+            }
           ]
         },
-        { name: "Ворота и калитки", path: "/gates" },
-        { name: "Бетонные столбики", path: "/pillar" },
-        { name: "Садовые дорожки", path: "/lane" },
+        { name: "Ворота и калитки", path: "/products/gates" },
+        { name: "Бетонные столбики", path: "/products/pillar" },
+        { name: "Садовые дорожки", path: "products/lane" },
         { name: "Услуги", path: "/services" },
         { name: "Каталог", path: "/catalog" },
         { name: "Наши работы", path: "/blog" },

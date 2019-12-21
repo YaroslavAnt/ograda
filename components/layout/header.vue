@@ -78,7 +78,6 @@
 </style>
 
 <script>
-import email from "../../assets/icons/mail.svg";
 import LogoVue from "../common/Logo.vue";
 import IconBaseVue from "../common/IconBase.vue";
 import IconMailVue from "../icons/IconMail.vue";
@@ -87,7 +86,6 @@ import IconLocationVue from "../icons/IconLocation.vue";
 export default {
   name: "header.vue",
   components: {
-    email: email,
     logo: LogoVue,
     "icon-base": IconBaseVue,
     "icon-mail": IconMailVue,
