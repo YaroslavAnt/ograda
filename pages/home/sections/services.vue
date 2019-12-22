@@ -10,22 +10,16 @@
 </template>
 
 <script>
-import IconBrushVue from "../../../components/icons/IconBrush.vue";
-import IconCargoVue from "../../../components/icons/IconCargo.vue";
-import IconMeasureVue from "../../../components/icons/IconMeasure.vue";
-import IconCardVue from "../../../components/common/IconCard.vue";
-import measure from "../../../assets/icons/measure.svg";
-import cargo from "../../../assets/icons/cargo.svg";
-import brush from "../../../assets/icons/brush.svg";
-import fence from "../../../assets/icons/fence.svg";
-import sectionVue from "../../../components/layout/section.vue";
+import IconCardVue from "~/components/common/IconCard.vue";
+import measure from "~/assets/icons/measure.svg";
+import cargo from "~/assets/icons/cargo.svg";
+import brush from "~/assets/icons/brush.svg";
+import fence from "~/assets/icons/fence.svg";
+import sectionVue from "~/components/layout/section.vue";
 
 export default {
   name: "services.vue",
   components: {
-    "icon-brush": IconBrushVue,
-    "icon-cargo": IconCargoVue,
-    "icon-measure": IconMeasureVue,
     "icon-card": IconCardVue,
     "app-section": sectionVue
   },
@@ -76,7 +70,7 @@ export default {
 
     .card-grid {
       display: grid;
-      max-width: 700px;
+      // max-width: 800px;
       margin: 0 auto 40px;
       grid-gap: 24px;
       @media (min-width: 768px) {

@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import SliderVue from "../../../components/common/Slider.vue";
-import zabor from "../../../assets/img/but/but_1.jpg";
-import rabitsa from "../../../assets/img/but_rovnyi/but_rovnyi_1.jpg";
-import vorota from "../../../assets/img/fagot/fagot_1.jpg";
-import stolbiki from "../../../assets/img/but_loza/but_loza_3.jpg";
+import SliderVue from "~/components/common/Slider.vue";
+import zabor from "~/assets/img/fence/but/but_1.jpg";
+import rabitsa from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
+import vorota from "~/assets/img/fence/fagot/fagot_1.jpg";
+import stolbiki from "~/assets/img/fence/but_loza/but_loza_3.jpg";
 export default {
   name: "hero.vue",
   components: {

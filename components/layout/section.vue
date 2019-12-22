@@ -1,6 +1,7 @@
 ﻿<template>
   <section class="section section-padding" :class="{dark: darkTheme}">
     <h2 v-if="heading" class="section-heading with-skewed-bg">{{heading}}</h2>
+    <br />
     <slot />
   </section>
 </template>

@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import IntroVue from "../../../components/common/Intro.vue";
-import but_2 from "../../../assets/img/but/but_2.jpg";
+import IntroVue from "~/components/common/Intro.vue";
+import but_2 from "~/assets/img/fence/but/but_2.jpg";
 
 export default {
   name: "about.vue",

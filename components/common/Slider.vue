@@ -209,7 +209,7 @@ export default {
 
     .with-filter {
       &::after {
-        background: 100% linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
         position: absolute;
         content: "";
         display: block;

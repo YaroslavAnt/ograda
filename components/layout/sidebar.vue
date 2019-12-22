@@ -23,7 +23,7 @@
           <li
             v-for="(subitem, index) in item.submenu"
             :key="index + 'sublink'"
-            @click="onClickNavItem(subitem.path)"
+            @click="onClickSubNavItem(subitem.path, subitem.subCategory)"
           >
             <p class="subnav-link">{{subitem.name}}</p>
           </li>
@@ -34,39 +34,48 @@
 </template>
 
 <script>
+import { fence_set } from "~/static/fence_data/index";
+
 export default {
   name: "sidebar.vue",
   methods: {
     onClickNavItem(path, submenu, name) {
       return submenu ? this.setActiveSubmenu(name) : this.setRoute(path);
     },
+    onClickSubNavItem(path, query) {
+      this.setRoute(path, query);
+    },
     setActiveSubmenu(submenuName) {
       this.activeSubmenu =
         this.activeSubmenu === submenuName ? null : submenuName;
     },
-    setRoute(path) {
-      this.$router.push(path);
-      // this.$parent.toggleMenu();
+    setRoute(path, query) {
+      console.log({ path, query });
+      query
+        ? this.$router.push({ path: path, query: { subcategory: query } })
+        : this.$router.push(path);
+    },
+    getSetOfObjItems(arr, objItem) {
+      return Array.from(new Set(arr.map(el => el[objItem])));
     }
   },
   props: ["current_page"],
   data() {
     return {
       activeSubmenu: null,
-      // current_page: this.$router.path,
       menu_list: [
         { name: "Главная", path: "/home" },
         {
           name: "Ограждения",
-          submenu: [
-            { name: "Бетонные заборы", path: "/fence-koncrete" },
-            { name: "Сетка рабица", path: "/fence-rabitz" },
-            { name: "Забор из профнастила", path: "/fence-steel" }
-          ]
+          submenu: this.getSetOfObjItems(fence_set, "subcategory").map(el => ({
+            name: el,
+            path: "/products/fence",
+            subCategory: el
+          }))
         },
-        { name: "Ворота и калитки", path: "/gates" },
-        { name: "Бетонные столбики", path: "/pillar" },
-        { name: "Садовые дорожки", path: "/lane" },
+        { name: "Ворота и калитки", path: "/products/gates" },
+        { name: "Бетонные столбики", path: "/products/pillar" },
+        { name: "Садовые дорожки", path: "/products/lane" },
         { name: "Услуги", path: "/services" },
         { name: "Каталог", path: "/catalog" },
         { name: "Наши работы", path: "/blog" },
@@ -119,6 +128,7 @@ export default {
       font-weight: 500;
       position: relative;
       transition-duration: 0.2s;
+      text-transform: uppercase;
 
       &.with-submenu {
         &::after {

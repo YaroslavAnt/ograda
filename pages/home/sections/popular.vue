@@ -1,44 +1,39 @@
 ﻿<template>
   <app-section :heading="'Популярные товары'">
     <div class="section-grid">
-      <article class="card" v-for="(card,idx) in cards" :key="idx">
-        <app-image :img_src="card.img_src" :img_alt="card.img_alt" :lazy="true" />
-
-        <p class="card-name base-font" @click="$router.push('/products')">{{card.name}}</p>
-        <div class="card-text">
-          <span v-if="card.label" class="card-label small-font">{{card.label}}</span>
-          <p class="card-price small-font">Цена: {{card.price}}</p>
-        </div>
-      </article>
+      <product-card v-for="(product,idx) in products" :key="idx" :product="product" />
     </div>
   </app-section>
 </template>
-
+ 
 <script>
-import sectionVue from "../../../components/layout/section.vue";
-import but_3 from "../../../assets/img/but/but_3.jpg";
-import but_loza_3 from "../../../assets/img/but_loza/but_loza_3.jpg";
-import but_rovnyi_1 from "../../../assets/img/but_rovnyi/but_rovnyi_1.jpg";
-import fagot_2 from "../../../assets/img/fagot/fagot_2.jpg";
-import krym_1 from "../../../assets/img/krym/krym_1.jpg";
-import ImageBaseVue from "../../../components/common/ImageBase.vue";
+import sectionVue from "~/components/layout/section.vue";
+import but_3 from "~/assets/img/fence/but/but_3.jpg";
+import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
+import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
+import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
+import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
+import ImageBaseVue from "~/components/common/ImageBase.vue";
+import ProductCardVue from "~/components/common/ProductCard.vue";
 
 export default {
   name: "popular.vue",
   components: {
     "app-section": sectionVue,
-    "app-image": ImageBaseVue
+    "app-image": ImageBaseVue,
+    "product-card": ProductCardVue
   },
   data() {
     return {
-      cards: [
+      products: [
         {
           img_src: but_3,
           img_alt: 'еврозабор "Бут"',
           name: 'Плита "Бут"',
           price: "160грн",
           label: "Cкидка",
-          id: "123456"
+          id: "123456",
+          category: "fence"
         },
         {
           img_src: but_loza_3,
@@ -46,15 +41,17 @@ export default {
           name: 'Плита "Бут-Лоза"',
           price: "160грн",
           // label: "Cкидка",
-          id: "223456"
+          id: "223456",
+          category: "fence"
         },
         {
           img_src: but_rovnyi_1,
           img_alt: 'еврозабор "Бут ровный"',
           name: 'Плита "Бут ровный"',
           price: "160грн",
-          label: "Cкидка",
-          id: "323456"
+          label: "Cкидка -20%",
+          id: "323456",
+          category: "fence"
         },
         {
           img_src: fagot_2,
@@ -62,7 +59,8 @@ export default {
           name: 'Плита "Фагот"',
           price: "160грн",
           label: "Акция",
-          id: "423456"
+          id: "423456",
+          category: "fence"
         },
         {
           img_src: krym_1,
@@ -70,7 +68,8 @@ export default {
           name: 'Плита "Крым"',
           price: "160грн",
           label: "Новинка",
-          id: "523456"
+          id: "523456",
+          category: "fence"
         }
       ]
     };

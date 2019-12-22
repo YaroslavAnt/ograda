@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import IconCardVue from "../../../components/common/IconCard.vue";
-import goal from "../../../assets/icons/goal.svg";
-import flag from "../../../assets/icons/flag.svg";
-import coins from "../../../assets/icons/coins.svg";
-import shield from "../../../assets/icons/shield.svg";
-import IconBaseVue from "../../../components/common/IconBase.vue";
-import sectionVue from "../../../components/layout/section.vue";
+import IconCardVue from "~/components/common/IconCard.vue";
+import goal from "~/assets/icons/goal.svg";
+import flag from "~/assets/icons/flag.svg";
+import coins from "~/assets/icons/coins.svg";
+import shield from "~/assets/icons/shield.svg";
+import IconBaseVue from "~/components/common/IconBase.vue";
+import sectionVue from "~/components/layout/section.vue";
 
 export default {
   name: "advantages.vue",
@@ -66,7 +66,8 @@ export default {
       }
 
       &-item {
-        text-align: center;
+        display: flex;
+        align-items: center;
 
         .icon-box {
           display: inline-flex;
