@@ -1,6 +1,6 @@
 ﻿<template>
   <article class="card">
-    <app-image :img_src="product.img_src" :img_alt="product.img_alt" :lazy="false" />
+    <app-image :img_src="product.img_set[0]" :img_alt="product.img_alt" :lazy="false" :ratio="67" />
 
     <p
       class="card-name base-font"

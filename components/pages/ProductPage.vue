@@ -1,6 +1,5 @@
 ﻿<template>
   <section class="section-padding">
-    {{$route.params.id}}
     <article class="section-padding">
       <div class="flexbox">
         <div class="slider-box">
@@ -29,6 +28,7 @@
           <p class="info-box-price medium-font">{{product.price}}</p>
           <p class="info-box-description base-font">{{product.description}}</p>
           <p class="info-box-category small-font">Категория: {{product.category}}</p>
+          <p v-if="product.option" class="info-box-option">{{product.option.details}}</p>
         </div>
       </div>
     </article>
@@ -84,6 +84,10 @@ export default {
         margin: 0 5px;
         cursor: pointer;
 
+        &:hover {
+          opacity: 0.8;
+        }
+
         &-active {
           border: 1px solid var(--red);
         }
@@ -106,6 +110,11 @@ export default {
     }
     &-description {
       margin-bottom: 20px;
+    }
+    &-option {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--green);
     }
   }
 </style>

@@ -48,13 +48,15 @@ export const fence_set = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
     option: {
+      // not required
       type: "sale",
       label: "Cкидка",
       details: "На данный товар с 01.11.19 действует скидка в размере 50%"
     },
     id: "123456",
     category: "забор",
-    subcategory: "еврозабор"
+    subcategory: "еврозабор",
+    isPopular: true // not required
   },
   {
     img_src: but_loza_3,
@@ -111,7 +113,8 @@ export const fence_set = [
     },
     id: "423456",
     category: "забор",
-    subcategory: "еврозабор"
+    subcategory: "еврозабор",
+    isPopular: true
   },
   {
     img_src: krym_1,
@@ -170,6 +173,7 @@ export const fence_set = [
     },
     id: "723456",
     category: "забор",
-    subcategory: "забор из профнастила"
+    subcategory: "забор из профнастила",
+    isPopular: true
   }
 ];

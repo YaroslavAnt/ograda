@@ -15,6 +15,7 @@ import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
 import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
 import ImageBaseVue from "~/components/common/ImageBase.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
+import { fence_set } from "~/static/fence_data/index";
 
 export default {
   name: "popular.vue",
@@ -25,53 +26,7 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          img_src: but_3,
-          img_alt: 'еврозабор "Бут"',
-          name: 'Плита "Бут"',
-          price: "160грн",
-          label: "Cкидка",
-          id: "123456",
-          category: "fence"
-        },
-        {
-          img_src: but_loza_3,
-          img_alt: 'еврозабор "Бут-Лоза"',
-          name: 'Плита "Бут-Лоза"',
-          price: "160грн",
-          // label: "Cкидка",
-          id: "223456",
-          category: "fence"
-        },
-        {
-          img_src: but_rovnyi_1,
-          img_alt: 'еврозабор "Бут ровный"',
-          name: 'Плита "Бут ровный"',
-          price: "160грн",
-          label: "Cкидка -20%",
-          id: "323456",
-          category: "fence"
-        },
-        {
-          img_src: fagot_2,
-          img_alt: 'еврозабор "Фагот"',
-          name: 'Плита "Фагот"',
-          price: "160грн",
-          label: "Акция",
-          id: "423456",
-          category: "fence"
-        },
-        {
-          img_src: krym_1,
-          img_alt: 'еврозабор "Крым"',
-          name: 'Плита "Крым"',
-          price: "160грн",
-          label: "Новинка",
-          id: "523456",
-          category: "fence"
-        }
-      ]
+      products: fence_set.filter(el => el.isPopular)
     };
   }
 };
