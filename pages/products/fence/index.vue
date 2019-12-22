@@ -3,29 +3,21 @@
     <div class="section-switch">
       <span
         class="switch-tab"
-        :class="{'switch-tab-active': activeTab==='все'}"
-        @click="setActiveTab('все')"
-      >Все</span>
+        :class="{'switch-tab-active': activeTab==='ВСЕ ВИДЫ'}"
+        @click="setActiveTab('ВСЕ ВИДЫ')"
+      >{{new String('ВСЕ ВИДЫ').toUpperCase()}}</span>
       <span
+        v-for="(tab) in this.subcategories"
+        :key="tab"
         class="switch-tab"
-        :class="{'switch-tab-active': activeTab==='еврозабор'}"
-        @click="setActiveTab('еврозабор')"
-      >Еврозабор</span>
-      <span
-        class="switch-tab"
-        :class="{'switch-tab-active': activeTab==='сетка-рабица'}"
-        @click="setActiveTab('сетка-рабица')"
-      >Сетка-рабица</span>
-      <span
-        class="switch-tab"
-        :class="{'switch-tab-active': activeTab==='забор из профнастила'}"
-        @click="setActiveTab('забор из профнастила')"
-      >Забор из профнастила</span>
+        :class="{'switch-tab-active': activeTab===new String(tab).toUpperCase()}"
+        @click="setActiveTab(new String(tab).toUpperCase())"
+      >{{new String(tab).toUpperCase()}}</span>
     </div>
 
     <div class="section-grid">
       <product-card
-        v-for="(product,idx) in products.filter(el=>activeTab==='все'? el: el.subcategory === activeTab)"
+        v-for="(product,idx) in products.filter(el=>activeTab==='ВСЕ ВИДЫ'? el: new String(el.subcategory).toUpperCase() === this.activeTab)"
         :key="idx"
         :product="product"
       />
@@ -36,14 +28,11 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
-import but_3 from "~/assets/img/fence/but/but_3.jpg";
-import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
-import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
-import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
-import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
-import { fence_set } from "../../../static/fence_data/index";
+
+import { fence_set } from "~/static/fence_data/index";
 export default {
   name: "fencePage.vue",
+
   components: {
     "app-section": sectionVue,
     "product-card": ProductCardVue
@@ -51,23 +40,22 @@ export default {
 
   methods: {
     setActiveTab(tab) {
-      this.activeTab = tab;
+      this.activeTab = tab + "";
+    },
+    getSetOfObjItems(arr, objItem) {
+      return Array.from(new Set(arr.map(el => el[objItem])));
     }
   },
   mounted() {
-    console.log(this.$store);
     const query = this.$route.query.subcategory;
-    const tab = {
-      koncrete: "еврозабор",
-      rabitz: "сетка-рабица",
-      steel: "забор из профнастила"
-    };
-    this.setActiveTab(tab[query] || "все");
+    const category = decodeURI(query);
+    this.setActiveTab(new String(category).toUpperCase());
   },
   data() {
     return {
-      activeTab: "все",
-      products: fence_set
+      activeTab: "ВСЕ ВИДЫ",
+      products: fence_set,
+      subcategories: this.getSetOfObjItems(fence_set, "subcategory")
     };
   }
 };
@@ -94,6 +82,7 @@ export default {
         padding: 10px 20px;
         color: var(--red);
         cursor: pointer;
+        // text-transform: uppercase;
 
         &-active {
           background-color: var(--red);

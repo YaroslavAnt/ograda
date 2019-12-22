@@ -66,7 +66,8 @@ export default {
       }
 
       &-item {
-        text-align: center;
+        display: flex;
+        align-items: center;
 
         .icon-box {
           display: inline-flex;

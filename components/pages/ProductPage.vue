@@ -1,11 +1,12 @@
 ﻿<template>
   <section class="section-padding">
+    {{$route.params.id}}
     <article class="section-padding">
       <div class="flexbox">
         <div class="slider-box">
           <app-image
-            :img_src="product.images[active_img].img_src"
-            :img_alt="product.images[active_img].img_src"
+            :img_src="product.img_set[active_img]"
+            :img_alt="product.img_set[active_img]"
             :lazy="false"
             :ratio="80"
             class="slider-box-image"
@@ -14,11 +15,11 @@
             <div
               class="preview-item"
               :class="{'preview-item-active': active_img===idx}"
-              v-for="(img, idx) in product.images"
+              v-for="(img, idx) in product.img_set"
               :key="idx"
               @click="setActiveImg(idx)"
             >
-              <app-image :img_src="img.img_src" :img_alt="img.img_src" :lazy="true" :ratio="100" />
+              <app-image :img_src="img" :img_alt="product.img_alt" :lazy="true" :ratio="100" />
             </div>
           </div>
         </div>
@@ -35,17 +36,13 @@
 </template>
 
 <script>
-import SliderVue from "../common/Slider";
-import but_loza_1 from "~/assets/img/fence/but_loza/but_loza_1.jpg";
-import but_loza_2 from "~/assets/img/fence/but_loza/but_loza_2.jpg";
-import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
 import ImageBaseVue from "../common/ImageBase.vue";
 export default {
   name: "Product.vue",
   components: {
-    "app-slider": SliderVue,
     "app-image": ImageBaseVue
   },
+  props: ["products"],
   methods: {
     setActiveImg(idx) {
       this.active_img = idx;
@@ -54,18 +51,7 @@ export default {
   data() {
     return {
       active_img: 0,
-      product: {
-        name: 'Плита "Бут-Лоза"',
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam perspiciatis laboriosam rem.",
-        price: "160грн",
-        category: "Бетонный забор",
-        images: [
-          { img_src: but_loza_1 },
-          { img_src: but_loza_2 },
-          { img_src: but_loza_3 }
-        ]
-      }
+      product: this.products.find(el => el.id === this.$route.params.id)
     };
   }
 };
@@ -94,7 +80,7 @@ export default {
       margin-top: 20px;
 
       &-item {
-        width: 15%;
+        width: 30%;
         margin: 0 5px;
         cursor: pointer;
 

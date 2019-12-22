@@ -44,8 +44,14 @@ export const fence_set = [
     img_set: [but_1, but_2, but_3],
     img_alt: 'еврозабор "Бут"',
     name: 'Плита "Бут"',
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    label: "Cкидка",
+    option: {
+      type: "sale",
+      label: "Cкидка",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
     id: "123456",
     category: "забор",
     subcategory: "еврозабор"
@@ -55,22 +61,30 @@ export const fence_set = [
     img_set: [but_loza_1, but_loza_2, but_loza_3],
     img_alt: 'еврозабор "Бут-Лоза"',
     name: 'Плита "Бут-Лоза"',
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    // label: "Cкидка",
+
     id: "223456",
     category: "забор",
-    subcategory: "сетка-рабица"
+    subcategory: "еврозабор"
   },
   {
     img_src: but_rovnyi_1,
     img_set: [but_rovnyi_1, but_rovnyi_2],
     img_alt: 'еврозабор "Бут ровный"',
     name: 'Плита "Бут ровный"',
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    label: "Cкидка -20%",
+    option: {
+      type: "sale",
+      label: "Cкидка -50%",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
     id: "323456",
     category: "забор",
-    subcategory: "забор из профнастила"
+    subcategory: "еврозабор"
   },
   {
     img_src: fagot_2,
@@ -87,8 +101,14 @@ export const fence_set = [
     ],
     img_alt: 'еврозабор "Фагот"',
     name: 'Плита "Фагот"',
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    label: "Акция",
+    option: {
+      type: "sale",
+      label: "Акция",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
     id: "423456",
     category: "забор",
     subcategory: "еврозабор"
@@ -98,22 +118,34 @@ export const fence_set = [
     img_set: [krym_1, krym_2, krym_3, krym_4, krym_5, krym_6, krym_7],
     img_alt: 'еврозабор "Крым"',
     name: 'Плита "Крым"',
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    label: "Новинка",
+    option: {
+      type: "sale",
+      label: "Новинка",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
     id: "523456",
     category: "забор",
-    subcategory: "сетка-рабица"
+    subcategory: "еврозабор"
   },
   {
     img_src: loza_1,
     img_set: [loza_1, loza_2],
     img_alt: 'еврозабор "Лоза"',
     name: 'Плита "Лоза"',
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    label: "Новинка",
+    option: {
+      type: "sale",
+      label: "Новинка",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
     id: "623456",
     category: "забор",
-    subcategory: "сетка-рабица"
+    subcategory: "еврозабор"
   },
   {
     img_src: zabor_iz_profnastila1,
@@ -128,8 +160,14 @@ export const fence_set = [
     ],
     img_alt: "забор из профнастила",
     name: "Забор из профнастила",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
     price: "160грн",
-    label: "Новинка",
+    option: {
+      type: "sale",
+      label: "Новинка",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
     id: "723456",
     category: "забор",
     subcategory: "забор из профнастила"

@@ -21,13 +21,17 @@ export default {
 
 <style lang="scss" scoped>
   .card {
+    display: flex;
+    align-items: center;
     &-icon {
       width: 100px;
+      flex-grow: 0;
       display: block;
-      margin: 0 auto;
+      margin-right: 24px;
     }
     &-heading {
       text-align: center;
+      font-weight: 600;
     }
 
     &-text,

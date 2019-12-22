@@ -8,7 +8,7 @@
     >{{product.name}}</p>
 
     <div class="card-text">
-      <span v-if="product.label" class="card-label small-font">{{product.label}}</span>
+      <span v-if="product.option" class="card-label small-font">{{product.option.label}}</span>
       <p class="card-price small-font">Цена: {{product.price}}</p>
     </div>
   </article>

@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { fence_set } from "~/static/fence_data/index";
+
 export default {
   name: "sidebar.vue",
   methods: {
@@ -52,40 +54,28 @@ export default {
       query
         ? this.$router.push({ path: path, query: { subcategory: query } })
         : this.$router.push(path);
-
-      // this.$parent.toggleMenu();
+    },
+    getSetOfObjItems(arr, objItem) {
+      return Array.from(new Set(arr.map(el => el[objItem])));
     }
   },
   props: ["current_page"],
   data() {
     return {
       activeSubmenu: null,
-      // current_page: this.$router.path,
       menu_list: [
         { name: "Главная", path: "/home" },
         {
           name: "Ограждения",
-          submenu: [
-            {
-              name: "Бетонные заборы",
-              path: "/products/fence",
-              subCategory: "koncrete"
-            },
-            {
-              name: "Сетка рабица",
-              path: "/products/fence",
-              subCategory: "rabitz"
-            },
-            {
-              name: "Забор из профнастила",
-              path: "/products/fence",
-              subCategory: "steel"
-            }
-          ]
+          submenu: this.getSetOfObjItems(fence_set, "subcategory").map(el => ({
+            name: el,
+            path: "/products/fence",
+            subCategory: el
+          }))
         },
         { name: "Ворота и калитки", path: "/products/gates" },
         { name: "Бетонные столбики", path: "/products/pillar" },
-        { name: "Садовые дорожки", path: "products/lane" },
+        { name: "Садовые дорожки", path: "/products/lane" },
         { name: "Услуги", path: "/services" },
         { name: "Каталог", path: "/catalog" },
         { name: "Наши работы", path: "/blog" },
@@ -138,6 +128,7 @@ export default {
       font-weight: 500;
       position: relative;
       transition-duration: 0.2s;
+      text-transform: uppercase;
 
       &.with-submenu {
         &::after {
