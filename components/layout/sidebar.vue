@@ -152,8 +152,8 @@ export default {
       }
 
       &:hover {
-        background-color: var(--red);
-        color: var(--white);
+        border-left: 3px solid var(--red);
+        color: var(--red);
       }
 
       &.open-submenu.with-submenu {

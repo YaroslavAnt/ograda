@@ -53,8 +53,6 @@ export default {
 
 <style lang="scss" scoped>
   .section {
-    background-color: #fff;
-
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -67,19 +65,15 @@ export default {
 
       &-item {
         display: flex;
+        flex-direction: column;
         align-items: center;
-
-        .icon-box {
-          display: inline-flex;
-          padding: 30px;
-          align-items: center;
-          justify-content: center;
-          border-radius: 50%;
-          background-color: var(--red);
-        }
 
         &-icon {
           width: 70px;
+        }
+
+        &-text {
+          text-align: center;
         }
       }
     }
