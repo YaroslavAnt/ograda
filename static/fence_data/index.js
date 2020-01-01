@@ -38,14 +38,20 @@ import zabor_iz_profnastila5 from "../../assets/img/fence/profnastil/zabor_iz_pr
 import zabor_iz_profnastila6 from "../../assets/img/fence/profnastil/zabor_iz_profnastila6.jpg";
 import zabor_iz_profnastila7 from "../../assets/img/fence/profnastil/zabor_iz_profnastila7.jpg";
 
+import rabitz1 from "../../assets/img/fence/rabitz/rabitz1.jpg";
+import rabitz2 from "../../assets/img/fence/rabitz/rabitz2.jpg";
+import rabitz3 from "../../assets/img/fence/rabitz/rabitz3.jpg";
+import rabitz4 from "../../assets/img/fence/rabitz/rabitz4.jpg";
+
 export const fence_set = [
   {
     img_src: but_3,
     img_set: [but_1, but_2, but_3],
     img_alt: 'еврозабор "Бут"',
     name: 'Плита "Бут"',
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
     price: "160грн",
     option: {
       // not required
@@ -63,8 +69,9 @@ export const fence_set = [
     img_set: [but_loza_1, but_loza_2, but_loza_3],
     img_alt: 'еврозабор "Бут-Лоза"',
     name: 'Плита "Бут-Лоза"',
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
     price: "160грн",
 
     id: "223456",
@@ -76,8 +83,9 @@ export const fence_set = [
     img_set: [but_rovnyi_1, but_rovnyi_2],
     img_alt: 'еврозабор "Бут ровный"',
     name: 'Плита "Бут ровный"',
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
     price: "160грн",
     option: {
       type: "sale",
@@ -103,8 +111,9 @@ export const fence_set = [
     ],
     img_alt: 'еврозабор "Фагот"',
     name: 'Плита "Фагот"',
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
     price: "160грн",
     option: {
       type: "sale",
@@ -121,8 +130,9 @@ export const fence_set = [
     img_set: [krym_1, krym_2, krym_3, krym_4, krym_5, krym_6, krym_7],
     img_alt: 'еврозабор "Крым"',
     name: 'Плита "Крым"',
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
     price: "160грн",
     option: {
       type: "sale",
@@ -138,8 +148,9 @@ export const fence_set = [
     img_set: [loza_1, loza_2],
     img_alt: 'еврозабор "Лоза"',
     name: 'Плита "Лоза"',
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
     price: "160грн",
     option: {
       type: "sale",
@@ -163,9 +174,10 @@ export const fence_set = [
     ],
     img_alt: "забор из профнастила",
     name: "Забор из профнастила",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat.",
-    price: "160грн",
+    description: [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, quaerat."
+    ],
+    price: "уточняйте по тел.",
     option: {
       type: "sale",
       label: "Новинка",
@@ -174,6 +186,30 @@ export const fence_set = [
     id: "723456",
     category: "забор",
     subcategory: "забор из профнастила",
+    isPopular: true
+  },
+  {
+    img_src: zabor_iz_profnastila1,
+    img_set: [rabitz1, rabitz2, rabitz3, rabitz4],
+    img_alt: "забор из сетки-рабицы",
+    name: "Забор из сетки-рабицы",
+    description: [
+      `Для заборов из сетки рабицы мы используем оцинкованную сетку диаметром 2 мм, плетение ячеек 50х50 мм, концы плетения загнуты.`,
+      `Столбы - профильные трубы 50х50, стенка 2мм. Метод монтажа рабицы - натяжка на арматуру с последующей приваркой к столбу.`,
+      `На столбе - пластиковая заглушка для защиты от атмосферных осадков. Заглубление на 70 см в грунт путем бетонирования.`,
+      `Столбы раположены через каждые 2.5 м. Вдоль верхней линии забора по всей длине натянута оцинкованая проволока.`,
+      `По требованию заказчика возможно стрительство забора из материалов с другими характеристиками.`,
+      `Возможна комплектация забора колючей проволокой - установка поверх сетки.`
+    ],
+    price: "уточняйте по тел.",
+    option: {
+      type: "sale",
+      label: "Новинка",
+      details: "На данный товар с 01.11.19 действует скидка в размере 50%"
+    },
+    id: "723457",
+    category: "забор",
+    subcategory: "забор из сетки-рабицы",
     isPopular: true
   }
 ];

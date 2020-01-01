@@ -24,9 +24,16 @@
         </div>
 
         <div class="info-box">
-          <h2 class="info-box-name big-font">{{product.name}}</h2>
-          <p class="info-box-price medium-font">{{product.price}}</p>
-          <p class="info-box-description base-font">{{product.description}}</p>
+          <h2 class="info-box-name big-font bold">{{product.name}}</h2>
+          <p class="info-box-price medium-font">
+            Цена:
+            <span class="bold">{{product.price}}</span>
+          </p>
+          <p
+            class="info-box-description base-font"
+            v-for="(paragraph, idx) in product.description"
+            :key="idx"
+          >{{ paragraph }}</p>
           <p class="info-box-category small-font">Категория: {{product.category}}</p>
           <p v-if="product.option" class="info-box-option">{{product.option.details}}</p>
         </div>
@@ -48,6 +55,9 @@ export default {
       this.active_img = idx;
     }
   },
+  mounted() {
+    console.log(this.products);
+  },
   data() {
     return {
       active_img: 0,
@@ -60,6 +70,9 @@ export default {
 <style lang="scss" scoped>
   section {
     background-color: #fff;
+  }
+  .bold {
+    font-weight: 600;
   }
   article {
     background-color: #f2f1ef;
@@ -83,6 +96,7 @@ export default {
         width: 30%;
         margin: 0 5px;
         cursor: pointer;
+        background: #fff;
 
         &:hover {
           opacity: 0.8;
@@ -96,21 +110,24 @@ export default {
   }
 
   .slider-box-image {
+    background: #fff;
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
   }
 
   .info-box {
-    margin-left: 50px;
+    margin-left: 32px;
 
+    &-description,
     &-name,
     &-price {
-      font-weight: 600;
       margin-bottom: 20px;
     }
-    &-description {
-      margin-bottom: 20px;
+
+    &-name {
+      color: var(--red);
     }
+
     &-option {
       margin-top: 12px;
       padding-top: 12px;

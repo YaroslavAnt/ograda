@@ -6,13 +6,13 @@
 
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { pillar_set } from "~/static/pillars_data";
+import { gates_set } from "~/static/gates_data";
 
 export default {
   name: "product.vue",
   data() {
     return {
-      products: pillar_set
+      products: gates_set
     };
   },
   components: {
