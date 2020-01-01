@@ -15,7 +15,7 @@
     &-heading {
       font-weight: bold;
       font-size: 22px;
-      line-height: 19px;
+      line-height: 1;
       display: inline-block;
       text-align: center;
       color: #fff;
@@ -29,7 +29,7 @@
 
       @media (min-width: 600px) {
         font-size: 28px;
-        line-height: 21px;
+        line-height: 1;
         margin-bottom: 40px;
       }
     }

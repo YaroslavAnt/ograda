@@ -39,6 +39,23 @@
 <script>
 export default {
   name: "ImageBase.vue",
-  props: ["img_src", "img_alt", "lazy", "ratio"]
+  props: {
+    img_src: {
+      type: String,
+      default: "img_src"
+    },
+    img_alt: {
+      type: String,
+      default: "image"
+    },
+    lazy: {
+      type: Boolean,
+      default: true
+    },
+    ratio: {
+      type: Number,
+      default: 67
+    }
+  }
 };
 </script>
