@@ -23,7 +23,8 @@ export default {
     onClickProduct(category, id) {
       console.log({ category });
       const categories = {
-        забор: "fence"
+        забор: "fence",
+        столбики: "pillar"
       };
       this.$router.push(`/products/${categories[category]}/${id}`);
     }
