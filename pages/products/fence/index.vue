@@ -16,11 +16,7 @@
     </div>
 
     <div class="section-grid">
-      <product-card
-        v-for="(product,idx) in products.filter(el=>activeTab==='ВСЕ ВИДЫ'? el: new String(el.subcategory).toUpperCase() === this.activeTab)"
-        :key="idx"
-        :product="product"
-      />
+      <product-card v-for="(product,idx) in filteredArr" :key="idx" :product="product" />
     </div>
   </app-section>
 </template>
@@ -38,18 +34,29 @@ export default {
     "product-card": ProductCardVue
   },
 
+  computed: {
+    filteredArr() {
+      return this.products.filter(el =>
+        this.activeTab === "ВСЕ ВИДЫ"
+          ? el
+          : new String(el.subcategory).toUpperCase() === this.activeTab
+      );
+    }
+  },
+
   methods: {
     setActiveTab(tab) {
-      this.activeTab = tab + "";
+      this.activeTab = tab;
     },
-    getSetOfObjItems(arr, objItem) {
+    getSetOfObjItems(arr = [], objItem) {
       return Array.from(new Set(arr.map(el => el[objItem])));
     }
   },
   mounted() {
+    // debugger;
     const query = this.$route.query.subcategory;
-    const category = decodeURI(query);
-    this.setActiveTab(new String(category).toUpperCase());
+    // const category = decodeURI(query);
+    this.setActiveTab(new String(query).toUpperCase());
   },
   data() {
     return {
