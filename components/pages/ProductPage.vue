@@ -7,7 +7,7 @@
             :img_src="product.img_set[active_img]"
             :img_alt="product.img_set[active_img]"
             :lazy="false"
-            :ratio="80"
+            :ratio="69"
             class="slider-box-image"
           />
           <div class="preview">
@@ -18,7 +18,7 @@
               :key="idx"
               @click="setActiveImg(idx)"
             >
-              <app-image :img_src="img" :img_alt="product.img_alt" :lazy="true" :ratio="100" />
+              <app-image :img_src="img" :img_alt="product.img_alt" :lazy="true" :ratio="50" />
             </div>
           </div>
         </div>
