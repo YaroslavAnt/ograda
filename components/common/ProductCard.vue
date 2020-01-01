@@ -24,7 +24,8 @@ export default {
       console.log({ category });
       const categories = {
         забор: "fence",
-        столбики: "pillar"
+        столбики: "pillar",
+        "ворота и калитки": "gates"
       };
       this.$router.push(`/products/${categories[category]}/${id}`);
     }

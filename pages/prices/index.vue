@@ -11,7 +11,8 @@ import section from "../../components/layout/section";
 import TableVue from "../../components/common/Table.vue";
 
 import { fence_set } from "../../static/fence_data";
-import { pillar_set } from "../../static/pillar_data";
+import { pillar_set } from "../../static/pillars_data";
+import { gates_set } from "../../static/gates_data";
 
 export default {
   name: "index.vue",
@@ -29,6 +30,10 @@ export default {
         {
           heading: "Цены на столбики для еврозабора, для винограда в Запорожье",
           items: pillar_set
+        },
+        {
+          heading: "Цены на ворота и калитки в Запорожье",
+          items: gates_set
         }
       ]
     };

@@ -1,5 +1,5 @@
 ﻿<template>
-  <app-section :heading="'Столбики'" class="section">
+  <app-section :heading="'Ворота и калитки'" class="section">
     <div class="section-switch">
       <span
         class="switch-tab"
@@ -25,10 +25,9 @@
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
 
-import { pillar_set } from "~/static/pillars_data";
-
+import { gates_set } from "../../../static/gates_data";
 export default {
-  name: "fencePage.vue",
+  name: "gatesPage.vue",
 
   components: {
     "app-section": sectionVue,
@@ -53,17 +52,12 @@ export default {
       return Array.from(new Set(arr.map(el => el[objItem])));
     }
   },
-  mounted() {
-    // debugger;
-    const query = this.$route.query.subcategory;
-    // const category = decodeURI(query);
-    // this.setActiveTab(new String(query).toUpperCase());
-  },
+
   data() {
     return {
       activeTab: "ВСЕ ВИДЫ",
-      products: pillar_set,
-      subcategories: this.getSetOfObjItems(pillar_set, "subcategory")
+      products: gates_set,
+      subcategories: this.getSetOfObjItems(gates_set, "subcategory")
     };
   }
 };
