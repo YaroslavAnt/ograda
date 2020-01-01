@@ -77,7 +77,7 @@ export default {
         { name: "Бетонные столбики", path: "/products/pillar" },
         { name: "Садовые дорожки", path: "/products/lane" },
         { name: "Услуги", path: "/services" },
-        { name: "Каталог", path: "/catalog" },
+        { name: "Цены", path: "/prices" },
         { name: "Наши работы", path: "/blog" },
         { name: "Контакты", path: "/contact" }
       ]
