@@ -79,6 +79,7 @@ export default {
         { name: "Услуги", path: "/services" },
         { name: "Цены", path: "/prices" },
         { name: "Наши работы", path: "/blog" },
+        { name: "О нас", path: "/about" },
         { name: "Контакты", path: "/contact" }
       ]
     };
@@ -123,7 +124,7 @@ export default {
 
     .nav-link,
     .subnav-link {
-      padding: 16px;
+      padding: 12px 16px;
       font-size: 18px;
       font-weight: 500;
       position: relative;

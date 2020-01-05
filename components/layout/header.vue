@@ -4,7 +4,7 @@
       <icon-base :iconColor="'#ff5b00'" :width="18" :height="18">
         <icon-location />
       </icon-base>
-      <span>г.Запорожье, пос.Леваневского, ул</span>
+      <span>{{location}}</span>
     </div>
 
     <div class="header-padding base-font header-logo">
@@ -14,14 +14,14 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text">+38(096)111 11 11</span>
+          <span class="text">{{phone}}</span>
         </div>
 
         <div class="contact-item">
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
-          <span class="text">test@mail.com</span>
+          <span class="text">{{email}}</span>
         </div>
       </div>
     </div>
@@ -83,6 +83,8 @@ import IconBaseVue from "../common/IconBase.vue";
 import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
+import { contact_data } from "~/static/contact_data";
+
 export default {
   name: "header.vue",
   components: {
@@ -92,6 +94,13 @@ export default {
     "icon-phone": IconPhoneVue,
     "icon-location": IconLocationVue
   },
-  props: ["current_page"]
+  props: ["current_page"],
+  data() {
+    return {
+      phone: contact_data.phone,
+      email: contact_data.email,
+      location: contact_data.location
+    };
+  }
 };
 </script>
