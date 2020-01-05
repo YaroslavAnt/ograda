@@ -14,6 +14,8 @@ import servicesVue from "./sections/services.vue";
 import newsVue from "./sections/news.vue";
 
 export default {
+  scrollToTop: true,
+
   components: {
     hero: heroVue,
     popular: popularVue,

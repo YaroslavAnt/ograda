@@ -54,13 +54,13 @@ export default {
   },
   mounted() {
     // debugger;
-    const query = this.$route.query.subcategory;
+    const query = this.$route.query.subcategory || "ВСЕ ВИДЫ";
     // const category = decodeURI(query);
     this.setActiveTab(new String(query).toUpperCase());
   },
   data() {
     return {
-      activeTab: "ВСЕ ВИДЫ",
+      activeTab: null,
       products: fence_set,
       subcategories: this.getSetOfObjItems(fence_set, "subcategory")
     };

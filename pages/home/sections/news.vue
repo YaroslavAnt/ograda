@@ -5,7 +5,7 @@
     </div>
     <span
       class="section-link base-font"
-      @click="$router.push('/news')"
+      @click="$router.push('/blog')"
     >Смотреть больше новостей &rarr;</span>
   </app-secion>
 </template>

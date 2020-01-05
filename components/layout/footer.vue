@@ -19,7 +19,7 @@
       </ul>
     </nav>
 
-    <div class="footer-navitem">
+    <address class="footer-navitem">
       <h6>{{contact_list.name}}</h6>
       <ul>
         <li
@@ -30,7 +30,7 @@
       </ul>
       <img src="../../assets/icons/facebook.svg" alt="fb-icon" class="footer-icon" />
       <img src="../../assets/icons/youtube.svg" alt="fb-icon" class="footer-icon" />
-    </div>
+    </address>
   </footer>
 </template>
 
@@ -79,12 +79,10 @@ export default {
         {
           name: "Продукция",
           links: [
-            { name: "Бетонные заборы", path: "/fence-koncrete" },
-            { name: "Сетка рабица", path: "/fence-rabitz" },
-            { name: "Забор из профнастила", path: "/fence-steel" },
-            { name: "Ворота и калитки", path: "/gates" },
-            { name: "Бетонные столбики", path: "/pillar" },
-            { name: "Садовые дорожки", path: "/lane" }
+            { name: "Ограждения", path: "/products/fence" },
+            { name: "Ворота и калитки", path: "/products/gates" },
+            { name: "Бетонные столбики", path: "/products/pillar" },
+            { name: "Садовые дорожки", path: "/products/lane" }
           ]
         },
         {
@@ -93,7 +91,7 @@ export default {
             { name: "О нас", path: "/about" },
             { name: "Популярные товары", path: "/popular" },
             { name: "Каталог", path: "/catalog" },
-            { name: "Новости", path: "/news" }
+            { name: "Новости", path: "/blog" }
           ]
         }
       ],
