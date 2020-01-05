@@ -75,7 +75,7 @@ export default {
         },
         { name: "Ворота и калитки", path: "/products/gates" },
         { name: "Бетонные столбики", path: "/products/pillar" },
-        { name: "Садовые дорожки", path: "/products/lane" },
+        { name: "Садовые дорожки", path: "/products/lanes" },
         { name: "Услуги", path: "/services" },
         { name: "Цены", path: "/prices" },
         { name: "Наши работы", path: "/blog" },
