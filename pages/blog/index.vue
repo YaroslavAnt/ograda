@@ -1,13 +1,14 @@
 ﻿<template>
-  <app-secion :heading="section_heading" class="section">
-    <div class="news-grid">
-      <blog-card v-for="(card,idx) in news" :key="idx" :card="card" />
+  <app-section :heading="section_heading" class="section">
+    <div class="grid">
+      <blog-card
+        :card="card"
+        class="article section-padding"
+        v-for="(card,idx) in news"
+        :key="idx"
+      />
     </div>
-    <span
-      class="section-link base-font"
-      @click="$router.push('/news')"
-    >Смотреть больше новостей &rarr;</span>
-  </app-secion>
+  </app-section>
 </template>
 
 <script>
@@ -15,14 +16,12 @@ import sectionVue from "~/components/layout/section.vue";
 import but_3 from "~/assets/img/fence/but/but_3.jpg";
 import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
 import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
-import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
-import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
 import BlogCardVue from "~/components/common/BlogCard.vue";
 
 export default {
-  name: "news.vue",
+  name: "blog",
   components: {
-    "app-secion": sectionVue,
+    "app-section": sectionVue,
     "blog-card": BlogCardVue
   },
   data() {
@@ -65,21 +64,15 @@ export default {
 <style lang="scss" scoped>
   .section {
     background-color: #fff;
-
-    .news-grid {
-      display: grid;
-      margin-bottom: 40px;
-
-      grid-gap: 24px;
-      @media (min-width: 768px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    &-link {
-      cursor: pointer;
-      color: var(--red);
-    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 24px;
+  }
+  .article {
+    background-color: #f2f1ef;
+    border-radius: 4px;
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
   }
 </style>
-

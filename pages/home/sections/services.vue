@@ -70,12 +70,11 @@ export default {
 
     .card-grid {
       display: grid;
-      // max-width: 800px;
       margin: 0 auto 40px;
       grid-gap: 24px;
+      
       @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 36px;
       }
     }
 
