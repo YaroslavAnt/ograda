@@ -26,6 +26,7 @@ import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
 import { lanes_set } from "~/static/lanes_data";
 import { getSetOfObjItems } from "~/static/utils";
+import { getProductByCategory } from "~/api/products";
 
 export default {
   name: "lanesPage",
@@ -53,38 +54,19 @@ export default {
       products: lanes_set,
       subcategories: getSetOfObjItems(lanes_set, "subcategory")
     };
+  },
+  fetch({ store, params }) {
+    return getProductByCategory(5)
+      .then(res => {
+        store.commit("SET_LANES", res.data.data);
+      })
+      .catch(() => alert("Невозможно загрузить данные"));
   }
 };
 </script>
 <style lang="scss" scoped>
   .section {
     background-color: #fff;
-
-    &-switch {
-      border: 1px solid var(--red);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 40px;
-      display: flex;
-      flex-direction: column;
-
-      @media (min-width: 768px) {
-        display: inline-flex;
-        flex-direction: row;
-      }
-
-      .switch-tab {
-        padding: 10px 20px;
-        color: var(--red);
-        cursor: pointer;
-        // text-transform: uppercase;
-
-        &-active {
-          background-color: var(--red);
-          color: #fff;
-        }
-      }
-    }
 
     &-grid {
       display: grid;

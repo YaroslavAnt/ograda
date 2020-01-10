@@ -3,11 +3,14 @@
     <div class="contact">
       <form class="form">
         <p class="medium-font">Напишите нам</p>
-        <input type="text" placeholder="Имя" class="input" />
-        <input type="email" name="email" id="email" placeholder="Эл.почта" class="input" />
-        <input type="tel" name="phone" id="phone" placeholder="Телефон" class="input" />
-        <textarea class="input area" placeholder="Сообщение" />
-        <input type="button" value="Отправить" class="input btn" />
+        <input type="text" placeholder="Имя" class="input" v-model="formData.name" />
+        <input type="email" placeholder="Эл.почта" class="input" v-model="formData.email" />
+        <input type="tel" placeholder="Телефон" class="input" v-model="formData.phone" />
+        <textarea class="input area" placeholder="Сообщение" v-model="formData.message" />
+        <ul v-if="errors.length>0" class="warn">
+          <li v-for="(err,idx) in errors" :key="idx">{{err}}</li>
+        </ul>
+        <input type="button" value="Отправить" class="input btn" @click="submit()" />
       </form>
 
       <address class="contacts">
@@ -50,6 +53,7 @@ import IconMailVue from "~/components/icons/IconMail.vue";
 import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
 import { contact_data } from "~/static/contact_data";
+import { postEmail } from "../../api/email";
 export default {
   name: "contact",
   components: {
@@ -59,11 +63,38 @@ export default {
     "icon-phone": IconPhoneVue,
     "icon-location": IconLocationVue
   },
+
+  methods: {
+    submit() {
+      this.errors = [];
+      this.checkForm() && postEmail(this.formData);
+    },
+    checkForm: function(e) {
+      if (!this.formData.message) {
+        this.errors.push("Введите Ваше сообщение.");
+      }
+      if (!this.formData.email) {
+        this.errors.push("Укажите электронную почту.");
+      } else if (!this.validEmail(this.email)) {
+        this.errors.push("Укажите корректный адрес электронной почты.");
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+    },
+    validEmail: function(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+  },
   data() {
     return {
+      errors: [],
       phone: contact_data.phone,
       email: contact_data.email,
-      location: contact_data.location
+      location: contact_data.location,
+      formData: { name: "", email: "", phone: "", message: "" }
     };
   }
 };
@@ -72,6 +103,9 @@ export default {
 <style lang="scss" scoped>
   .section {
     background-color: #fff;
+  }
+  .warn {
+    color: red;
   }
   .contact {
     display: grid;

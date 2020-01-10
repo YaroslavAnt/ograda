@@ -19,6 +19,8 @@ export default {
     slider: SliderVue
   },
   data() {
+    console.log(this.$store);
+
     return {
       section_heading: "Основная продукция",
       slider_items: [
