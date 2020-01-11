@@ -1,8 +1,8 @@
 ﻿import { getProductByCategory } from "~/api/products";
 
-const state = {
+export const state = () => ({
   list: []
-};
+});
 
 const getters = {
   getLanes(state) {
@@ -21,7 +21,7 @@ const actions = {
   }
 };
 
-const mutations = {
+export const mutations = {
   SET_LANES(state, data) {
     state.list = data;
   }

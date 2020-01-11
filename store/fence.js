@@ -1,9 +1,8 @@
-﻿import httpClient from "~/api/httpClient";
-import { getProductByCategory } from "~/api/products";
+﻿import { getProductByCategory } from "~/api/products";
 
-const state = {
+export const state = () => ({
   list: []
-};
+});
 
 const getters = {
   getFence(state) {
@@ -22,7 +21,7 @@ const actions = {
   }
 };
 
-const mutations = {
+export const mutations = {
   SET_FENCE(state, data) {
     state.list = data;
   }

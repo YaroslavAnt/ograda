@@ -45,10 +45,10 @@ export default {
     }
   },
 
-  fetch({ store, params }) {
+  async fetch({ store, params }) {
     return getProductByCategory(4)
       .then(res => {
-        store.commit("SET_FENCE", res.data.data);
+        store.commit("fence/SET_FENCE", res.data.data);
       })
       .catch(() => alert("Невозможно загрузить данные"));
   },
@@ -62,9 +62,7 @@ export default {
     }
   },
   mounted() {
-    // debugger;
     const query = this.$route.query.subcategory || "ВСЕ ВИДЫ";
-    // const category = decodeURI(query);
     this.setActiveTab(new String(query).toUpperCase());
   },
   data() {
@@ -84,6 +82,7 @@ export default {
     &-grid {
       display: grid;
       grid-gap: 24px;
+
       @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
       }

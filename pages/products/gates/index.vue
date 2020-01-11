@@ -48,7 +48,7 @@ export default {
   fetch({ store, params }) {
     return getProductByCategory(3)
       .then(res => {
-        store.commit("SET_GATES", res.data.data);
+        store.commit("gates/SET_GATES", res.data.data);
       })
       .catch(() => alert("Невозможно загрузить данные"));
   },

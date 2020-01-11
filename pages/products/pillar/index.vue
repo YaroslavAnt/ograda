@@ -70,7 +70,7 @@ export default {
   fetch({ store, params }) {
     return getProductByCategory(6)
       .then(res => {
-        store.commit("SET_PILLARS", res.data.data);
+        store.commit("pillar/SET_PILLARS", res.data.data);
       })
       .catch(() => alert("Невозможно загрузить данные"));
   }
