@@ -16,7 +16,7 @@ const actions = {
       const response = await getProductByCategory(4);
       commit("SET_PILLARS", response.data);
     } catch (error) {
-      alert("*******");
+      console.log("*******");
     }
   }
 };

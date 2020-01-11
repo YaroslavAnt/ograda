@@ -50,7 +50,7 @@ export default {
       .then(res => {
         store.commit("gates/SET_GATES", res.data.data);
       })
-      .catch(() => alert("Невозможно загрузить данные"));
+      .catch(() => console.log("Невозможно загрузить данные"));
   },
 
   methods: {

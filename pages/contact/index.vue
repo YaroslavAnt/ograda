@@ -52,7 +52,7 @@ import IconBaseVue from "~/components/common/IconBase.vue";
 import IconMailVue from "~/components/icons/IconMail.vue";
 import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
-import { contact_data } from "~/static/contact_data";
+import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
 export default {
   name: "contact",
@@ -91,9 +91,9 @@ export default {
   data() {
     return {
       errors: [],
-      phone: contact_data.phone,
-      email: contact_data.email,
-      location: contact_data.location,
+      phone: contact.phone,
+      email: contact.email,
+      location: contact.location,
       formData: { name: "", email: "", phone: "", message: "" }
     };
   }

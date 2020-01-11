@@ -60,7 +60,7 @@ export default {
       .then(res => {
         store.commit("lanes/SET_LANES", res.data.data);
       })
-      .catch(() => alert("Невозможно загрузить данные"));
+      .catch(() => console.log("Невозможно загрузить данные"));
   }
 };
 </script>

@@ -16,7 +16,7 @@ const actions = {
       const response = await getProductByCategory(5);
       commit("SET_GATES", response.data);
     } catch (error) {
-      alert("*******");
+      console.log("*******");
     }
   }
 };

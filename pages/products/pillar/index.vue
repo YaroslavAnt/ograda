@@ -72,7 +72,7 @@ export default {
       .then(res => {
         store.commit("pillar/SET_PILLARS", res.data.data);
       })
-      .catch(() => alert("Невозможно загрузить данные"));
+      .catch(() => console.log("Невозможно загрузить данные"));
   }
 };
 </script>

@@ -50,7 +50,7 @@ export default {
       .then(res => {
         store.commit("fence/SET_FENCE", res.data.data);
       })
-      .catch(() => alert("Невозможно загрузить данные"));
+      .catch(() => console.log("Невозможно загрузить данные"));
   },
 
   methods: {

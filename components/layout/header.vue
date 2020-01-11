@@ -83,7 +83,7 @@ import IconBaseVue from "../common/IconBase.vue";
 import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
-import { contact_data } from "~/static/contact_data";
+import { contact } from "~/static/content_data";
 
 export default {
   name: "header.vue",
@@ -97,9 +97,9 @@ export default {
   props: ["current_page"],
   data() {
     return {
-      phone: contact_data.phone,
-      email: contact_data.email,
-      location: contact_data.location
+      phone: contact.phone,
+      email: contact.email,
+      location: contact.location
     };
   }
 };

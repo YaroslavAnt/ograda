@@ -16,7 +16,7 @@ const actions = {
       const response = await getProductByCategory();
       commit("SET_FENCE", response.data);
     } catch (error) {
-      alert("*******");
+      console.log("*******");
     }
   }
 };
