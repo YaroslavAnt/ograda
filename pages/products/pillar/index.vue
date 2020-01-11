@@ -24,6 +24,7 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
+import { getProductByCategory } from "~/api/products";
 
 import { pillar_set } from "~/static/pillars_data";
 
@@ -65,6 +66,13 @@ export default {
       products: pillar_set,
       subcategories: this.getSetOfObjItems(pillar_set, "subcategory")
     };
+  },
+  fetch({ store, params }) {
+    return getProductByCategory(6)
+      .then(res => {
+        store.commit("pillar/SET_PILLARS", res.data.data);
+      })
+      .catch(() => alert("Невозможно загрузить данные"));
   }
 };
 </script>
@@ -72,32 +80,6 @@ export default {
 <style lang="scss" scoped>
   .section {
     background-color: #fff;
-
-    &-switch {
-      border: 1px solid var(--red);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 40px;
-      display: flex;
-      flex-direction: column;
-
-      @media (min-width: 768px) {
-        display: inline-flex;
-        flex-direction: row;
-      }
-
-      .switch-tab {
-        padding: 10px 20px;
-        color: var(--red);
-        cursor: pointer;
-        // text-transform: uppercase;
-
-        &-active {
-          background-color: var(--red);
-          color: #fff;
-        }
-      }
-    }
 
     &-grid {
       display: grid;

@@ -12,7 +12,6 @@ import heroVue from "./sections/hero.vue";
 import popularVue from "./sections/popular.vue";
 import servicesVue from "./sections/services.vue";
 import newsVue from "./sections/news.vue";
-
 export default {
   scrollToTop: true,
 

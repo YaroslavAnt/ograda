@@ -82,7 +82,7 @@ export default {
             { name: "Ограждения", path: "/products/fence" },
             { name: "Ворота и калитки", path: "/products/gates" },
             { name: "Бетонные столбики", path: "/products/pillar" },
-            { name: "Садовые дорожки", path: "/products/lane" }
+            { name: "Садовые дорожки", path: "/products/lanes" }
           ]
         },
         {
