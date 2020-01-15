@@ -1,6 +1,11 @@
 ﻿<template>
   <article class="card">
-    <app-image :img_src="product.img_set[0]" :img_alt="product.img_alt" :lazy="false" :ratio="67" />
+    <app-image
+      :img_src="BASE_URL+ product.img_set[0]"
+      :img_alt="product.img_alt"
+      :lazy="false"
+      :ratio="67"
+    />
 
     <p
       class="card-name base-font"
@@ -8,7 +13,10 @@
     >{{product.name}}</p>
 
     <div class="card-text">
-      <span v-if="product.option" class="card-label small-font">{{product.option.label}}</span>
+      <span
+        v-if="product.option.label"
+        class="card-label small-font"
+      >{{product.option.label}}</span>
       <p class="card-price small-font">Цена: {{product.price}}</p>
     </div>
   </article>
@@ -16,7 +24,13 @@
 
 <script>
 import ImageBaseVue from "./ImageBase.vue";
+import { BASE_URL } from "~/config";
 export default {
+  data() {
+    return {
+      BASE_URL: "http://kolbasa.qbex.io/"
+    };
+  },
   name: "ProductCard.vue",
   props: ["product"],
   methods: {
@@ -28,7 +42,9 @@ export default {
         "ворота и калитки": "gates",
         дорожки: "lanes"
       };
-      this.$router.push(`/products/${categories[category]}/${id}`);
+      this.$router.push(
+        `/products/${this.product.category.name}/${this.product.id}`
+      );
     }
   },
   components: {
@@ -43,6 +59,8 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
     overflow: hidden;
+    max-width: 500px;
+    border: 1px solid #ddd;
 
     &-image {
       padding-top: 67%;

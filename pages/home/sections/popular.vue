@@ -1,7 +1,11 @@
 ﻿<template>
   <app-section :heading="'Популярные товары'">
     <div class="section-grid">
-      <product-card v-for="(product,idx) in products" :key="idx" :product="product" />
+      <product-card
+        v-for="(product,idx) in getPopularProducts"
+        :key="idx"
+        :product="product"
+      />
     </div>
   </app-section>
 </template>
@@ -17,10 +21,11 @@ export default {
     "app-section": sectionVue,
     "product-card": ProductCardVue
   },
-  data() {
-    return {
-      products: fence_set.filter(el => el.isPopular)
-    };
+
+  computed: {
+    getPopularProducts() {
+      return this.$store.getters["products/getPopularProducts"];
+    }
   }
 };
 </script>

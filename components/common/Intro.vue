@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="box" :class="{reversed: reversed}">
     <div class="box-img" :class="{'with-border': withBorder}">
-      <app-image :img_src="img_src" :img_alt='img_alt' :lazy="true" :ratio="100" />
+      <app-image :img_src="img_src" :img_alt="img_alt" :lazy="true" :ratio="100" />
     </div>
     <div class="box-text">
       <h4 v-if="heading" class="heading big-font">{{heading}}</h4>
@@ -96,9 +96,13 @@ export default {
     background-size: cover;
     border-radius: 4px;
     overflow: hidden;
-    width: 50%;
+    width: 100%;
     flex-shrink: 0;
     flex-grow: 0;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
 
     &.with-border {
       border: 4px solid #fff;

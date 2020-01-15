@@ -1,5 +1,8 @@
 ﻿<template>
-  <app-section :heading="content.heading" class="section">
+  <app-section
+    :heading="content.heading"
+    class="section"
+  >
     <div
       :class="{'exposition-item': expo_idx !==0}"
       v-for="(exposition, expo_idx) in content.expositions"
@@ -14,7 +17,10 @@
             :ratio="80"
             class="slider-box-image"
           />
-          <div class="preview" v-if="exposition.img_set.length > 1">
+          <div
+            class="preview"
+            v-if="exposition.img_set.length > 1"
+          >
             <div
               class="preview-item"
               :class="{'preview-item-active': active_imgs[expo_idx]===idx}"
@@ -22,7 +28,12 @@
               :key="idx"
               @click="setActiveImg(expo_idx, idx)"
             >
-              <app-image :img_src="img" :img_alt="exposition.name" :lazy="true" :ratio="100" />
+              <app-image
+                :img_src="img"
+                :img_alt="exposition.name"
+                :lazy="true"
+                :ratio="100"
+              />
             </div>
           </div>
         </div>
@@ -79,10 +90,19 @@ export default {
   }
   .flexbox {
     display: flex;
+    flex-wrap: wrap;
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+    }
 
     .slider-box {
-      width: 50%;
       flex-shrink: 0;
+      flex-grow: 0;
+      width: 100%;
+
+      @media (min-width: 768px) {
+        width: 50%;
+      }
     }
 
     .preview {
@@ -109,11 +129,13 @@ export default {
   .slider-box-image {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
-    border: 4px solid #fff;
+    border: 4px solid #ddd;
   }
 
   .info-box {
-    margin-left: 50px;
+    @media (min-width: 768px) {
+      margin-left: 50px;
+    }
 
     &-name,
     &-place {

@@ -1,24 +1,26 @@
 ﻿<template>
-  <app-section :heading="'Дорожки'" class="section">
-    <div class="section-switch">
-      <span
-        class="switch-tab"
-        :class="{'switch-tab-active': activeTab==='ВСЕ ВИДЫ'}"
-        @click="setActiveTab('ВСЕ ВИДЫ')"
-      >{{new String('ВСЕ ВИДЫ').toUpperCase()}}</span>
-      <span
-        v-for="(tab) in this.subcategories"
-        :key="tab"
-        class="switch-tab"
-        :class="{'switch-tab-active': activeTab===new String(tab).toUpperCase()}"
-        @click="setActiveTab(new String(tab).toUpperCase())"
-      >{{new String(tab).toUpperCase()}}</span>
-    </div>
+  <main>
+    <app-section :heading="'Дорожки'" class="section">
+      <div class="section-switch">
+        <span
+          class="switch-tab"
+          :class="{'switch-tab-active': activeTab==='ВСЕ ВИДЫ'}"
+          @click="setActiveTab('ВСЕ ВИДЫ')"
+        >{{new String('ВСЕ ВИДЫ').toUpperCase()}}</span>
+        <span
+          v-for="(tab) in this.subcategories"
+          :key="tab"
+          class="switch-tab"
+          :class="{'switch-tab-active': activeTab===new String(tab).toUpperCase()}"
+          @click="setActiveTab(new String(tab).toUpperCase())"
+        >{{new String(tab).toUpperCase()}}</span>
+      </div>
 
-    <div class="section-grid">
-      <product-card v-for="(product,idx) in filteredArr" :key="idx" :product="product" />
-    </div>
-  </app-section>
+      <div class="section-grid">
+        <product-card v-for="(product,idx) in filteredArr" :key="idx" :product="product" />
+      </div>
+    </app-section>
+  </main>
 </template>
 
 <script>

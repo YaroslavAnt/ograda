@@ -1,7 +1,10 @@
 ﻿<template>
   <div class="logo">
     <!-- <img class="logo-img" src="../../assets/img/fence.png" alt="fence" /> -->
-    <p class="logo-text big-font">ograda.zp.ua</p>
+    <nuxt-link
+      to='/home'
+      class="logo-text big-font"
+    >ograda.zp.ua</nuxt-link>
     <!-- <img class="logo-img" src="../../assets/img/fence.png" alt="fence" /> -->
     <span class="logo-about small-font">
       Производство и установка
@@ -16,7 +19,7 @@
     align-items: center;
 
     &-text {
-      padding: 5px;
+      padding: 10px;
       background-size: 73%;
       background-repeat: no-repeat;
       background-position: center;
@@ -24,6 +27,13 @@
       // font-family: "Pacifico", cursive;
       color: var(--dark);
       font-weight: 600;
+      cursor: pointer;
+    }
+    &-about {
+      display: none;
+      @media (min-width: 1024px) {
+        display: block;
+      }
     }
   }
 </style>

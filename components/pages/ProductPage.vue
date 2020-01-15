@@ -4,8 +4,8 @@
       <div class="flexbox">
         <div class="slider-box">
           <app-image
-            :img_src="product.img_set[active_img]"
-            :img_alt="product.img_set[active_img]"
+            :img_src="product.img_set&&baseUrl+product.img_set[active_img]"
+            :img_alt="product.img_alt"
             :lazy="false"
             :ratio="69"
             class="slider-box-image"
@@ -18,7 +18,12 @@
               :key="idx"
               @click="setActiveImg(idx)"
             >
-              <app-image :img_src="img" :img_alt="product.img_alt" :lazy="true" :ratio="50" />
+              <app-image
+                :img_src="baseUrl+img"
+                :img_alt="product.img_alt"
+                :lazy="true"
+                :ratio="50"
+              />
             </div>
           </div>
         </div>
@@ -31,11 +36,14 @@
           </p>
           <p
             class="info-box-description base-font"
-            v-for="(paragraph, idx) in product.description"
+            v-for="(paragraph, idx) in getArrayFromDescription"
             :key="idx"
           >{{ paragraph }}</p>
-          <p class="info-box-category small-font">Категория: {{product.category}}</p>
-          <p v-if="product.option" class="info-box-option">{{product.option.details}}</p>
+          <p class="info-box-category small-font">Категория: {{product.category && product.category.name}}</p>
+          <p
+            v-if="product.option"
+            class="info-box-option"
+          >{{product.option.details}}</p>
         </div>
       </div>
     </article>
@@ -44,6 +52,10 @@
 
 <script>
 import ImageBaseVue from "../common/ImageBase.vue";
+import { getProduct } from "../../api/products";
+import { mapGetters } from "vuex";
+import { BASE_URL } from "../../config";
+
 export default {
   name: "Product.vue",
   components: {
@@ -53,16 +65,32 @@ export default {
   methods: {
     setActiveImg(idx) {
       this.active_img = idx;
+    },
+    fetchProduct() {
+      getProduct(this.$route.params.id)
+        .then(res => {
+          this.product = res.data.data;
+        })
+        .catch(() => alert("Невозможно загрузить данные"));
     }
   },
+
   mounted() {
-    console.log(this.products);
+    this.fetchProduct();
+    console.log(this.$store);
+    // this.$store.actions
   },
   data() {
     return {
       active_img: 0,
-      product: this.products.find(el => el.id === this.$route.params.id)
+      baseUrl: BASE_URL,
+      product: {}
     };
+  },
+  computed: {
+    getArrayFromDescription() {
+      return this.product.description && this.product.description.split("#");
+    }
   }
 };
 </script>

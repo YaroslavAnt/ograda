@@ -1,8 +1,19 @@
 ﻿<template>
-  <app-section :heading="content.section_intro" class="section">
+  <app-section
+    :heading="content.section_intro"
+    class="section"
+  >
     <div class="grid">
-      <div class="grid-item" v-for="(card,idx) in content.card_list" :key="idx">
-        <img class="grid-item-icon lazyload" :data-src="card.icon" alt="icon" />
+      <div
+        class="grid-item"
+        v-for="(card,idx) in content.card_list"
+        :key="idx"
+      >
+        <img
+          class="grid-item-icon lazyload"
+          :data-src="card.icon"
+          alt="icon"
+        />
         <p class="grid-item-text medium-font">{{card.heading}}</p>
       </div>
     </div>
@@ -34,8 +45,11 @@ export default {
   .section {
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
       grid-gap: 24px;
+
+      @media (min-width: 500px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
       @media (min-width: 768px) {
         grid-template-columns: repeat(4, 1fr);

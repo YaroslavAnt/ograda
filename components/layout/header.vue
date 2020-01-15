@@ -1,7 +1,11 @@
 ﻿<template>
   <header class="header">
     <div class="header-padding header-location">
-      <icon-base :iconColor="'#ff5b00'" :width="18" :height="18">
+      <icon-base
+        :iconColor="'#ff5b00'"
+        :width="18"
+        :height="18"
+      >
         <icon-location />
       </icon-base>
       <span>{{location}}</span>
@@ -24,6 +28,12 @@
           <span class="text">{{email}}</span>
         </div>
       </div>
+      <div class="menu">
+        <menu-btn
+          :isMenuOpen="$store.state.common.isMenuOpen"
+          @click.native="$store.commit('common/SET_MENU', !$store.state.common.isMenuOpen)"
+        ></menu-btn>
+      </div>
     </div>
   </header>
 </template>
@@ -37,6 +47,14 @@
     justify-content: space-between;
     font-weight: 500;
     height: 105px;
+
+    .menu {
+      display: flex;
+      align-items: center;
+      @media (min-width: 1024px) {
+        display: none;
+      }
+    }
 
     &-location {
       display: flex;
@@ -59,8 +77,12 @@
   }
 
   .contact {
-    display: flex;
     align-items: center;
+    display: none;
+
+    @media (min-width: 768px) {
+      display: flex;
+    }
 
     &-item {
       display: flex;
@@ -84,6 +106,7 @@ import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
 import { contact } from "~/static/content_data";
+import MenuButtonVue from "../common/MenuButton.vue";
 
 export default {
   name: "header.vue",
@@ -92,14 +115,16 @@ export default {
     "icon-base": IconBaseVue,
     "icon-mail": IconMailVue,
     "icon-phone": IconPhoneVue,
-    "icon-location": IconLocationVue
+    "icon-location": IconLocationVue,
+    "menu-btn": MenuButtonVue
   },
   props: ["current_page"],
   data() {
     return {
       phone: contact.phone,
       email: contact.email,
-      location: contact.location
+      location: contact.location,
+      isMenuOpen: false
     };
   }
 };

@@ -26,6 +26,10 @@ export default {
 
 <style lang="scss" scoped>
   .section {
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+    }
     position: relative;
 
     &-intro {

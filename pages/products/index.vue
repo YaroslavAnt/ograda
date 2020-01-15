@@ -1,3 +1,3 @@
 ﻿<template>
-  <div>products</div>
+  <div>Не найдено</div>
 </template>

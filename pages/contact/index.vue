@@ -1,12 +1,34 @@
 ﻿<template>
-  <app-section :heading="'Контакты'" class="section">
+  <app-section
+    :heading="'Контакты'"
+    class="section"
+  >
     <div class="contact">
       <form class="form">
         <p class="medium-font">Напишите нам</p>
-        <input type="text" placeholder="Имя" class="input" v-model="formData.name" />
-        <input type="email" placeholder="Эл.почта" class="input" v-model="formData.email" />
-        <input type="tel" placeholder="Телефон" class="input" v-model="formData.phone" />
-        <textarea class="input area" placeholder="Сообщение" v-model="formData.message" />
+        <input
+          type="text"
+          placeholder="Имя"
+          class="input"
+          v-model="formData.name"
+        />
+        <input
+          type="email"
+          placeholder="Эл.почта"
+          class="input"
+          v-model="formData.email"
+        />
+        <input
+          type="tel"
+          placeholder="Телефон"
+          class="input"
+          v-model="formData.phone"
+        />
+        <textarea
+          class="input area"
+          placeholder="Сообщение"
+          v-model="formData.message"
+        />
         <ul v-if="errors.length>0" class="warn">
           <li v-for="(err,idx) in errors" :key="idx">{{err}}</li>
         </ul>
@@ -109,8 +131,10 @@ export default {
   }
   .contact {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     grid-gap: 24px;
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
     .form {
       display: flex;
