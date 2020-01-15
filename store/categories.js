@@ -1,20 +1,20 @@
-﻿import { getProductByCategory } from "~/api/products";
+﻿import { getAll } from "~/api/categories";
 
 export const state = () => ({
   list: []
 });
 
 const getters = {
-  getGates(state) {
+  getFence(state) {
     return state.list;
   }
 };
 
 const actions = {
-  async fetchGates({ commit }) {
+  async fetchFence({ commit }) {
     try {
-      const response = await getProductByCategory(5);
-      commit("SET_GATES", response.data);
+      const response = await getAll();
+      commit("SET_CATEGORIES", response.data);
     } catch (error) {
       console.log("*******");
     }
@@ -22,7 +22,7 @@ const actions = {
 };
 
 export const mutations = {
-  SET_GATES(state, data) {
+  SET_CATEGORIES(state, data) {
     state.list = data;
   }
 };

@@ -56,7 +56,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ["@nuxtjs/google-analytics"],
   /*
    ** Build configuration
    */
@@ -65,5 +65,9 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  googleAnalytics: {
+    id: "{YOUR GOOGLE ANALYTICS ID}",
+    dev: false
   }
 };

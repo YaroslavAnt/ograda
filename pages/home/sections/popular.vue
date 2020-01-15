@@ -1,19 +1,17 @@
 ﻿<template>
   <app-section :heading="'Популярные товары'">
     <div class="section-grid">
-      <product-card v-for="(product,idx) in products" :key="idx" :product="product" />
+      <product-card
+        v-for="(product,idx) in getPopularProducts"
+        :key="idx"
+        :product="product"
+      />
     </div>
   </app-section>
 </template>
  
 <script>
 import sectionVue from "~/components/layout/section.vue";
-import but_3 from "~/assets/img/fence/but/but_3.jpg";
-import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
-import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
-import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
-import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
-import ImageBaseVue from "~/components/common/ImageBase.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
 import { fence_set } from "~/static/fence_data/index";
 
@@ -21,13 +19,13 @@ export default {
   name: "popular.vue",
   components: {
     "app-section": sectionVue,
-    "app-image": ImageBaseVue,
     "product-card": ProductCardVue
   },
-  data() {
-    return {
-      products: fence_set.filter(el => el.isPopular)
-    };
+
+  computed: {
+    getPopularProducts() {
+      return this.$store.getters["products/getPopularProducts"];
+    }
   }
 };
 </script>

@@ -2,32 +2,31 @@
   <div class="nav">
     <div class="logo"></div>
     <ul class="sidebar-nav">
+
+      <li @click="onClickNavItem">
+        <router-link to="/home">
+          <span class="nav-link">Главная</span>
+        </router-link>
+      </li>
+
       <li
-        v-for="(item, index) in menu_list"
-        :key="index + 'link'"
-        @click="onClickNavItem(item.path, item.submenu, item.name)"
+        @click="onClickNavItem"
+        v-for="(category,idx) in $store.state.categories.list"
+        :key="idx"
       >
-        <p
-          class="nav-link"
-          :class="{
-            'open-submenu': activeSubmenu===item.name,
-            'with-submenu': item.submenu,
-            'active': current_page===item.path
-          }"
-        >{{item.name}}</p>
-        <ul
-          v-if="item.submenu"
-          class="sidebar-subnav"
-          :class="{'open-submenu': activeSubmenu===item.name}"
-        >
-          <li
-            v-for="(subitem, index) in item.submenu"
-            :key="index + 'sublink'"
-            @click="onClickSubNavItem(subitem.path, subitem.subCategory)"
-          >
-            <p class="subnav-link">{{subitem.name}}</p>
-          </li>
-        </ul>
+        <router-link :to='`/products/${category.name}`'>
+          <span class="nav-link">{{category.name}}</span>
+        </router-link>
+      </li>
+
+      <li
+        @click="onClickNavItem"
+        v-for="(nav_item,idx) in static_menu_list"
+        :key="idx+'static'"
+      >
+        <router-link :to="nav_item.path">
+          <span class="nav-link">{{nav_item.name}}</span>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -35,12 +34,20 @@
 
 <script>
 import { fence_set } from "~/static/fence_data/index";
-
+import { getAll } from "~/api/categories";
 export default {
   name: "sidebar.vue",
+  // mounted() {
+  //   console.log(this.categories);
+
+  //   getAll()
+  //     .then(res => (this.categories = res.data))
+  //     .catch(() => alert("Невозможно загрузить занные"));
+  // },
   methods: {
     onClickNavItem(path, submenu, name) {
-      return submenu ? this.setActiveSubmenu(name) : this.setRoute(path);
+      this.$store.commit("common/SET_MENU", false);
+      // return submenu ? this.setActiveSubmenu(name) : this.setRoute(path);
     },
     onClickSubNavItem(path, query) {
       this.setRoute(path, query);
@@ -51,6 +58,7 @@ export default {
     },
     setRoute(path, query) {
       console.log({ path, query });
+      this.$store.commit("common/SET_MENU", false);
       query
         ? this.$router.push({ path: path, query: { subcategory: query } })
         : this.$router.push(path);
@@ -62,20 +70,9 @@ export default {
   props: ["current_page"],
   data() {
     return {
+      categories: [],
       activeSubmenu: null,
-      menu_list: [
-        { name: "Главная", path: "/home" },
-        {
-          name: "Ограждения",
-          submenu: this.getSetOfObjItems(fence_set, "subcategory").map(el => ({
-            name: el,
-            path: "/products/fence",
-            subCategory: el
-          }))
-        },
-        { name: "Ворота и калитки", path: "/products/gates" },
-        { name: "Бетонные столбики", path: "/products/pillar" },
-        { name: "Садовые дорожки", path: "/products/lanes" },
+      static_menu_list: [
         { name: "Услуги", path: "/services" },
         { name: "Цены", path: "/prices" },
         { name: "Наши работы", path: "/blog" },
@@ -83,6 +80,11 @@ export default {
         { name: "Контакты", path: "/contact" }
       ]
     };
+  },
+  computed: {
+    // getCategoryRoutes() {
+    //   return this.categories.map(category => ({name: category.name, path: 'products/'}))
+    // }
   }
 };
 </script>
@@ -121,9 +123,12 @@ export default {
     li {
       cursor: pointer;
     }
-
+    .nuxt-link-active {
+      color: var(--red);
+    }
     .nav-link,
     .subnav-link {
+      display: block;
       padding: 12px 16px;
       font-size: 18px;
       font-weight: 500;
@@ -146,10 +151,6 @@ export default {
           transform: rotate(-135deg);
           box-sizing: border-box;
         }
-      }
-
-      &.active {
-        color: var(--red);
       }
 
       &:hover {

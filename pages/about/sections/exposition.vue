@@ -1,8 +1,11 @@
 ﻿<template>
-  <app-section :heading="heading" class="section">
+  <app-section
+    :heading="content.heading"
+    class="section"
+  >
     <div
       :class="{'exposition-item': expo_idx !==0}"
-      v-for="(exposition, expo_idx) in expositions"
+      v-for="(exposition, expo_idx) in content.expositions"
       :key="expo_idx"
     >
       <div class="flexbox">
@@ -14,7 +17,10 @@
             :ratio="80"
             class="slider-box-image"
           />
-          <div class="preview" v-if="exposition.img_set.length > 1">
+          <div
+            class="preview"
+            v-if="exposition.img_set.length > 1"
+          >
             <div
               class="preview-item"
               :class="{'preview-item-active': active_imgs[expo_idx]===idx}"
@@ -22,7 +28,12 @@
               :key="idx"
               @click="setActiveImg(expo_idx, idx)"
             >
-              <app-image :img_src="img" :img_alt="exposition.name" :lazy="true" :ratio="100" />
+              <app-image
+                :img_src="img"
+                :img_alt="exposition.name"
+                :lazy="true"
+                :ratio="100"
+              />
             </div>
           </div>
         </div>
@@ -40,20 +51,6 @@
 import sectionVue from "~/components/layout/section.vue";
 import ImageBase from "~/components/common/ImageBase.vue";
 
-import expo1 from "~/assets/img/expositions/zp/expo1.jpg";
-import expo2 from "~/assets/img/expositions/zp/expo2.jpg";
-import expo3 from "~/assets/img/expositions/zp/expo3.jpg";
-import expo4 from "~/assets/img/expositions/zp/expo4.jpg";
-import expo5 from "~/assets/img/expositions/zp/expo5.jpg";
-
-import expo1_tokmak from "~/assets/img/expositions/tokmak/expo1.jpg";
-
-import expo1_ch from "~/assets/img/expositions/chernigovka/expo1.jpg";
-import expo2_ch from "~/assets/img/expositions/chernigovka/expo2.jpg";
-import expo3_ch from "~/assets/img/expositions/chernigovka/expo3.jpg";
-import expo4_ch from "~/assets/img/expositions/chernigovka/expo4.jpg";
-import expo5_ch from "~/assets/img/expositions/chernigovka/expo5.jpg";
-
 export default {
   name: "exposition.vue",
   components: {
@@ -67,28 +64,16 @@ export default {
       this.active_imgs = newArr;
     }
   },
+  props: {
+    content: {
+      type: Object,
+      default: {}
+    }
+  },
 
   data() {
     return {
-      active_imgs: [0, 0, 0],
-      heading: "Выставки",
-      expositions: [
-        {
-          img_set: [expo1, expo2, expo3, expo4, expo5],
-          name: "Выставка еврозабора в Запорожье",
-          place: `Приглашаем посетить нашу выставку еврозабора, которая находится на пересечении трассы Москва-Симферополь и ул.Мокрянской (район "Калантыровки").`
-        },
-        {
-          img_set: [expo1_tokmak],
-          name: "Выставка еврозабора в Токмаке",
-          place: `Выставка еврозабора серого и цветного в Токмаке, которая расположена напротив Автовокзала.`
-        },
-        {
-          img_set: [expo1_ch, expo2_ch, expo3_ch, expo4_ch, expo5_ch],
-          name: "Выставка еврозабора в Черниговке",
-          place: `Выставка еврозабора в Черниговке на пересечении улиц Советской и Гоголя.`
-        }
-      ]
+      active_imgs: [0, 0, 0]
     };
   }
 };
@@ -105,10 +90,19 @@ export default {
   }
   .flexbox {
     display: flex;
+    flex-wrap: wrap;
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+    }
 
     .slider-box {
-      width: 50%;
       flex-shrink: 0;
+      flex-grow: 0;
+      width: 100%;
+
+      @media (min-width: 768px) {
+        width: 50%;
+      }
     }
 
     .preview {
@@ -135,11 +129,13 @@ export default {
   .slider-box-image {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
-    border: 4px solid #fff;
+    border: 4px solid #ddd;
   }
 
   .info-box {
-    margin-left: 50px;
+    @media (min-width: 768px) {
+      margin-left: 50px;
+    }
 
     &-name,
     &-place {

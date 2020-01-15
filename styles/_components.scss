@@ -5,10 +5,12 @@
   margin-bottom: 40px;
   display: flex;
   flex-direction: column;
+  max-width: 500px;
 
   @media (min-width: 768px) {
     display: inline-flex;
     flex-direction: row;
+    max-width: unset;
   }
 
   .switch-tab {

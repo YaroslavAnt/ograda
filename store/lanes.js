@@ -16,7 +16,7 @@ const actions = {
       const response = await getProductByCategory(6);
       commit("SET_LANES", response.data);
     } catch (error) {
-      alert("*******");
+      console.log("*******");
     }
   }
 };
