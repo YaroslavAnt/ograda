@@ -1,9 +1,23 @@
 <template>
   <section class="section">
     <div class="section-padding section-intro">
-      <h2 class="hero-heading with-skewed-bg">{{content.section_heading}}</h2>
+      <h2 class="section-heading with-skewed-bg">{{content.section_heading}}</h2>
     </div>
+
+    <!-- <div class="section-padding">
+      <div class="section-switch ">
+        <nuxt-link
+          v-for="(category) in categories"
+          :key="category.name"
+          class="switch-tab"
+          :class="{'switch-tab-active': activeTab===new String(category.name).toUpperCase()}"
+          :to='{path:`/products/${category.name}?category_id=${category.id}`}'
+        >{{new String(category.name).toUpperCase()}}</nuxt-link>
+      </div>
+    </div> -->
+
     <slider
+      class="section-slider"
       v-if="slides.length>0 && $store.state.products.list.length > 0"
       :slider_items="slides"
       :withAutoPlay="true"
@@ -39,6 +53,9 @@ export default {
           );
         }
       });
+    },
+    categories() {
+      return this.$store.state.categories.list;
     }
   },
   data() {
@@ -101,17 +118,15 @@ export default {
 
 <style lang="scss" scoped>
   .section {
-    display: none;
-    @media (min-width: 768px) {
-      display: block;
-    }
     position: relative;
 
     &-intro {
-      position: absolute;
       z-index: 10;
+      position: absolute;
+      @media (min-width: 768px) {
+      }
     }
-    .hero-heading {
+    &-heading {
       color: var(--white);
       font-weight: bold;
       font-size: 22px;
@@ -131,6 +146,18 @@ export default {
         line-height: 21px;
         margin-bottom: 40px;
       }
+    }
+
+    &-switch {
+      display: block;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+
+    &-slider {
+      min-width: 768px;
     }
   }
 </style>

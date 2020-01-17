@@ -157,6 +157,7 @@ export default {
     }
     &-content {
       width: 66%;
+      max-width: 100vw;
       position: absolute;
     }
     &-btn,
@@ -173,6 +174,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       color: var(--dark);
+      max-width: 100vw;
 
       .arrow {
         width: 40px;
