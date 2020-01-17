@@ -7,14 +7,21 @@ export default {
     htmlAttrs: {
       lang: "ru"
     },
-    title: process.env.npm_package_name || "",
+    title: "Продажа и установка еврозаборов в Запорожье и области",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: process.env.npm_package_description || ""
+        content:
+          "Еврозаборы и тротуарная плитка от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений"
+      },
+      {
+        hid: "keywords",
+        name: "keywords",
+        content:
+          "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье"
       }
     ],
     script: [

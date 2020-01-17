@@ -16,10 +16,11 @@
                 :size="'10px'"
                 :direction="'right'"
               />
-              <nuxt-link :to='`/products/${link.name}`'>{{link.name}}</nuxt-link>
+              <nuxt-link :to='`/products/${link.name}?category_id=${link.id}`'>{{link.name}}</nuxt-link>
             </li>
           </ul>
         </li>
+
         <li
           class="footer-navitem"
           v-for="(item, index) in menu_list"
@@ -39,7 +40,6 @@
                 :direction="'right'"
               />
               <nuxt-link :to="link.path">{{link.name}}</nuxt-link>
-
             </li>
           </ul>
         </li>
@@ -76,9 +76,14 @@
     font-weight: 500;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     &-navitems {
       display: flex;
+      flex-wrap: wrap;
+    }
+    &-navitem {
+      margin-bottom: 36px;
     }
     &-icon,
     &-navlink {
@@ -112,7 +117,7 @@ export default {
     dynamicLinks() {
       const links = this.$store.state.categories.list.map(category => ({
         name: category.name,
-        path: `/${category.name}`
+        id: category.id
       }));
       return links;
     }
@@ -125,7 +130,7 @@ export default {
           links: [
             { name: "о нас", path: "/about" },
             { name: "популярные товары", path: "/popular" },
-            { name: "каталог", path: "/catalog" },
+            { name: "каталог", path: "/prices" },
             { name: "новости", path: "/blog" }
           ]
         }

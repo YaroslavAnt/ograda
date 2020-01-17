@@ -61,28 +61,22 @@ export default {
   components: {
     "app-image": ImageBaseVue
   },
-  props: ["products"],
   methods: {
     setActiveImg(idx) {
       this.active_img = idx;
-    },
-    fetchProduct() {
-      getProduct(this.$route.params.id)
-        .then(res => {
-          this.product = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"));
     }
   },
 
-  mounted() {
-    this.fetchProduct();
+  props: {
+    product: {
+      type: Object,
+      default: {}
+    }
   },
   data() {
     return {
       active_img: 0,
-      baseUrl: BASE_URL,
-      product: {}
+      baseUrl: BASE_URL
     };
   },
   computed: {

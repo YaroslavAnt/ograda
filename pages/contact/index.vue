@@ -1,35 +1,37 @@
 ﻿<template>
-  <app-section
-    :heading="'Контакты'"
-    class="section"
-  >
-    <div class="contact">
-      <form class="form">
-        <p class="medium-font">Напишите нам</p>
-        <!-- <input
+  <main>
+    <h1>Контакты для заказа еврозаборов</h1>
+    <app-section
+      :heading="'Контакты'"
+      class="section"
+    >
+      <div class="contact">
+        <form class="form">
+          <p class="medium-font">Напишите нам</p>
+          <!-- <input
           type="text"
           placeholder="Имя"
           class="input"
           v-model="formData.name"
         /> -->
-        <input
-          type="email"
-          placeholder="Ваша эл.почта"
-          class="input"
-          v-model="formData.email"
-        />
-        <!-- <input
+          <input
+            type="email"
+            placeholder="Ваша эл.почта"
+            class="input"
+            v-model="formData.email"
+          />
+          <!-- <input
           type="tel"
           placeholder="Телефон"
           class="input"
           v-model="formData.phone"
         /> -->
-        <textarea
-          class="input area"
-          placeholder="Сообщение"
-          v-model="formData.message"
-        />
-        <ul v-if="errors.length>0" class="warn">
+          <textarea
+            class="input area"
+            placeholder="Сообщение"
+            v-model="formData.message"
+          />
+          <ul v-if="errors.length>0" class="warn">
           <li v-for="(err,idx) in errors" :key="idx">{{err}}</li>
         </ul>
         <input type="button" value="Отправить" class="input btn" @click="submit()" />
@@ -65,7 +67,7 @@
         allowfullscreen
       ></iframe>
     </div>
-  </app-section>
+  </app-section></main>
 </template>
 
 <script>
@@ -78,6 +80,12 @@ import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
 export default {
   name: "contact",
+  head: {
+    title: "Контакты для заказа еврозаборов",
+    meta: [
+      { hid: "description", name: "description", content: "Наши контакты" }
+    ]
+  },
   components: {
     "app-section": sectionVue,
     "icon-base": IconBaseVue,
@@ -125,6 +133,10 @@ export default {
 <style lang="scss" scoped>
   .section {
     background-color: #fff;
+  }
+  h1 {
+    position: absolute;
+    left: -500px;
   }
   .warn {
     color: red;

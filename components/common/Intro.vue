@@ -114,7 +114,7 @@ export default {
       .box-text {
         @media (min-width: 768px) {
           padding-left: 0px;
-          padding-right: 50px;
+          padding-right: 24px;
         }
       }
     }
@@ -141,7 +141,7 @@ export default {
 
   .box-text {
     @media (min-width: 768px) {
-      padding-left: 50px;
+      padding-left: 24px;
     }
 
     .heading {

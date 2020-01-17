@@ -1,14 +1,20 @@
 ﻿<template>
-  <app-section :heading="section_heading" class="section">
-    <div class="grid">
-      <blog-card
-        :card="card"
-        class="article section-padding"
-        v-for="(card,idx) in news"
-        :key="idx"
-      />
-    </div>
-  </app-section>
+  <main>
+    <h1>Отчеты о выполненых работах по установке ограждений</h1>
+    <app-section
+      :heading="section_heading"
+      class="section"
+    >
+      <div class="grid">
+        <blog-card
+          :card="card"
+          class="article section-padding"
+          v-for="(card,idx) in news"
+          :key="idx"
+        />
+      </div>
+    </app-section>
+  </main>
 </template>
 
 <script>
@@ -20,6 +26,17 @@ import BlogCardVue from "~/components/common/BlogCard.vue";
 
 export default {
   name: "blog",
+  head: {
+    title: "Отчеты о выполненых работах по установке ограждений",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "Здесь можно ознакомиться с работами по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
+      }
+    ]
+  },
   components: {
     "app-section": sectionVue,
     "blog-card": BlogCardVue
@@ -62,6 +79,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h1 {
+    position: absolute;
+    left: -500px;
+  }
   .section {
     background-color: #fff;
   }

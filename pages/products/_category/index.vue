@@ -1,5 +1,6 @@
 ﻿<template>
   <main>
+    <h1>Каталог продукции в категории {{category}}</h1>
     <app-section
       :heading="'Ограждения'"
       class="section"
@@ -44,6 +45,19 @@ import { getOneByCategory } from "~/api/subcategories";
 export default {
   name: "productPage.vue",
 
+  head() {
+    return {
+      title: `Каталог продукции в категории: ${this.category}`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `Полный перечень продукции в каегории ${this.category} с описанием ценами и фотографиями. `
+        }
+      ]
+    };
+  },
+
   components: {
     "app-section": sectionVue,
     "product-card": ProductCardVue
@@ -59,6 +73,9 @@ export default {
     },
     categoryId() {
       return this.$route.query.category_id;
+    },
+    category() {
+      return this.$route.params.category;
     }
   },
 
@@ -109,6 +126,11 @@ export default {
 <style lang="scss" scoped>
   main {
     flex: 1;
+  }
+  h1 {
+    position: absolute;
+    transform: translateX(-100%);
+    left: -500px;
   }
   .section {
     background-color: #fff;

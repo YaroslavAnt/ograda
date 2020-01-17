@@ -1,6 +1,10 @@
 ﻿<template>
   <main>
-    <app-section class="section" :heading="services.heading">
+    <h1>Доставка, установка, покраска еврозаборов.</h1>
+    <app-section
+      class="section"
+      :heading="services.heading"
+    >
       <app-intro
         v-for="(service, idx) in services.services"
         :key="idx"
@@ -22,6 +26,20 @@ import { services } from "~/static/content_data";
 
 export default {
   name: "index.vue",
+  head() {
+    return {
+      title:
+        "Выезд на замер забора. Доставка, установка, покраска еврозаборов.",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "Услуги по доставке, установке и монтажу ограждений (еврозаборов, заборов из профнастила, заборов из сетки-рабицы). Доставка стройматериалов. Демонтаж старых ограждений. Заливка фундамента под ограждения"
+        }
+      ]
+    };
+  },
   components: {
     "app-intro": IntroVue,
     "app-section": sectionVue
@@ -35,4 +53,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h1 {
+    position: absolute;
+    transform: translateX(-100%);
+    left: -500px;
+  }
 </style>

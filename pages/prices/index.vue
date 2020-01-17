@@ -1,6 +1,12 @@
 ﻿<template>
   <main>
-    <app-section v-for="(price, idx) in prices" :key="idx" class="section" :heading="price.heading">
+    <h1>Цены на еврозаборы, ворота и калитки, бетонные столбики, тротуарную плитку в Запорожье</h1>
+    <app-section
+      v-for="(price, idx) in prices"
+      :key="idx"
+      class="section"
+      :heading="price.heading"
+    >
       <app-table :items="price.items" />
     </app-section>
   </main>
@@ -15,6 +21,18 @@ import { pillar_set } from "../../static/pillars_data";
 import { gates_set } from "../../static/gates_data";
 
 export default {
+  head: {
+    title:
+      "Цены на еврозаборы, ворота и калитки, бетонные столбики, тротуарную плитку в Запорожье",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "Цены (прайсы) от производителя на еврозаборы, ворота и калитки, бетонные столбики, тротуарную плитку в Запорожье"
+      }
+    ]
+  },
   name: "index.vue",
   components: {
     "app-section": section,
@@ -42,4 +60,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h1 {
+    position: absolute;
+    transform: translateX(-100%);
+    left: -500px;
+  }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h1>Еврозаборы, ворота и калитки, бетонные столбики, тротуарная плитка в Запорожье</h1>
     <hero :content="home.hero" />
     <popular />
     <services :content="home.services" />
@@ -30,4 +31,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  h1 {
+    position: absolute;
+    left: -500px;
+    transform: translateX(-100%);
+  }
+</style>
 
