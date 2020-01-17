@@ -100,13 +100,11 @@ export default {
   mounted() {
     getAll()
       .then(res => {
-        console.log(res.data);
         this.$store.commit("categories/SET_CATEGORIES", res.data.data);
       })
       .catch(() => alert("Невозможно загрузить данные"));
     getAllProducts()
       .then(res => {
-        console.log({ res });
         this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
       })
       .catch(() => alert("Невозможно загрузить данные"));

@@ -11,7 +11,7 @@
         :class="{'with-filter': withFilter}"
       >
         <app-image
-          :img_src="slide.img_src"
+          :img_src="BASE_URL+ slide.img_set[0]"
           :img_alt="slide.img_alt"
           :lazy="true"
           :ratio="56.25"
@@ -20,16 +20,16 @@
 
       <div class="slider-content section-padding">
         <h3
-          v-if="slide.heading"
+          v-if="slide.category.name"
           class="slider-heading huge-font"
-        >{{ slide.heading }}</h3>
+        >{{ String(slide.category.name).toUpperCase() }}</h3>
         <p
           v-if="slide.text"
           class="slider-text base-font"
         >{{ slide.text }}</p>
         <nuxt-link
-          v-if="slide.path"
-          :to='slide.path'
+          v-if="slide.category.name"
+          :to='`products/${slide.category.name}?category_id=${slide.category.id}`'
           class="slider-btn app-button"
         >Подробнее</nuxt-link>
       </div>
@@ -67,6 +67,7 @@
 import ButtonVue from "./Button.vue";
 import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
+import { BASE_URL } from "~/config";
 
 export default {
   name: "Slider.vue",
@@ -117,7 +118,8 @@ export default {
   data() {
     return {
       current_slide: 0,
-      intervalid1: null
+      intervalid1: null,
+      BASE_URL
     };
   },
   props: ["slider_items", "height", "withPreview", "withAutoPlay", "withFilter"]

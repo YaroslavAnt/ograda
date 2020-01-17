@@ -37,17 +37,10 @@ import { fence_set } from "~/static/fence_data/index";
 import { getAll } from "~/api/categories";
 export default {
   name: "sidebar.vue",
-  // mounted() {
-  //   console.log(this.categories);
 
-  //   getAll()
-  //     .then(res => (this.categories = res.data))
-  //     .catch(() => alert("Невозможно загрузить занные"));
-  // },
   methods: {
     onClickNavItem(path, submenu, name) {
       this.$store.commit("common/SET_MENU", false);
-      // return submenu ? this.setActiveSubmenu(name) : this.setRoute(path);
     },
     onClickSubNavItem(path, query) {
       this.setRoute(path, query);
@@ -57,7 +50,6 @@ export default {
         this.activeSubmenu === submenuName ? null : submenuName;
     },
     setRoute(path, query) {
-      console.log({ path, query });
       this.$store.commit("common/SET_MENU", false);
       query
         ? this.$router.push({ path: path, query: { subcategory: query } })

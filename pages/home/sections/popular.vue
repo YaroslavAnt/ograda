@@ -27,10 +27,6 @@ export default {
 
   computed: {
     getPopularProducts() {
-      console.log(
-        "products/getPopularProducts",
-        this.$store.getters["products/getPopularProducts"]
-      );
       return this.$store.getters["products/getPopularProducts"] || [{}];
     }
   }

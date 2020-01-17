@@ -64,7 +64,6 @@ export default {
 
   methods: {
     setActiveTab(tab) {
-      console.log({ tab });
       this.activeTab = tab;
     },
 
@@ -72,7 +71,6 @@ export default {
       getProductByCategory(this.categoryId)
         .then((res = {}) => {
           this.products = res.data.data.data;
-          console.log(res.data.data.data);
         })
         .catch(() => {
           alert("Невозможно загрузить данные");
@@ -83,7 +81,6 @@ export default {
       getOneByCategory(this.categoryId)
         .then((res = {}) => {
           this.subcategories = res.data.data;
-          console.log({ res });
         })
         .catch(() => {
           alert("Невозможно загрузить данные");

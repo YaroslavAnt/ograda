@@ -42,7 +42,6 @@ export default {
         : "";
     },
     onClickProduct(category, id) {
-      console.log({ category });
       const categories = {
         забор: "fence",
         столбики: "pillar",

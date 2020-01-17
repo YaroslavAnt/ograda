@@ -77,8 +77,6 @@ export default {
 
   mounted() {
     this.fetchProduct();
-    console.log(this.$store);
-    // this.$store.actions
   },
   data() {
     return {

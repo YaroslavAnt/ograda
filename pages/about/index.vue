@@ -18,7 +18,6 @@ export default {
     exposition: expositionVue
   },
   data() {
-    console.log({ about });
     return {
       about
     };

@@ -1,6 +1,9 @@
 ﻿<template>
   <main>
-    <app-section :heading="'Ограждения'" class="section">
+    <app-section
+      :heading="'Ограждения'"
+      class="section"
+    >
       <div class="section-switch">
         <span
           class="switch-tab"
@@ -17,7 +20,11 @@
       </div>
 
       <div class="section-grid">
-        <product-card v-for="(product,idx) in filteredArr" :key="idx" :product="product" />
+        <product-card
+          v-for="(product,idx) in filteredArr"
+          :key="idx"
+          :product="product"
+        />
       </div>
     </app-section>
   </main>
@@ -52,7 +59,7 @@ export default {
       .then(res => {
         store.commit("fence/SET_FENCE", res.data.data);
       })
-      .catch(() => console.log("Невозможно загрузить данные"));
+      .catch(() => alert("Невозможно загрузить данные"));
   },
 
   methods: {

@@ -14,9 +14,7 @@ const getters = {
     return state.product;
   },
   getPopularProducts: state => {
-    console.log({ state });
     return state.list.filter(product => {
-      console.log({ product });
       return product.isPopular === 1;
     });
   }
@@ -34,7 +32,6 @@ const actions = {
   async fetchByCategory(categoryId) {
     try {
       const { data } = await getProductByCategory(categoryId);
-      console.log({ data });
       commit("products/SET_BY_CATEGORY", data);
     } catch (err) {
       alert("Невозможно загрузить данные");

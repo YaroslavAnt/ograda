@@ -4,7 +4,8 @@
       <h2 class="hero-heading with-skewed-bg">{{content.section_heading}}</h2>
     </div>
     <slider
-      :slider_items="content.slider_items"
+      v-if="slides.length>0 && $store.state.products.list.length > 0"
+      :slider_items="slides"
       :withAutoPlay="true"
       :withFilter="true"
     />
@@ -29,13 +30,17 @@ export default {
       default: {}
     }
   },
-  // computed: {
-  //   slides() {
-  //     return this.$store.state.categories.list.map(category =>{
-  //       this.$store.state.products.list.find(product => product.)
-  //     });
-  //   }
-  // },
+  computed: {
+    slides() {
+      return this.$store.state.categories.list.map(category => {
+        if (this.$store.state.products.list.length > 0) {
+          return this.$store.state.products.list.find(
+            product => product.category.name === category.name
+          );
+        }
+      });
+    }
+  },
   data() {
     return {
       slider_items: [
