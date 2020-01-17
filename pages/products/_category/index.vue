@@ -19,6 +19,11 @@
         >{{new String(tab.name).toUpperCase()}}</span>
       </div>
 
+      <p
+        class="large-font"
+        v-if="filteredArr.length ===0"
+      >Пока нет товаров...</p>
+
       <div class="section-grid">
         <product-card
           v-for="(product,idx) in filteredArr"
@@ -37,7 +42,7 @@ import ProductCardVue from "~/components/common/ProductCard.vue";
 import { getProductByCategory } from "~/api/products";
 import { getOneByCategory } from "~/api/subcategories";
 export default {
-  name: "fencePage.vue",
+  name: "productPage.vue",
 
   components: {
     "app-section": sectionVue,
@@ -53,11 +58,7 @@ export default {
       );
     },
     categoryId() {
-      const categoryObj =
-        this.categories.find(
-          el => String(el.name).toLowerCase() === this.$route.params.category
-        ) || {};
-      return categoryObj.id;
+      return this.$route.query.category_id;
     }
   },
 
@@ -66,9 +67,7 @@ export default {
       console.log({ tab });
       this.activeTab = tab;
     },
-    getSetOfObjItems(arr = [], objItem) {
-      return Array.from(new Set(arr.map(el => el[objItem].name)));
-    },
+
     getProductsByCategory() {
       getProductByCategory(this.categoryId)
         .then((res = {}) => {
@@ -111,6 +110,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  main {
+    flex: 1;
+  }
   .section {
     background-color: #fff;
 

@@ -2,17 +2,44 @@
   <footer class="footer footer-padding base-font">
     <nav class="container-footer container">
       <ul class="footer-navitems">
-        <li class="footer-navitem" v-for="(item, index) in menu_list" :key="index">
+        <li class="footer-navitem">
+          <h6>Продукция</h6>
+          <ul>
+            <li
+              class="footer-navlink footer-navlink_info small-font"
+              v-for="(link, idx) in $store.state.categories.list"
+              :key="idx"
+            >
+              <arrow
+                :color="'#ff5b00'"
+                :borderWidth="'1px'"
+                :size="'10px'"
+                :direction="'right'"
+              />
+              <nuxt-link :to='`/products/${link.name}`'>{{link.name}}</nuxt-link>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="footer-navitem"
+          v-for="(item, index) in menu_list"
+          :key="index"
+        >
           <h6>{{item.name}}</h6>
           <ul>
             <li
               class="footer-navlink footer-navlink_info small-font"
               v-for="(link, idx) in item.links"
               :key="idx"
-              @click="$router.push(link.path)"
             >
-              <arrow :color="'#ff5b00'" :borderWidth="'1px'" :size="'10px'" :direction="'right'" />
-              {{link.name}}
+              <arrow
+                :color="'#ff5b00'"
+                :borderWidth="'1px'"
+                :size="'10px'"
+                :direction="'right'"
+              />
+              <nuxt-link :to="link.path">{{link.name}}</nuxt-link>
+
             </li>
           </ul>
         </li>
@@ -28,8 +55,16 @@
           :key="idx"
         >{{contact.name}}</li>
       </ul>
-      <img src="../../assets/icons/facebook.svg" alt="fb-icon" class="footer-icon" />
-      <img src="../../assets/icons/youtube.svg" alt="fb-icon" class="footer-icon" />
+      <img
+        src="../../assets/icons/facebook.svg"
+        alt="fb-icon"
+        class="footer-icon"
+      />
+      <img
+        src="../../assets/icons/youtube.svg"
+        alt="fb-icon"
+        class="footer-icon"
+      />
     </address>
   </footer>
 </template>
@@ -73,25 +108,25 @@ export default {
   components: {
     arrow: ArrowVue
   },
+  computed: {
+    dynamicLinks() {
+      const links = this.$store.state.categories.list.map(category => ({
+        name: category.name,
+        path: `/${category.name}`
+      }));
+      return links;
+    }
+  },
   data() {
     return {
       menu_list: [
         {
-          name: "Продукция",
-          links: [
-            { name: "Ограждения", path: "/products/fence" },
-            { name: "Ворота и калитки", path: "/products/gates" },
-            { name: "Бетонные столбики", path: "/products/pillar" },
-            { name: "Садовые дорожки", path: "/products/lanes" }
-          ]
-        },
-        {
           name: "Информация",
           links: [
-            { name: "О нас", path: "/about" },
-            { name: "Популярные товары", path: "/popular" },
-            { name: "Каталог", path: "/catalog" },
-            { name: "Новости", path: "/blog" }
+            { name: "о нас", path: "/about" },
+            { name: "популярные товары", path: "/popular" },
+            { name: "каталог", path: "/catalog" },
+            { name: "новости", path: "/blog" }
           ]
         }
       ],

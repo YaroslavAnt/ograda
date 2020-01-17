@@ -3,12 +3,20 @@
     <div class="section-padding section-intro">
       <h2 class="hero-heading with-skewed-bg">{{content.section_heading}}</h2>
     </div>
-    <slider :slider_items="content.slider_items" :withAutoPlay="true" :withFilter="true" />
+    <slider
+      :slider_items="content.slider_items"
+      :withAutoPlay="true"
+      :withFilter="true"
+    />
   </section>
 </template>
 
 <script>
 import SliderVue from "~/components/common/Slider.vue";
+import zabor from "~/assets/img/fence/but/but_1.jpg";
+import rabitsa from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
+import vorota from "~/assets/img/fence/fagot/fagot_1.jpg";
+import stolbiki from "~/assets/img/fence/but_loza/but_loza_3.jpg";
 
 export default {
   name: "hero.vue",
@@ -20,6 +28,68 @@ export default {
       type: Object,
       default: {}
     }
+  },
+  // computed: {
+  //   slides() {
+  //     return this.$store.state.categories.list.map(category =>{
+  //       this.$store.state.products.list.find(product => product.)
+  //     });
+  //   }
+  // },
+  data() {
+    return {
+      slider_items: [
+        {
+          img_src: zabor,
+          img_alt: "Бетонные заборы",
+          heading: "Бетонные заборы",
+          text:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, sit? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam, expedita.",
+          path: "/fence-koncrete"
+        },
+        {
+          img_src: rabitsa,
+          img_alt: "Забор из сетки",
+          heading: "Забор из сетки",
+          text:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, sit? Lorem ipsum dolor sit amet.",
+          path: "/fence-rabitz"
+        },
+        {
+          img_src: rabitsa,
+          img_alt: "Забор из профнастила",
+          heading: "Забор из профнастила",
+          text:
+            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam, veritatis.",
+          path: "/fence-steel"
+        },
+
+        {
+          img_src: vorota,
+          img_alt: "Ворота и калитки",
+          heading: "Ворота и калитки",
+          text:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, sit? Lorem ipsum dolor sit amet consectetur adipisicing.",
+          path: "/gates"
+        },
+        {
+          img_src: stolbiki,
+          img_alt: "Бетонные столбики",
+          heading: "Бетонные столбики",
+          text:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, sit? Lorem, ipsum dolor.",
+          path: "/pillar"
+        },
+        {
+          img_src: rabitsa,
+          img_alt: "Садовые дорожки",
+          heading: "Садовые дорожки",
+          text:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aliquid minus aspernatur.",
+          path: "/lane"
+        }
+      ]
+    };
   }
 };
 </script>

@@ -27,3 +27,20 @@
     }
   }
 }
+
+.app-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: 24px;
+  background: var(--red);
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: "Montserrat", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

@@ -1,12 +1,18 @@
 ﻿<template>
-  <app-secion :heading="section_heading" class="section">
+  <app-secion
+    :heading="section_heading"
+    class="section"
+  >
     <div class="news-grid">
-      <blog-card v-for="(card,idx) in news" :key="idx" :card="card" />
+      <blog-card
+        v-for="(card,idx) in news"
+        :key="idx"
+        :card="card"
+      />
     </div>
-    <span
-      class="section-link base-font"
-      @click="$router.push('/blog')"
-    >Смотреть больше новостей &rarr;</span>
+    <nuxt-link to='/blog'>
+      <span class="section-link base-font">Смотреть больше новостей &rarr;</span>
+    </nuxt-link>
   </app-secion>
 </template>
 

@@ -1,16 +1,16 @@
 ﻿<template>
   <article class="card">
     <app-image
-      :img_src="BASE_URL+ product.img_set[0]"
+      :img_src="getImageUrl(product)"
       :img_alt="product.img_alt"
       :lazy="false"
       :ratio="67"
     />
 
-    <p
+    <nuxt-link
+      :to="`/products/${product.category.name}/${product.id}`"
       class="card-name base-font"
-      @click="onClickProduct(product.category, product.id)"
-    >{{product.name}}</p>
+    >{{product.name}}</nuxt-link>
 
     <div class="card-text">
       <span
@@ -31,9 +31,16 @@ export default {
       BASE_URL: "http://kolbasa.qbex.io/"
     };
   },
+  computed: {},
+
   name: "ProductCard.vue",
   props: ["product"],
   methods: {
+    getImageUrl(product) {
+      return Array.isArray(product.img_set)
+        ? this.BASE_URL + product.img_set[0]
+        : "";
+    },
     onClickProduct(category, id) {
       console.log({ category });
       const categories = {

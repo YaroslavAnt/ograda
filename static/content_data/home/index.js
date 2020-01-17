@@ -23,8 +23,8 @@ export default {
       },
       {
         img_src: rabitsa,
-        img_alt: "Сетка-рабица",
-        heading: "Сетка-рабица",
+        img_alt: "Забор из сетки",
+        heading: "Забор из сетки",
         text:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, sit? Lorem ipsum dolor sit amet.",
         path: "/fence-rabitz"

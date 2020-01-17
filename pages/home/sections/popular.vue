@@ -1,5 +1,8 @@
 ﻿<template>
-  <app-section :heading="'Популярные товары'">
+  <app-section
+    :heading="'Популярные товары'"
+    v-if="getPopularProducts.length>0"
+  >
     <div class="section-grid">
       <product-card
         v-for="(product,idx) in getPopularProducts"
@@ -24,7 +27,11 @@ export default {
 
   computed: {
     getPopularProducts() {
-      return this.$store.getters["products/getPopularProducts"];
+      console.log(
+        "products/getPopularProducts",
+        this.$store.getters["products/getPopularProducts"]
+      );
+      return this.$store.getters["products/getPopularProducts"] || [{}];
     }
   }
 };

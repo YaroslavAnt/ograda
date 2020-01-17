@@ -6,24 +6,24 @@
     <div class="contact">
       <form class="form">
         <p class="medium-font">Напишите нам</p>
-        <input
+        <!-- <input
           type="text"
           placeholder="Имя"
           class="input"
           v-model="formData.name"
-        />
+        /> -->
         <input
           type="email"
-          placeholder="Эл.почта"
+          placeholder="Ваша эл.почта"
           class="input"
           v-model="formData.email"
         />
-        <input
+        <!-- <input
           type="tel"
           placeholder="Телефон"
           class="input"
           v-model="formData.phone"
-        />
+        /> -->
         <textarea
           class="input area"
           placeholder="Сообщение"
@@ -132,6 +132,7 @@ export default {
   .contact {
     display: grid;
     grid-gap: 24px;
+    align-items: center;
     @media (min-width: 600px) {
       grid-template-columns: repeat(2, 1fr);
     }

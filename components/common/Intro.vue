@@ -1,21 +1,51 @@
 ﻿<template>
-  <div class="box" :class="{reversed: reversed}">
-    <div class="box-img" :class="{'with-border': withBorder}">
-      <app-image :img_src="img_src" :img_alt="img_alt" :lazy="true" :ratio="100" />
+  <div
+    class="box"
+    :class="{reversed: reversed}"
+  >
+    <div
+      class="box-img"
+      :class="{'with-border': withBorder}"
+    >
+      <app-image
+        :img_src="img_src"
+        :img_alt="img_alt"
+        :lazy="true"
+        :ratio="100"
+      />
     </div>
     <div class="box-text">
-      <h4 v-if="heading" class="heading big-font">{{heading}}</h4>
+      <h4
+        v-if="heading"
+        class="heading big-font"
+      >{{heading}}</h4>
       <div class="intro-text base-font">
-        <div v-for="(paragraph,idx) in paragraphs" :key="idx">
+        <div
+          v-for="(paragraph,idx) in paragraphs"
+          :key="idx"
+        >
           <p>{{ paragraph.text }}</p>
-          <ul v-if="paragraph.list" class="small-font">
-            <li v-for="(item,idx) in paragraph.list" :key="idx">{{ item }}</li>
+          <ul
+            v-if="paragraph.list"
+            class="small-font"
+          >
+            <li
+              v-for="(item,idx) in paragraph.list"
+              :key="idx"
+            >{{ item }}</li>
           </ul>
         </div>
       </div>
       <slot />
-      <div v-if="link" class="intro-btn">
-        <app-button :text="'Подробнее'" @click="this.$router.push(link)"></app-button>
+      <div
+        v-if="link"
+        class="intro-btn"
+      >
+        <nuxt-link
+          :to='link'
+          class="app-button"
+        >Подробнее</nuxt-link>
+        <!-- <app-button :text="'Подробнее'" @click="this.$router.push(link)"></app-button> -->
       </div>
     </div>
   </div>

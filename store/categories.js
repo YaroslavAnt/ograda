@@ -11,10 +11,10 @@ const getters = {
 };
 
 const actions = {
-  async fetchFence({ commit }) {
+  async fetchCategories({ commit }) {
     try {
       const response = await getAll();
-      commit("SET_CATEGORIES", response.data);
+      commit("categories/SET_CATEGORIES", response.data);
     } catch (error) {
       console.log("*******");
     }

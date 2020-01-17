@@ -14,7 +14,7 @@
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
       >
-        <router-link :to='`/products/${category.name}`'>
+        <router-link :to='{path:`/products/${category.name}?category_id=${category.id}`}'>
           <span class="nav-link">{{category.name}}</span>
         </router-link>
       </li>

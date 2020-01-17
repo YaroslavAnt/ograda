@@ -13,3 +13,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  main {
+    flex: 1;
+  }
+</style>

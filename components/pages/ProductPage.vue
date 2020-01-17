@@ -1,7 +1,7 @@
 ﻿<template>
   <section class="section-padding">
     <article class="section-padding">
-      <div class="flexbox">
+      <div class="gridbox">
         <div class="slider-box">
           <app-image
             :img_src="product.img_set&&baseUrl+product.img_set[active_img]"
@@ -107,13 +107,18 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
   }
-  .flexbox {
-    display: flex;
+  .gridbox {
+    display: grid;
+    grid-gap: 24px;
 
-    .slider-box {
-      width: 50%;
-      flex-shrink: 0;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
     }
+
+    // .slider-box {
+    //   width: 50%;
+    //   flex-shrink: 0;
+    // }
 
     .preview {
       display: flex;
@@ -144,8 +149,6 @@ export default {
   }
 
   .info-box {
-    margin-left: 32px;
-
     &-description,
     &-name,
     &-price {

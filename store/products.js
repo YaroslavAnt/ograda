@@ -14,7 +14,11 @@ const getters = {
     return state.product;
   },
   getPopularProducts: state => {
-    return state.list.filter(product => Boolean(product.isPopular));
+    console.log({ state });
+    return state.list.filter(product => {
+      console.log({ product });
+      return product.isPopular === 1;
+    });
   }
 };
 

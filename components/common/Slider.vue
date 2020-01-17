@@ -6,23 +6,39 @@
       class="slider-item"
       :class="{'active-slide': current_slide===idx}"
     >
-      <div class="slider-filterbox" :class="{'with-filter': withFilter}">
-        <app-image :img_src="slide.img_src" :img_alt="slide.img_alt" :lazy="true" :ratio="56.25" />
+      <div
+        class="slider-filterbox"
+        :class="{'with-filter': withFilter}"
+      >
+        <app-image
+          :img_src="slide.img_src"
+          :img_alt="slide.img_alt"
+          :lazy="true"
+          :ratio="56.25"
+        />
       </div>
 
       <div class="slider-content section-padding">
-        <h3 v-if="slide.heading" class="slider-heading huge-font">{{ slide.heading }}</h3>
-        <p v-if="slide.text" class="slider-text base-font">{{ slide.text }}</p>
-        <app-button
+        <h3
+          v-if="slide.heading"
+          class="slider-heading huge-font"
+        >{{ slide.heading }}</h3>
+        <p
+          v-if="slide.text"
+          class="slider-text base-font"
+        >{{ slide.text }}</p>
+        <nuxt-link
           v-if="slide.path"
-          class="slider-btn"
-          :text="'Подробнее'"
-          @click.native="$router.push(slide.path)"
-        ></app-button>
+          :to='slide.path'
+          class="slider-btn app-button"
+        >Подробнее</nuxt-link>
       </div>
 
       <div class="arrows section-padding">
-        <div class="arrow arrow-left" @click="backvard()">
+        <div
+          class="arrow arrow-left"
+          @click="backvard()"
+        >
           <app-arrow :size="'12px'" />
         </div>
 
@@ -36,7 +52,10 @@
           ></div>
         </div>
 
-        <div class="arrow arrow-right" @click="forvard()">
+        <div
+          class="arrow arrow-right"
+          @click="forvard()"
+        >
           <app-arrow :size="'12px'" />
         </div>
       </div>
