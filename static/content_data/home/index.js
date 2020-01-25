@@ -71,30 +71,22 @@ export default {
     card_list: [
       {
         icon: cargo,
-        heading: "Доставка продукции и стройматериалов",
-        // intro_txt:
-        //   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos consequuntur cumque aperiam dolore mollitia. Accusamus ipsa sed blanditiis incidunt tempora?",
+        heading: "Доставка продукции и строй-материалов",
         link: "/services"
       },
       {
         icon: fence,
         heading: "Установка заборов, ворот",
-        // intro_txt:
-        //   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos consequuntur cumque aperiam dolore mollitia. Accusamus ipsa sed blanditiis incidunt tempora?",
         link: "/services"
       },
       {
         icon: brush,
         heading: "Покраска заборов",
-        // intro_txt:
-        //   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos consequuntur cumque aperiam dolore mollitia. Accusamus ipsa sed blanditiis incidunt tempora?",
         link: "/services"
       },
       {
         icon: measure,
         heading: "Выезд замерщика",
-        // intro_txt:
-        //   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos consequuntur cumque aperiam dolore mollitia. Accusamus ipsa sed blanditiis incidunt tempora?",
         link: "/services"
       }
     ]

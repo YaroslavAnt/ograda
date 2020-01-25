@@ -1,15 +1,29 @@
 ﻿<template>
   <article class="card">
-    <app-image :img_src="card.img_src" :img_alt="card.img_alt" :lazy="true" />
+    <app-image
+      :img_src="BASE_URL+ card.image"
+      :img_alt="card.img_alt"
+      :lazy="true"
+    />
     <div class="card-text">
       <span class="card-label base-font">
         <icon-base>
           <icon-calendar />
         </icon-base>
-        {{card.date}}
+        {{date}}
       </span>
-      <p class="card-name base-font">{{card.name}}</p>
-      <p class="card-price small-font">{{card.text}}</p>
+      <p
+        class="card-name"
+        :class="{'base-font': !isWhole, 'medium-font': isWhole}"
+      >{{card.title}}</p>
+      <p
+        v-if="!isWhole"
+        class="card-price small-font"
+      >{{card.short_body}}</p>
+      <p
+        v-if="isWhole"
+        class="card-price base-font"
+      >{{card.body}}</p>
     </div>
   </article>
 </template>
@@ -18,6 +32,7 @@
 import ImageBaseVue from "./ImageBase.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
+import { BASE_URL } from "../../config";
 
 export default {
   name: "BlogCard",
@@ -26,11 +41,28 @@ export default {
     "icon-base": IconBaseVue,
     "icon-calendar": IconCalendarVue
   },
+  computed: {
+    date() {
+      return this.card.created_at
+        .split(" ")[0]
+        .split("-")
+        .reverse()
+        .join(".");
+    }
+  },
   props: {
     card: {
       type: Object,
       default: {}
+    },
+    isWhole: {
+      type: Boolean
     }
+  },
+  data() {
+    return {
+      BASE_URL
+    };
   }
 };
 </script>
@@ -46,6 +78,11 @@ export default {
       padding: 40px 16px 20px;
       background-color: #eee;
       position: relative;
+      height: 100%;
+    }
+
+    &-name {
+      margin-bottom: 24px;
     }
 
     &-label {

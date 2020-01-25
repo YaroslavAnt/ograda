@@ -46,7 +46,11 @@
     width: 100%;
     justify-content: space-between;
     font-weight: 500;
-    height: 105px;
+    height: 85px;
+
+    @media (min-width: 768px) {
+      height: 105px;
+    }
 
     .menu {
       display: flex;
@@ -57,12 +61,15 @@
     }
 
     &-location {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      background-color: var(--dark);
-      color: var(--white);
-      height: 35px;
+      display: none;
+      @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: var(--dark);
+        color: var(--white);
+        height: 35px;
+      }
     }
     &-logo {
       flex: 1;

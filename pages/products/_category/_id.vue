@@ -27,7 +27,14 @@ export default {
     return {
       product: {
         name: "",
-        subcategory: { name: "" }
+        subcategory: { name: "" },
+        description: "",
+        img_set: [],
+        option: {},
+        category: {
+          name: "",
+          id: ""
+        }
       }
     };
   },
@@ -44,11 +51,13 @@ export default {
   },
   methods: {
     fetchProduct() {
+      this.$store.dispatch("common/runSpinner");
       getProduct(this.$route.params.id)
         .then(res => {
           this.product = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"));
+        .catch(() => alert("Невозможно загрузить данные"))
+        .finally(() => this.$store.dispatch("common/stopSpinner"));
     }
   }
 };

@@ -1,17 +1,23 @@
 ﻿<template>
   <div class="page">
+    <app-spinner></app-spinner>
     <div
       class="overlay"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
       @click="$store.commit('common/SET_MENU', !$store.state.common.isMenuOpen)"
     ></div>
+
     <nav
       class="sidebar"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
     >
       <app-sidebar :current_page="current_page"></app-sidebar>
     </nav>
-    <div class="content">
+
+    <div
+      class="content"
+      ref="scrolledContent"
+    >
       <app-header :current_page="current_page"></app-header>
       <nuxt />
       <app-footer></app-footer>
@@ -45,7 +51,7 @@
   }
   .sidebar {
     height: 100vh;
-    width: 280px;
+    width: 260px;
     flex-grow: 0;
     flex-shrink: 0;
     border-right: 1px solid var(--dark);
@@ -77,16 +83,23 @@ import headerVue from "../components/layout/header.vue";
 import footerVue from "../components/layout/footer.vue";
 import { getAll } from "../api/categories";
 import { getAllProducts } from "../api/products";
+import { getAllPosts } from "../api/posts";
+import SliderVue from "../components/common/Slider.vue";
+import SpinnerVue from "../components/common/Spinner.vue";
+import httpClient from "../api/httpClient";
+
 export default {
   name: "default.vue",
   components: {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
-    "app-footer": footerVue
+    "app-footer": footerVue,
+    "app-spinner": SpinnerVue
   },
   watch: {
     $route(to) {
       this.current_page = to.path;
+      this.$refs.scrolledContent.scrollTo(0, 0);
     }
   },
   created() {
@@ -97,17 +110,25 @@ export default {
       current_page: "/"
     };
   },
+  methods: {
+    name() {}
+  },
+
   mounted() {
-    getAll()
-      .then(res => {
+    this.$store.dispatch("common/runSpinner");
+    Promise.all([
+      getAll().then(res => {
         this.$store.commit("categories/SET_CATEGORIES", res.data.data);
-      })
-      .catch(() => alert("Невозможно загрузить данные"));
-    getAllProducts()
-      .then(res => {
+      }),
+      getAllProducts().then(res => {
         this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
+      }),
+      getAllPosts().then(({ data }) => {
+        this.$store.commit("posts/SET_POSTS", data.data.data);
       })
-      .catch(() => alert("Невозможно загрузить данные"));
+    ])
+      .catch(() => alert("Невозможно загрузить данные"))
+      .finally(() => this.$store.dispatch("common/stopSpinner"));
   }
 };
 </script>

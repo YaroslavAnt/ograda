@@ -98,10 +98,11 @@ export default {
       color: #fff;
       padding: 8px 16px;
       position: absolute;
-      top: 50%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, 0%);
       width: 65%;
+      min-width: 260px;
       text-align: center;
       cursor: pointer;
       &:hover {

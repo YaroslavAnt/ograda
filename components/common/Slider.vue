@@ -93,7 +93,7 @@ export default {
       this.current_slide = idx;
     },
     start() {
-      this.intervalid1 = setInterval(this.forvard, 8000);
+      this.intervalid1 = setInterval(this.forvard, 3000);
     },
     stop() {
       clearInterval(this.intervalid1);

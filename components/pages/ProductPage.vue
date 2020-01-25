@@ -4,12 +4,17 @@
       <div class="gridbox">
         <div class="slider-box">
           <app-image
-            :img_src="product.img_set&&baseUrl+product.img_set[active_img]"
+            :img_src="baseUrl+product.img_set[active_img]"
             :img_alt="product.img_alt"
             :lazy="false"
             :ratio="69"
             class="slider-box-image"
-          />
+          >
+            <span
+              v-if="product.option.label"
+              class="slider-box-image-label small-font"
+            >{{product.option.label}}</span>
+          </app-image>
           <div class="preview">
             <div
               class="preview-item"
@@ -29,6 +34,22 @@
         </div>
 
         <div class="info-box">
+          <div class="info-box-breadcrumbs">
+            <nuxt-link
+              to='/home'
+              class="small-font crumb"
+            >&#8962; ГЛАВНАЯ ></nuxt-link>
+            <nuxt-link
+              :to='{path:`/products/${product.category.name}?category_id=${product.category.id}`}'
+              class="small-font crumb"
+            >{{product.category.name}} ></nuxt-link>
+            <nuxt-link
+              class="small-font crumb"
+              :to='{path:`/products/${product.category.name}?category_id=${product.category.id}&subcategory=${product.subcategory.name}`}'
+            >
+              {{product.subcategory.name}} </nuxt-link>
+          </div>
+
           <h2 class="info-box-name big-font bold">{{product.name}}</h2>
           <p class="info-box-price medium-font">
             Цена:
@@ -39,7 +60,7 @@
             v-for="(paragraph, idx) in getArrayFromDescription"
             :key="idx"
           >{{ paragraph }}</p>
-          <p class="info-box-category small-font">Категория: {{product.category && product.category.name}}</p>
+          <p class="info-box-category small-font">Категория: {{product.category.name}}</p>
           <p
             v-if="product.option"
             class="info-box-option"
@@ -69,10 +90,10 @@ export default {
 
   props: {
     product: {
-      type: Object,
-      default: {}
+      type: Object
     }
   },
+
   data() {
     return {
       active_img: 0,
@@ -138,9 +159,29 @@ export default {
     background: #fff;
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+    position: relative;
+
+    &-label {
+      display: block;
+      background-color: var(--green);
+      color: #fff;
+      text-transform: uppercase;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 4px 8px;
+      border-radius: 0px 0 0 4px;
+    }
   }
 
   .info-box {
+    &-breadcrumbs {
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      .crumb {
+        font-weight: bold;
+      }
+    }
     &-description,
     &-name,
     &-price {

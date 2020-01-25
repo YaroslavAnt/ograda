@@ -10,13 +10,26 @@
       </li>
 
       <li
+        class="nav-link"
         @click="onClickNavItem"
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
       >
         <router-link :to='{path:`/products/${category.name}?category_id=${category.id}`}'>
-          <span class="nav-link">{{category.name}}</span>
+          <span>{{category.name}}</span>
         </router-link>
+
+        <ul class="sidebar-subnav">
+          <li
+            @click="onClickNavItem"
+            v-for="(subcategory,idx) in category.subcategories"
+            :key="idx"
+          >
+            <router-link :to='{path:`/products/${category.name}?category_id=${category.id}&subcategory=${subcategory.name}`}'>
+              <span class="nav-link">{{subcategory.name}}</span>
+            </router-link>
+          </li>
+        </ul>
       </li>
 
       <li
@@ -100,12 +113,16 @@ export default {
     background-color: var(--light-blue);
     flex-shrink: 0;
     transform: rotateY(180deg);
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+    }
   }
 
   .sidebar-nav {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    // overflow: scroll;
 
     &::-webkit-scrollbar {
       width: 0px; /* Remove scrollbar space */
@@ -148,6 +165,12 @@ export default {
       &:hover {
         border-left: 3px solid var(--red);
         color: var(--red);
+
+        .sidebar-subnav {
+          @media (min-width: 768px) {
+            display: block;
+          }
+        }
       }
 
       &.open-submenu.with-submenu {
@@ -160,15 +183,17 @@ export default {
   }
 
   .sidebar-subnav {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding-left: 16px;
-    transition-duration: 0.3s;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #fff;
+    transition-duration: 0.3sec;
+    width: 280px;
+    transition-duration: 1s;
+    display: none;
 
-    &.open-submenu {
-      opacity: 1;
-      max-height: 500px;
+    &:hover {
+      display: block;
     }
   }
 </style>

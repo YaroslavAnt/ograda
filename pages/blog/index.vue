@@ -7,9 +7,10 @@
     >
       <div class="grid">
         <blog-card
+          :isWhole='true'
           :card="card"
           class="article section-padding"
-          v-for="(card,idx) in news"
+          v-for="(card,idx) in this.$store.state.posts.list"
           :key="idx"
         />
       </div>
@@ -19,9 +20,6 @@
 
 <script>
 import sectionVue from "~/components/layout/section.vue";
-import but_3 from "~/assets/img/fence/but/but_3.jpg";
-import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
-import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
 import BlogCardVue from "~/components/common/BlogCard.vue";
 
 export default {
@@ -43,36 +41,7 @@ export default {
   },
   data() {
     return {
-      section_heading: "Отчеты о выполненных работах",
-      news: [
-        {
-          img_src: but_3,
-          img_alt: "Установка еврозабора",
-          name: "Новость №1",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error facere, deserunt fugiat magnam ipsam suscipit?",
-          date: "29.12.2018",
-          id: "123456"
-        },
-        {
-          img_src: but_loza_3,
-          img_alt: "Установка еврозабора",
-          name: "Новость №2",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error facere, deserunt fugiat magnam ipsam suscipit?",
-          date: "29.12.2018",
-          id: "223456"
-        },
-        {
-          img_src: but_rovnyi_1,
-          img_alt: "Установка еврозабора",
-          name: "Новость №3",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error facere, deserunt fugiat magnam ipsam suscipit?",
-          date: "29.12.2018",
-          id: "323456"
-        }
-      ]
+      section_heading: "Отчеты о выполненных работах"
     };
   }
 };
@@ -88,8 +57,10 @@ export default {
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     grid-gap: 24px;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   .article {
     background-color: #f2f1ef;

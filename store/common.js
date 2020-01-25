@@ -1,7 +1,8 @@
 ﻿import { getProductByCategory } from "~/api/products";
 
 export const state = () => ({
-  isMenuOpen: false
+  isMenuOpen: false,
+  isSpinnerActive: false
 });
 
 const getters = {
@@ -10,16 +11,14 @@ const getters = {
   }
 };
 
-// const actions = {
-//   setMenuState({ commit }) {
-//     try {
-//       const response = await getProductByCategory();
-//       commit("SET_FENCE", response.data);
-//     } catch (error) {
-//       console.log("*******");
-//     }
-//   }
-// };
+export const actions = {
+  runSpinner({ commit }) {
+    commit("RUN_SPINNER");
+  },
+  stopSpinner({ commit }) {
+    commit("STOP_SPINNER");
+  }
+};
 
 export const mutations = {
   OPEN_MENU(state, data) {
@@ -30,6 +29,12 @@ export const mutations = {
   },
   SET_MENU(state, data) {
     state.isMenuOpen = data;
+  },
+  RUN_SPINNER(state) {
+    state.isSpinnerActive = true;
+  },
+  STOP_SPINNER(state) {
+    state.isSpinnerActive = false;
   }
 };
 
@@ -37,6 +42,6 @@ export default {
   namespaced: true,
   state,
   getters,
-  // actions,
+  actions,
   mutations
 };

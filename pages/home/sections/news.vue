@@ -5,13 +5,13 @@
   >
     <div class="news-grid">
       <blog-card
-        v-for="(card,idx) in news"
+        v-for="(post,idx) in this.$store.state.posts.list.slice(0,3)"
         :key="idx"
-        :card="card"
+        :card="post"
       />
     </div>
     <nuxt-link to='/blog'>
-      <span class="section-link base-font">Смотреть больше новостей &rarr;</span>
+      <span class="section-link base-font">&rarr; Смотреть больше новостей </span>
     </nuxt-link>
   </app-secion>
 </template>
@@ -34,35 +34,7 @@ export default {
   data() {
     return {
       section_heading: "Отчеты о выполненных работах",
-      news: [
-        {
-          img_src: but_3,
-          img_alt: "Установка еврозабора",
-          name: "Новость №1",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error facere, deserunt fugiat magnam ipsam suscipit?",
-          date: "29.12.2018",
-          id: "123456"
-        },
-        {
-          img_src: but_loza_3,
-          img_alt: "Установка еврозабора",
-          name: "Новость №2",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error facere, deserunt fugiat magnam ipsam suscipit?",
-          date: "29.12.2018",
-          id: "223456"
-        },
-        {
-          img_src: but_rovnyi_1,
-          img_alt: "Установка еврозабора",
-          name: "Новость №3",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error facere, deserunt fugiat magnam ipsam suscipit?",
-          date: "29.12.2018",
-          id: "323456"
-        }
-      ]
+      posts: this.$store.state.posts.list
     };
   }
 };

@@ -1,8 +1,8 @@
 ﻿<template>
   <main>
-    <h1>Каталог продукции в категории {{category}}</h1>
+    <h1>{{category}}</h1>
     <app-section
-      :heading="'Ограждения'"
+      :heading="String(category).toUpperCase()"
       class="section"
     >
       <div class="section-switch">
@@ -19,11 +19,10 @@
           @click="setActiveTab(new String(tab.name).toUpperCase())"
         >{{new String(tab.name).toUpperCase()}}</span>
       </div>
-
       <p
         class="large-font"
         v-if="filteredArr.length ===0"
-      >Пока нет товаров...</p>
+      >Товары еще не загружены...</p>
 
       <div class="section-grid">
         <product-card
@@ -47,12 +46,12 @@ export default {
 
   head() {
     return {
-      title: `Каталог продукции в категории: ${this.category}`,
+      title: `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: `Полный перечень продукции в каегории ${this.category} с описанием ценами и фотографиями. `
+          content: `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `
         }
       ]
     };
@@ -70,12 +69,6 @@ export default {
           ? el
           : new String(el.subcategory.name).toUpperCase() === this.activeTab
       );
-    },
-    categoryId() {
-      return this.$route.query.category_id;
-    },
-    category() {
-      return this.$route.params.category;
     }
   },
 
@@ -83,39 +76,51 @@ export default {
     setActiveTab(tab) {
       this.activeTab = tab;
     },
-
     getProductsByCategory() {
-      getProductByCategory(this.categoryId)
-        .then((res = {}) => {
-          this.products = res.data.data.data;
-        })
-        .catch(() => {
-          alert("Невозможно загрузить данные");
-        });
-      // .finally(() => this.$store.commit("STOP_SPINNER"));
+      getProductByCategory(this.categoryId).then((res = {}) => {
+        this.products = res.data.data.data;
+      });
     },
     getSubcategories() {
-      getOneByCategory(this.categoryId)
-        .then((res = {}) => {
-          this.subcategories = res.data.data;
-        })
-        .catch(() => {
-          alert("Невозможно загрузить данные");
-        });
+      getOneByCategory(this.categoryId).then((res = {}) => {
+        this.subcategories = res.data.data;
+      });
     }
   },
 
   mounted() {
-    const query = this.$route.query.subcategory || "ВСЕ ВИДЫ";
+    const query = this.subcategory || "ВСЕ ВИДЫ";
     this.setActiveTab(new String(query).toUpperCase());
-    this.getProductsByCategory();
-    this.getSubcategories();
+    this.$store.dispatch("common/runSpinner");
+    Promise.all([this.getSubcategories(), this.getProductsByCategory()])
+      .catch(() => {
+        alert("Невозможно загрузить данные");
+      })
+      .finally(() => this.$store.dispatch("common/stopSpinner"));
   },
 
   data() {
     return {
+      subcategory: this.$route.query.subcategory,
+      category: this.$route.params.category,
       activeTab: null,
-      products: [],
+
+      categoryId: this.$route.query.category_id,
+      products: [
+        {
+          description: "",
+          img_set: [],
+          option: {},
+          category: {
+            name: "",
+            id: ""
+          },
+          subcategory: {
+            name: "",
+            id: ""
+          }
+        }
+      ],
       categories: this.$store.state.categories.list,
       subcategories: []
     };

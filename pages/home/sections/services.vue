@@ -19,7 +19,7 @@
     <router-link
       class="section-link base-font"
       to="/services"
-    >Услуги по установке заборов &rarr;</router-link>
+    >&rarr; Услуги по установке заборов </router-link>
   </app-section>
 </template>
 

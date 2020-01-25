@@ -3,27 +3,32 @@
 export const state = () => ({
   list: [
     {
-      name: "",
-      subcategories: [
-        {
-          name: ""
-        }
-      ]
+      id: "",
+      img_alt: "",
+      title: "",
+      body: "",
+      short_body: "",
+      image: "",
+      created_at: "",
+      updated_at: ""
     }
   ]
 });
 
 const getters = {
-  getFence(state) {
+  getPosts(state) {
     return state.list;
+  },
+  getLastPosts(state) {
+    return state.list.slice(-3);
   }
 };
 
 const actions = {
-  async fetchCategories({ commit }) {
+  async fetchPosts({ commit }) {
     try {
       const response = await getAll();
-      commit("categories/SET_CATEGORIES", response.data);
+      commit("posts/SET_POSTS", response.data);
     } catch (error) {
       console.log("*******");
     }
@@ -31,7 +36,7 @@ const actions = {
 };
 
 export const mutations = {
-  SET_CATEGORIES(state, data) {
+  SET_POSTS(state, data) {
     state.list = data;
   }
 };

@@ -2,7 +2,10 @@
   <footer class="footer footer-padding base-font">
     <nav class="container-footer container">
       <ul class="footer-navitems">
-        <li class="footer-navitem">
+        <li
+          class="footer-navitem"
+          v-if="$store.state.categories.list.length >0"
+        >
           <h6>Продукция</h6>
           <ul>
             <li
@@ -76,10 +79,13 @@
     font-weight: 500;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
+    @media (min-width: 500px) {
+      flex-direction: row;
+    }
 
     &-navitems {
-      display: flex;
+      display: inline-flex;
       flex-wrap: wrap;
     }
     &-navitem {
@@ -96,6 +102,7 @@
       }
 
       &_info {
+        text-transform: uppercase;
         margin-right: 12px;
       }
     }
@@ -129,7 +136,6 @@ export default {
           name: "Информация",
           links: [
             { name: "о нас", path: "/about" },
-            { name: "популярные товары", path: "/popular" },
             { name: "каталог", path: "/prices" },
             { name: "новости", path: "/blog" }
           ]
