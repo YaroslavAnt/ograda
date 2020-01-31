@@ -12,6 +12,7 @@
     border-bottom: 3px solid;
     border-right: 3px solid;
     transform: rotate(45deg);
+    cursor: pointer;
 
     &.left {
       transform: rotate(135deg);
@@ -29,7 +30,7 @@
 
 <script>
 export default {
-  name: "Arrow.vue",
+  name: "Arrow",
   props: ["color", "size", "borderWidth", "direction"]
 };
 </script>

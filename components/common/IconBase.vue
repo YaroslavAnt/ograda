@@ -7,7 +7,10 @@
     :aria-labelledby="iconName"
     role="presentation"
   >
-    <title :id="iconName" lang="en">{{iconName}} icon</title>
+    <title
+      :id="iconName"
+      lang="en"
+    >{{iconName}} icon</title>
     <g :fill="iconColor">
       <slot />
     </g>
@@ -40,7 +43,6 @@ export default {
 
 <style scoped>
   svg {
-    margin-right: 12px;
     display: inline-block;
     vertical-align: baseline;
     margin-bottom: -2px; /* yes, I'm that particular about formatting */

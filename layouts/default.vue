@@ -17,10 +17,22 @@
     <div
       class="content"
       ref="scrolledContent"
+      id="scrolledContent"
     >
       <app-header :current_page="current_page"></app-header>
       <nuxt />
       <app-footer></app-footer>
+
+      <div class="connect">
+        <a href="tel:+380971111111">
+          <icon-base
+            :width='75'
+            :height='75'
+          >
+            <icon-phone />
+          </icon-base>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +52,7 @@
 
     &.isMenuActive {
       display: block;
-      z-index: 15;
+      z-index: 100;
       position: absolute;
       top: 0;
       left: 0;
@@ -56,7 +68,7 @@
     flex-shrink: 0;
     border-right: 1px solid var(--dark);
     position: absolute;
-    z-index: 20;
+    z-index: 150;
     left: -120%;
     transition-duration: 0.3s;
     &.isMenuActive {
@@ -75,6 +87,19 @@
     display: flex;
     flex-direction: column;
   }
+  .connect {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 150;
+    cursor: pointer;
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.85);
+    border-radius: 50%;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
 </style>
 
 <script>
@@ -87,6 +112,8 @@ import { getAllPosts } from "../api/posts";
 import SliderVue from "../components/common/Slider.vue";
 import SpinnerVue from "../components/common/Spinner.vue";
 import httpClient from "../api/httpClient";
+import IconBaseVue from "../components/common/IconBase.vue";
+import IconPhoneBlueVue from "../components/icons/IconPhoneBlue.vue";
 
 export default {
   name: "default.vue",
@@ -94,7 +121,9 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "app-spinner": SpinnerVue
+    "app-spinner": SpinnerVue,
+    "icon-base": IconBaseVue,
+    "icon-phone": IconPhoneBlueVue
   },
   watch: {
     $route(to) {
@@ -124,7 +153,7 @@ export default {
         this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
       }),
       getAllPosts().then(({ data }) => {
-        this.$store.commit("posts/SET_POSTS", data.data.data);
+        this.$store.commit("posts/SET_POSTS", data.data);
       })
     ])
       .catch(() => alert("Невозможно загрузить данные"))

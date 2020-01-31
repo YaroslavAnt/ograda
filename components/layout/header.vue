@@ -47,9 +47,14 @@
     justify-content: space-between;
     font-weight: 500;
     height: 85px;
+    background-color: #eee;
+    z-index: 50;
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+    position: fixed;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
       height: 105px;
+      position: relative;
     }
 
     .menu {
@@ -62,7 +67,7 @@
 
     &-location {
       display: none;
-      @media (min-width: 768px) {
+      @media (min-width: 1024px) {
         display: flex;
         align-items: center;
         justify-content: flex-end;

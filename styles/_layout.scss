@@ -18,6 +18,13 @@ body {
   position: relative;
 }
 
+main {
+  padding-top: 85px;
+  @media (min-width: 1024px) {
+    padding-top: 0;
+  }
+}
+
 .section-padding {
   padding: 20px 16px;
 

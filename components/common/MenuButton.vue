@@ -1,15 +1,41 @@
 ﻿<template>
-  <div id="menu-button" :class="{'menu-is-open': isMenuOpen}">
-    <span :style="{background: color}"></span>
-    <span :style="{background: color}"></span>
-    <span :style="{background: color}"></span>
+  <div
+    id="menu-button"
+    :class="{'menu-is-open': isMenuOpen}"
+    :style="{width: width+'px', height: boxHeight+'px'}"
+  >
+    <span :style="{background: color, height: stickHeight+'px', width: width+'px'}"></span>
+    <span :style="{background: color, height: stickHeight+'px', width: width+'px'}"></span>
+    <span :style="{background: color, height: stickHeight+'px', width: width+'px'}"></span>
   </div>
 </template>
 
 <script>
 export default {
   name: "MenuButton.vue",
-  props: ["color", "isMenuOpen"]
+  // props: ["color", "isMenuOpen"],
+  props: {
+    color: {
+      type: String,
+      default: "#777"
+    },
+    isMenuOpen: {
+      type: Boolean,
+      default: false
+    },
+    width: {
+      type: Number,
+      default: 30
+    }
+  },
+  computed: {
+    boxHeight() {
+      return this.width - 0.2 * this.width;
+    },
+    stickHeight() {
+      return this.width / 10;
+    }
+  }
 };
 </script>
 

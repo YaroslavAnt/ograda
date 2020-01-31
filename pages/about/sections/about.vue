@@ -1,10 +1,13 @@
 ﻿<template>
-  <app-section class="section" :heading="content.heading">
-    <app-intro
-      :img_src="logo"
-      img_alt="Производсто и продажа еврозаборов"
-      :paragraphs="content.paragraphs"
-    />
+  <app-section
+    class="section"
+    :heading="content.heading"
+  >
+    <p
+      v-for="(paragraph,idx) in content.paragraphs"
+      :key="idx"
+      class="base-font  section-paragraph"
+    >{{paragraph.text}}</p>
   </app-section>
 </template>
 
@@ -34,5 +37,9 @@ export default {
 <style lang="scss" scoped>
   .section {
     background-color: #fff;
+
+    &-paragraph {
+      margin-bottom: 24px;
+    }
   }
 </style>

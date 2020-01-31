@@ -10,7 +10,11 @@ export const state = () => ({
         }
       ]
     }
-  ]
+  ],
+  category: {
+    name: "",
+    id: ""
+  }
 });
 
 const getters = {
@@ -33,6 +37,9 @@ const actions = {
 export const mutations = {
   SET_CATEGORIES(state, data) {
     state.list = data;
+  },
+  SET_CATEGORY(state, data) {
+    state.category = data;
   }
 };
 

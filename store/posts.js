@@ -1,34 +1,41 @@
 ﻿import { getAll } from "~/api/categories";
+import { getAllPosts } from "~/api/posts";
 
-export const state = () => ({
-  list: [
-    {
-      id: "",
-      img_alt: "",
-      title: "",
-      body: "",
-      short_body: "",
-      image: "",
-      created_at: "",
-      updated_at: ""
+export const state = () => {
+  return {
+    posts: {
+      last_page: "",
+      data: [
+        {
+          id: "",
+          img_alt: "",
+          title: "",
+          body: "",
+          short_body: "",
+          image: "",
+          created_at: "",
+          updated_at: ""
+        }
+      ]
     }
-  ]
-});
+  };
+};
 
 const getters = {
   getPosts(state) {
-    return state.list;
+    return state.posts;
   },
   getLastPosts(state) {
-    return state.list.slice(-3);
+    return state.posts.data.slice(0, 3);
   }
 };
 
 const actions = {
   async fetchPosts({ commit }) {
     try {
-      const response = await getAll();
-      commit("posts/SET_POSTS", response.data);
+      const response = await getAllPosts();
+      console.log({ response });
+      commit("posts/SET_POSTS", response);
     } catch (error) {
       console.log("*******");
     }
@@ -37,7 +44,7 @@ const actions = {
 
 export const mutations = {
   SET_POSTS(state, data) {
-    state.list = data;
+    state.posts = data;
   }
 };
 

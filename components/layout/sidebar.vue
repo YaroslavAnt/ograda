@@ -3,37 +3,38 @@
     <div class="logo"></div>
     <ul class="sidebar-nav">
 
-      <li @click="onClickNavItem">
+      <li @click="onClickNavItem()">
         <router-link to="/home">
           <span class="nav-link">Главная</span>
         </router-link>
       </li>
 
       <li
-        class="nav-link"
-        @click="onClickNavItem"
+        class="nav-link with-submenu"
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
+        @click="onClickNavItem(category.name)"
       >
-        <router-link :to='{path:`/products/${category.name}?category_id=${category.id}`}'>
-          <span>{{category.name}}</span>
-        </router-link>
+        <span>{{category.name}}</span>
 
-        <ul class="sidebar-subnav">
+        <ul
+          class="sidebar-subnav"
+          :class="{'sidebar-subnav-active': activeCategory===category.name}"
+        >
           <li
-            @click="onClickNavItem"
+            @click="onClickNavItem()"
             v-for="(subcategory,idx) in category.subcategories"
             :key="idx"
           >
-            <router-link :to='{path:`/products/${category.name}?category_id=${category.id}&subcategory=${subcategory.name}`}'>
-              <span class="nav-link">{{subcategory.name}}</span>
+            <router-link :to='{path:`/products/${category.name}?subcategory=${subcategory.name}`}'>
+              <span class="subnav-link">{{subcategory.name}}</span>
             </router-link>
           </li>
         </ul>
       </li>
 
       <li
-        @click="onClickNavItem"
+        @click="onClickNavItem()"
         v-for="(nav_item,idx) in static_menu_list"
         :key="idx+'static'"
       >
@@ -52,31 +53,25 @@ export default {
   name: "sidebar.vue",
 
   methods: {
-    onClickNavItem(path, submenu, name) {
-      this.$store.commit("common/SET_MENU", false);
+    onClickNavItem(categoryName) {
+      if (categoryName) {
+        this.setActiveCategory(categoryName);
+      } else {
+        this.$store.commit("common/SET_MENU", false);
+        this.activeCategory = null;
+      }
     },
-    onClickSubNavItem(path, query) {
-      this.setRoute(path, query);
-    },
-    setActiveSubmenu(submenuName) {
-      this.activeSubmenu =
-        this.activeSubmenu === submenuName ? null : submenuName;
-    },
-    setRoute(path, query) {
-      this.$store.commit("common/SET_MENU", false);
-      query
-        ? this.$router.push({ path: path, query: { subcategory: query } })
-        : this.$router.push(path);
-    },
-    getSetOfObjItems(arr, objItem) {
-      return Array.from(new Set(arr.map(el => el[objItem])));
+
+    setActiveCategory(categoryName) {
+      this.activeCategory =
+        this.activeCategory === categoryName ? null : categoryName;
     }
   },
   props: ["current_page"],
   data() {
     return {
       categories: [],
-      activeSubmenu: null,
+      activeCategory: null,
       static_menu_list: [
         { name: "Услуги", path: "/services" },
         { name: "Цены", path: "/prices" },
@@ -85,11 +80,6 @@ export default {
         { name: "Контакты", path: "/contact" }
       ]
     };
-  },
-  computed: {
-    // getCategoryRoutes() {
-    //   return this.categories.map(category => ({name: category.name, path: 'products/'}))
-    // }
   }
 };
 </script>
@@ -135,11 +125,17 @@ export default {
     .nuxt-link-active {
       color: var(--red);
     }
+    .nav-link {
+      font-size: 18px;
+      padding: 12px 32px 12px 16px;
+    }
+    .subnav-link {
+      font-size: 16px;
+      padding: 12px 16px;
+    }
     .nav-link,
     .subnav-link {
       display: block;
-      padding: 12px 16px;
-      font-size: 18px;
       font-weight: 500;
       position: relative;
       transition-duration: 0.2s;
@@ -165,32 +161,49 @@ export default {
       &:hover {
         border-left: 3px solid var(--red);
         color: var(--red);
+        background-color: #ddd;
 
+        &.with-submenu {
+          @media (min-width: 768px) {
+            &::after {
+              top: 15px;
+              transform: rotate(-225deg);
+            }
+          }
+        }
         .sidebar-subnav {
           @media (min-width: 768px) {
             display: block;
           }
         }
       }
-
-      &.open-submenu.with-submenu {
-        &::after {
-          top: 20px;
-          transform: rotate(45deg);
-        }
-      }
     }
   }
 
   .sidebar-subnav {
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background-color: #fff;
-    transition-duration: 0.3sec;
-    width: 280px;
-    transition-duration: 1s;
-    display: none;
+    position: relative;
+    transition-duration: 0.3s;
+    max-height: 0;
+    overflow: hidden;
+
+    &-active {
+      margin-top: 20px;
+      max-height: 500px;
+      @media (min-width: 768px) {
+        margin-top: 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
+      max-height: unset;
+      background-color: #fff;
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 280px;
+    }
 
     &:hover {
       display: block;

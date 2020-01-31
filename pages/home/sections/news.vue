@@ -5,7 +5,7 @@
   >
     <div class="news-grid">
       <blog-card
-        v-for="(post,idx) in this.$store.state.posts.list.slice(0,3)"
+        v-for="(post,idx) in lastNews"
         :key="idx"
         :card="post"
       />
@@ -24,6 +24,7 @@ import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
 import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
 import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
 import BlogCardVue from "~/components/common/BlogCard.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "news.vue",
@@ -33,9 +34,13 @@ export default {
   },
   data() {
     return {
-      section_heading: "Отчеты о выполненных работах",
-      posts: this.$store.state.posts.list
+      section_heading: "Отчеты о выполненных работах"
     };
+  },
+  computed: {
+    ...mapGetters({
+      lastNews: "posts/getLastPosts"
+    })
   }
 };
 </script>

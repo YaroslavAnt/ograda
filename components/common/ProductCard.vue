@@ -28,7 +28,8 @@ import { BASE_URL } from "~/config";
 export default {
   data() {
     return {
-      BASE_URL: "http://kolbasa.qbex.io/"
+      BASE_URL
+      // : "http://kolbasa.qbex.io/"
     };
   },
   computed: {},
@@ -37,20 +38,9 @@ export default {
   props: ["product"],
   methods: {
     getImageUrl(product) {
-      return Array.isArray(product.img_set)
+      return product.img_set.length > 0
         ? this.BASE_URL + product.img_set[0]
         : "";
-    },
-    onClickProduct(category, id) {
-      const categories = {
-        забор: "fence",
-        столбики: "pillar",
-        "ворота и калитки": "gates",
-        дорожки: "lanes"
-      };
-      this.$router.push(
-        `/products/${this.product.category.name}/${this.product.id}`
-      );
     }
   },
   components: {
@@ -104,6 +94,7 @@ export default {
       width: 65%;
       min-width: 260px;
       text-align: center;
+      text-transform: uppercase;
       cursor: pointer;
       &:hover {
         &::after {
@@ -123,6 +114,9 @@ export default {
         z-index: -1;
         border-radius: 4px;
       }
+    }
+    &-price {
+      font-weight: bold;
     }
   }
 </style>

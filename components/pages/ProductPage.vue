@@ -9,6 +9,7 @@
             :lazy="false"
             :ratio="69"
             class="slider-box-image"
+            @click.native="isZoomActive=true"
           >
             <span
               v-if="product.option.label"
@@ -68,23 +69,73 @@
         </div>
       </div>
     </article>
+    <div
+      class="zoom"
+      v-if="isZoomActive"
+    >
+      <div class="zoom-content">
+        <app-close
+          color='#fff'
+          :width='40'
+          :isMenuOpen='true'
+          class="zoom-close"
+          @click.native="isZoomActive=false"
+        ></app-close>
+        <img
+          class="zoom-image"
+          :src="baseUrl+product.img_set[active_img]"
+          :alt="product.img_alt"
+        >
+        <div class="zoom-arrows">
+          <app-arrow
+            color="#fff"
+            :size="'40px'"
+            :direction="'left'"
+            @click.native="prevImg"
+          ></app-arrow>
+          <app-arrow
+            color="#fff"
+            :size="'40px'"
+            :direction="'right'"
+            @click.native="nextImg"
+          ></app-arrow>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
-
+ 
 <script>
 import ImageBaseVue from "../common/ImageBase.vue";
 import { getProduct } from "../../api/products";
-import { mapGetters } from "vuex";
 import { BASE_URL } from "../../config";
+import MenuButtonVue from "../common/MenuButton.vue";
+import ArrowVue from "../common/Arrow.vue";
 
 export default {
   name: "Product.vue",
   components: {
-    "app-image": ImageBaseVue
+    "app-image": ImageBaseVue,
+    "app-close": MenuButtonVue,
+    "app-arrow": ArrowVue
   },
   methods: {
     setActiveImg(idx) {
       this.active_img = idx;
+    },
+    prevImg() {
+      const newIdx =
+        this.active_img <= 0
+          ? this.product.img_set.length - 1
+          : this.active_img - 1;
+      this.active_img = newIdx;
+    },
+    nextImg() {
+      const newIdx =
+        this.active_img >= this.product.img_set.length - 1
+          ? 0
+          : this.active_img + 1;
+      this.active_img = newIdx;
     }
   },
 
@@ -97,9 +148,11 @@ export default {
   data() {
     return {
       active_img: 0,
-      baseUrl: BASE_URL
+      baseUrl: BASE_URL,
+      isZoomActive: false
     };
   },
+
   computed: {
     getArrayFromDescription() {
       return this.product.description && this.product.description.split("#");
@@ -119,6 +172,55 @@ export default {
     background-color: #f2f1ef;
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+  }
+  .zoom {
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 200;
+    }
+
+    &-close {
+      position: fixed;
+      top: 5%;
+      right: 5%;
+      z-index: 250;
+    }
+
+    &-arrows {
+      position: fixed;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 100%;
+
+      &::before {
+        position: absolute;
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
+      }
+    }
+    &-image {
+      position: relative;
+      width: 80%;
+      max-width: 900px;
+    }
   }
   .gridbox {
     display: grid;
@@ -160,6 +262,7 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
     position: relative;
+    cursor: zoom-in;
 
     &-label {
       display: block;
@@ -190,6 +293,7 @@ export default {
 
     &-name {
       color: var(--red);
+      text-transform: uppercase;
     }
 
     &-option {
