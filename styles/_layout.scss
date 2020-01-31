@@ -6,7 +6,9 @@
 }
 
 body {
-  background: linear-gradient(180deg, #fbfbfb 0%, #effaff 100%);
+  background: linear-gradient(180deg, #f2f1ef 0%, #ddd 100%);
+  color: var(--dark);
+  transition-duration: 0.3s;
 }
 
 .container {
@@ -16,10 +18,33 @@ body {
   position: relative;
 }
 
+main {
+  padding-top: 85px;
+  @media (min-width: 1024px) {
+    padding-top: 0;
+  }
+}
+
 .section-padding {
-  padding: 40px 16px;
+  padding: 20px 16px;
 
   @media (min-width: 1200px) {
-    padding: 80px 70px;
+    padding: 40px 32px;
+  }
+}
+
+.header-padding {
+  padding: 0px 16px;
+
+  @media (min-width: 1200px) {
+    padding: 0px 32px;
+  }
+}
+
+.footer-padding {
+  padding: 20px 16px;
+
+  @media (min-width: 1200px) {
+    padding: 20px 32px;
   }
 }

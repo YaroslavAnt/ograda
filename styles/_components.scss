@@ -1,0 +1,116 @@
+﻿.section-switch {
+  border: 1px solid var(--red);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+
+  @media (min-width: 768px) {
+    display: inline-flex;
+    flex-direction: row;
+    max-width: unset;
+  }
+
+  .switch-tab {
+    padding: 10px 20px;
+    color: var(--red);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+
+    &-active,
+    &:hover {
+      background-color: var(--red);
+      color: #fff;
+    }
+  }
+}
+
+.app-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: 24px;
+  background: var(--red);
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: "Montserrat", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  margin: 20px 0;
+
+  li {
+    display: inline;
+    a {
+      border-radius: 4px;
+      margin: 0 2px;
+      position: relative;
+      // float: left;
+      padding: 6px 12px;
+      line-height: 32px;
+      // color: #337ab7;
+      text-decoration: none;
+      // background-color: #fff;
+    }
+  }
+
+  .prev-link,
+  .next-link {
+    border: 1px solid #1a294a;
+  }
+
+  .disabled {
+    > a {
+      color: #1a294a;
+      background-color: #fff;
+
+      &:hover {
+        cursor: not-allowed;
+        background-color: #fff;
+        color: grey;
+      }
+    }
+  }
+
+  .active {
+    > a {
+      z-index: 2;
+      color: #fff;
+      cursor: default;
+      background-color: #42c2f7;
+      border-color: #42c2f7;
+      &:hover {
+        background-color: #34b3f7;
+        border-color: #34b3f7;
+      }
+    }
+  }
+
+  li > a:hover {
+    z-index: 3;
+    cursor: pointer;
+    color: white;
+    background-color: #263d6f;
+    border-color: #263d6f;
+  }
+  li > .active > a:hover {
+    z-index: 3;
+    color: #eee;
+    background-color: #16467c;
+    border-color: #ddd;
+  }
+}
