@@ -26,7 +26,7 @@
             v-for="(subcategory,idx) in category.subcategories"
             :key="idx"
           >
-            <router-link :to='{path:`/products/${category.name}?subcategory=${subcategory.name}`}'>
+            <router-link :to='{path:`/products/${replaceWithDash(category.name)}/${replaceWithDash(subcategory.name)}`}'>
               <span class="subnav-link">{{subcategory.name}}</span>
             </router-link>
           </li>
@@ -65,6 +65,11 @@ export default {
     setActiveCategory(categoryName) {
       this.activeCategory =
         this.activeCategory === categoryName ? null : categoryName;
+    },
+
+    replaceWithDash(string) {
+      console.log(String(string).replace(/\s/g, "-"));
+      return String(string).replace(/\s/g, "-");
     }
   },
   props: ["current_page"],

@@ -4,7 +4,7 @@
       <div class="gridbox">
         <div class="slider-box">
           <app-image
-            :img_src="baseUrl+product.img_set[active_img]"
+            :img_src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
             :img_alt="product.img_alt"
             :lazy="false"
             :ratio="69"
@@ -83,7 +83,7 @@
         ></app-close>
         <img
           class="zoom-image"
-          :src="baseUrl+product.img_set[active_img]"
+          :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
           :alt="product.img_alt"
         >
         <div class="zoom-arrows">

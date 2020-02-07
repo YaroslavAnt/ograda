@@ -7,7 +7,7 @@
 
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { getProduct } from "../../../api/products";
+import { getProduct } from "~/api/products";
 export default {
   name: "product.vue",
   head() {

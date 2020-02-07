@@ -39,6 +39,8 @@ export default {
     "app-table": TableVue
   },
   data() {
+    //TODO endpoint for prices
+
     return {
       prices: [
         {

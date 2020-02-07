@@ -17,11 +17,11 @@
           <router-link
             v-for="(tab,idx) in subcategories"
             :key="idx"
-            :to="{ path: `/products/${category}`, query: { subcategory: tab.name }}"
+            :to="{ path: `/products/${category}/${tab.name.replace(/\s/g, '-')}`}"
           >
             <span
               class="switch-tab"
-              :class="{'switch-tab-active': $route.query.subcategory===tab.name}"
+              :class="{'switch-tab-active': $route.params.subcategory===tab.name.replace(/\s/g, '-')}"
             >{{tab.name}}</span></router-link>
         </div>
       </div>
@@ -38,6 +38,7 @@
         />
       </div>
     </app-section>
+
     <div class="container-paginate">
       <app-pagination
         v-if="productsData.last_page > 1"
@@ -81,7 +82,8 @@ export default {
 
   watch: {
     $route(from, to) {
-      return this.$route.query.subcategory
+      console.log("*-*-*-", this.$route.params.subcategory);
+      return this.$route.params.subcategory
         ? this.fetchProductsBySubcategory()
         : this.getProductsByCategory();
     }
@@ -100,22 +102,27 @@ export default {
       },
       set(value) {
         if (this.page === value) return;
-        this.getPostByCategory(this.active_category, value);
+        this.getPostByCategory(this.active_category, value); //TODO ?????
       }
     },
     categoryId() {
       const fitObj =
         this.categories.find(category => {
           console.log({ category }, this.$route.params.category);
-          return category.name === this.$route.params.category;
+          return (
+            category.name.replace(/\s/g, "-") === this.$route.params.category
+          );
         }) || {};
       return fitObj.id || null;
     },
     subcategoryId() {
       const fitObj =
         this.subcategories.find(subcategory => {
-          console.log({ subcategory }, this.$route.query.subcategory);
-          return subcategory.name === this.$route.query.subcategory;
+          console.log({ subcategory }, this.$route.params.subcategory);
+          return (
+            subcategory.name.replace(/\s/g, "-") ===
+            this.$route.params.subcategory
+          );
         }) || {};
       return fitObj.id || null;
     }
@@ -154,7 +161,7 @@ export default {
   async mounted() {
     this.$store.dispatch("common/runSpinner");
     await this.getSubcategories();
-    if (this.$route.query.subcategory) {
+    if (this.$route.params.subcategory) {
       await this.fetchProductsBySubcategory();
     } else {
       await this.getProductsByCategory();
@@ -163,9 +170,9 @@ export default {
 
   data() {
     return {
-      subcategory: this.$route.query.subcategory,
+      subcategory: this.$route.params.subcategory,
       category: this.$route.params.category,
-      activeTab: this.$route.query.subcategory || "ВСЕ ВИДЫ",
+      activeTab: this.$route.params.subcategory || "ВСЕ ВИДЫ",
       // categoryId: this.$route.query.category_id,
       productsData: {
         last_page: "",

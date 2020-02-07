@@ -8,7 +8,7 @@
     />
 
     <nuxt-link
-      :to="`/products/${product.category.name}/${product.id}`"
+      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }/${product.id}`"
       class="card-name base-font"
     >{{product.name}}</nuxt-link>
 
@@ -25,6 +25,7 @@
 <script>
 import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
+import { replaceWithDash } from "../../static/utils";
 export default {
   data() {
     return {
@@ -41,7 +42,8 @@ export default {
       return product.img_set.length > 0
         ? this.BASE_URL + product.img_set[0]
         : "";
-    }
+    },
+    replaceWithDash: replaceWithDash
   },
   components: {
     "app-image": ImageBaseVue

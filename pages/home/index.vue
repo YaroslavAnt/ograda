@@ -2,6 +2,7 @@
   <main>
     <h1>Еврозаборы, ворота и калитки, бетонные столбики, тротуарная плитка в Запорожье</h1>
     <hero :content="home.hero" />
+    <!-- //TODO add special proposition section-->
     <popular />
     <services :content="home.services" />
     <news />

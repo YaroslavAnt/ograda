@@ -27,6 +27,7 @@ export default {
 
   computed: {
     getPopularProducts() {
+      //TODO endpoint for popular products
       return this.$store.getters["products/getPopularProducts"] || [{}];
     }
   }
