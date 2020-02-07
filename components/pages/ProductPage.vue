@@ -41,12 +41,12 @@
               class="small-font crumb"
             >&#8962; ГЛАВНАЯ ></nuxt-link>
             <nuxt-link
-              :to='{path:`/products/${product.category.name}?category_id=${product.category.id}`}'
+              :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
               class="small-font crumb"
             >{{product.category.name}} ></nuxt-link>
             <nuxt-link
               class="small-font crumb"
-              :to='{path:`/products/${product.category.name}?category_id=${product.category.id}&subcategory=${product.subcategory.name}`}'
+              :to='{path:`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }`}'
             >
               {{product.subcategory.name}} </nuxt-link>
           </div>
@@ -111,6 +111,7 @@ import { getProduct } from "../../api/products";
 import { BASE_URL } from "../../config";
 import MenuButtonVue from "../common/MenuButton.vue";
 import ArrowVue from "../common/Arrow.vue";
+import { replaceWithDash } from "../../static/utils";
 
 export default {
   name: "Product.vue",
@@ -120,6 +121,7 @@ export default {
     "app-arrow": ArrowVue
   },
   methods: {
+    replaceWithDash: replaceWithDash,
     setActiveImg(idx) {
       this.active_img = idx;
     },

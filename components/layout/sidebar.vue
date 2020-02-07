@@ -16,7 +16,6 @@
         @click="onClickNavItem(category.name)"
       >
         <span>{{category.name}}</span>
-
         <ul
           class="sidebar-subnav"
           :class="{'sidebar-subnav-active': activeCategory===category.name}"
@@ -57,8 +56,8 @@ export default {
       if (categoryName) {
         this.setActiveCategory(categoryName);
       } else {
-        this.$store.commit("common/SET_MENU", false);
         this.activeCategory = null;
+        this.$store.commit("common/SET_MENU", false);
       }
     },
 
@@ -68,7 +67,6 @@ export default {
     },
 
     replaceWithDash(string) {
-      console.log(String(string).replace(/\s/g, "-"));
       return String(string).replace(/\s/g, "-");
     }
   },

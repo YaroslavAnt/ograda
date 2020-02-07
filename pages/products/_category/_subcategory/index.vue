@@ -132,7 +132,6 @@ export default {
     categoryId() {
       const fitObj =
         this.categories.find(category => {
-          console.log({ category }, this.$route.params.category);
           return (
             category.name.replace(/\s/g, "-") === this.$route.params.category
           );
@@ -142,13 +141,18 @@ export default {
     subcategoryId() {
       const fitObj =
         this.subcategories.find(subcategory => {
-          console.log({ subcategory }, this.$route.params.subcategory);
           return (
             subcategory.name.replace(/\s/g, "-") ===
             this.$route.params.subcategory
           );
         }) || {};
       return fitObj.id || null;
+    },
+    title() {
+      return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
+    },
+    description() {
+      return `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `;
     }
   },
 
@@ -195,8 +199,6 @@ export default {
 
   data() {
     return {
-      title: `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`,
-      description: `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `,
       subcategory: this.$route.params.subcategory,
       category: this.$route.params.category,
       activeTab: this.$route.params.subcategory || "ВСЕ ВИДЫ",

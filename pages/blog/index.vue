@@ -111,7 +111,6 @@ export default {
     getPosts(page) {
       getPostsByPage(page)
         .then(res => {
-          console.log({ res });
           this.posts = res.data.data;
         })
         .catch(() => alert("Невозножно загрузить данные"));

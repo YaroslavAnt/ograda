@@ -4,7 +4,7 @@
       <ul class="footer-navitems">
         <li
           class="footer-navitem"
-          v-if="$store.state.categories.list.length >0"
+          v-if="$store.state.categories.list.length > 0"
         >
           <h6>Продукция</h6>
           <ul>
@@ -19,7 +19,7 @@
                 :size="'10px'"
                 :direction="'right'"
               />
-              <nuxt-link :to='`/products/${link.name}?category_id=${link.id}`'>{{link.name}}</nuxt-link>
+              <nuxt-link :to='`/products/${replaceWithDash(link.name) }`'>{{link.name}}</nuxt-link>
             </li>
           </ul>
         </li>
@@ -58,6 +58,7 @@
           :key="idx"
         >{{contact.name}}</li>
       </ul>
+      <h6>Страницы в соцсетях</h6>
       <img
         src="../../assets/icons/facebook.svg"
         alt="fb-icon"
@@ -69,6 +70,7 @@
         class="footer-icon"
       />
     </address>
+
   </footer>
 </template>
 
@@ -115,10 +117,15 @@
 
 <script>
 import ArrowVue from "../common/Arrow.vue";
+import { DOMAIN } from "../../config";
+import { replaceWithDash } from "../../static/utils";
 export default {
   name: "footer.vue",
   components: {
     arrow: ArrowVue
+  },
+  methods: {
+    replaceWithDash
   },
   computed: {
     dynamicLinks() {
@@ -131,6 +138,7 @@ export default {
   },
   data() {
     return {
+      DOMAIN,
       menu_list: [
         {
           name: "Информация",
