@@ -27,25 +27,51 @@ export default {
 
   data() {
     return {
-      home
+      home,
+      title: "Продажа и установка еврозаборов в Запорожье и области",
+      description:
+        "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений"
     };
   },
   head() {
     return {
-      title: "Продажа и установка еврозаборов в Запорожье и области",
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content:
-            "Еврозаборы и тротуарная плитка от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений"
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
           content:
             "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье"
-        }
+        },
+        {
+          name: "og:title",
+          content: this.title
+        },
+        {
+          name: "og:description",
+          content: this.description
+        },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@nuxt_js" },
+        {
+          name: "twitter:title",
+          content: this.title
+        },
+        {
+          name: "twitter:description",
+          content: this.description
+        },
+        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "twitter:image:alt", content: "NuxtJS Logo" }
       ]
     };
   }

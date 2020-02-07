@@ -12,13 +12,37 @@ export default {
   name: "product.vue",
   head() {
     return {
-      title: `Цена и описание товара ${this.product.name}`,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`
-        }
+          content: this.description
+        },
+        {
+          name: "og:title",
+          content: this.title
+        },
+        {
+          name: "og:description",
+          content: this.description
+        },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@nuxt_js" },
+        {
+          name: "twitter:title",
+          content: this.title
+        },
+        {
+          name: "twitter:description",
+          content: this.description
+        },
+        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "twitter:image:alt", content: "NuxtJS Logo" }
       ]
     };
   },
@@ -43,6 +67,12 @@ export default {
   computed: {
     category() {
       return this.$route.params.category;
+    },
+    title() {
+      return `Цена и описание товара ${this.product.name}`;
+    },
+    description() {
+      return `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`;
     }
   },
   mounted() {

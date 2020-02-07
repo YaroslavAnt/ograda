@@ -1,6 +1,6 @@
 ﻿<template>
   <main>
-    <h1 class="with-skewed-bg">{{category}}</h1>
+    <h1 class="with-skewed-bg">{{replaceWithSpace(category)}}</h1>
     <app-section class="section">
       <div class="section-switchbox">
         <div
@@ -64,25 +64,49 @@ if (process.client) {
 
 import { getProductByCategory, getProductBySubcategory } from "~/api/products";
 import { getOneByCategory } from "~/api/subcategories";
+import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
 export default {
   name: "productPage.vue",
 
   head() {
     return {
-      title: `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `
-        }
+          content: this.description
+        },
+        {
+          name: "og:title",
+          content: this.title
+        },
+        {
+          name: "og:description",
+          content: this.description
+        },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@nuxt_js" },
+        {
+          name: "twitter:title",
+          content: this.title
+        },
+        {
+          name: "twitter:description",
+          content: this.description
+        },
+        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "twitter:image:alt", content: "NuxtJS Logo" }
       ]
     };
   },
 
   watch: {
     $route(from, to) {
-      console.log("*-*-*-", this.$route.params.subcategory);
       return this.$route.params.subcategory
         ? this.fetchProductsBySubcategory()
         : this.getProductsByCategory();
@@ -155,7 +179,8 @@ export default {
         })
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
-    }
+    },
+    replaceWithSpace: replaceWithSpace
   },
 
   async mounted() {
@@ -170,6 +195,8 @@ export default {
 
   data() {
     return {
+      title: `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`,
+      description: `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `,
       subcategory: this.$route.params.subcategory,
       category: this.$route.params.category,
       activeTab: this.$route.params.subcategory || "ВСЕ ВИДЫ",

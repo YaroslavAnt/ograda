@@ -80,11 +80,25 @@ import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
 export default {
   name: "contact",
-  head: {
-    title: "Контакты для заказа еврозаборов",
-    meta: [
-      { hid: "description", name: "description", content: "Наши контакты" }
-    ]
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        { hid: "description", name: "description", content: this.description },
+        { name: "og:title", content: this.title },
+        { name: "og:description", content: this.description },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@nuxt_js" },
+        { name: "twitter:title", content: this.title },
+        { name: "twitter:description", content: this.description },
+        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+      ]
+    };
   },
   components: {
     "app-section": sectionVue,
@@ -124,7 +138,9 @@ export default {
       phone: contact.phone,
       email: contact.email,
       location: contact.location,
-      formData: { name: "", email: "", phone: "", message: "" }
+      formData: { name: "", email: "", phone: "", message: "" },
+      titile: "Контакты для заказа еврозаборов",
+      description: "Наши контакты"
     };
   }
 };
