@@ -1,6 +1,6 @@
 ﻿<template>
   <main>
-    <h1 class="with-skewed-bg">{{category}}</h1>
+    <h1 class="with-skewed-bg">{{replaceWithSpace(category)}}</h1>
     <app-section class="section">
       <div class="section-switchbox">
         <div
@@ -17,11 +17,11 @@
           <router-link
             v-for="(tab,idx) in subcategories"
             :key="idx"
-            :to="{ path: `/products/${category}`, query: { subcategory: tab.name }}"
+            :to="{ path: `/products/${replaceWithDash(category) }/${replaceWithDash(tab.name) }`}"
           >
             <span
               class="switch-tab"
-              :class="{'switch-tab-active': $route.query.subcategory===tab.name}"
+              :class="{'switch-tab-active': $route.params.subcategory===replaceWithDash(tab.name)}"
             >{{tab.name}}</span></router-link>
         </div>
       </div>
@@ -38,6 +38,7 @@
         />
       </div>
     </app-section>
+
     <div class="container-paginate">
       <app-pagination
         v-if="productsData.last_page > 1"
@@ -63,25 +64,50 @@ if (process.client) {
 
 import { getProductByCategory, getProductBySubcategory } from "~/api/products";
 import { getOneByCategory } from "~/api/subcategories";
+import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
 export default {
   name: "productPage.vue",
 
   head() {
     return {
-      title: `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `
-        }
+          content: this.description
+        },
+        {
+          name: "og:title",
+          content: this.title
+        },
+        {
+          name: "og:description",
+          content: this.description
+        },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@nuxt_js" },
+        {
+          name: "twitter:title",
+          content: this.title
+        },
+        {
+          name: "twitter:description",
+          content: this.description
+        },
+        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "twitter:image:alt", content: "NuxtJS Logo" }
       ]
     };
   },
 
   watch: {
     $route(from, to) {
-      return this.$route.query.subcategory
+      return this.$route.params.subcategory
         ? this.fetchProductsBySubcategory()
         : this.getProductsByCategory();
     }
@@ -100,24 +126,33 @@ export default {
       },
       set(value) {
         if (this.page === value) return;
-        this.getPostByCategory(this.active_category, value);
+        this.getPostByCategory(this.active_category, value); //TODO ?????
       }
     },
     categoryId() {
       const fitObj =
         this.categories.find(category => {
-          console.log({ category }, this.$route.params.category);
-          return category.name === this.$route.params.category;
+          return (
+            this.replaceWithDash(category.name) === this.$route.params.category
+          );
         }) || {};
       return fitObj.id || null;
     },
     subcategoryId() {
       const fitObj =
         this.subcategories.find(subcategory => {
-          console.log({ subcategory }, this.$route.query.subcategory);
-          return subcategory.name === this.$route.query.subcategory;
+          return (
+            this.replaceWithDash(subcategory.name) ===
+            this.$route.params.subcategory
+          );
         }) || {};
       return fitObj.id || null;
+    },
+    title() {
+      return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
+    },
+    description() {
+      return `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `;
     }
   },
 
@@ -148,13 +183,15 @@ export default {
         })
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
-    }
+    },
+    replaceWithSpace,
+    replaceWithDash
   },
 
   async mounted() {
     this.$store.dispatch("common/runSpinner");
     await this.getSubcategories();
-    if (this.$route.query.subcategory) {
+    if (this.$route.params.subcategory) {
       await this.fetchProductsBySubcategory();
     } else {
       await this.getProductsByCategory();
@@ -163,9 +200,9 @@ export default {
 
   data() {
     return {
-      subcategory: this.$route.query.subcategory,
+      subcategory: this.$route.params.subcategory,
       category: this.$route.params.category,
-      activeTab: this.$route.query.subcategory || "ВСЕ ВИДЫ",
+      activeTab: this.$route.params.subcategory || "ВСЕ ВИДЫ",
       // categoryId: this.$route.query.category_id,
       productsData: {
         last_page: "",

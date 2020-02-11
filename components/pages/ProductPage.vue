@@ -4,7 +4,7 @@
       <div class="gridbox">
         <div class="slider-box">
           <app-image
-            :img_src="baseUrl+product.img_set[active_img]"
+            :img_src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
             :img_alt="product.img_alt"
             :lazy="false"
             :ratio="69"
@@ -35,23 +35,26 @@
         </div>
 
         <div class="info-box">
+
           <div class="info-box-breadcrumbs">
             <nuxt-link
-              to='/home'
+              to='/'
               class="small-font crumb"
             >&#8962; ГЛАВНАЯ ></nuxt-link>
+
             <nuxt-link
-              :to='{path:`/products/${product.category.name}?category_id=${product.category.id}`}'
+              :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
               class="small-font crumb"
             >{{product.category.name}} ></nuxt-link>
+
             <nuxt-link
               class="small-font crumb"
-              :to='{path:`/products/${product.category.name}?category_id=${product.category.id}&subcategory=${product.subcategory.name}`}'
+              :to='{path:`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }`}'
             >
               {{product.subcategory.name}} </nuxt-link>
           </div>
+          <h1 class="info-box-name big-font bold">{{product.name}}</h1>
 
-          <h2 class="info-box-name big-font bold">{{product.name}}</h2>
           <p class="info-box-price medium-font">
             Цена:
             <span class="bold">{{product.price}}</span>
@@ -83,7 +86,7 @@
         ></app-close>
         <img
           class="zoom-image"
-          :src="baseUrl+product.img_set[active_img]"
+          :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
           :alt="product.img_alt"
         >
         <div class="zoom-arrows">
@@ -111,6 +114,7 @@ import { getProduct } from "../../api/products";
 import { BASE_URL } from "../../config";
 import MenuButtonVue from "../common/MenuButton.vue";
 import ArrowVue from "../common/Arrow.vue";
+import { replaceWithDash } from "../../static/utils";
 
 export default {
   name: "Product.vue",
@@ -120,6 +124,7 @@ export default {
     "app-arrow": ArrowVue
   },
   methods: {
+    replaceWithDash: replaceWithDash,
     setActiveImg(idx) {
       this.active_img = idx;
     },

@@ -2,6 +2,7 @@
   <app-secion
     :heading="section_heading"
     class="section"
+    v-if="lastNews.length > 0"
   >
     <div class="news-grid">
       <blog-card

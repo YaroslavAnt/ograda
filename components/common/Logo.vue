@@ -2,7 +2,7 @@
   <div class="logo">
     <!-- <img class="logo-img" src="../../assets/img/fence.png" alt="fence" /> -->
     <nuxt-link
-      to='/home'
+      to='/'
       class="logo-text big-font"
     >ograda.zp.ua</nuxt-link>
     <!-- <img class="logo-img" src="../../assets/img/fence.png" alt="fence" /> -->

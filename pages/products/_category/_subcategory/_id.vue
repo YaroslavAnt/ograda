@@ -1,24 +1,47 @@
 ﻿<template>
   <main>
-    <h1>Цена и описание товара {{product.name}} категории {{product.subcategory.name}}</h1>
     <product-page :product='product' />
   </main>
 </template>
-
+ 
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { getProduct } from "../../../api/products";
+import { getProduct } from "~/api/products";
 export default {
   name: "product.vue",
   head() {
     return {
-      title: `Цена и описание товара ${this.product.name}`,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`
-        }
+          content: this.description
+        },
+        {
+          name: "og:title",
+          content: this.title
+        },
+        {
+          name: "og:description",
+          content: this.description
+        },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: this.$route.path },
+        { name: "og:image", content: this.image },
+
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        {
+          name: "twitter:title",
+          content: this.title
+        },
+        {
+          name: "twitter:description",
+          content: this.description
+        },
+        { name: "twitter:image", content: this.image },
+        { name: "twitter:image:alt", content: this.product.name }
       ]
     };
   },
@@ -43,6 +66,15 @@ export default {
   computed: {
     category() {
       return this.$route.params.category;
+    },
+    title() {
+      return `Цена и описание товара ${this.product.name}`;
+    },
+    description() {
+      return `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`;
+    },
+    image() {
+      return this.product.img_set[0];
     }
   },
   mounted() {

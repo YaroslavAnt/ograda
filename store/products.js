@@ -1,14 +1,24 @@
 ﻿import { getAllProducts, getProductByCategory } from "~/api/products";
 
 export const state = () => ({
-  list: [],
+  list: [
+    // {
+    //   img_set: [],
+    //   name: ""
+    // }
+  ],
   byCategory: [],
-  product: {}
+  product: {
+    name: ""
+  }
 });
 
 const getters = {
   getProducts(state) {
     return state.list;
+  },
+  getFirstProduct(state) {
+    return state.list[0];
   },
   getProduct(state) {
     return state.product;

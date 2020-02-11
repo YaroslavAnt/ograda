@@ -4,7 +4,7 @@
     <ul class="sidebar-nav">
 
       <li @click="onClickNavItem()">
-        <router-link to="/home">
+        <router-link to="/">
           <span class="nav-link">Главная</span>
         </router-link>
       </li>
@@ -16,7 +16,6 @@
         @click="onClickNavItem(category.name)"
       >
         <span>{{category.name}}</span>
-
         <ul
           class="sidebar-subnav"
           :class="{'sidebar-subnav-active': activeCategory===category.name}"
@@ -26,7 +25,7 @@
             v-for="(subcategory,idx) in category.subcategories"
             :key="idx"
           >
-            <router-link :to='{path:`/products/${category.name}?subcategory=${subcategory.name}`}'>
+            <router-link :to='{path:`/products/${replaceWithDash(category.name)}/${replaceWithDash(subcategory.name)}`}'>
               <span class="subnav-link">{{subcategory.name}}</span>
             </router-link>
           </li>
@@ -49,6 +48,7 @@
 <script>
 import { fence_set } from "~/static/fence_data/index";
 import { getAll } from "~/api/categories";
+import { replaceWithDash } from "../../static/utils";
 export default {
   name: "sidebar.vue",
 
@@ -57,15 +57,17 @@ export default {
       if (categoryName) {
         this.setActiveCategory(categoryName);
       } else {
-        this.$store.commit("common/SET_MENU", false);
         this.activeCategory = null;
+        this.$store.commit("common/SET_MENU", false);
       }
     },
 
     setActiveCategory(categoryName) {
       this.activeCategory =
         this.activeCategory === categoryName ? null : categoryName;
-    }
+    },
+
+    replaceWithDash
   },
   props: ["current_page"],
   data() {

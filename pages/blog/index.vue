@@ -1,9 +1,14 @@
 ﻿<template>
   <main>
     <h1>Отчеты о выполненых работах по установке ограждений</h1>
+    <p
+      class="huge-font"
+      v-if="posts.data.length === 0"
+    >Еще нет новостей...</p>
     <app-section
       :heading="section_heading"
       class="section"
+      v-if="posts.data.length > 0"
     >
       <div class="grid">
         <blog-card
@@ -41,16 +46,45 @@ if (process.client) {
 
 export default {
   name: "blog",
-  head: {
-    title: "Отчеты о выполненых работах по установке ограждений",
-    meta: [
-      {
-        hid: "description",
-        name: "description",
-        content:
-          "Здесь можно ознакомиться с работами по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
-      }
-    ]
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.description
+        },
+        // Open Graph
+        {
+          name: "og:title",
+          content: this.title
+        },
+        {
+          name: "og:description",
+          content: this.description
+        },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@nuxt_js" },
+        {
+          name: "twitter:title",
+          content: this.title
+        },
+        {
+          name: "twitter:description",
+          content: this.description
+        },
+        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "twitter:image:alt",
+          content: "установка еврозабора в Запорожье"
+        }
+      ]
+    };
   },
   components: {
     "app-section": sectionVue,
@@ -60,7 +94,10 @@ export default {
   data() {
     return {
       section_heading: "Отчеты о выполненных работах",
-      posts: this.$store.state.posts.posts
+      posts: this.$store.state.posts.posts,
+      title: "Отчеты о выполненых работах по установке ограждений",
+      description:
+        "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
     };
   },
   computed: {
@@ -79,7 +116,6 @@ export default {
     getPosts(page) {
       getPostsByPage(page)
         .then(res => {
-          console.log({ res });
           this.posts = res.data.data;
         })
         .catch(() => alert("Невозножно загрузить данные"));
@@ -89,6 +125,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  main {
+    flex: 1;
+    background-color: #fff;
+  }
   h1 {
     position: absolute;
     left: -500px;

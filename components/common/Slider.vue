@@ -29,7 +29,7 @@
         >{{ slide.text }}</p>
         <nuxt-link
           v-if="slide.category.name"
-          :to='`products/${slide.category.name}?category_id=${slide.category.id}`'
+          :to='`products/${replaceWithDash(slide.category.name) }`'
           class="slider-btn app-button"
         >Подробнее</nuxt-link>
       </div>
@@ -68,6 +68,7 @@ import ButtonVue from "./Button.vue";
 import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
+import { replaceWithDash } from "../../static/utils";
 
 export default {
   name: "Slider.vue",
@@ -77,6 +78,7 @@ export default {
     "app-image": ImageBaseVue
   },
   methods: {
+    replaceWithDash: replaceWithDash,
     forvard() {
       this.current_slide =
         this.current_slide < this.slider_items.length - 1
