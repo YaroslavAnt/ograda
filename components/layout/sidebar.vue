@@ -4,7 +4,7 @@
     <ul class="sidebar-nav">
 
       <li @click="onClickNavItem()">
-        <router-link to="/home">
+        <router-link to="/">
           <span class="nav-link">Главная</span>
         </router-link>
       </li>
@@ -48,6 +48,7 @@
 <script>
 import { fence_set } from "~/static/fence_data/index";
 import { getAll } from "~/api/categories";
+import { replaceWithDash } from "../../static/utils";
 export default {
   name: "sidebar.vue",
 
@@ -66,9 +67,7 @@ export default {
         this.activeCategory === categoryName ? null : categoryName;
     },
 
-    replaceWithDash(string) {
-      return String(string).replace(/\s/g, "-");
-    }
+    replaceWithDash
   },
   props: ["current_page"],
   data() {

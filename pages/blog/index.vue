@@ -1,9 +1,14 @@
 ﻿<template>
   <main>
     <h1>Отчеты о выполненых работах по установке ограждений</h1>
+    <p
+      class="huge-font"
+      v-if="posts.data.length === 0"
+    >Еще нет новостей...</p>
     <app-section
       :heading="section_heading"
       class="section"
+      v-if="posts.data.length > 0"
     >
       <div class="grid">
         <blog-card
@@ -120,6 +125,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  main {
+    flex: 1;
+    background-color: #fff;
+  }
   h1 {
     position: absolute;
     left: -500px;

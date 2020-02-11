@@ -1,10 +1,10 @@
 <template>
   <section
     class="section"
-    v-if="slides.length>0 && $store.state.products.list.length > 0"
+    v-if="slides.length > 0 && $store.state.products.list.length > 0"
   >
     <div class="section-padding section-intro">
-      <h2 class="section-heading with-skewed-bg">{{content.section_heading}}</h2>
+      <h1 class="section-heading with-skewed-bg">Основная продукция</h1>
     </div>
 
     <slider
@@ -28,12 +28,7 @@ export default {
   components: {
     slider: SliderVue
   },
-  props: {
-    content: {
-      type: Object,
-      default: {}
-    }
-  },
+
   computed: {
     slides() {
       if (this.$store.state.products.list.length > 0) {
@@ -44,6 +39,7 @@ export default {
               .find(product => product.category.name === category.name) || {
               img_set: [],
               img_alt: "",
+              name: "",
               category: {
                 name: "",
                 id: ""
@@ -56,6 +52,7 @@ export default {
         {
           img_set: [],
           img_alt: "",
+          name: "",
           category: {
             name: "",
             id: ""

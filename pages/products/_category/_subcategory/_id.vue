@@ -1,10 +1,9 @@
 ﻿<template>
   <main>
-    <h1>Цена и описание товара {{product.name}} категории {{product.subcategory.name}}</h1>
     <product-page :product='product' />
   </main>
 </template>
-
+ 
 <script>
 import ProductPage from "~/components/pages/ProductPage";
 import { getProduct } from "~/api/products";
@@ -28,11 +27,11 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "og:url", content: this.$route.path },
+        { name: "og:image", content: this.image },
+
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
@@ -41,8 +40,8 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        { name: "twitter:image", content: this.image },
+        { name: "twitter:image:alt", content: this.product.name }
       ]
     };
   },
@@ -73,6 +72,9 @@ export default {
     },
     description() {
       return `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`;
+    },
+    image() {
+      return this.product.img_set[0];
     }
   },
   mounted() {

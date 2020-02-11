@@ -35,23 +35,26 @@
         </div>
 
         <div class="info-box">
+
           <div class="info-box-breadcrumbs">
             <nuxt-link
-              to='/home'
+              to='/'
               class="small-font crumb"
             >&#8962; ГЛАВНАЯ ></nuxt-link>
+
             <nuxt-link
               :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
               class="small-font crumb"
             >{{product.category.name}} ></nuxt-link>
+
             <nuxt-link
               class="small-font crumb"
               :to='{path:`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }`}'
             >
               {{product.subcategory.name}} </nuxt-link>
           </div>
+          <h1 class="info-box-name big-font bold">{{product.name}}</h1>
 
-          <h2 class="info-box-name big-font bold">{{product.name}}</h2>
           <p class="info-box-price medium-font">
             Цена:
             <span class="bold">{{product.price}}</span>

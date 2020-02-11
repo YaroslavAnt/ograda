@@ -17,11 +17,11 @@
           <router-link
             v-for="(tab,idx) in subcategories"
             :key="idx"
-            :to="{ path: `/products/${category}/${tab.name.replace(/\s/g, '-')}`}"
+            :to="{ path: `/products/${replaceWithDash(category) }/${replaceWithDash(tab.name) }`}"
           >
             <span
               class="switch-tab"
-              :class="{'switch-tab-active': $route.params.subcategory===tab.name.replace(/\s/g, '-')}"
+              :class="{'switch-tab-active': $route.params.subcategory===replaceWithDash(tab.name)}"
             >{{tab.name}}</span></router-link>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default {
       const fitObj =
         this.categories.find(category => {
           return (
-            category.name.replace(/\s/g, "-") === this.$route.params.category
+            this.replaceWithDash(category.name) === this.$route.params.category
           );
         }) || {};
       return fitObj.id || null;
@@ -142,7 +142,7 @@ export default {
       const fitObj =
         this.subcategories.find(subcategory => {
           return (
-            subcategory.name.replace(/\s/g, "-") ===
+            this.replaceWithDash(subcategory.name) ===
             this.$route.params.subcategory
           );
         }) || {};
@@ -184,7 +184,8 @@ export default {
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
     },
-    replaceWithSpace: replaceWithSpace
+    replaceWithSpace,
+    replaceWithDash
   },
 
   async mounted() {

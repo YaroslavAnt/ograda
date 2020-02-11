@@ -131,7 +131,7 @@ export default {
     flex-grow: 0;
 
     @media (min-width: 768px) {
-      width: 50%;
+      width: 40%;
     }
 
     &.with-border {
