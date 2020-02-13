@@ -19,6 +19,11 @@ export default {
           content: this.description
         },
         {
+          hid: "keywords",
+          name: "keywords",
+          content: `${this.product.name} с ценой и описанием, ${this.product.category.name}, ${this.product.subcategory.name}`
+        },
+        {
           name: "og:title",
           content: this.title
         },
@@ -97,11 +102,5 @@ export default {
 <style lang="scss" scoped>
   main {
     flex: 1;
-
-    h1 {
-      position: absolute;
-      transform: translateX(-100%);
-      left: -500px;
-    }
   }
 </style>

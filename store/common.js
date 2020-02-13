@@ -24,7 +24,7 @@ export const mutations = {
   OPEN_MENU(state, data) {
     state.isMenuOpen = true;
   },
-  CLOSE_MENU(state, data) {
+  CLOSE_MENU(state) {
     state.isMenuOpen = false;
   },
   SET_MENU(state, data) {

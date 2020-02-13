@@ -31,6 +31,12 @@ export default {
           content: this.description
         },
         {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Цены на установку заборов, прайсы плит еврозаборов, цены на ворота, цены на калитки, цены на автоматику для ворот"
+        },
+        {
           name: "og:title",
           content: this.title
         },
@@ -39,11 +45,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:url", content: this.$route.path },
         { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
@@ -53,7 +58,7 @@ export default {
           content: this.description
         },
         { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        { name: "twitter:image:alt", content: "Цены на установку заборов" }
       ]
     };
   },
@@ -61,6 +66,9 @@ export default {
   components: {
     "app-section": section,
     "app-table": TableVue
+  },
+  mounted() {
+    this.$store.commit("common/CLOSE_MENU");
   },
   data() {
     //TODO endpoint for prices

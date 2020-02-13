@@ -18,22 +18,27 @@ export default {
       title: this.title,
       meta: [
         { hid: "description", name: "description", content: this.description },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Производство еврозаборов, установка еврозабора, забор под ключ в Запорожье, доставка еврозаборов по Запорожью и области"
+        },
         // Open Graph
         { name: "og:title", content: this.title },
         { name: "og:description", content: this.description },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:url", content: this.$route.path },
         { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
         },
         { name: "twitter:description", content: this.description },
         { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        { name: "twitter:image:alt", content: "Производство еврозаборов" }
       ]
     };
   },
@@ -41,6 +46,9 @@ export default {
     about: aboutVue,
     advantages: advantagesVue,
     exposition: expositionVue
+  },
+  mounted() {
+    this.$store.commit("common/CLOSE_MENU");
   },
   data() {
     return {

@@ -8,7 +8,7 @@
     <app-section
       :heading="section_heading"
       class="section"
-      v-if="posts.data.length > 0"
+      v-if="posts.data.length > 1"
     >
       <div class="grid">
         <blog-card
@@ -55,6 +55,12 @@ export default {
           name: "description",
           content: this.description
         },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Отчеты по установке заборов, Отчеты по установке ворот, Отчеты по установке калиток"
+        },
         // Open Graph
         {
           name: "og:title",
@@ -65,11 +71,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "og:url", content: this.$route.path },
+        { name: "og:image", content: this.posts.data[0].image },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
@@ -78,7 +83,7 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "twitter:image", content: this.posts.data[0].image },
         {
           name: "twitter:image:alt",
           content: "установка еврозабора в Запорожье"
@@ -99,6 +104,9 @@ export default {
       description:
         "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
     };
+  },
+  mounted() {
+    this.$store.commit("common/CLOSE_MENU");
   },
   computed: {
     page: {

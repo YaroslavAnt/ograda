@@ -119,6 +119,7 @@ import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
 import { contact } from "~/static/content_data";
 import MenuButtonVue from "../common/MenuButton.vue";
+import { PHONE, EMAIL } from "../../config";
 
 export default {
   name: "header.vue",
@@ -133,8 +134,8 @@ export default {
   props: ["current_page"],
   data() {
     return {
-      phone: contact.phone,
-      email: contact.email,
+      phone: PHONE,
+      email: EMAIL,
       location: contact.location,
       isMenuOpen: false
     };

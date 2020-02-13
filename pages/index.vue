@@ -2,7 +2,7 @@
   <main>
     <hero />
     <!-- //TODO add special proposition section-->
-    <special :special='special'></special>
+    <!-- <special :special='special'></special> -->
     <services :content="home.services" />
     <news />
   </main>
@@ -37,6 +37,7 @@ export default {
 
   mounted() {
     this.fetchSpecial();
+    this.$store.commit("common/CLOSE_MENU");
   },
 
   methods: {

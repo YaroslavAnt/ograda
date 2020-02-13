@@ -1,6 +1,7 @@
 ﻿<template>
   <main>
     <h1 class="with-skewed-bg">{{replaceWithSpace(category)}}</h1>
+
     <app-section class="section">
       <div class="section-switchbox">
         <div
@@ -22,7 +23,8 @@
             <span
               class="switch-tab"
               :class="{'switch-tab-active': $route.params.subcategory===replaceWithDash(tab.name)}"
-            >{{tab.name}}</span></router-link>
+            >{{tab.name}}</span>
+          </router-link>
         </div>
       </div>
       <p
@@ -38,6 +40,9 @@
         />
       </div>
     </app-section>
+
+    <p class="section-padding">{{categoryObj.description}}</p>
+    <p class="section-padding">{{subcategoryObj.description}}</p>
 
     <div class="container-paginate">
       <app-pagination
@@ -78,6 +83,11 @@ export default {
           content: this.description
         },
         {
+          hid: "keywords",
+          name: "keywords",
+          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье`
+        },
+        {
           name: "og:title",
           content: this.title
         },
@@ -86,11 +96,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "og:url", content: this.$route.path },
+        { name: "og:image", content: this.productsData.data[0].img_set[0] },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
@@ -99,8 +108,14 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        {
+          name: "twitter:image",
+          content: this.productsData.data[0].img_set[0]
+        },
+        {
+          name: "twitter:image:alt",
+          content: this.productsData.data[0].img_alt
+        }
       ]
     };
   },
@@ -129,16 +144,16 @@ export default {
         this.getPostByCategory(this.active_category, value); //TODO ?????
       }
     },
-    categoryId() {
+    categoryObj() {
       const fitObj =
         this.categories.find(category => {
           return (
             this.replaceWithDash(category.name) === this.$route.params.category
           );
         }) || {};
-      return fitObj.id || null;
+      return fitObj || {};
     },
-    subcategoryId() {
+    subcategoryObj() {
       const fitObj =
         this.subcategories.find(subcategory => {
           return (
@@ -146,7 +161,7 @@ export default {
             this.$route.params.subcategory
           );
         }) || {};
-      return fitObj.id || null;
+      return fitObj || {};
     },
     title() {
       return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
@@ -159,7 +174,7 @@ export default {
   methods: {
     getProductsByCategory() {
       this.$store.dispatch("common/runSpinner");
-      return getProductByCategory(this.categoryId)
+      return getProductByCategory(this.categoryObj.id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
@@ -168,7 +183,7 @@ export default {
     },
     getSubcategories() {
       this.$store.dispatch("common/runSpinner");
-      return getOneByCategory(this.categoryId)
+      return getOneByCategory(this.categoryObj.id)
         .then((res = {}) => {
           this.subcategories = res.data.data;
         })
@@ -177,7 +192,7 @@ export default {
     },
     fetchProductsBySubcategory() {
       this.$store.dispatch("common/runSpinner");
-      getProductBySubcategory(this.subcategoryId)
+      getProductBySubcategory(this.subcategoryObj.id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })

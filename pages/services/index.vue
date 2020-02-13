@@ -36,6 +36,11 @@ export default {
           content: this.description
         },
         {
+          hid: "keywords",
+          name: "keywords",
+          content: `Услуги по установке заборов, доставка еврозаборов, монтаж ограждений и ворот, покраска еврозаборов, цветные еврозаборы`
+        },
+        {
           name: "og:title",
           content: this.title
         },
@@ -44,11 +49,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "og:url", content: this.$route.path },
+        { name: "og:image", content: this.services.services[0].img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
@@ -57,14 +61,20 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        { name: "twitter:image", content: this.services.services[0].img_src },
+        {
+          name: "twitter:image:alt",
+          content: this.services.services[0].img_alt
+        }
       ]
     };
   },
   components: {
     "app-intro": IntroVue,
     "app-section": sectionVue
+  },
+  mounted() {
+    this.$store.commit("common/CLOSE_MENU");
   },
   data() {
     return {

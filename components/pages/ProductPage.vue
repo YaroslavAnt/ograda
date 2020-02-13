@@ -67,7 +67,7 @@
           <p class="info-box-category small-font">Категория: {{product.category.name}}</p>
           <p
             v-if="product.option"
-            class="info-box-option"
+            class="info-box-option medium-font"
           >{{product.option.details}}</p>
         </div>
       </div>
@@ -305,6 +305,9 @@ export default {
       margin-top: 12px;
       padding-top: 12px;
       border-top: 1px solid var(--green);
+      color: var(--green);
+      font-weight: bold;
+      line-height: 1.2;
     }
   }
 </style>
