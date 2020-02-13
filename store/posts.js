@@ -34,7 +34,6 @@ const actions = {
   async fetchPosts({ commit }) {
     try {
       const response = await getAllPosts();
-      console.log({ response });
       commit("posts/SET_POSTS", response);
     } catch (error) {
       console.log("*******");
