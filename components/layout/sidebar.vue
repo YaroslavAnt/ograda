@@ -3,18 +3,22 @@
     <div class="logo"></div>
     <ul class="sidebar-nav">
 
-      <li>
-        <router-link to="/">
+      <li @click="$store.dispatch('common/closeMenu')">
+        <router-link
+          exact
+          to="/"
+        >
           <span class="nav-link">Главная</span>
         </router-link>
       </li>
 
       <li
         class="nav-link with-submenu"
+        @click="onClickNavItem(category.name)"
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
       >
-        <span @click="onClickNavItem(category.name)">{{category.name}}</span>
+        <span>{{category.name}}</span>
         <ul
           class="sidebar-subnav"
           :class="{'sidebar-subnav-active': category.name === activeCategory }"
@@ -22,6 +26,7 @@
           <li
             v-for="(subcategory,idx) in category.subcategories"
             :key="idx"
+            @click="$store.dispatch('common/closeMenu')"
           >
             <router-link :to='{path:`/products/${replaceWithDash(category.name)}/${replaceWithDash(subcategory.name)}`}'>
               <span class="subnav-link">{{subcategory.name}}</span>
@@ -33,6 +38,7 @@
       <li
         v-for="(nav_item,idx) in static_menu_list"
         :key="idx+'static'"
+        @click="$store.dispatch('common/closeMenu')"
       >
         <router-link :to="nav_item.path">
           <span class="nav-link">{{nav_item.name}}</span>

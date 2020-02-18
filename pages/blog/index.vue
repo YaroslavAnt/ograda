@@ -1,12 +1,11 @@
 ﻿<template>
-  <main>
-    <h1>Отчеты о выполненых работах по установке ограждений</h1>
+  <main class="section-padding">
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
     <p
       class="huge-font"
       v-if="posts.data.length === 0"
     >Еще нет новостей...</p>
     <app-section
-      :heading="section_heading"
       class="section"
       v-if="posts.data.length > 1"
     >
@@ -136,10 +135,30 @@ export default {
   main {
     flex: 1;
     background-color: #fff;
+    margin-top: 85px;
   }
-  h1 {
-    position: absolute;
-    left: -500px;
+  .heading {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 12px 24px;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    &::before {
+      background-color: var(--green);
+    }
+
+    @media (min-width: 600px) {
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 40px;
+    }
   }
   .section {
     background-color: #fff;

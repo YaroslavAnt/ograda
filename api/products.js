@@ -13,10 +13,16 @@ const getProductBySubcategory = subcategory_id =>
   httpClient.get(`${END_POINT}/search/query?subcategory_id=${subcategory_id}`);
 
 const getSpecialProducts = () => httpClient.get(`/products-stock`);
+
+const getPopularProducts = () => httpClient.get(`/products-popular`);
+
+const getPrices = () => httpClient.get("/products-prices");
 export {
   getAllProducts,
   getProduct,
   getProductByCategory,
   getProductBySubcategory,
-  getSpecialProducts
+  getSpecialProducts,
+  getPopularProducts,
+  getPrices
 };

@@ -1,12 +1,15 @@
 ﻿<template>
   <main>
-    <product-page :product='product' />
+    <product-page
+      :product='product'
+      :popular='popular'
+    />
   </main>
 </template>
  
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { getProduct } from "~/api/products";
+import { getProduct, getPopularProducts } from "~/api/products";
 export default {
   name: "product.vue",
   head() {
@@ -62,7 +65,8 @@ export default {
           name: "",
           id: ""
         }
-      }
+      },
+      popular: []
     };
   },
   components: {
@@ -84,6 +88,7 @@ export default {
   },
   mounted() {
     this.fetchProduct();
+    this.fetchPopular();
   },
   methods: {
     fetchProduct() {
@@ -94,6 +99,13 @@ export default {
         })
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
+    },
+    fetchPopular() {
+      getPopularProducts()
+        .then(res => {
+          this.popular = res.data.data;
+        })
+        .catch(() => alert("Невозможно загрузить данные"));
     }
   }
 };

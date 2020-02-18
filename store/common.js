@@ -17,6 +17,9 @@ export const actions = {
   },
   stopSpinner({ commit }) {
     commit("STOP_SPINNER");
+  },
+  closeMenu({ commit }) {
+    commit("CLOSE_MENU");
   }
 };
 

@@ -68,8 +68,10 @@ if (process.client) {
 }
 
 import { getProductByCategory, getProductBySubcategory } from "~/api/products";
-import { getOneByCategory } from "~/api/subcategories";
+import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
+import { getAll } from "../../../../api/categories";
+
 export default {
   name: "productPage.vue",
 
@@ -163,6 +165,7 @@ export default {
         }) || {};
       return fitObj || {};
     },
+
     title() {
       return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
     },
@@ -172,27 +175,18 @@ export default {
   },
 
   methods: {
-    getProductsByCategory() {
+    getProductsByCategory(id) {
       this.$store.dispatch("common/runSpinner");
-      return getProductByCategory(this.categoryObj.id)
+      return getProductByCategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
     },
-    getSubcategories() {
+    fetchProductsBySubcategory(id) {
       this.$store.dispatch("common/runSpinner");
-      return getOneByCategory(this.categoryObj.id)
-        .then((res = {}) => {
-          this.subcategories = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
-    },
-    fetchProductsBySubcategory() {
-      this.$store.dispatch("common/runSpinner");
-      getProductBySubcategory(this.subcategoryObj.id)
+      getProductBySubcategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
@@ -204,12 +198,21 @@ export default {
   },
 
   async mounted() {
-    this.$store.dispatch("common/runSpinner");
-    await this.getSubcategories();
+    const { data: categoryData } = await getAll();
+    const categoryObj = categoryData.data.find(
+      category => replaceWithDash(category.name) === this.$route.params.category
+    );
+    const { data: subcategoryData } = await getByCategory(categoryObj.id);
+    this.subcategories = subcategoryData.data;
+
     if (this.$route.params.subcategory) {
-      await this.fetchProductsBySubcategory();
+      const subcategoryObj = subcategoryData.data.find(
+        subcategory =>
+          replaceWithDash(subcategory.name) === this.$route.params.subcategory
+      );
+      await this.fetchProductsBySubcategory(subcategoryObj.id);
     } else {
-      await this.getProductsByCategory();
+      await this.getProductsByCategory(categoryObj.id);
     }
   },
 
@@ -238,7 +241,7 @@ export default {
           }
         ]
       },
-      categories: this.$store.state.categories.list,
+      categories: [{}],
       subcategories: [{}]
     };
   }
@@ -251,9 +254,6 @@ export default {
     background-color: #fff;
   }
   h1 {
-    // position: absolute;
-    // transform: translateX(-100%);
-    // left: -500px;
     font-weight: bold;
     font-size: 22px;
     line-height: 1;

@@ -37,25 +37,20 @@
         <input type="button" value="Отправить" class="input btn" @click="submit()" />
       </form>
 
-      <address class="contacts">
-        <div class="contacts-item base-font">
+      <address class="contacts base-font">
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
           <span class="text">{{phone}}</span>
-        </div>
-        <div class="contacts-item base-font">
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
           <span class="text">{{email}}</span>
-        </div>
-        <div class="contacts-item base-font">
           <icon-base :iconColor="'#ff5b00'">
             <icon-location />
           </icon-base>
           <span class="text">{{location}}</span>
-        </div>
+        
       </address>
     </div>
 
@@ -197,11 +192,9 @@ export default {
       cursor: pointer;
     }
     .contacts {
-      &-item {
-        min-height: 50px;
-        display: flex;
-        align-items: center;
-      }
+      display: grid;
+      grid-template-columns: 12% 1fr;
+      grid-gap: 10px;
     }
   }
 

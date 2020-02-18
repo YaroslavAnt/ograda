@@ -148,12 +148,6 @@ export default {
     Promise.all([
       getAll().then(res => {
         this.$store.commit("categories/SET_CATEGORIES", res.data.data);
-      }),
-      getAllProducts().then(res => {
-        this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
-      }),
-      getAllPosts().then(({ data }) => {
-        this.$store.commit("posts/SET_POSTS", data.data);
       })
     ])
       .catch(() => alert("Невозможно загрузить данные"))
@@ -161,3 +155,4 @@ export default {
   }
 };
 </script>
+ 

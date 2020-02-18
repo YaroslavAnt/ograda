@@ -5,20 +5,17 @@
       v-for="(price, idx) in prices"
       :key="idx"
       class="section"
-      :heading="price.heading"
+      :heading="`Цены (прайсы) на ${price.name.toUpperCase()}`"
     >
-      <app-table :items="price.items" />
+      <app-table :items="price.products" />
     </app-section>
   </main>
 </template>
-
+ 
 <script>
 import section from "../../components/layout/section";
 import TableVue from "../../components/common/Table.vue";
-
-import { fence_set } from "../../static/fence_data";
-import { pillar_set } from "../../static/pillars_data";
-import { gates_set } from "../../static/gates_data";
+import { mapGetters } from "vuex";
 
 export default {
   head() {
@@ -69,29 +66,19 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+    this.$store.dispatch("products/fetchPrices");
+  },
+  computed: {
+    ...mapGetters({
+      prices: "products/getPrices"
+    })
   },
   data() {
-    //TODO endpoint for prices
-
     return {
       title:
         "Цены на еврозаборы, ворота и калитки, бетонные столбики, тротуарную плитку в Запорожье",
       description:
-        "Цены (прайсы) от производителя на еврозаборы, ворота и калитки, бетонные столбики, тротуарную плитку в Запорожье",
-      prices: [
-        {
-          heading: "Цены на заборы в Запорожье",
-          items: fence_set
-        },
-        {
-          heading: "Цены на столбики для еврозабора, для винограда в Запорожье",
-          items: pillar_set
-        },
-        {
-          heading: "Цены на ворота и калитки в Запорожье",
-          items: gates_set
-        }
-      ]
+        "Цены (прайсы) от производителя на еврозаборы, ворота и калитки, бетонные столбики, тротуарную плитку в Запорожье"
     };
   }
 };
@@ -100,6 +87,7 @@ export default {
 <style lang="scss" scoped>
   main {
     background-color: #fff;
+    flex: 1;
   }
   h1 {
     position: absolute;

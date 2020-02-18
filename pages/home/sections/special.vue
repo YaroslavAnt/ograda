@@ -1,6 +1,6 @@
 ﻿<template>
   <app-section
-    :heading="'Популярные товары'"
+    :heading="'Акционные товары'"
     v-if="Array.isArray(special) && special.length>0"
   >
     <div class="section-grid">

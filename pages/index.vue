@@ -1,8 +1,7 @@
 <template>
   <main>
     <hero />
-    <!-- //TODO add special proposition section-->
-    <!-- <special :special='special'></special> -->
+    <special :special='special'></special>
     <services :content="home.services" />
     <news />
   </main>
@@ -16,7 +15,9 @@ import newsVue from "./home/sections/news.vue";
 import { home } from "~/static/content_data";
 import { mapGetters } from "vuex";
 import specialVue from "./home/sections/special.vue";
-import { getSpecialProducts } from "../api/products";
+import { getSpecialProducts, getAllProducts } from "../api/products";
+import { getAll } from "../api/categories";
+import { getAllPosts } from "../api/posts";
 
 export default {
   scrollToTop: true,
@@ -38,6 +39,16 @@ export default {
   mounted() {
     this.fetchSpecial();
     this.$store.commit("common/CLOSE_MENU");
+    Promise.all([
+      getAllProducts().then(res => {
+        this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
+      }),
+      getAllPosts().then(({ data }) => {
+        this.$store.commit("posts/SET_POSTS", data.data);
+      })
+    ])
+      .catch(() => alert("Невозможно загрузить данные"))
+      .finally(() => this.$store.dispatch("common/stopSpinner"));
   },
 
   methods: {

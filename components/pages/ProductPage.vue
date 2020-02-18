@@ -16,7 +16,10 @@
               class="slider-box-image-label small-font"
             >{{product.option.label}}</span>
           </app-image>
-          <div class="preview">
+          <div
+            class="preview"
+            v-if="product.img_set.length>1"
+          >
             <div
               class="preview-item"
               :class="{'preview-item-active': active_img===idx}"
@@ -71,7 +74,19 @@
           >{{product.option.details}}</p>
         </div>
       </div>
+
+      <div class="popular">
+        <h2 class="medium-font heading"><b>Популярные товары</b></h2>
+        <div class="popular-grid">
+          <product-card
+            v-for="product in popular"
+            :key='product.id'
+            :product='product'
+          ></product-card>
+        </div>
+      </div>
     </article>
+
     <div
       class="zoom"
       v-if="isZoomActive"
@@ -115,13 +130,15 @@ import { BASE_URL } from "../../config";
 import MenuButtonVue from "../common/MenuButton.vue";
 import ArrowVue from "../common/Arrow.vue";
 import { replaceWithDash } from "../../static/utils";
+import ProductCardVue from "../common/ProductCard.vue";
 
 export default {
   name: "Product.vue",
   components: {
     "app-image": ImageBaseVue,
     "app-close": MenuButtonVue,
-    "app-arrow": ArrowVue
+    "app-arrow": ArrowVue,
+    "product-card": ProductCardVue
   },
   methods: {
     replaceWithDash: replaceWithDash,
@@ -147,7 +164,8 @@ export default {
   props: {
     product: {
       type: Object
-    }
+    },
+    popular: { type: Array }
   },
 
   data() {
@@ -308,6 +326,21 @@ export default {
       color: var(--green);
       font-weight: bold;
       line-height: 1.2;
+    }
+  }
+
+  .popular {
+    margin-top: 36px;
+
+    .heading {
+      margin-top: 10px;
+      font-weight: bold;
+      color: var(--red);
+    }
+    &-grid {
+      display: grid;
+      grid-gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>

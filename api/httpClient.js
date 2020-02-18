@@ -1,8 +1,9 @@
 ﻿import axios from "axios";
 import store from "../store/common";
+import { BASE_URL } from "~/config";
 
 const httpClient = axios.create({
-  baseURL: "http://kolbasa.qbex.io/api/",
+  baseURL: BASE_URL + "api/",
   headers: {
     "Content-Type": "application/json"
   }
