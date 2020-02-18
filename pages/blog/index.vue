@@ -5,9 +5,10 @@
       class="huge-font"
       v-if="posts.data.length === 0"
     >Еще нет новостей...</p>
+
     <app-section
       class="section"
-      v-if="posts.data.length > 1"
+      v-if="posts.data.length > 0"
     >
       <div class="grid">
         <blog-card
@@ -19,6 +20,7 @@
         />
       </div>
     </app-section>
+
     <div class="container-paginate">
       <app-pagination
         v-if="posts.last_page > 1"
@@ -37,7 +39,8 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import BlogCardVue from "~/components/common/BlogCard.vue";
-import { getPostsByPage } from "../../api/posts";
+import { getPostsByPage, getAllPosts } from "../../api/posts";
+import { mapGetters } from "vuex";
 let Paginate;
 if (process.client) {
   Paginate = require("vuejs-paginate");
@@ -71,7 +74,10 @@ export default {
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: this.posts.data[0].image },
+        {
+          name: "og:image",
+          content: this.posts.data.length > 0 ? this.posts.data[0].image : ""
+        },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
@@ -82,7 +88,10 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: this.posts.data[0].image },
+        {
+          name: "twitter:image",
+          content: this.posts.data.length > 0 ? this.posts.data[0].image : ""
+        },
         {
           name: "twitter:image:alt",
           content: "установка еврозабора в Запорожье"
@@ -98,7 +107,6 @@ export default {
   data() {
     return {
       section_heading: "Отчеты о выполненных работах",
-      posts: this.$store.state.posts.posts,
       title: "Отчеты о выполненых работах по установке ограждений",
       description:
         "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
@@ -106,8 +114,16 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+    getAllPosts()
+      .then(({ data }) => {
+        this.$store.commit("posts/SET_POSTS", data.data);
+      })
+      .catch(() => alert("Невозможно загрузить данные"));
   },
   computed: {
+    ...mapGetters({
+      posts: "posts/getPosts"
+    }),
     page: {
       get() {
         return Number(this.posts.current_page) || this.default_page;

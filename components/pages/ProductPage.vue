@@ -330,17 +330,21 @@ export default {
   }
 
   .popular {
-    margin-top: 36px;
+    margin-top: 72px;
 
     .heading {
-      margin-top: 10px;
+      margin: 10px 0;
       font-weight: bold;
       color: var(--red);
+      text-align: center;
     }
     &-grid {
       display: grid;
       grid-gap: 24px;
-      grid-template-columns: repeat(2, 1fr);
+
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   }
 </style>

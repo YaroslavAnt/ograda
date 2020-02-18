@@ -1,7 +1,7 @@
 ﻿<template>
   <article class="card">
     <app-image
-      :img_src="BASE_URL+ card.image"
+      :img_src="BASE_URL + card.image"
       :img_alt="card.img_alt"
       :lazy="true"
     />

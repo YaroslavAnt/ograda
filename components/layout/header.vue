@@ -18,14 +18,14 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text">{{phone}}</span>
+          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a></span>
         </div>
 
         <div class="contact-item">
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
-          <span class="text">{{email}}</span>
+          <span class="text"><a :href="`mailto:${EMAIL}`">{{EMAIL}}</a></span>
         </div>
       </div>
       <div class="menu">
@@ -133,8 +133,8 @@ export default {
   props: ["current_page"],
   data() {
     return {
-      phone: PHONE,
-      email: EMAIL,
+      PHONE,
+      EMAIL,
       location: LOCATION,
       isMenuOpen: false
     };

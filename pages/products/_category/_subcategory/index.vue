@@ -32,7 +32,10 @@
         v-if="productsData.data.length === 0"
       >Товары еще не загружены...</p>
 
-      <div class="section-grid">
+      <div
+        class="section-grid"
+        v-if="productsData.data.length > 0"
+      >
         <product-card
           v-for="(product) in productsData.data"
           :key="product.id"
@@ -41,8 +44,14 @@
       </div>
     </app-section>
 
-    <p class="section-padding">{{categoryObj.description}}</p>
-    <p class="section-padding">{{subcategoryObj.description}}</p>
+    <p
+      class="section-padding base-font section-description"
+      v-html="categoryObj.description"
+    ></p>
+    <p
+      class="section-padding base-font section-description"
+      v-html="subcategoryObj.description"
+    ></p>
 
     <div class="container-paginate">
       <app-pagination
@@ -89,6 +98,8 @@ export default {
           name: "keywords",
           content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье`
         },
+
+        //Open Graph
         {
           name: "og:title",
           content: this.title
@@ -99,7 +110,14 @@ export default {
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: this.productsData.data[0].img_set[0] },
+        {
+          name: "og:image",
+          content:
+            this.productsData.data.length > 0
+              ? this.productsData.data[0].img_set[0]
+              : ""
+        },
+
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
@@ -112,11 +130,17 @@ export default {
         },
         {
           name: "twitter:image",
-          content: this.productsData.data[0].img_set[0]
+          content:
+            this.productsData.data.length > 0
+              ? this.productsData.data[0].img_set[0]
+              : ""
         },
         {
           name: "twitter:image:alt",
-          content: this.productsData.data[0].img_alt
+          content:
+            this.productsData.data.length > 0
+              ? this.productsData.data[0].img_alt
+              : ""
         }
       ]
     };
@@ -146,26 +170,6 @@ export default {
         this.getPostByCategory(this.active_category, value); //TODO ?????
       }
     },
-    categoryObj() {
-      const fitObj =
-        this.categories.find(category => {
-          return (
-            this.replaceWithDash(category.name) === this.$route.params.category
-          );
-        }) || {};
-      return fitObj || {};
-    },
-    subcategoryObj() {
-      const fitObj =
-        this.subcategories.find(subcategory => {
-          return (
-            this.replaceWithDash(subcategory.name) ===
-            this.$route.params.subcategory
-          );
-        }) || {};
-      return fitObj || {};
-    },
-
     title() {
       return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
     },
@@ -204,12 +208,14 @@ export default {
     );
     const { data: subcategoryData } = await getByCategory(categoryObj.id);
     this.subcategories = subcategoryData.data;
+    this.categoryObj = categoryObj;
 
     if (this.$route.params.subcategory) {
       const subcategoryObj = subcategoryData.data.find(
         subcategory =>
           replaceWithDash(subcategory.name) === this.$route.params.subcategory
       );
+      this.subcategoryObj = subcategoryObj;
       await this.fetchProductsBySubcategory(subcategoryObj.id);
     } else {
       await this.getProductsByCategory(categoryObj.id);
@@ -225,24 +231,12 @@ export default {
       productsData: {
         last_page: "",
         current_page: "",
-        data: [
-          {
-            description: "",
-            img_set: [],
-            option: {},
-            category: {
-              name: "",
-              id: ""
-            },
-            subcategory: {
-              name: "",
-              id: ""
-            }
-          }
-        ]
+        data: []
       },
       categories: [{}],
-      subcategories: [{}]
+      subcategories: [{}],
+      categoryObj: "",
+      subcategoryObj: ""
     };
   }
 };
@@ -290,6 +284,10 @@ export default {
       @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
       }
+    }
+
+    &-description {
+      white-space: pre-wrap;
     }
   }
 </style>

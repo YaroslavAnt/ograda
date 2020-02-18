@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="page">
-    <app-spinner></app-spinner>
+    <!-- <app-spinner></app-spinner> -->
     <div
       class="overlay"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
@@ -24,7 +24,7 @@
       <app-footer></app-footer>
 
       <div class="connect">
-        <a href="tel:+380971111111">
+        <a :href="`tel:${PHONE}`">
           <icon-base
             :width='75'
             :height='75'
@@ -114,6 +114,7 @@ import SpinnerVue from "../components/common/Spinner.vue";
 import httpClient from "../api/httpClient";
 import IconBaseVue from "../components/common/IconBase.vue";
 import IconPhoneBlueVue from "../components/icons/IconPhoneBlue.vue";
+import { PHONE } from "../config";
 
 export default {
   name: "default.vue",
@@ -136,7 +137,8 @@ export default {
   },
   data() {
     return {
-      current_page: "/"
+      current_page: "/",
+      PHONE
     };
   },
   methods: {

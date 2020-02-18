@@ -5,18 +5,7 @@ export const state = () => {
   return {
     posts: {
       last_page: "",
-      data: [
-        {
-          id: "",
-          img_alt: "",
-          title: "",
-          body: "",
-          short_body: "",
-          image: "",
-          created_at: "",
-          updated_at: ""
-        }
-      ]
+      data: []
     }
   };
 };
