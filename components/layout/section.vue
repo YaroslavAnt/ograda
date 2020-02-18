@@ -30,6 +30,8 @@
       padding: 12px 24px;
       position: relative;
       z-index: 5;
+      display: flex;
+      justify-content: center;
       &::before {
         background-color: var(--green);
       }

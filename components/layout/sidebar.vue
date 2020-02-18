@@ -3,27 +3,30 @@
     <div class="logo"></div>
     <ul class="sidebar-nav">
 
-      <li @click="onClickNavItem()">
-        <router-link to="/">
+      <li @click="$store.dispatch('common/closeMenu')">
+        <router-link
+          exact
+          to="/"
+        >
           <span class="nav-link">Главная</span>
         </router-link>
       </li>
 
       <li
         class="nav-link with-submenu"
+        @click="onClickNavItem(category.name)"
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
-        @click="onClickNavItem(category.name)"
       >
         <span>{{category.name}}</span>
         <ul
           class="sidebar-subnav"
-          :class="{'sidebar-subnav-active': activeCategory===category.name}"
+          :class="{'sidebar-subnav-active': category.name === activeCategory }"
         >
           <li
-            @click="onClickNavItem()"
             v-for="(subcategory,idx) in category.subcategories"
             :key="idx"
+            @click="$store.dispatch('common/closeMenu')"
           >
             <router-link :to='{path:`/products/${replaceWithDash(category.name)}/${replaceWithDash(subcategory.name)}`}'>
               <span class="subnav-link">{{subcategory.name}}</span>
@@ -33,9 +36,9 @@
       </li>
 
       <li
-        @click="onClickNavItem()"
         v-for="(nav_item,idx) in static_menu_list"
         :key="idx+'static'"
+        @click="$store.dispatch('common/closeMenu')"
       >
         <router-link :to="nav_item.path">
           <span class="nav-link">{{nav_item.name}}</span>
@@ -57,7 +60,8 @@ export default {
       if (categoryName) {
         this.setActiveCategory(categoryName);
       } else {
-        this.activeCategory = null;
+        this.setActiveCategory(null);
+        console.log(this.activeCategory, "activeCategory");
         this.$store.commit("common/SET_MENU", false);
       }
     },
@@ -69,6 +73,7 @@ export default {
 
     replaceWithDash
   },
+
   props: ["current_page"],
   data() {
     return {

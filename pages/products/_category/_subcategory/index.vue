@@ -1,6 +1,7 @@
 ﻿<template>
   <main>
     <h1 class="with-skewed-bg">{{replaceWithSpace(category)}}</h1>
+
     <app-section class="section">
       <div class="section-switchbox">
         <div
@@ -22,7 +23,8 @@
             <span
               class="switch-tab"
               :class="{'switch-tab-active': $route.params.subcategory===replaceWithDash(tab.name)}"
-            >{{tab.name}}</span></router-link>
+            >{{tab.name}}</span>
+          </router-link>
         </div>
       </div>
       <p
@@ -38,6 +40,9 @@
         />
       </div>
     </app-section>
+
+    <p class="section-padding">{{categoryObj.description}}</p>
+    <p class="section-padding">{{subcategoryObj.description}}</p>
 
     <div class="container-paginate">
       <app-pagination
@@ -63,8 +68,10 @@ if (process.client) {
 }
 
 import { getProductByCategory, getProductBySubcategory } from "~/api/products";
-import { getOneByCategory } from "~/api/subcategories";
+import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
+import { getAll } from "../../../../api/categories";
+
 export default {
   name: "productPage.vue",
 
@@ -78,6 +85,11 @@ export default {
           content: this.description
         },
         {
+          hid: "keywords",
+          name: "keywords",
+          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье`
+        },
+        {
           name: "og:title",
           content: this.title
         },
@@ -86,11 +98,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        { name: "og:url", content: this.$route.path },
+        { name: "og:image", content: this.productsData.data[0].img_set[0] },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         {
           name: "twitter:title",
           content: this.title
@@ -99,8 +110,14 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        {
+          name: "twitter:image",
+          content: this.productsData.data[0].img_set[0]
+        },
+        {
+          name: "twitter:image:alt",
+          content: this.productsData.data[0].img_alt
+        }
       ]
     };
   },
@@ -129,16 +146,16 @@ export default {
         this.getPostByCategory(this.active_category, value); //TODO ?????
       }
     },
-    categoryId() {
+    categoryObj() {
       const fitObj =
         this.categories.find(category => {
           return (
             this.replaceWithDash(category.name) === this.$route.params.category
           );
         }) || {};
-      return fitObj.id || null;
+      return fitObj || {};
     },
-    subcategoryId() {
+    subcategoryObj() {
       const fitObj =
         this.subcategories.find(subcategory => {
           return (
@@ -146,8 +163,9 @@ export default {
             this.$route.params.subcategory
           );
         }) || {};
-      return fitObj.id || null;
+      return fitObj || {};
     },
+
     title() {
       return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
     },
@@ -157,27 +175,18 @@ export default {
   },
 
   methods: {
-    getProductsByCategory() {
+    getProductsByCategory(id) {
       this.$store.dispatch("common/runSpinner");
-      return getProductByCategory(this.categoryId)
+      return getProductByCategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
     },
-    getSubcategories() {
+    fetchProductsBySubcategory(id) {
       this.$store.dispatch("common/runSpinner");
-      return getOneByCategory(this.categoryId)
-        .then((res = {}) => {
-          this.subcategories = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
-    },
-    fetchProductsBySubcategory() {
-      this.$store.dispatch("common/runSpinner");
-      getProductBySubcategory(this.subcategoryId)
+      getProductBySubcategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
@@ -189,12 +198,21 @@ export default {
   },
 
   async mounted() {
-    this.$store.dispatch("common/runSpinner");
-    await this.getSubcategories();
+    const { data: categoryData } = await getAll();
+    const categoryObj = categoryData.data.find(
+      category => replaceWithDash(category.name) === this.$route.params.category
+    );
+    const { data: subcategoryData } = await getByCategory(categoryObj.id);
+    this.subcategories = subcategoryData.data;
+
     if (this.$route.params.subcategory) {
-      await this.fetchProductsBySubcategory();
+      const subcategoryObj = subcategoryData.data.find(
+        subcategory =>
+          replaceWithDash(subcategory.name) === this.$route.params.subcategory
+      );
+      await this.fetchProductsBySubcategory(subcategoryObj.id);
     } else {
-      await this.getProductsByCategory();
+      await this.getProductsByCategory(categoryObj.id);
     }
   },
 
@@ -223,7 +241,7 @@ export default {
           }
         ]
       },
-      categories: this.$store.state.categories.list,
+      categories: [{}],
       subcategories: [{}]
     };
   }
@@ -236,9 +254,6 @@ export default {
     background-color: #fff;
   }
   h1 {
-    // position: absolute;
-    // transform: translateX(-100%);
-    // left: -500px;
     font-weight: bold;
     font-size: 22px;
     line-height: 1;

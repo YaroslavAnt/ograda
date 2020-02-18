@@ -152,7 +152,7 @@
 
 <script>
 import ArrowVue from "../common/Arrow.vue";
-import { DOMAIN, BASE_URL } from "../../config";
+import { DOMAIN, BASE_URL, PHONE, EMAIL } from "../../config";
 import { replaceWithDash } from "../../static/utils";
 import SocialSharing from "vue-social-sharing";
 export default {
@@ -194,8 +194,8 @@ export default {
       contact_list: {
         name: "Контакты",
         links: [
-          { name: "+380(97)111 11 11", path: "/contact" },
-          { name: "sokurmen@gmail.com", path: "/contact" }
+          { name: PHONE, path: "/contact" },
+          { name: EMAIL, path: "/contact" }
         ]
       }
     };

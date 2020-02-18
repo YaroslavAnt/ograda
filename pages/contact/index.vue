@@ -37,25 +37,20 @@
         <input type="button" value="Отправить" class="input btn" @click="submit()" />
       </form>
 
-      <address class="contacts">
-        <div class="contacts-item base-font">
+      <address class="contacts base-font">
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
           <span class="text">{{phone}}</span>
-        </div>
-        <div class="contacts-item base-font">
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
           <span class="text">{{email}}</span>
-        </div>
-        <div class="contacts-item base-font">
           <icon-base :iconColor="'#ff5b00'">
             <icon-location />
           </icon-base>
           <span class="text">{{location}}</span>
-        </div>
+        
       </address>
     </div>
 
@@ -78,6 +73,7 @@ import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
 import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
+import { PHONE, EMAIL } from "../../config";
 export default {
   name: "contact",
   head() {
@@ -85,18 +81,26 @@ export default {
       title: this.title,
       meta: [
         { hid: "description", name: "description", content: this.description },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Адрес производства еврозаборов в Запорожье, контакты производителя еврозаборов, телефоны производства заборов"
+        },
         { name: "og:title", content: this.title },
         { name: "og:description", content: this.description },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://nuxtjs.org" },
+        { name: "og:url", content: this.$route.path },
         { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@nuxt_js" },
         { name: "twitter:title", content: this.title },
         { name: "twitter:description", content: this.description },
         { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
-        { name: "twitter:image:alt", content: "NuxtJS Logo" }
+        {
+          name: "twitter:image:alt",
+          content: "Адрес производства еврозаборов в Запорожье"
+        }
       ]
     };
   },
@@ -132,11 +136,14 @@ export default {
       return re.test(email);
     }
   },
+  mounted() {
+    this.$store.commit("common/CLOSE_MENU");
+  },
   data() {
     return {
       errors: [],
-      phone: contact.phone,
-      email: contact.email,
+      phone: PHONE,
+      email: EMAIL,
       location: contact.location,
       formData: { name: "", email: "", phone: "", message: "" },
       titile: "Контакты для заказа еврозаборов",
@@ -185,11 +192,9 @@ export default {
       cursor: pointer;
     }
     .contacts {
-      &-item {
-        min-height: 50px;
-        display: flex;
-        align-items: center;
-      }
+      display: grid;
+      grid-template-columns: 12% 1fr;
+      grid-gap: 10px;
     }
   }
 

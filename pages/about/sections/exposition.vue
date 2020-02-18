@@ -99,6 +99,7 @@ export default {
       flex-shrink: 0;
       flex-grow: 0;
       width: 100%;
+      margin-bottom: 24px;
 
       @media (min-width: 768px) {
         width: 50%;
@@ -134,13 +135,17 @@ export default {
 
   .info-box {
     @media (min-width: 768px) {
-      margin-left: 50px;
+      margin-left: 24px;
     }
 
     &-name,
     &-place {
       font-weight: 600;
       margin-bottom: 20px;
+    }
+
+    &-name {
+      color: var(--red);
     }
   }
 </style>

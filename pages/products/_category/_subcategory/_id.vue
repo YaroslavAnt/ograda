@@ -1,12 +1,15 @@
 ﻿<template>
   <main>
-    <product-page :product='product' />
+    <product-page
+      :product='product'
+      :popular='popular'
+    />
   </main>
 </template>
  
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { getProduct } from "~/api/products";
+import { getProduct, getPopularProducts } from "~/api/products";
 export default {
   name: "product.vue",
   head() {
@@ -17,6 +20,11 @@ export default {
           hid: "description",
           name: "description",
           content: this.description
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: `${this.product.name} с ценой и описанием, ${this.product.category.name}, ${this.product.subcategory.name}`
         },
         {
           name: "og:title",
@@ -57,7 +65,8 @@ export default {
           name: "",
           id: ""
         }
-      }
+      },
+      popular: []
     };
   },
   components: {
@@ -79,6 +88,7 @@ export default {
   },
   mounted() {
     this.fetchProduct();
+    this.fetchPopular();
   },
   methods: {
     fetchProduct() {
@@ -89,6 +99,13 @@ export default {
         })
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
+    },
+    fetchPopular() {
+      getPopularProducts()
+        .then(res => {
+          this.popular = res.data.data;
+        })
+        .catch(() => alert("Невозможно загрузить данные"));
     }
   }
 };
@@ -97,11 +114,5 @@ export default {
 <style lang="scss" scoped>
   main {
     flex: 1;
-
-    h1 {
-      position: absolute;
-      transform: translateX(-100%);
-      left: -500px;
-    }
   }
 </style>

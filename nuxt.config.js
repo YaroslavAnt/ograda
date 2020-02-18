@@ -61,7 +61,7 @@ export default {
     extend(config, ctx) {}
   },
   googleAnalytics: {
-    id: "{YOUR GOOGLE ANALYTICS ID}",
+    id: "UA-158653896-1",
     dev: false
   }
 };

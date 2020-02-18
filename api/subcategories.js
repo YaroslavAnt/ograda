@@ -6,7 +6,7 @@ const getAll = () => httpClient.get(END_POINT);
 
 const getOne = id => httpClient.get(`${END_POINT}/${id}`);
 
-const getOneByCategory = categoryId =>
+const getByCategory = categoryId =>
   httpClient.get(`${END_POINT}/category/${categoryId}`);
 
-export { getAll, getOne, getOneByCategory };
+export { getAll, getOne, getByCategory };

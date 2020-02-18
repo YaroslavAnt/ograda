@@ -17,7 +17,7 @@
         v-if="product.option.label"
         class="card-label small-font"
       >{{product.option.label}}</span>
-      <p class="card-price small-font">Цена: {{product.price}}</p>
+      <p class="card-price medium-font">Цена: {{product.price}}</p>
     </div>
   </article>
 </template>

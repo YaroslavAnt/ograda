@@ -1,16 +1,22 @@
-﻿import { getAllProducts, getProductByCategory } from "~/api/products";
+﻿import {
+  getAllProducts,
+  getProductByCategory,
+  getPrices
+} from "~/api/products";
+
+import { runSpinner } from "./common";
 
 export const state = () => ({
-  list: [
-    // {
-    //   img_set: [],
-    //   name: ""
-    // }
-  ],
+  list: [],
   byCategory: [],
   product: {
     name: ""
-  }
+  },
+  prices: [
+    {
+      name: ""
+    }
+  ]
 });
 
 const getters = {
@@ -27,7 +33,8 @@ const getters = {
     return state.list.filter(product => {
       return product.isPopular === 1;
     });
-  }
+  },
+  getPrices: state => state.prices
 };
 
 const actions = {
@@ -46,6 +53,14 @@ const actions = {
     } catch (err) {
       alert("Невозможно загрузить данные");
     }
+  },
+  async fetchPrices({ commit }) {
+    try {
+      const { data } = await getPrices();
+      commit("SET_PRICES", data.data);
+    } catch (err) {
+      alert("Невозможно загрузить данные");
+    }
   }
 };
 
@@ -58,6 +73,9 @@ export const mutations = {
   },
   SET_BY_CATEGORY(state, products) {
     state.byCategory = products;
+  },
+  SET_PRICES(state, prices) {
+    state.prices = prices;
   }
 };
 

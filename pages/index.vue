@@ -1,8 +1,7 @@
 <template>
   <main>
     <hero />
-    <!-- //TODO add special proposition section-->
-    <popular />
+    <special :special='special'></special>
     <services :content="home.services" />
     <news />
   </main>
@@ -15,6 +14,10 @@ import servicesVue from "./home/sections/services.vue";
 import newsVue from "./home/sections/news.vue";
 import { home } from "~/static/content_data";
 import { mapGetters } from "vuex";
+import specialVue from "./home/sections/special.vue";
+import { getSpecialProducts, getAllProducts } from "../api/products";
+import { getAll } from "../api/categories";
+import { getAllPosts } from "../api/posts";
 
 export default {
   scrollToTop: true,
@@ -22,6 +25,7 @@ export default {
   components: {
     hero: heroVue,
     popular: popularVue,
+    special: specialVue,
     services: servicesVue,
     news: newsVue
   },
@@ -32,12 +36,40 @@ export default {
     })
   },
 
+  mounted() {
+    this.fetchSpecial();
+    this.$store.commit("common/CLOSE_MENU");
+    Promise.all([
+      getAllProducts().then(res => {
+        this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
+      }),
+      getAllPosts().then(({ data }) => {
+        this.$store.commit("posts/SET_POSTS", data.data);
+      })
+    ])
+      .catch(() => alert("Невозможно загрузить данные"))
+      .finally(() => this.$store.dispatch("common/stopSpinner"));
+  },
+
+  methods: {
+    fetchSpecial() {
+      this.$store.dispatch("common/runSpinner");
+      return getSpecialProducts()
+        .then(res => {
+          this.special = res.data.data;
+        })
+        .catch(() => alert("Невозможно загрузить данные"))
+        .finally(() => this.$store.dispatch("common/stopSpinner"));
+    }
+  },
+
   data() {
     return {
-      home,
       title: "Продажа и установка еврозаборов в Запорожье и области",
       description:
-        "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений"
+        "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
+      home,
+      special: []
     };
   },
 
@@ -67,8 +99,8 @@ export default {
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
         {
-          name: "og:image",
-          content: this.firstProduct.img_set[0]
+          // name: "og:image",
+          // content: this.firstProduct.img_set[0]
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -81,12 +113,12 @@ export default {
           content: this.description
         },
         {
-          name: "twitter:image",
-          content: this.firstProduct.img_set[0]
+          // name: "twitter:image",
+          // content: this.firstProduct.img_set[0]
         },
         {
-          name: "twitter:image:alt",
-          content: this.firstProduct.name
+          // name: "twitter:image:alt",
+          // content: this.firstProduct.name
         }
       ]
     };
