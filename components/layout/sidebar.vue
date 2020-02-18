@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { fence_set } from "~/static/fence_data/index";
 import { getAll } from "~/api/categories";
 import { replaceWithDash } from "../../static/utils";
 export default {

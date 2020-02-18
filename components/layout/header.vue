@@ -117,9 +117,8 @@ import IconBaseVue from "../common/IconBase.vue";
 import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
-import { contact } from "~/static/content_data";
 import MenuButtonVue from "../common/MenuButton.vue";
-import { PHONE, EMAIL } from "../../config";
+import { PHONE, EMAIL, LOCATION } from "../../config";
 
 export default {
   name: "header.vue",
@@ -136,9 +135,9 @@ export default {
     return {
       phone: PHONE,
       email: EMAIL,
-      location: contact.location,
+      location: LOCATION,
       isMenuOpen: false
     };
   }
 };
-</script>
+</script> 

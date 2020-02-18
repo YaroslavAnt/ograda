@@ -16,7 +16,6 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
-import { fence_set } from "~/static/fence_data/index";
 
 export default {
   name: "popular.vue",

@@ -2,22 +2,26 @@
   <main>
     <hero />
     <special :special='special'></special>
-    <services :content="home.services" />
+    <services :content="services" />
     <news />
   </main>
 </template>
- 
+  
 <script>
 import heroVue from "./home/sections/hero.vue";
 import popularVue from "./home/sections/popular.vue";
 import servicesVue from "./home/sections/services.vue";
 import newsVue from "./home/sections/news.vue";
-import { home } from "~/static/content_data";
 import { mapGetters } from "vuex";
 import specialVue from "./home/sections/special.vue";
 import { getSpecialProducts, getAllProducts } from "../api/products";
 import { getAll } from "../api/categories";
 import { getAllPosts } from "../api/posts";
+
+import measure from "~/assets/icons/measure.svg";
+import cargo from "~/assets/icons/cargo.svg";
+import brush from "~/assets/icons/brush.svg";
+import fence from "~/assets/icons/fence.svg";
 
 export default {
   scrollToTop: true,
@@ -68,8 +72,34 @@ export default {
       title: "Продажа и установка еврозаборов в Запорожье и области",
       description:
         "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
-      home,
-      special: []
+      special: [],
+      services: {
+        section_heading: "Услуги",
+        section_subheading:
+          "Дополнительно мы предоставляем услуги, связанные с установкой ограждений, бетонных заборов, ворот, калиток",
+        card_list: [
+          {
+            icon: cargo,
+            heading: "Доставка продукции и строй-материалов",
+            link: "/services"
+          },
+          {
+            icon: fence,
+            heading: "Установка заборов, ворот",
+            link: "/services"
+          },
+          {
+            icon: brush,
+            heading: "Покраска заборов",
+            link: "/services"
+          },
+          {
+            icon: measure,
+            heading: "Выезд замерщика",
+            link: "/services"
+          }
+        ]
+      }
     };
   },
 
