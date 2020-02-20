@@ -41,6 +41,7 @@ export default {
   },
 
   mounted() {
+    this.$store.dispatch("common/runSpinner");
     this.fetchSpecial();
     this.$store.commit("common/CLOSE_MENU");
     Promise.all([
@@ -57,13 +58,11 @@ export default {
 
   methods: {
     fetchSpecial() {
-      this.$store.dispatch("common/runSpinner");
       return getSpecialProducts()
         .then(res => {
           this.special = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
+        .catch(() => alert("Невозможно загрузить данные"));
     }
   },
 

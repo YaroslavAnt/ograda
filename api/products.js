@@ -17,6 +17,9 @@ const getSpecialProducts = () => httpClient.get(`/products-stock`);
 const getPopularProducts = () => httpClient.get(`/products-popular`);
 
 const getPrices = () => httpClient.get("/products-prices");
+
+const getExhibitions = () => httpClient.get("/exhibition");
+
 export {
   getAllProducts,
   getProduct,
@@ -24,5 +27,6 @@ export {
   getProductBySubcategory,
   getSpecialProducts,
   getPopularProducts,
-  getPrices
+  getPrices,
+  getExhibitions
 };

@@ -8,6 +8,9 @@ export const state = () => ({
 const getters = {
   getMenuState(state) {
     return state.isMenuOpen;
+  },
+  getLoaderState(state) {
+    return state.isSpinnerActive;
   }
 };
 

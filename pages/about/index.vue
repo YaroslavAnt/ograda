@@ -3,7 +3,10 @@
     <h1>Производство и установка еврозаборов в Запорожье</h1>
     <about :content="about.about" />
     <advantages :content="about.advantages" />
-    <exposition :content="about.expo" />
+    <exposition
+      :content="about.expo"
+      :exhibitions='exhibitions'
+    />
   </main>
 </template>
 
@@ -12,6 +15,7 @@ import aboutVue from "./sections/about.vue";
 import advantagesVue from "./sections/advantages.vue";
 import expositionVue from "./sections/exposition.vue";
 import { about } from "~/static/content_data";
+import { getExhibitions } from "../../api/products";
 export default {
   head() {
     return {
@@ -49,12 +53,20 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+    getExhibitions()
+      .then(({ data }) => {
+        console.log({ data });
+        this.exhibitions = data.data.data;
+      })
+      .catch(() => alert("Невозножно загрузить данные"));
   },
+  methods: {},
   data() {
     return {
       about,
       title: "Производство и установка еврозаборов в Запорожье",
-      description: "О нашей компании"
+      description: "О нашей компании",
+      exhibitions: []
     };
   }
 };

@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="page">
-    <!-- <app-spinner></app-spinner> -->
+    <app-spinner></app-spinner>
     <div
       class="overlay"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
@@ -115,6 +115,7 @@ import httpClient from "../api/httpClient";
 import IconBaseVue from "../components/common/IconBase.vue";
 import IconPhoneBlueVue from "../components/icons/IconPhoneBlue.vue";
 import { PHONE } from "../config";
+import LoaderVue from "../components/common/Loader.vue";
 
 export default {
   name: "default.vue",
@@ -122,7 +123,7 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "app-spinner": SpinnerVue,
+    "app-spinner": LoaderVue,
     "icon-base": IconBaseVue,
     "icon-phone": IconPhoneBlueVue
   },
@@ -146,14 +147,11 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("common/runSpinner");
     Promise.all([
       getAll().then(res => {
         this.$store.commit("categories/SET_CATEGORIES", res.data.data);
       })
-    ])
-      .catch(() => alert("Невозможно загрузить данные"))
-      .finally(() => this.$store.dispatch("common/stopSpinner"));
+    ]).catch(() => alert("Невозможно загрузить данные"));
   }
 };
 </script>

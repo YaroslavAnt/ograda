@@ -1,7 +1,10 @@
-﻿import goal from "~/assets/icons/goal.svg";
-import flag from "~/assets/icons/flag.svg";
-import coins from "~/assets/icons/coins.svg";
-import shield from "~/assets/icons/shield.svg";
+﻿import goal from "../../../assets/icons/case.svg";
+import time from "../../../assets/icons/time.svg";
+import coins from "../../../assets/icons/prices.svg";
+import shield from "../../../assets/icons/garanty.svg";
+import contract from "../../../assets/icons/contract.svg";
+import choise from "../../../assets/icons/choise.svg";
+import recycle from "../../../assets/icons/recycle.svg";
 
 //-----------------------expo
 import expo1 from "~/assets/img/expositions/zp/expo1.jpg";
@@ -38,19 +41,32 @@ export default {
     card_list: [
       {
         icon: goal,
-        heading: "10+ лет опыта производства ограждений"
+        heading:
+          "10+ лет опыта производства ограждений. \n500+ обьектов выполненных работ"
       },
       {
-        icon: flag,
-        heading: "500+ обьектов выполненных работ"
+        icon: time,
+        heading: "Выполнение работ в сжатые сроки"
       },
       {
         icon: coins,
-        heading: "Умеренные цены"
+        heading: "Товар по цене произврдителя"
       },
       {
         icon: shield,
         heading: "Высокое качество и гарантия работ"
+      },
+      {
+        icon: contract,
+        heading: "Работаем по договору"
+      },
+      {
+        icon: choise,
+        heading: "Большой асортимент продукции"
+      },
+      {
+        icon: recycle,
+        heading: "Полный перечень услуг по установке заборов и ворот"
       }
     ]
   },

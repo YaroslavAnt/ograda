@@ -6,20 +6,20 @@
       v-if="posts.data.length === 0"
     >Еще нет новостей...</p>
 
-    <app-section
+    <section
       class="section"
       v-if="posts.data.length > 0"
     >
       <div class="grid">
         <blog-card
           :isWhole='true'
-          class="article section-padding"
+          class="article"
           v-for="(card) in posts.data"
           :key="card.id"
           :card="card"
         />
       </div>
-    </app-section>
+    </section>
 
     <div class="container-paginate">
       <app-pagination
@@ -152,6 +152,9 @@ export default {
     flex: 1;
     background-color: #fff;
     margin-top: 85px;
+    @media (min-width: 1024px) {
+      margin-top: 0;
+    }
   }
   .heading {
     font-weight: bold;

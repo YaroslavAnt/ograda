@@ -34,7 +34,7 @@
         >Подробнее</nuxt-link>
       </div>
 
-      <div class="arrows section-padding">
+      <div class="arrows">
         <div
           class="arrow arrow-left"
           @click="backvard()"
@@ -177,6 +177,12 @@ export default {
       align-items: center;
       color: var(--dark);
       max-width: 100vw;
+
+      padding: 30px 16px;
+
+      @media (min-width: 1200px) {
+        padding: 30px 32px;
+      }
 
       .arrow {
         width: 40px;

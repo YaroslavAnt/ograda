@@ -28,7 +28,7 @@
         </div>
       </div>
       <p
-        class="large-font"
+        class="large-font section-placeholder"
         v-if="productsData.data.length === 0"
       >Товары еще не загружены...</p>
 
@@ -45,11 +45,11 @@
     </app-section>
 
     <p
-      class="section-padding base-font section-description"
+      class="base-font section-description"
       v-html="categoryObj.description"
     ></p>
     <p
-      class="section-padding base-font section-description"
+      class="base-font section-description"
       v-html="subcategoryObj.description"
     ></p>
 
@@ -180,7 +180,6 @@ export default {
 
   methods: {
     getProductsByCategory(id) {
-      this.$store.dispatch("common/runSpinner");
       return getProductByCategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
@@ -188,8 +187,8 @@ export default {
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
     },
+
     fetchProductsBySubcategory(id) {
-      this.$store.dispatch("common/runSpinner");
       getProductBySubcategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
@@ -202,6 +201,7 @@ export default {
   },
 
   async mounted() {
+    this.$store.dispatch("common/runSpinner");
     const { data: categoryData } = await getAll();
     const categoryObj = categoryData.data.find(
       category => replaceWithDash(category.name) === this.$route.params.category
@@ -251,7 +251,7 @@ export default {
     font-weight: bold;
     font-size: 22px;
     line-height: 1;
-    display: inline-block;
+    display: block;
     text-align: center;
     color: #fff;
     margin: 20px 16px 0;
@@ -273,6 +273,10 @@ export default {
   .section {
     background-color: #fff;
 
+    &-placeholder {
+      animation: fade_out 3s;
+    }
+
     &-switchbox {
       text-align: center;
     }
@@ -288,6 +292,11 @@ export default {
 
     &-description {
       white-space: pre-wrap;
+      padding: 20px 16px;
+
+      @media (min-width: 1200px) {
+        padding: 20px 32px;
+      }
     }
   }
 </style>

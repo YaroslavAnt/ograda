@@ -3,7 +3,7 @@
     class="section"
     v-if="slides.length > 0 && $store.state.products.list.length > 0"
   >
-    <div class="section-padding section-intro">
+    <div class="section-intro">
       <h1 class="section-heading with-skewed-bg">Основная продукция</h1>
     </div>
 
@@ -75,7 +75,10 @@ export default {
     &-intro {
       z-index: 10;
       position: absolute;
-      @media (min-width: 768px) {
+      padding: 30px 16px;
+
+      @media (min-width: 1200px) {
+        padding: 30px 32px;
       }
     }
     &-heading {

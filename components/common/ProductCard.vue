@@ -7,9 +7,8 @@
       :ratio="67"
     />
 
-    <!-- :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }/${product.id}`" -->
     <nuxt-link
-      to='/'
+      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }/${product.id}`"
       class="card-name base-font"
     >{{product.name}}</nuxt-link>
 
@@ -20,7 +19,6 @@
       >{{product.option.label}}</span>
       <p class="card-price medium-font">Цена: {{product.price}}</p>
     </div>
-    {{product}}
   </article>
 </template>
 

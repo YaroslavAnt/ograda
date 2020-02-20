@@ -10,8 +10,8 @@
         :key="idx"
       >
         <img
-          class="grid-item-icon lazyload"
-          :data-src="card.icon"
+          class="grid-item-icon"
+          :src="card.icon"
           alt="icon"
         />
         <p class="grid-item-text medium-font">{{card.heading}}</p>
@@ -21,15 +21,11 @@
 </template>
 
 <script>
-import IconCardVue from "~/components/common/IconCard.vue";
-import IconBaseVue from "~/components/common/IconBase.vue";
 import sectionVue from "~/components/layout/section.vue";
 
 export default {
   name: "advantages.vue",
   components: {
-    "icon-card": IconCardVue,
-    "icon-base": IconBaseVue,
     "app-section": sectionVue
   },
   props: {
@@ -45,28 +41,32 @@ export default {
   .section {
     .grid {
       display: grid;
-      grid-gap: 24px;
+      grid-gap: 12px;
 
       @media (min-width: 500px) {
         grid-template-columns: repeat(2, 1fr);
       }
 
       @media (min-width: 768px) {
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 36px;
+        // grid-template-columns: repeat(4, 1fr);
       }
 
       &-item {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
         align-items: center;
-
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 24px;
         &-icon {
           width: 70px;
+          margin-right: 16px;
         }
 
         &-text {
-          text-align: center;
+          // text-align: center;
+          font-weight: bold;
+          white-space: pre-wrap;
         }
       }
     }

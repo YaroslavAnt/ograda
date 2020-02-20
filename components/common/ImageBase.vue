@@ -6,7 +6,7 @@
     <img
       v-if="lazy"
       :data-src="img_src"
-      :alt="img_alt"
+      :alt="URL || 'image'"
       class="picture-img"
       :class="{lazyload:lazy, square:ratio>70}"
     />
@@ -65,6 +65,13 @@ export default {
     ratio: {
       type: Number,
       default: 67
+    }
+  },
+  computed: {
+    URL() {
+      return this.img_src.includes("undefined")
+        ? "../../assets/icons/img-placeholder.png"
+        : this.img_src;
     }
   }
 };
