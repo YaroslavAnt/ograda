@@ -3,6 +3,10 @@
     :heading="content.heading"
     class="section"
   >
+    <p
+      class="base-font"
+      style="margin-bottom: 20px"
+    >Для возможности убедиться в качестве нашей продукции "вживую" есть <b>натурные выставки еврозаборов:</b></p>
     <div
       :class="{'exposition-item': expo_idx !==0}"
       v-for="(exposition, expo_idx) in [...exhibitions]"
@@ -147,11 +151,11 @@ export default {
 
     &-name,
     &-place {
-      font-weight: 600;
       margin-bottom: 20px;
     }
 
     &-name {
+      font-weight: 600;
       color: var(--red);
     }
   }

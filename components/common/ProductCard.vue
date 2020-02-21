@@ -1,23 +1,44 @@
 ﻿<template>
   <article class="card">
-    <app-image
+    <!-- <app-image
       :img_src="getImageUrl(product)"
       :img_alt="product.img_alt"
       :lazy="false"
       :ratio="67"
-    />
+    /> -->
+
+    <div class="card-img-box">
+      <img
+        class="card-image"
+        :src="getImageUrl(product)"
+        :alt="product.img_alt"
+        itemprop="image"
+      >
+    </div>
 
     <nuxt-link
       :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }/${product.id}`"
       class="card-name base-font"
-    >{{product.name}}</nuxt-link>
+      itemprop="url"
+    ><span itemprop="name">{{product.name}}</span> </nuxt-link>
 
-    <div class="card-text">
+    <div
+      class="card-text"
+      itemprop="offers"
+      itemscope
+      itemtype="http://schema.org/Offer"
+    >
       <span
         v-if="product.option.label"
         class="card-label small-font"
       >{{product.option.label}}</span>
-      <p class="card-price medium-font">Цена: {{product.price}}</p>
+      <p
+        class="card-price medium-font"
+        itemprop="price"
+      >Цена: <span
+          itemprop="priceCurrency"
+          content="UAH"
+        >&#8372; </span>{{product.price}}</p>
     </div>
   </article>
 </template>
@@ -68,19 +89,25 @@ export default {
   .card {
     position: relative;
     border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+    box-shadow: 0px 10px 18px rgba(130, 151, 196, 0.85);
     overflow: hidden;
     max-width: 500px;
     border: 1px solid #ddd;
 
-    &-image {
-      padding-top: 67%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      outline: 1px solid #aaa;
-      outline-offset: -10px;
+    &-img-box {
+      width: 100%;
+      overflow: hidden;
+      padding-bottom: 67%;
       position: relative;
+    }
+
+    &-image {
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
     }
 
     &-text {

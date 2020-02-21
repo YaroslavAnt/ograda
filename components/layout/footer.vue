@@ -8,13 +8,16 @@
       >
         <div>
           <network network="facebook">
-            <span style="margin-top: 5px; cursor: pointer; display: inline-block; background-color: #4267b2; color: #fff; padding: 10px; border-radius: 4px">Facebook</span>
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #4267b2; color: #fff; padding: 10px; border-radius: 4px">Facebook</span>
           </network>
           <network network="twitter">
-            <span style="margin-top: 5px; cursor: pointer; display: inline-block; background-color: rgb(29, 161, 242); color: #fff; padding: 10px; border-radius: 4px">Twitter</span>
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: rgb(29, 161, 242); color: #fff; padding: 10px; border-radius: 4px">Twitter</span>
           </network>
           <network network="vk">
-            <span style="margin-top: 5px; cursor: pointer; display: inline-block; background-color: #4c75a3; color: #fff; padding: 10px; border-radius: 4px">ВКонтакте</span>
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #4c75a3; color: #fff; padding: 10px; border-radius: 4px">ВКонтакте</span>
+          </network>
+          <network network="odnoklassniki">
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #ee8208; color: #fff; padding: 10px; border-radius: 4px">Одноклассники</span>
           </network>
         </div>
       </social-sharing>

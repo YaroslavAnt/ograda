@@ -121,6 +121,8 @@ export default {
   }
 
   .box-img {
+    box-shadow: 0px 10px 18px rgba(130, 151, 196, 0.85);
+    margin-bottom: 20px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

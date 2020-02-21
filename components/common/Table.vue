@@ -5,9 +5,20 @@
         class="table-row"
         v-for="(item,idx) in items"
         :key="idx"
+        itemscope
+        itemtype="http://schema.org/Offer"
       >
-        <td class="table-cell">{{item.name}}</td>
-        <td class="table-cell table-cell-price">{{item.price}}</td>
+        <td
+          class="table-cell"
+          itemprop="name"
+        >{{item.name}}</td>
+        <td
+          class="table-cell table-cell-price"
+          itemprop="price"
+        ><span
+            itemprop="priceCurrency"
+            content="UAH"
+          >&#8372;</span> {{item.price}}</td>
         <!-- <td class="table-cell table-cell-image" v-if="item.img_src">
           <app-image :img_src="item.img_src" :img_alt="item.img_alt" :ratio="67" />
         </td>-->

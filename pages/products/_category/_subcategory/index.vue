@@ -35,11 +35,16 @@
       <div
         class="section-grid"
         v-if="productsData.data.length > 0"
+        itemscope
+        itemtype="http://schema.org/ItemList"
       >
         <product-card
           v-for="(product) in productsData.data"
           :key="product.id"
           :product="product"
+          itemprop="itemListElement"
+          itemscope
+          itemtype="http://schema.org/Product"
         />
       </div>
     </app-section>
@@ -47,9 +52,11 @@
     <p
       class="base-font section-description"
       v-html="categoryObj.description"
+      v-if="categoryObj.description"
     ></p>
     <p
       class="base-font section-description"
+      v-if="subcategoryObj.description"
       v-html="subcategoryObj.description"
     ></p>
 
@@ -60,14 +67,14 @@
         v-model="page"
         :prev-text="'<'"
         :next-text="'>'"
-        :container-class="'className'"
+        :container-class="'pagination'"
         :prev-link-class="'prev-link'"
         :next-link-class="'next-link'"
       ></app-pagination>
     </div>
   </main>
 </template>
-
+ 
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
@@ -76,7 +83,11 @@ if (process.client) {
   Paginate = require("vuejs-paginate");
 }
 
-import { getProductByCategory, getProductBySubcategory } from "~/api/products";
+import {
+  getProductByCategory,
+  getProductBySubcategory,
+  getProductsByPage
+} from "~/api/products";
 import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
 import { getAll } from "../../../../api/categories";
@@ -165,9 +176,10 @@ export default {
       get() {
         return Number(this.productsData.current_page) || this.default_page;
       },
-      set(value) {
-        if (this.page === value) return;
-        this.getPostByCategory(this.active_category, value); //TODO ?????
+      set(page) {
+        if (this.page === page) return;
+        this.fetchProductsByPage(page);
+        scrolledContent.scrollTo(0, 0);
       }
     },
     title() {
@@ -190,6 +202,14 @@ export default {
 
     fetchProductsBySubcategory(id) {
       getProductBySubcategory(id)
+        .then((res = {}) => {
+          this.productsData = res.data.data;
+        })
+        .catch(() => alert("Невозможно загрузить данные"))
+        .finally(() => this.$store.dispatch("common/stopSpinner"));
+    },
+    fetchProductsByPage(page) {
+      getProductsByPage(page)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
@@ -272,6 +292,7 @@ export default {
   }
   .section {
     background-color: #fff;
+    margin: -30px 0;
 
     &-placeholder {
       animation: fade_out 3s;

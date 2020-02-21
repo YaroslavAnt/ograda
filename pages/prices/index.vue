@@ -7,7 +7,10 @@
       class="section"
       :heading="`Цены (прайсы) на ${price.name.toUpperCase()}`"
     >
-      <app-table :items="price.products" />
+      <app-table
+        :items="price.products"
+        class="section-table"
+      />
     </app-section>
   </main>
 </template>
@@ -88,6 +91,11 @@ export default {
   main {
     background-color: #fff;
     flex: 1;
+  }
+  .section {
+    &-table {
+      margin-top: -20px;
+    }
   }
   h1 {
     position: absolute;

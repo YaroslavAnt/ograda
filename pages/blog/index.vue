@@ -114,11 +114,13 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+    this.$store.commit("common/RUN_SPINNER");
     getAllPosts()
       .then(({ data }) => {
         this.$store.commit("posts/SET_POSTS", data.data);
       })
-      .catch(() => alert("Невозможно загрузить данные"));
+      .catch(() => alert("Невозможно загрузить данные"))
+      .finally(() => this.$store.commit("common/STOP_SPINNER"));
   },
   computed: {
     ...mapGetters({
@@ -137,11 +139,13 @@ export default {
   },
   methods: {
     getPosts(page) {
+      this.$store.commit("common/RUN_SPINNER");
       getPostsByPage(page)
-        .then(res => {
-          this.posts = res.data.data;
+        .then(({ data }) => {
+          this.$store.commit("posts/SET_POSTS", data.data);
         })
-        .catch(() => alert("Невозножно загрузить данные"));
+        .catch(() => alert("Невозножно загрузить данные"))
+        .finally(() => this.$store.commit("common/STOP_SPINNER"));
     }
   }
 };
@@ -192,10 +196,10 @@ export default {
   .article {
     background-color: #f2f1ef;
     border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
     padding: 0;
-    @media (min-width: 768px) {
-      padding: 20px 16px;
-    }
+    // @media (min-width: 768px) {
+    //   padding: 20px 16px;
+    // }
   }
 </style>

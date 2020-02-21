@@ -18,7 +18,7 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a></span>
+          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a><br /><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></span>
         </div>
 
         <div class="contact-item">
@@ -118,7 +118,7 @@ import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
 import MenuButtonVue from "../common/MenuButton.vue";
-import { PHONE, EMAIL, LOCATION } from "../../config";
+import { PHONE, EMAIL, LOCATION, PHONE1 } from "../../config";
 
 export default {
   name: "header.vue",
@@ -134,6 +134,7 @@ export default {
   data() {
     return {
       PHONE,
+      PHONE1,
       EMAIL,
       location: LOCATION,
       isMenuOpen: false

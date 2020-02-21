@@ -1,10 +1,7 @@
 ﻿<template>
   <main>
-    <h1>Доставка, установка, покраска еврозаборов.</h1>
-    <app-section
-      class="section"
-      :heading="services.heading"
-    >
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
+    <app-section class="section">
       <app-intro
         v-for="(service, idx) in services.services"
         :key="idx"
@@ -89,9 +86,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    position: absolute;
-    transform: translateX(-100%);
-    left: -500px;
+  .heading {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    padding: 12px 24px;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    margin: 20px 16px -20px;
+    &::before {
+      background-color: var(--green);
+    }
+
+    @media (min-width: 600px) {
+      font-size: 28px;
+      line-height: 1;
+    }
+    @media (min-width: 1024px) {
+      margin: 20px 32px -20px;
+    }
   }
 </style>

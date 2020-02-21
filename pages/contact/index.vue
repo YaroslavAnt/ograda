@@ -41,7 +41,7 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text">{{phone}}</span>
+          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a><br /><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></span>
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
@@ -73,7 +73,7 @@ import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
 import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
-import { PHONE, EMAIL } from "../../config";
+import { PHONE, EMAIL, PHONE1 } from "../../config";
 export default {
   name: "contact",
   head() {
@@ -142,7 +142,8 @@ export default {
   data() {
     return {
       errors: [],
-      phone: PHONE,
+      PHONE,
+      PHONE1,
       email: EMAIL,
       location: contact.location,
       formData: { name: "", email: "", phone: "", message: "" },

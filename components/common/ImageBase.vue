@@ -6,7 +6,7 @@
     <img
       v-if="lazy"
       :data-src="img_src"
-      :alt="URL || 'image'"
+      :alt="img_alt || 'image'"
       class="picture-img"
       :class="{lazyload:lazy, square:ratio>70}"
     />
