@@ -8,13 +8,16 @@
       >
         <div>
           <network network="facebook">
-            <span style="margin-top: 5px; cursor: pointer; display: inline-block; background-color: #4267b2; color: #fff; padding: 10px; border-radius: 4px">Facebook</span>
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #4267b2; color: #fff; padding: 10px; border-radius: 4px">Facebook</span>
           </network>
           <network network="twitter">
-            <span style="margin-top: 5px; cursor: pointer; display: inline-block; background-color: rgb(29, 161, 242); color: #fff; padding: 10px; border-radius: 4px">Twitter</span>
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: rgb(29, 161, 242); color: #fff; padding: 10px; border-radius: 4px">Twitter</span>
           </network>
           <network network="vk">
-            <span style="margin-top: 5px; cursor: pointer; display: inline-block; background-color: #4c75a3; color: #fff; padding: 10px; border-radius: 4px">ВКонтакте</span>
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #4c75a3; color: #fff; padding: 10px; border-radius: 4px">ВКонтакте</span>
+          </network>
+          <network network="odnoklassniki">
+            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #ee8208; color: #fff; padding: 10px; border-radius: 4px">Одноклассники</span>
           </network>
         </div>
       </social-sharing>
@@ -74,21 +77,23 @@
         <div>
           <h6>{{contact_list.name}}</h6>
           <ul>
-            <li
-              class="footer-navlink footer-navlink_contact small-font"
-              v-for="(contact,idx) in contact_list.links"
-              :key="idx"
-            >{{contact.name}}</li>
+            <li class="footer-navlink footer-navlink_contact small-font"><a :href="`tel:${PHONE}`">{{PHONE}}</a></li>
+            <li class="footer-navlink footer-navlink_contact small-font"><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></li>
+            <li class="footer-navlink footer-navlink_contact small-font"><a :href="`mailto:${EMAIL}`">{{EMAIL}}</a></li>
           </ul>
         </div>
 
         <div>
           <h6>Страницы в соцсетях</h6>
-          <img
-            src="../../assets/icons/facebook.svg"
-            alt="fb-icon"
-            class="footer-icon"
-          />
+          <a
+            target="_blank"
+            :href='FACEBOOK'
+          >
+            <img
+              src="../../assets/icons/facebook.svg"
+              alt="fb-icon"
+              class="footer-icon"
+            /></a>
           <img
             src="../../assets/icons/youtube.svg"
             alt="fb-icon"
@@ -142,6 +147,10 @@
         text-transform: uppercase;
         margin-right: 12px;
       }
+
+      &_contact {
+        margin-right: 10px;
+      }
     }
 
     &-icon {
@@ -152,7 +161,7 @@
 
 <script>
 import ArrowVue from "../common/Arrow.vue";
-import { DOMAIN, BASE_URL, PHONE, EMAIL } from "../../config";
+import { DOMAIN, BASE_URL, PHONE, EMAIL, PHONE1, FACEBOOK } from "../../config";
 import { replaceWithDash } from "../../static/utils";
 import SocialSharing from "vue-social-sharing";
 export default {
@@ -173,13 +182,16 @@ export default {
       return links;
     },
     currentURL() {
-      console.log({ BASE_URL }, this.$route);
       return DOMAIN + this.$route.path;
     }
   },
   data() {
     return {
       DOMAIN,
+      PHONE,
+      PHONE1,
+      EMAIL,
+      FACEBOOK,
 
       menu_list: [
         {

@@ -28,21 +28,37 @@
         </div>
       </div>
       <p
-        class="large-font"
+        class="large-font section-placeholder"
         v-if="productsData.data.length === 0"
       >Товары еще не загружены...</p>
 
-      <div class="section-grid">
+      <div
+        class="section-grid"
+        v-if="productsData.data.length > 0"
+        itemscope
+        itemtype="http://schema.org/ItemList"
+      >
         <product-card
           v-for="(product) in productsData.data"
           :key="product.id"
           :product="product"
+          itemprop="itemListElement"
+          itemscope
+          itemtype="http://schema.org/Product"
         />
       </div>
     </app-section>
 
-    <p class="section-padding">{{categoryObj.description}}</p>
-    <p class="section-padding">{{subcategoryObj.description}}</p>
+    <p
+      class="base-font section-description"
+      v-html="categoryObj.description"
+      v-if="categoryObj.description"
+    ></p>
+    <p
+      class="base-font section-description"
+      v-if="subcategoryObj.description"
+      v-html="subcategoryObj.description"
+    ></p>
 
     <div class="container-paginate">
       <app-pagination
@@ -51,14 +67,14 @@
         v-model="page"
         :prev-text="'<'"
         :next-text="'>'"
-        :container-class="'className'"
+        :container-class="'pagination'"
         :prev-link-class="'prev-link'"
         :next-link-class="'next-link'"
       ></app-pagination>
     </div>
   </main>
 </template>
-
+ 
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
@@ -67,7 +83,11 @@ if (process.client) {
   Paginate = require("vuejs-paginate");
 }
 
-import { getProductByCategory, getProductBySubcategory } from "~/api/products";
+import {
+  getProductByCategory,
+  getProductBySubcategory,
+  getProductsByPage
+} from "~/api/products";
 import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
 import { getAll } from "../../../../api/categories";
@@ -89,6 +109,8 @@ export default {
           name: "keywords",
           content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье`
         },
+
+        //Open Graph
         {
           name: "og:title",
           content: this.title
@@ -99,7 +121,14 @@ export default {
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: this.productsData.data[0].img_set[0] },
+        {
+          name: "og:image",
+          content:
+            this.productsData.data.length > 0
+              ? this.productsData.data[0].img_set[0]
+              : ""
+        },
+
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
@@ -112,11 +141,17 @@ export default {
         },
         {
           name: "twitter:image",
-          content: this.productsData.data[0].img_set[0]
+          content:
+            this.productsData.data.length > 0
+              ? this.productsData.data[0].img_set[0]
+              : ""
         },
         {
           name: "twitter:image:alt",
-          content: this.productsData.data[0].img_alt
+          content:
+            this.productsData.data.length > 0
+              ? this.productsData.data[0].img_alt
+              : ""
         }
       ]
     };
@@ -141,31 +176,12 @@ export default {
       get() {
         return Number(this.productsData.current_page) || this.default_page;
       },
-      set(value) {
-        if (this.page === value) return;
-        this.getPostByCategory(this.active_category, value); //TODO ?????
+      set(page) {
+        if (this.page === page) return;
+        this.fetchProductsByPage(page);
+        scrolledContent.scrollTo(0, 0);
       }
     },
-    categoryObj() {
-      const fitObj =
-        this.categories.find(category => {
-          return (
-            this.replaceWithDash(category.name) === this.$route.params.category
-          );
-        }) || {};
-      return fitObj || {};
-    },
-    subcategoryObj() {
-      const fitObj =
-        this.subcategories.find(subcategory => {
-          return (
-            this.replaceWithDash(subcategory.name) ===
-            this.$route.params.subcategory
-          );
-        }) || {};
-      return fitObj || {};
-    },
-
     title() {
       return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
     },
@@ -176,7 +192,6 @@ export default {
 
   methods: {
     getProductsByCategory(id) {
-      this.$store.dispatch("common/runSpinner");
       return getProductByCategory(id)
         .then((res = {}) => {
           this.productsData = res.data.data;
@@ -184,9 +199,17 @@ export default {
         .catch(() => alert("Невозможно загрузить данные"))
         .finally(() => this.$store.dispatch("common/stopSpinner"));
     },
+
     fetchProductsBySubcategory(id) {
-      this.$store.dispatch("common/runSpinner");
       getProductBySubcategory(id)
+        .then((res = {}) => {
+          this.productsData = res.data.data;
+        })
+        .catch(() => alert("Невозможно загрузить данные"))
+        .finally(() => this.$store.dispatch("common/stopSpinner"));
+    },
+    fetchProductsByPage(page) {
+      getProductsByPage(page)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
@@ -198,18 +221,21 @@ export default {
   },
 
   async mounted() {
+    this.$store.dispatch("common/runSpinner");
     const { data: categoryData } = await getAll();
     const categoryObj = categoryData.data.find(
       category => replaceWithDash(category.name) === this.$route.params.category
     );
     const { data: subcategoryData } = await getByCategory(categoryObj.id);
     this.subcategories = subcategoryData.data;
+    this.categoryObj = categoryObj;
 
     if (this.$route.params.subcategory) {
       const subcategoryObj = subcategoryData.data.find(
         subcategory =>
           replaceWithDash(subcategory.name) === this.$route.params.subcategory
       );
+      this.subcategoryObj = subcategoryObj;
       await this.fetchProductsBySubcategory(subcategoryObj.id);
     } else {
       await this.getProductsByCategory(categoryObj.id);
@@ -225,24 +251,12 @@ export default {
       productsData: {
         last_page: "",
         current_page: "",
-        data: [
-          {
-            description: "",
-            img_set: [],
-            option: {},
-            category: {
-              name: "",
-              id: ""
-            },
-            subcategory: {
-              name: "",
-              id: ""
-            }
-          }
-        ]
+        data: []
       },
       categories: [{}],
-      subcategories: [{}]
+      subcategories: [{}],
+      categoryObj: "",
+      subcategoryObj: ""
     };
   }
 };
@@ -257,7 +271,7 @@ export default {
     font-weight: bold;
     font-size: 22px;
     line-height: 1;
-    display: inline-block;
+    display: block;
     text-align: center;
     color: #fff;
     margin: 20px 16px 0;
@@ -278,6 +292,11 @@ export default {
   }
   .section {
     background-color: #fff;
+    margin: -30px 0;
+
+    &-placeholder {
+      animation: fade_out 3s;
+    }
 
     &-switchbox {
       text-align: center;
@@ -289,6 +308,15 @@ export default {
 
       @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &-description {
+      white-space: pre-wrap;
+      padding: 20px 16px;
+
+      @media (min-width: 1200px) {
+        padding: 20px 32px;
       }
     }
   }

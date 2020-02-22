@@ -1,21 +1,28 @@
 ﻿<template>
-  <section class="section-padding">
-    <article class="section-padding">
+  <section>
+    <article
+      class="section-padding"
+      itemscope
+      itemtype="http://schema.org/Product"
+    >
       <div class="gridbox">
         <div class="slider-box">
-          <app-image
-            :img_src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
-            :img_alt="product.img_alt"
-            :lazy="false"
-            :ratio="69"
-            class="slider-box-image"
-            @click.native="isZoomActive=true"
+          <div
+            class="slider-imagebox"
+            :style="{'padding-bottom': `70%`}"
+            @click="isZoomActive=true"
           >
-            <span
+            <img
+              :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
+              :alt="product.img_alt"
+              class="slider-image"
+              itemprop="image"
+            /><span
               v-if="product.option.label"
-              class="slider-box-image-label small-font"
+              class="slider-imagebox-label small-font"
             >{{product.option.label}}</span>
-          </app-image>
+          </div>
+
           <div
             class="preview"
             v-if="product.img_set.length>1"
@@ -38,7 +45,6 @@
         </div>
 
         <div class="info-box">
-
           <div class="info-box-breadcrumbs">
             <nuxt-link
               to='/'
@@ -56,20 +62,38 @@
             >
               {{product.subcategory.name}} </nuxt-link>
           </div>
-          <h1 class="info-box-name big-font bold">{{product.name}}</h1>
 
-          <p class="info-box-price medium-font">
+          <h1
+            class="info-box-name big-font bold"
+            itemprop="name"
+          >{{product.name}}</h1>
+
+          <p
+            class="info-box-price medium-font"
+            itemprop="offers"
+            itemscope
+            itemtype="http://schema.org/Offer"
+          >
             Цена:
-            <span class="bold">{{product.price}}</span>
+            <span
+              class="bold"
+              itemprop="price"
+            > <span
+                itemprop="priceCurrency"
+                content="UAH"
+              >&#8372;</span> {{product.price}}</span>
           </p>
           <p
+            itemprop="description"
             class="info-box-description base-font"
             v-for="(paragraph, idx) in getArrayFromDescription"
             :key="idx"
           >{{ paragraph }}</p>
-          <p class="info-box-category small-font">Категория: {{product.category.name}}</p>
+          <p class="info-box-category small-font">Категория: <span itemprop="category">{{product.category.name}}</span> </p>
           <p
             v-if="product.option"
+            itemscope
+            itemtype="http://schema.org/Action"
             class="info-box-option medium-font"
           >{{product.option.details}}</p>
         </div>
@@ -196,6 +220,7 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
   }
+
   .zoom {
     display: none;
     @media (min-width: 768px) {
@@ -280,12 +305,12 @@ export default {
     }
   }
 
-  .slider-box-image {
+  .slider-imagebox {
     background: #fff;
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
     position: relative;
-    cursor: zoom-in;
+    overflow: hidden;
 
     &-label {
       display: block;
@@ -297,6 +322,23 @@ export default {
       top: 0;
       padding: 4px 8px;
       border-radius: 0px 0 0 4px;
+    }
+  }
+
+  .slider-image {
+    cursor: zoom-in;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+
+    &.square {
+      top: 0;
+      left: 50%;
+      width: unset;
+      height: 100%;
+      transform: translateX(-50%);
     }
   }
 
@@ -319,6 +361,10 @@ export default {
       text-transform: uppercase;
     }
 
+    &-description {
+      white-space: pre-wrap;
+    }
+
     &-option {
       margin-top: 12px;
       padding-top: 12px;
@@ -330,17 +376,21 @@ export default {
   }
 
   .popular {
-    margin-top: 36px;
+    margin-top: 72px;
 
     .heading {
-      margin-top: 10px;
+      margin: 10px 0;
       font-weight: bold;
       color: var(--red);
+      text-align: center;
     }
     &-grid {
       display: grid;
       grid-gap: 24px;
-      grid-template-columns: repeat(2, 1fr);
+
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   }
 </style>

@@ -1,24 +1,26 @@
 ﻿<template>
   <main class="section-padding">
-    <h1 class="heading with-skewed-bg">{{title}}</h1>
+    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
     <p
       class="huge-font"
       v-if="posts.data.length === 0"
     >Еще нет новостей...</p>
-    <app-section
+
+    <section
       class="section"
-      v-if="posts.data.length > 1"
+      v-if="posts.data.length > 0"
     >
       <div class="grid">
         <blog-card
           :isWhole='true'
-          class="article section-padding"
+          class="article"
           v-for="(card) in posts.data"
           :key="card.id"
           :card="card"
         />
       </div>
-    </app-section>
+    </section>
+
     <div class="container-paginate">
       <app-pagination
         v-if="posts.last_page > 1"
@@ -37,7 +39,9 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import BlogCardVue from "~/components/common/BlogCard.vue";
-import { getPostsByPage } from "../../api/posts";
+import { getPostsByPage, getAllPosts } from "../../api/posts";
+import { mapGetters } from "vuex";
+import { getVarsByPage } from "../../api/variables";
 let Paginate;
 if (process.client) {
   Paginate = require("vuejs-paginate");
@@ -47,18 +51,17 @@ export default {
   name: "blog",
   head() {
     return {
-      title: this.title,
+      title: this.parsedVars.title || this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content:
-            "Отчеты по установке заборов, Отчеты по установке ворот, Отчеты по установке калиток"
+          content: this.parsedVars.keywords || this.keywords
         },
         // Open Graph
         {
@@ -67,11 +70,17 @@ export default {
         },
         {
           name: "og:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: this.posts.data[0].image },
+        {
+          name: "og:image",
+          content:
+            this.posts.data.length > 0
+              ? this.posts.data[0].image
+              : "https://nuxtjs.org/meta_640.png"
+        },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
@@ -80,9 +89,15 @@ export default {
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
-        { name: "twitter:image", content: this.posts.data[0].image },
+        {
+          name: "twitter:image",
+          content:
+            this.posts.data.length > 0
+              ? this.posts.data[0].image
+              : "https://nuxtjs.org/meta_640.png"
+        },
         {
           name: "twitter:image:alt",
           content: "установка еврозабора в Запорожье"
@@ -98,16 +113,34 @@ export default {
   data() {
     return {
       section_heading: "Отчеты о выполненных работах",
-      posts: this.$store.state.posts.posts,
       title: "Отчеты о выполненых работах по установке ограждений",
       description:
-        "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
+        "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. ",
+      keywords:
+        "Отчеты по установке заборов, Отчеты по установке ворот, Отчеты по установке калиток",
+      fetchedVars: "{}"
     };
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+    this.$store.commit("common/RUN_SPINNER");
+
+    getAllPosts()
+      .then(({ data }) => {
+        this.$store.commit("posts/SET_POSTS", data.data);
+      })
+      .catch(() => alert("Невозможно загрузить данные"))
+      .finally(() => this.$store.commit("common/STOP_SPINNER"));
+
+    getVarsByPage(this.$route.name).then(({ data }) => {
+      console.log({ data });
+      this.fetchedVars = data.data.variable;
+    });
   },
   computed: {
+    ...mapGetters({
+      posts: "posts/getPosts"
+    }),
     page: {
       get() {
         return Number(this.posts.current_page) || this.default_page;
@@ -117,15 +150,20 @@ export default {
         this.getPosts(page);
         scrolledContent.scrollTo(0, 0);
       }
+    },
+    parsedVars() {
+      return JSON.parse(this.fetchedVars);
     }
   },
   methods: {
     getPosts(page) {
+      this.$store.commit("common/RUN_SPINNER");
       getPostsByPage(page)
-        .then(res => {
-          this.posts = res.data.data;
+        .then(({ data }) => {
+          this.$store.commit("posts/SET_POSTS", data.data);
         })
-        .catch(() => alert("Невозножно загрузить данные"));
+        .catch(() => alert("Невозножно загрузить данные"))
+        .finally(() => this.$store.commit("common/STOP_SPINNER"));
     }
   }
 };
@@ -136,6 +174,9 @@ export default {
     flex: 1;
     background-color: #fff;
     margin-top: 85px;
+    @media (min-width: 1024px) {
+      margin-top: 0;
+    }
   }
   .heading {
     font-weight: bold;
@@ -173,10 +214,10 @@ export default {
   .article {
     background-color: #f2f1ef;
     border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
     padding: 0;
-    @media (min-width: 768px) {
-      padding: 20px 16px;
-    }
+    // @media (min-width: 768px) {
+    //   padding: 20px 16px;
+    // }
   }
 </style>

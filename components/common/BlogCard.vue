@@ -1,12 +1,20 @@
 ﻿<template>
-  <article class="card">
+  <article
+    class="card"
+    itemscope
+    itemtype="http://schema.org/Event"
+  >
     <app-image
-      :img_src="BASE_URL+ card.image"
-      :img_alt="card.img_alt"
+      :img_src="BASE_URL + card.image"
+      :img_alt="card.title"
       :lazy="true"
     />
+
     <div class="card-text">
-      <span class="card-label base-font">
+      <span
+        class="card-label base-font"
+        itemprop="startDate"
+      >
         <icon-base>
           <icon-calendar />
         </icon-base>
@@ -14,14 +22,17 @@
       </span>
       <p
         class="card-name"
+        itemprop="name"
         :class="{'base-font': !isWhole, 'medium-font': isWhole}"
       >{{card.title}}</p>
       <p
         v-if="!isWhole"
+        itemprop="description"
         class="card-price small-font"
       >{{card.short_body}}</p>
       <p
         v-if="isWhole"
+        itemprop="description"
         class="card-price base-font"
       >{{card.body}}</p>
     </div>

@@ -18,14 +18,14 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text">{{phone}}</span>
+          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a><br /><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></span>
         </div>
 
         <div class="contact-item">
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
-          <span class="text">{{email}}</span>
+          <span class="text"><a :href="`mailto:${EMAIL}`">{{EMAIL}}</a></span>
         </div>
       </div>
       <div class="menu">
@@ -117,9 +117,8 @@ import IconBaseVue from "../common/IconBase.vue";
 import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
-import { contact } from "~/static/content_data";
 import MenuButtonVue from "../common/MenuButton.vue";
-import { PHONE, EMAIL } from "../../config";
+import { PHONE, EMAIL, LOCATION, PHONE1 } from "../../config";
 
 export default {
   name: "header.vue",
@@ -134,11 +133,12 @@ export default {
   props: ["current_page"],
   data() {
     return {
-      phone: PHONE,
-      email: EMAIL,
-      location: contact.location,
+      PHONE,
+      PHONE1,
+      EMAIL,
+      location: LOCATION,
       isMenuOpen: false
     };
   }
 };
-</script>
+</script> 

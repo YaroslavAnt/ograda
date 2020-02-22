@@ -24,7 +24,7 @@
       <app-footer></app-footer>
 
       <div class="connect">
-        <a href="tel:+380971111111">
+        <a :href="`tel:${PHONE}`">
           <icon-base
             :width='75'
             :height='75'
@@ -114,6 +114,8 @@ import SpinnerVue from "../components/common/Spinner.vue";
 import httpClient from "../api/httpClient";
 import IconBaseVue from "../components/common/IconBase.vue";
 import IconPhoneBlueVue from "../components/icons/IconPhoneBlue.vue";
+import { PHONE } from "../config";
+import LoaderVue from "../components/common/Loader.vue";
 
 export default {
   name: "default.vue",
@@ -121,7 +123,7 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "app-spinner": SpinnerVue,
+    "app-spinner": LoaderVue,
     "icon-base": IconBaseVue,
     "icon-phone": IconPhoneBlueVue
   },
@@ -136,7 +138,8 @@ export default {
   },
   data() {
     return {
-      current_page: "/"
+      current_page: "/",
+      PHONE
     };
   },
   methods: {
@@ -144,14 +147,11 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("common/runSpinner");
     Promise.all([
       getAll().then(res => {
         this.$store.commit("categories/SET_CATEGORIES", res.data.data);
       })
-    ])
-      .catch(() => alert("Невозможно загрузить данные"))
-      .finally(() => this.$store.dispatch("common/stopSpinner"));
+    ]).catch(() => alert("Невозможно загрузить данные"));
   }
 };
 </script>

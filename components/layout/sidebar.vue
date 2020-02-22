@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { fence_set } from "~/static/fence_data/index";
 import { getAll } from "~/api/categories";
 import { replaceWithDash } from "../../static/utils";
 export default {
@@ -61,7 +60,6 @@ export default {
         this.setActiveCategory(categoryName);
       } else {
         this.setActiveCategory(null);
-        console.log(this.activeCategory, "activeCategory");
         this.$store.commit("common/SET_MENU", false);
       }
     },
@@ -101,18 +99,19 @@ export default {
   }
 
   .logo {
-    height: 210px;
+    height: 120px;
     background: url("../../assets/img/grass2-min.png") bottom,
       url("../../assets/img/image-min.png") center bottom,
       url("../../assets/img/plita172-min.png") bottom;
     background-repeat: repeat-x, no-repeat, no-repeat;
-    background-size: 50%, 60%, 100%;
+    background-size: 50%, 40%, 100%;
     background-color: var(--light-blue);
     flex-shrink: 0;
     transform: rotateY(180deg);
-    display: none;
+    // display: none;
     @media (min-width: 768px) {
-      display: block;
+      height: 150px;
+      background-size: 50%, 47%, 100%;
     }
   }
 

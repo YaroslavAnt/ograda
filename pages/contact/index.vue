@@ -1,10 +1,7 @@
 ﻿<template>
   <main>
-    <h1>Контакты для заказа еврозаборов</h1>
-    <app-section
-      :heading="'Контакты'"
-      class="section"
-    >
+    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
+    <app-section class="section">
       <div class="contact">
         <form class="form">
           <p class="medium-font">Напишите нам</p>
@@ -41,7 +38,7 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text">{{phone}}</span>
+          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a><br /><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></span>
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
@@ -73,29 +70,42 @@ import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
 import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
-import { PHONE, EMAIL } from "../../config";
+import { PHONE, EMAIL, PHONE1 } from "../../config";
+import { getVarsByPage } from "../../api/variables";
 export default {
   name: "contact",
   head() {
     return {
-      title: this.title,
+      title: this.parsedVars.title || this.title,
       meta: [
-        { hid: "description", name: "description", content: this.description },
+        {
+          hid: "description",
+          name: "description",
+          content: this.parsedVars.description || this.description
+        },
         {
           hid: "keywords",
           name: "keywords",
-          content:
-            "Адрес производства еврозаборов в Запорожье, контакты производителя еврозаборов, телефоны производства заборов"
+          content: this.parsedVars.keywords || this.keywords
         },
-        { name: "og:title", content: this.title },
-        { name: "og:description", content: this.description },
+
+        // Open Graph
+        { name: "og:title", content: this.parsedVars.title || this.title },
+        {
+          name: "og:description",
+          content: this.parsedVars.description || this.description
+        },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
         { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:title", content: this.title },
-        { name: "twitter:description", content: this.description },
+        { name: "twitter:title", content: this.parsedVars.title || this.title },
+        {
+          name: "twitter:description",
+          content: this.parsedVars.description || this.description
+        },
         { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
         {
           name: "twitter:image:alt",
@@ -110,6 +120,11 @@ export default {
     "icon-mail": IconMailVue,
     "icon-phone": IconPhoneVue,
     "icon-location": IconLocationVue
+  },
+  computed: {
+    parsedVars() {
+      return JSON.parse(this.fetchedVars);
+    }
   },
 
   methods: {
@@ -138,28 +153,62 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+
+    getVarsByPage(this.$route.name).then(({ data }) => {
+      console.log({ data });
+      this.fetchedVars = data.data.variable;
+    });
   },
   data() {
     return {
       errors: [],
-      phone: PHONE,
+      PHONE,
+      PHONE1,
       email: EMAIL,
       location: contact.location,
       formData: { name: "", email: "", phone: "", message: "" },
-      titile: "Контакты для заказа еврозаборов",
-      description: "Наши контакты"
+      title: "Контакты для заказа еврозаборов",
+      description: "Наши контакты",
+      keywords:
+        "Адрес производства еврозаборов в Запорожье, контакты производителя еврозаборов, телефоны производства заборов",
+      fetchedVars: "{}"
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
+  main {
+    position: relative;
+  }
   .section {
     background-color: #fff;
+    padding-top: 100px;
   }
-  h1 {
+  .heading {
+    font-weight: bold;
+    width: calc(100% - 32px);
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    margin: 20px 16px 20px;
+    padding: 12px 24px;
     position: absolute;
-    left: -500px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+
+    &::before {
+      background-color: var(--green);
+    }
+
+    @media (min-width: 600px) {
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 20px 16px 40px;
+    }
   }
   .warn {
     color: red;

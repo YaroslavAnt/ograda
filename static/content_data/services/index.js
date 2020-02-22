@@ -2,6 +2,7 @@
 import measure from "~/assets/img/services/measure.jpg";
 import montage from "~/assets/img/services/montage.jpg";
 import pokraska from "~/assets/img/services/but_paint.jpg";
+import fundament from "../../../assets/img/services/fundament.jpg";
 
 export default {
   heading: "Дополнительные услуги",
@@ -36,6 +37,19 @@ export default {
         },
         {
           text: `Транспортировка, перенос, отгрузка, складирование и установка плит производится строго вертикально.`
+        }
+      ]
+    },
+    {
+      img_src: fundament,
+      img_alt: "Заливка фундамента под еврозабор",
+      heading: "Заливка фундаментной ленты",
+      paragraphs: [
+        {
+          text: `По желанию заказчика возможна заливка фундаментной ленты.`
+        },
+        {
+          text: `Для повышения прочности бетонного основания забора применяется арматура`
         }
       ]
     },

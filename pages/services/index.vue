@@ -1,10 +1,7 @@
 ﻿<template>
   <main>
-    <h1>Доставка, установка, покраска еврозаборов.</h1>
-    <app-section
-      class="section"
-      :heading="services.heading"
-    >
+    <h1 class="heading with-skewed-bg">{{this.parsedVars.title || title}}</h1>
+    <app-section class="section">
       <app-intro
         v-for="(service, idx) in services.services"
         :key="idx"
@@ -23,30 +20,33 @@
 import IntroVue from "../../components/common/Intro.vue";
 import sectionVue from "../../components/layout/section.vue";
 import { services } from "~/static/content_data";
+import { getVarsByPage } from "../../api/variables";
 
 export default {
   name: "index.vue",
   head() {
     return {
-      title: this.title,
+      title: this.parsedVars.title || this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: `Услуги по установке заборов, доставка еврозаборов, монтаж ограждений и ворот, покраска еврозаборов, цветные еврозаборы`
+          content: this.parsedVars.keywords || this.keywords
         },
+
+        //Open Graph
         {
           name: "og:title",
-          content: this.title
+          content: this.parsedVars.title || this.title
         },
         {
           name: "og:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
@@ -55,11 +55,11 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.parsedVars.title || this.title
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         { name: "twitter:image", content: this.services.services[0].img_src },
         {
@@ -73,11 +73,22 @@ export default {
     "app-intro": IntroVue,
     "app-section": sectionVue
   },
+  computed: {
+    parsedVars() {
+      return JSON.parse(this.fetchedVars);
+    }
+  },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
+
+    getVarsByPage("services").then(({ data }) => {
+      this.fetchedVars = data.data.variable;
+    });
   },
   data() {
     return {
+      fetchedVars: "{}",
+      keywords: `Услуги по установке заборов, доставка еврозаборов, монтаж ограждений и ворот, покраска еврозаборов, цветные еврозаборы`,
       title:
         "Выезд на замер забора. Доставка, установка, покраска еврозаборов.",
       description:
@@ -89,9 +100,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    position: absolute;
-    transform: translateX(-100%);
-    left: -500px;
+  .heading {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    padding: 12px 24px;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    margin: 20px 16px -20px;
+    &::before {
+      background-color: var(--green);
+    }
+
+    @media (min-width: 600px) {
+      font-size: 28px;
+      line-height: 1;
+    }
+    @media (min-width: 1024px) {
+      margin: 20px 32px -20px;
+    }
   }
 </style>

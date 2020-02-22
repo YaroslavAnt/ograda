@@ -1,8 +1,5 @@
 ﻿<template>
-  <app-section
-    class="section"
-    :heading="content.heading"
-  >
+  <app-section class="section">
     <p
       v-for="(paragraph,idx) in content.paragraphs"
       :key="idx"
@@ -39,7 +36,7 @@ export default {
     background-color: #fff;
 
     &-paragraph {
-      margin-bottom: 24px;
+      margin-top: 24px;
     }
   }
 </style>

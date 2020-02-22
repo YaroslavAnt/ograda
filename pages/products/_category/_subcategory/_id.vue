@@ -87,25 +87,28 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch("common/runSpinner");
     this.fetchProduct();
     this.fetchPopular();
   },
   methods: {
     fetchProduct() {
-      this.$store.dispatch("common/runSpinner");
       getProduct(this.$route.params.id)
         .then(res => {
           this.product = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
+        .catch(() => {
+          this.$store.dispatch("common/stopSpinner");
+          alert("Невозможно загрузить данные");
+        });
     },
     fetchPopular() {
       getPopularProducts()
         .then(res => {
           this.popular = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"));
+        .catch(() => alert("Невозможно загрузить данные"))
+        .finally(() => this.$store.dispatch("common/stopSpinner"));
     }
   }
 };

@@ -14,7 +14,7 @@
           :img_src="BASE_URL+ slide.img_set[0]"
           :img_alt="slide.img_alt"
           :lazy="true"
-          :ratio="40"
+          :ratio="45"
         />
       </div>
 
@@ -34,7 +34,7 @@
         >Подробнее</nuxt-link>
       </div>
 
-      <div class="arrows section-padding">
+      <div class="arrows">
         <div
           class="arrow arrow-left"
           @click="backvard()"
@@ -177,6 +177,12 @@ export default {
       align-items: center;
       color: var(--dark);
       max-width: 100vw;
+
+      padding: 30px 16px;
+
+      @media (min-width: 1200px) {
+        padding: 30px 32px;
+      }
 
       .arrow {
         width: 40px;
