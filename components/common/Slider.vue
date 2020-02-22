@@ -14,7 +14,7 @@
           :img_src="BASE_URL+ slide.img_set[0]"
           :img_alt="slide.img_alt"
           :lazy="true"
-          :ratio="40"
+          :ratio="45"
         />
       </div>
 

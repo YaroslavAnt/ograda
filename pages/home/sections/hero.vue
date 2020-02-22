@@ -3,9 +3,6 @@
     class="section"
     v-if="slides.length > 0 && $store.state.products.list.length > 0"
   >
-    <div class="section-intro">
-      <h1 class="section-heading with-skewed-bg">Основная продукция</h1>
-    </div>
 
     <slider
       class="section-slider"

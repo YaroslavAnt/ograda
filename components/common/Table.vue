@@ -1,5 +1,13 @@
 ﻿<template>
   <table class="table base-font">
+    <thead>
+      <tr>
+        <th
+          class="table-head medium-font"
+          colspan="2"
+        >{{heading}}</th>
+      </tr>
+    </thead>
     <tbody>
       <tr
         class="table-row"
@@ -38,6 +46,10 @@ export default {
     items: {
       type: Array,
       default: () => [{}]
+    },
+    heading: {
+      type: String,
+      default: ""
     }
   }
 };
@@ -47,7 +59,11 @@ export default {
   .table {
     border-collapse: collapse;
     width: 100%;
-    margin-top: -40px;
+
+    &-head {
+      color: var(--red);
+      font-weight: bold;
+    }
     &-row {
       &:nth-child(2n + 1) {
         background-color: #ccc;

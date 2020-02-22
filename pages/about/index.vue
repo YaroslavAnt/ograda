@@ -1,7 +1,7 @@
 ﻿<template>
   <main>
-    <h1>Производство и установка еврозаборов в Запорожье</h1>
-    <about :content="about.about" />
+    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
+    <about :content=" about.about" />
     <advantages :content="about.advantages" />
     <exposition
       :content="about.expo"
@@ -16,21 +16,28 @@ import advantagesVue from "./sections/advantages.vue";
 import expositionVue from "./sections/exposition.vue";
 import { about } from "~/static/content_data";
 import { getExhibitions } from "../../api/products";
+import { getVarsByPage } from "../../api/variables";
 export default {
   head() {
     return {
-      title: this.title,
+      title: this.parsedVars.title || this.title,
       meta: [
-        { hid: "description", name: "description", content: this.description },
+        {
+          hid: "description",
+          name: "description",
+          content: this.parsedVars.description || this.description
+        },
         {
           hid: "keywords",
           name: "keywords",
-          content:
-            "Производство еврозаборов, установка еврозабора, забор под ключ в Запорожье, доставка еврозаборов по Запорожью и области"
+          content: this.parsedVars.keywords || this.keywords
         },
         // Open Graph
-        { name: "og:title", content: this.title },
-        { name: "og:description", content: this.description },
+        { name: "og:title", content: this.parsedVars.title || this.title },
+        {
+          name: "og:description",
+          content: this.parsedVars.description || this.description
+        },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
         { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
@@ -38,9 +45,12 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.parsedVars.title || this.title
         },
-        { name: "twitter:description", content: this.description },
+        {
+          name: "twitter:description",
+          content: this.parsedVars.description || this.description
+        },
         { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
         { name: "twitter:image:alt", content: "Производство еврозаборов" }
       ]
@@ -59,22 +69,55 @@ export default {
         this.exhibitions = data.data.data;
       })
       .catch(() => alert("Невозножно загрузить данные"));
+    getVarsByPage(this.$route.name).then(({ data }) => {
+      console.log({ data });
+      this.fetchedVars = data.data.variable;
+    });
   },
-  methods: {},
+  computed: {
+    parsedVars() {
+      return JSON.parse(this.fetchedVars);
+    }
+  },
   data() {
     return {
       about,
-      title: "Производство и установка еврозаборов в Запорожье",
-      description: "О нашей компании",
-      exhibitions: []
+      title: "О нашей компании",
+      description: "Производство и установка еврозаборов в Запорожье",
+      keywords:
+        "Производство еврозаборов, установка еврозабора, забор под ключ в Запорожье, доставка еврозаборов по Запорожью и области",
+      exhibitions: [],
+      fetchedVars: "{}"
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  h1 {
+  main {
+    position: relative;
+  }
+  .heading {
     position: absolute;
-    left: -500px;
+    width: calc(100% - 32px);
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    margin: 20px 16px 20px;
+    padding: 12px 24px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    &::before {
+      background-color: var(--green);
+    }
+
+    @media (min-width: 600px) {
+      font-size: 28px;
+      line-height: 1;
+    }
   }
 </style>

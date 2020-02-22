@@ -1,6 +1,6 @@
 ﻿<template>
   <main class="section-padding">
-    <h1 class="heading with-skewed-bg">{{title}}</h1>
+    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
     <p
       class="huge-font"
       v-if="posts.data.length === 0"
@@ -41,6 +41,7 @@ import sectionVue from "~/components/layout/section.vue";
 import BlogCardVue from "~/components/common/BlogCard.vue";
 import { getPostsByPage, getAllPosts } from "../../api/posts";
 import { mapGetters } from "vuex";
+import { getVarsByPage } from "../../api/variables";
 let Paginate;
 if (process.client) {
   Paginate = require("vuejs-paginate");
@@ -50,18 +51,17 @@ export default {
   name: "blog",
   head() {
     return {
-      title: this.title,
+      title: this.parsedVars.title || this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content:
-            "Отчеты по установке заборов, Отчеты по установке ворот, Отчеты по установке калиток"
+          content: this.parsedVars.keywords || this.keywords
         },
         // Open Graph
         {
@@ -70,13 +70,16 @@ export default {
         },
         {
           name: "og:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
         {
           name: "og:image",
-          content: this.posts.data.length > 0 ? this.posts.data[0].image : ""
+          content:
+            this.posts.data.length > 0
+              ? this.posts.data[0].image
+              : "https://nuxtjs.org/meta_640.png"
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -86,11 +89,14 @@ export default {
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         {
           name: "twitter:image",
-          content: this.posts.data.length > 0 ? this.posts.data[0].image : ""
+          content:
+            this.posts.data.length > 0
+              ? this.posts.data[0].image
+              : "https://nuxtjs.org/meta_640.png"
         },
         {
           name: "twitter:image:alt",
@@ -109,18 +115,27 @@ export default {
       section_heading: "Отчеты о выполненных работах",
       title: "Отчеты о выполненых работах по установке ограждений",
       description:
-        "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. "
+        "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. ",
+      keywords:
+        "Отчеты по установке заборов, Отчеты по установке ворот, Отчеты по установке калиток",
+      fetchedVars: "{}"
     };
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
     this.$store.commit("common/RUN_SPINNER");
+
     getAllPosts()
       .then(({ data }) => {
         this.$store.commit("posts/SET_POSTS", data.data);
       })
       .catch(() => alert("Невозможно загрузить данные"))
       .finally(() => this.$store.commit("common/STOP_SPINNER"));
+
+    getVarsByPage(this.$route.name).then(({ data }) => {
+      console.log({ data });
+      this.fetchedVars = data.data.variable;
+    });
   },
   computed: {
     ...mapGetters({
@@ -135,6 +150,9 @@ export default {
         this.getPosts(page);
         scrolledContent.scrollTo(0, 0);
       }
+    },
+    parsedVars() {
+      return JSON.parse(this.fetchedVars);
     }
   },
   methods: {

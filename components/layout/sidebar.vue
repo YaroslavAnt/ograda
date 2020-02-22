@@ -110,8 +110,8 @@ export default {
     transform: rotateY(180deg);
     // display: none;
     @media (min-width: 768px) {
-      height: 210px;
-      background-size: 50%, 60%, 100%;
+      height: 150px;
+      background-size: 50%, 47%, 100%;
     }
   }
 

@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h1 class="heading with-skewed-bg">{{this.parsedVars.title || this.title}}</h1>
     <hero />
     <special :special='special'></special>
     <services :content="services" />
@@ -22,6 +23,7 @@ import measure from "~/assets/icons/measure.svg";
 import cargo from "~/assets/icons/cargo.svg";
 import brush from "~/assets/icons/brush.svg";
 import fence from "~/assets/icons/fence.svg";
+import { getVarsByPage } from "../api/variables";
 
 export default {
   scrollToTop: true,
@@ -37,7 +39,11 @@ export default {
   computed: {
     ...mapGetters({
       firstProduct: "products/getFirstProduct"
-    })
+    }),
+
+    parsedVars() {
+      return JSON.parse(this.fetchedVars);
+    }
   },
 
   mounted() {
@@ -54,6 +60,10 @@ export default {
     ])
       .catch(() => alert("Невозможно загрузить данные"))
       .finally(() => this.$store.dispatch("common/stopSpinner"));
+
+    getVarsByPage("home").then(({ data }) => {
+      this.fetchedVars = data.data.variable;
+    });
   },
 
   methods: {
@@ -72,6 +82,9 @@ export default {
       description:
         "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
       special: [],
+      fetchedVars: "{}",
+      keywords:
+        "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье",
       services: {
         section_heading: "Услуги",
         section_subheading:
@@ -104,50 +117,56 @@ export default {
 
   head() {
     return {
-      title: this.title,
+      title: this.parsedVars.title || this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content:
-            "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье"
+          content: this.parsedVars.keywords || this.keywords
         },
+
+        //Open Graph
         {
           name: "og:title",
-          content: this.title
+          content: this.parsedVars.title || this.title
         },
         {
           name: "og:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
         {
-          // name: "og:image",
-          // content: this.firstProduct.img_set[0]
+          name: "og:image",
+          content:
+            (this.firstProduct && this.firstProduct.img_set[0]) ||
+            "https://nuxtjs.org/meta_640.png"
         },
+
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.parsedVars.title || this.title
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.parsedVars.description || this.description
         },
         {
-          // name: "twitter:image",
-          // content: this.firstProduct.img_set[0]
+          name: "twitter:image",
+          content:
+            (this.firstProduct && this.firstProduct.img_set[0]) ||
+            "https://nuxtjs.org/meta_640.png"
         },
         {
-          // name: "twitter:image:alt",
-          // content: this.firstProduct.name
+          name: "twitter:image:alt",
+          content: this.firstProduct && this.firstProduct.name
         }
       ]
     };
@@ -157,7 +176,32 @@ export default {
 
 <style lang="scss" scoped>
   main {
-    background-color: #fff;
+    // background-color: #fff;
+    position: relative;
+
+    .heading {
+      position: absolute;
+      font-weight: bold;
+      font-size: 22px;
+      width: calc(100% - 32px);
+      line-height: 1;
+      display: inline-block;
+      text-align: center;
+      color: #fff;
+      margin: 20px 16px 20px;
+      padding: 12px 24px;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      &::before {
+        background-color: var(--green);
+      }
+
+      @media (min-width: 600px) {
+        font-size: 28px;
+        line-height: 1;
+      }
+    }
   }
 </style>
 
