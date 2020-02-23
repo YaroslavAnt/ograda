@@ -77,7 +77,6 @@ export default {
       },
       {
         path: "/sitemap-products.xml",
-
         gzip: true,
         routes: async () => {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
