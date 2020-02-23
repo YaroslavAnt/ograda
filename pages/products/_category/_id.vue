@@ -77,7 +77,9 @@ export default {
       return this.$route.params.category;
     },
     title() {
-      return `Цена и описание товара ${this.product.name}`;
+      return `${this.product.name.toUpperCase()} от производителя. Цена - ${
+        this.product.price
+      } грн`;
     },
     description() {
       return `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`;

@@ -5,7 +5,7 @@
         <th
           class="table-head medium-font"
           colspan="2"
-        >{{heading}}</th>
+        >{{category.toUpperCase()}}</th>
       </tr>
     </thead>
     <tbody>
@@ -17,9 +17,11 @@
         itemtype="http://schema.org/Offer"
       >
         <td
-          class="table-cell"
+          class="table-cell table-cell-name"
           itemprop="name"
-        >{{item.name}}</td>
+        >
+          <nuxt-link :to='`products/${replaceWithDash(category)}/${item.id}`'>{{item.name}}</nuxt-link>
+        </td>
         <td
           class="table-cell table-cell-price"
           itemprop="price"
@@ -27,9 +29,7 @@
             itemprop="priceCurrency"
             content="UAH"
           >&#8372;</span> {{item.price}}</td>
-        <!-- <td class="table-cell table-cell-image" v-if="item.img_src">
-          <app-image :img_src="item.img_src" :img_alt="item.img_alt" :ratio="67" />
-        </td>-->
+
       </tr>
     </tbody>
   </table>
@@ -37,6 +37,7 @@
 
 <script>
 import ImageBaseVue from "./ImageBase.vue";
+import { replaceWithDash } from "../../static/utils";
 export default {
   name: "Table.vue",
   components: {
@@ -47,10 +48,13 @@ export default {
       type: Array,
       default: () => [{}]
     },
-    heading: {
+    category: {
       type: String,
       default: ""
     }
+  },
+  methods: {
+    replaceWithDash
   }
 };
 </script>
@@ -66,7 +70,7 @@ export default {
     }
     &-row {
       &:nth-child(2n + 1) {
-        background-color: #ccc;
+        background-color: var(--white);
       }
     }
 
@@ -74,6 +78,11 @@ export default {
       vertical-align: middle;
       border: 1px solid #aaa;
       padding: 12px 24px;
+      &-name {
+        &:hover {
+          color: var(--red);
+        }
+      }
 
       &-price {
         width: 30%;

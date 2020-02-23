@@ -6,7 +6,7 @@
       <app-table
         v-for="(price, idx) in prices"
         :key="idx"
-        :heading="`Цены (прайсы) на ${price.name.toUpperCase()}`"
+        :category='price.name'
         :items="price.products"
         class="section-table"
       />

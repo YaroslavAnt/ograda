@@ -87,6 +87,7 @@
           <h6>Страницы в соцсетях</h6>
           <a
             target="_blank"
+            rel="noreferrer noopener"
             :href='FACEBOOK'
           >
             <img

@@ -9,15 +9,15 @@
 
     <div class="card-img-box">
       <img
-        class="card-image"
-        :src="getImageUrl(product)"
+        class="card-image lazyload"
+        :data-src="getImageUrl(product)"
         :alt="product.img_alt"
         itemprop="image"
       >
     </div>
 
     <nuxt-link
-      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }/${product.id}`"
+      :to="`/products/${replaceWithDash(product.category.name) }/${product.id}`"
       class="card-name base-font"
       itemprop="url"
     ><span itemprop="name">{{product.name}}</span> </nuxt-link>

@@ -28,7 +28,7 @@
             :key="idx"
             @click="$store.dispatch('common/closeMenu')"
           >
-            <router-link :to='{path:`/products/${replaceWithDash(category.name)}/${replaceWithDash(subcategory.name)}`}'>
+            <router-link :to='{path:`/products/${replaceWithDash(category.name)}?subcategory=${replaceWithDash(subcategory.name)}`}'>
               <span class="subnav-link">{{subcategory.name}}</span>
             </router-link>
           </li>
@@ -100,8 +100,8 @@ export default {
 
   .logo {
     height: 120px;
-    background: url("../../assets/img/grass2-min.png") bottom,
-      url("../../assets/img/image-min.png") center bottom,
+    background: url("../../assets/img/gras-resize.png") bottom,
+      url("../../assets/img/logo.png") center bottom,
       url("../../assets/img/plita172-min.png") bottom;
     background-repeat: repeat-x, no-repeat, no-repeat;
     background-size: 50%, 40%, 100%;

@@ -13,7 +13,7 @@
         <app-image
           :img_src="BASE_URL+ slide.img_set[0]"
           :img_alt="slide.img_alt"
-          :lazy="true"
+          :lazy="false"
           :ratio="45"
         />
       </div>
