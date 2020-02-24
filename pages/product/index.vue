@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     fetchProduct() {
-      getProduct(this.$route.params.id)
+      getProduct(this.$route.query.id)
         .then(res => {
           this.product = res.data.data;
         })

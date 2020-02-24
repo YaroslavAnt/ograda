@@ -17,7 +17,7 @@
     </div>
 
     <nuxt-link
-      :to="`/products/${replaceWithDash(product.category.name) }/${product.id}`"
+      :to="`/product?id=${product.id}`"
       class="card-name base-font"
       itemprop="url"
     ><span itemprop="name">{{product.name}}</span> </nuxt-link>

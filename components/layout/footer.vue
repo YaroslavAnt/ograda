@@ -43,7 +43,7 @@
                   :size="'10px'"
                   :direction="'right'"
                 />
-                <nuxt-link :to='`/products/${replaceWithDash(link.name) }`'>{{link.name}}</nuxt-link>
+                <nuxt-link :to='`/products?category=${replaceWithDash(link.id) }`'>{{link.name}}</nuxt-link>
               </li>
             </ul>
           </li>

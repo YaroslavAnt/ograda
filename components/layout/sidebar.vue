@@ -28,7 +28,7 @@
             :key="idx"
             @click="$store.dispatch('common/closeMenu')"
           >
-            <router-link :to='{path:`/products/${replaceWithDash(category.name)}?subcategory=${replaceWithDash(subcategory.name)}`}'>
+            <router-link :to='{path:`/products?category=${(category.id)}&subcategory=${(subcategory.id)}`}'>
               <span class="subnav-link">{{subcategory.name}}</span>
             </router-link>
           </li>

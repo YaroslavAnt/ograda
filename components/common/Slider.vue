@@ -29,7 +29,7 @@
         >{{ slide.text }}</p>
         <nuxt-link
           v-if="slide.category.name"
-          :to='`products/${replaceWithDash(slide.category.name) }`'
+          :to='`products?category=${(slide.category.id) }`'
           class="slider-btn app-button"
         >Подробнее</nuxt-link>
       </div>

@@ -59,11 +59,11 @@ export default {
 
   sitemap: {
     path: "/sitemap.xml",
-    hostname: "http://ograda.zp.ua/",
+    hostname: "https://ograda.zp.ua/",
 
     sitemaps: [
       {
-        exclude: ["/products"],
+        exclude: ["/*/**"],
         path: "/sitemap-pages.xml",
         routes: [
           "/",
@@ -76,16 +76,44 @@ export default {
         ]
       },
       {
+        path: "/sitemap-lists.xml",
+        exclude: [
+          "/about/**",
+          "/blog/**",
+          "/contact/**",
+          "/prices/**",
+          "/product/**",
+          "/products/**",
+          "/services/**"
+        ],
+        gzip: true,
+        routes: async () => {
+          const { data } = await axios.get(BASE_URL + "api/products-prices");
+          let dynRoutes = [];
+          data.data.forEach(priceObj =>
+            dynRoutes.push(`products?category=${priceObj.id}`)
+          );
+          return dynRoutes;
+        }
+      },
+      {
         path: "/sitemap-products.xml",
+        exclude: [
+          "/about/**",
+          "/blog/**",
+          "/contact/**",
+          "/prices/**",
+          "/product/**",
+          "/products/**",
+          "/services/**"
+        ],
         gzip: true,
         routes: async () => {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
           let dynRoutes = [];
           data.data.forEach(priceObj =>
             priceObj.products.forEach(product =>
-              dynRoutes.push(
-                `products/${replaceWithDash(priceObj.name)}/${product.id}`
-              )
+              dynRoutes.push(`product?id=${product.id}`)
             )
           );
 

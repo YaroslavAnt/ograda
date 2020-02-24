@@ -52,13 +52,13 @@
             >&#8962; ГЛАВНАЯ ></nuxt-link>
 
             <nuxt-link
-              :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
+              :to='{path:`/products?category=${product.category.id}`}'
               class="small-font crumb"
             >{{product.category.name}} ></nuxt-link>
 
             <nuxt-link
               class="small-font crumb"
-              :to='{path:`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }`}'
+              :to='{path:`/products?category=${product.category.id}&${product.subcategory.id }`}'
             >
               {{product.subcategory.name}} </nuxt-link>
           </div>
