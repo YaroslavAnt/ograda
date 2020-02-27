@@ -9,6 +9,7 @@ export default {
   services: [
     {
       img_src: measure,
+      id: "measure",
       img_alt: "Замер установки еврозабора",
       heading: "Замер установки еврозабора",
       paragraphs: [
@@ -26,6 +27,7 @@ export default {
     },
     {
       img_src: delivery,
+      id: "delivery",
       img_alt: "Доставка еврозаборов по Запорожью и Запорожской области",
       heading: "Доставка еврозаборов",
       paragraphs: [
@@ -42,6 +44,7 @@ export default {
     },
     {
       img_src: fundament,
+      id: "fundament",
       img_alt: "Заливка фундамента под еврозабор",
       heading: "Заливка фундаментной ленты",
       paragraphs: [
@@ -55,6 +58,7 @@ export default {
     },
     {
       img_src: montage,
+      id: "montage",
       img_alt: "Установка еврозаборов",
       heading: "Установка ограждений",
       paragraphs: [
@@ -85,6 +89,7 @@ export default {
     },
     {
       img_src: pokraska,
+      id: "pokraska",
       img_alt: "Покраска еврозабора в Запорожье",
       heading: "Покраска еврозабора",
       paragraphs: [

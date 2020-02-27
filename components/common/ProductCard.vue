@@ -102,7 +102,6 @@ export default {
     }
 
     &-image {
-      height: 100%;
       position: absolute;
       width: 100%;
       transform: translate(-50%, -50%);

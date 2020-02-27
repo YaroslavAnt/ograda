@@ -4,6 +4,7 @@
     <app-section class="section">
       <app-intro
         v-for="(service, idx) in services.services"
+        :id="service.id"
         :key="idx"
         :img_src="service.img_src"
         :img_alt="service.img_alt"

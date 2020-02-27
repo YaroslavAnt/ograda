@@ -1,0 +1,3 @@
+﻿User-agent: *
+Disallow: /_nuxt/
+Disallow: /content_data/

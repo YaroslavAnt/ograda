@@ -1,6 +1,5 @@
 ﻿<template>
   <div class="page">
-    <app-spinner></app-spinner>
     <div
       class="overlay"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
@@ -24,14 +23,38 @@
       <app-footer></app-footer>
 
       <div class="connect">
-        <a :href="`tel:${PHONE}`">
-          <icon-base
-            :width='75'
-            :height='75'
-          >
-            <icon-phone />
-          </icon-base>
-        </a>
+        <div
+          class="numbers-box"
+          v-if="isPhoneActive"
+        >
+          <a
+            class="base-font"
+            :href="`tel:${PHONE}`"
+            @click="isPhoneActive=false"
+          ><img
+              src="../assets/icons/vf.png"
+              alt="icon"
+              width="36px"
+              style="vertical-align: bottom"
+            > {{PHONE}}</a><br /><br />
+          <a
+            class="base-font"
+            :href="`tel:${PHONE1}`"
+            @click="isPhoneActive=false"
+          ><img
+              src="../assets/icons/ks100.png"
+              alt="icon"
+              width="36px"
+              style="vertical-align: bottom"
+            > {{PHONE1}}</a>
+        </div>
+        <icon-base
+          :width='75'
+          :height='75'
+          @click.native="isPhoneActive = !isPhoneActive"
+        >
+          <icon-phone />
+        </icon-base>
       </div>
     </div>
   </div>
@@ -100,6 +123,15 @@
       display: none;
     }
   }
+  .numbers-box {
+    position: fixed;
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.85);
+    border-radius: 4px;
+    background-color: #fff;
+    right: 30px;
+    bottom: 120px;
+    padding: 20px;
+  }
 </style>
 
 <script>
@@ -114,7 +146,7 @@ import SpinnerVue from "../components/common/Spinner.vue";
 import httpClient from "../api/httpClient";
 import IconBaseVue from "../components/common/IconBase.vue";
 import IconPhoneBlueVue from "../components/icons/IconPhoneBlue.vue";
-import { PHONE } from "../config";
+import { PHONE, PHONE1 } from "../config";
 import LoaderVue from "../components/common/Loader.vue";
 
 export default {
@@ -123,7 +155,6 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "app-spinner": LoaderVue,
     "icon-base": IconBaseVue,
     "icon-phone": IconPhoneBlueVue
   },
@@ -139,7 +170,9 @@ export default {
   data() {
     return {
       current_page: "/",
-      PHONE
+      PHONE,
+      PHONE1,
+      isPhoneActive: false
     };
   },
   methods: {

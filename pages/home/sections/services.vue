@@ -3,17 +3,20 @@
     :heading="content.section_heading"
     class="section"
   >
+    {{content.card_list}}
     <div class="card-grid">
       <article
         class="card-item"
         v-for="(card,idx) in content.card_list"
         :key="idx"
       >
-        <icon-card
-          :icon_src="card.icon"
-          :heading="card.heading"
-          :text="card.intro_txt"
-        ></icon-card>
+        <nuxt-link :to="{path: '/services'}">
+          <icon-card
+            :icon_src="card.icon"
+            :heading="card.heading"
+            :text="card.intro_txt"
+          ></icon-card>
+        </nuxt-link>
       </article>
     </div>
     <router-link

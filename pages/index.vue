@@ -92,21 +92,25 @@ export default {
         card_list: [
           {
             icon: cargo,
+            id: "delivery",
             heading: "Доставка продукции и строй-материалов",
             link: "/services"
           },
           {
             icon: fence,
+            id: "montage",
             heading: "Установка заборов, ворот",
             link: "/services"
           },
           {
             icon: brush,
+            id: "pokraska",
             heading: "Покраска заборов",
             link: "/services"
           },
           {
             icon: measure,
+            id: "measure",
             heading: "Выезд замерщика",
             link: "/services"
           }
