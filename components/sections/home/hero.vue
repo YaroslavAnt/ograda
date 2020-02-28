@@ -95,7 +95,7 @@ export default {
     }
 
     &-slider {
-      min-width: 800px;
+      min-width: 400px;
     }
   }
 </style>

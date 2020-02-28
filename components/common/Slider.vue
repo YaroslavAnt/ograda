@@ -10,12 +10,15 @@
         class="slider-filterbox"
         :class="{'with-filter': withFilter}"
       >
-        <app-image
-          :img_src="BASE_URL+ slide.img_set[0]"
-          :img_alt="slide.img_alt"
-          :lazy="false"
-          :ratio="45"
-        />
+
+        <div class="picture">
+          <img
+            :src="BASE_URL+ slide.img_set[0]"
+            :alt="slide.img_alt"
+            class="picture-img"
+          />
+        </div>
+
       </div>
 
       <div class="slider-content section-padding">
@@ -158,13 +161,40 @@ export default {
       height: 100%;
     }
     &-content {
-      width: 66%;
+      width: 67%;
       max-width: 100vw;
       position: absolute;
     }
     &-btn,
     &-text {
       margin-top: 20px;
+    }
+
+    .picture {
+      width: 100%;
+      overflow: hidden;
+      padding-bottom: 67%;
+      position: relative;
+
+      @media (min-width: 768px) {
+        padding-bottom: 45%;
+      }
+
+      &-img {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+
+        &.square {
+          top: 0;
+          left: 50%;
+          width: unset;
+          height: 100%;
+          transform: translateX(-50%);
+        }
+      }
     }
 
     .arrows {

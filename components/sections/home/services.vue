@@ -3,7 +3,6 @@
     :heading="content.section_heading"
     class="section"
   >
-    {{content.card_list}}
     <div class="card-grid">
       <article
         class="card-item"

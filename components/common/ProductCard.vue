@@ -32,13 +32,16 @@
         v-if="product.option.label"
         class="card-label small-font"
       >{{product.option.label}}</span>
-      <p
-        class="card-price medium-font"
-        itemprop="price"
-      >Цена: <span
+      <p class="card-price medium-font">
+        Цена:
+        <span
           itemprop="priceCurrency"
           content="UAH"
-        >&#8372; </span>{{product.price}}</p>
+        >&#8372; </span>
+        <span
+          itemprop="price"
+          :content='product.price'
+        >{{product.price}}</span> </p>
     </div>
   </article>
 </template>

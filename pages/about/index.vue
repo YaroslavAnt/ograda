@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import aboutVue from "./sections/about.vue";
-import advantagesVue from "./sections/advantages.vue";
-import expositionVue from "./sections/exposition.vue";
+import aboutVue from "~/components/sections/about/about.vue";
+import advantagesVue from "~/components/sections/about/advantages.vue";
+import expositionVue from "~/components/sections/about/exposition.vue";
 import { about } from "~/static/content_data";
 import { getExhibitions } from "../../api/products";
 import { getVarsByPage } from "../../api/variables";

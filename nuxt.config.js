@@ -63,20 +63,8 @@ export default {
 
     sitemaps: [
       {
-        exclude: ["/products"],
-        path: "/sitemap-pages.xml",
-        routes: [
-          "/",
-          "/about",
-          "/blog",
-          "/contact",
-          "/prices",
-          "/products",
-          "/services"
-        ]
-      },
-      {
         path: "/sitemap-products.xml",
+        exclude: ["/*/**"],
         gzip: true,
         routes: async () => {
           const { data } = await axios.get(BASE_URL + "api/products-prices");

@@ -9,12 +9,12 @@
 </template>
   
 <script>
-import heroVue from "./home/sections/hero.vue";
-import popularVue from "./home/sections/popular.vue";
-import servicesVue from "./home/sections/services.vue";
-import newsVue from "./home/sections/news.vue";
+import heroVue from "../components/sections/home/hero";
+import servicesVue from "../components/sections/home/services.vue";
+import newsVue from "../components/sections/home/news.vue";
+import specialVue from "../components/sections/home/special.vue";
+
 import { mapGetters } from "vuex";
-import specialVue from "./home/sections/special.vue";
 import { getSpecialProducts, getAllProducts } from "../api/products";
 import { getAll } from "../api/categories";
 import { getAllPosts } from "../api/posts";
@@ -30,7 +30,6 @@ export default {
 
   components: {
     hero: heroVue,
-    popular: popularVue,
     special: specialVue,
     services: servicesVue,
     news: newsVue
@@ -184,15 +183,15 @@ export default {
     position: relative;
 
     .heading {
-      position: absolute;
+      position: relative;
       font-weight: bold;
       font-size: 22px;
-      width: calc(100% - 32px);
+      // width: calc(100% - 32px);
       line-height: 1;
       display: inline-block;
       text-align: center;
       color: #fff;
-      margin: 20px 16px 20px;
+      margin: 20px 16px -20px;
       padding: 12px 24px;
       z-index: 5;
       display: flex;
