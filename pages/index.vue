@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1 class="heading with-skewed-bg">{{this.parsedVars.title || this.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{this.fetchedVars.title || this.title}}</h1>
     <hero />
     <special :special='special'></special>
     <services :content="services" />
@@ -38,11 +38,7 @@ export default {
   computed: {
     ...mapGetters({
       firstProduct: "products/getFirstProduct"
-    }),
-
-    parsedVars() {
-      return JSON.parse(this.fetchedVars);
-    }
+    })
   },
 
   mounted() {
@@ -60,8 +56,8 @@ export default {
       .catch(() => alert("Невозможно загрузить данные"))
       .finally(() => this.$store.dispatch("common/stopSpinner"));
 
-    getVarsByPage("home").then(({ data }) => {
-      this.fetchedVars = data.data.variable;
+    getVarsByPage("/home").then(({ data }) => {
+      this.fetchedVars = JSON.parse(data.data.variable);
     });
   },
 
@@ -81,7 +77,7 @@ export default {
       description:
         "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
       special: [],
-      fetchedVars: "{}",
+      fetchedVars: {},
       keywords:
         "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье",
       services: {
@@ -120,27 +116,27 @@ export default {
 
   head() {
     return {
-      title: this.parsedVars.title || this.title,
+      title: this.fetchedVars.title || this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.parsedVars.description || this.description
+          content: this.fetchedVars.description || this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.parsedVars.keywords || this.keywords
+          content: this.fetchedVars.keywords || this.keywords
         },
 
         //Open Graph
         {
           name: "og:title",
-          content: this.parsedVars.title || this.title
+          content: this.fetchedVars.title || this.title
         },
         {
           name: "og:description",
-          content: this.parsedVars.description || this.description
+          content: this.fetchedVars.description || this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
@@ -155,11 +151,11 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.parsedVars.title || this.title
+          content: this.fetchedVars.title || this.title
         },
         {
           name: "twitter:description",
-          content: this.parsedVars.description || this.description
+          content: this.fetchedVars.description || this.description
         },
         {
           name: "twitter:image",

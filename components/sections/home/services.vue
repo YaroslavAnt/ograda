@@ -6,10 +6,10 @@
     <div class="card-grid">
       <article
         class="card-item"
-        v-for="(card,idx) in content.card_list"
+        v-for="(card,idx) in card_list"
         :key="idx"
       >
-        <nuxt-link :to="{path: '/services'}">
+        <nuxt-link :to="{path: card.link}">
           <icon-card
             :icon_src="card.icon"
             :heading="card.heading"
@@ -18,16 +18,21 @@
         </nuxt-link>
       </article>
     </div>
-    <router-link
+    <!-- <router-link
       class="section-link base-font"
       to="/services"
-    >&rarr; Услуги по установке заборов </router-link>
+    >&rarr; Услуги по установке заборов </router-link> -->
   </app-section>
 </template>
 
 <script>
 import IconCardVue from "~/components/common/IconCard.vue";
 import sectionVue from "~/components/layout/section.vue";
+
+import measure from "~/assets/icons/measure.svg";
+import cargo from "~/assets/icons/cargo.svg";
+import brush from "~/assets/icons/brush.svg";
+import fence from "~/assets/icons/fence.svg";
 
 export default {
   name: "services.vue",
@@ -40,6 +45,36 @@ export default {
       type: Object,
       default: {}
     }
+  },
+  data() {
+    return {
+      card_list: [
+        {
+          icon: cargo,
+          id: "delivery",
+          heading: "Доставка продукции и строй-материалов",
+          link: "/services/dostavka"
+        },
+        {
+          icon: fence,
+          id: "montage",
+          heading: "Установка заборов, ворот",
+          link: "/services/montazh"
+        },
+        {
+          icon: brush,
+          id: "pokraska",
+          heading: "Покраска заборов",
+          link: "/services/pokraska"
+        },
+        {
+          icon: measure,
+          id: "measure",
+          heading: "Выезд замерщика",
+          link: "/services/zamer"
+        }
+      ]
+    };
   }
 };
 </script>

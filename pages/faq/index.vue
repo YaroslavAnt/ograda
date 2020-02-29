@@ -1,5 +1,6 @@
 ﻿<template>
   <main class="section-padding">
+
     <h1 class="with-skewed-bg">{{title}}</h1>
     <section
       v-for="(question, idx) in questions"
@@ -28,11 +29,8 @@ export default {
   name: "faq.vue",
   data() {
     return {
-      title: "Часто задаваемые вопросы",
-      description:
-        "Здесь собраны самые часто задаваемые вопросы касательно монтажа ограждений и ворот",
-      keywords:
-        "faq, монтаж заборов, покраска еврозаборов, как оформить заказ на еврозабор, скидки, акции",
+      // title:
+
       questions: [
         {
           question: "Нужно ли красить бетонные заборы?",
@@ -46,15 +44,46 @@ export default {
           question: "Возможна ли доставка заборов за пределы города?",
           answer:
             "Да, возможна. Выполняем доставку продукции и материалов по всей Запорожской области. Компания имеет транспорт, подходящий под любые объемы заказов. Услуги по доставке оплачиваются отдельно"
+        },
+        {
+          question: "Для чего нужна замазка щелей между плитами?",
+          answer: "???"
+        },
+        {
+          question: "Заливать фундамент обязательно?",
+          answer: ""
+        },
+        {
+          question: "Как рассчитать необходимое количество заборов?",
+          answer: ""
+        },
+        {
+          question: "Как установить ограждение на поверхности с уклоном?",
+          answer: ""
         }
       ],
       fetchedVars: {}
     };
   },
+  computed: {
+    title() {
+      return this.fetchedVars.title || "Часто задаваемые вопросы";
+    },
+    description() {
+      return;
+      this.fetchedVars.description ||
+        "Здесь собраны самые часто задаваемые вопросы касательно монтажа ограждений и ворот";
+    },
+    keywords() {
+      return;
+      this.fetchedVars.keywords ||
+        "faq, монтаж заборов, покраска еврозаборов, как оформить заказ на еврозабор, скидки, акции";
+    }
+  },
   mounted() {
-    getVarsByPage(this.$route.name).then(({ data }) => {
+    getVarsByPage(this.$route.path).then(({ data }) => {
       console.log({ data });
-      this.fetchedVars = data.data.variable;
+      this.fetchedVars = JSON.parse(data.data.variable);
     });
   },
 

@@ -82,7 +82,7 @@ export default {
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
 
-    getVarsByPage("services").then(({ data }) => {
+    getVarsByPage("/services").then(({ data }) => {
       this.fetchedVars = data.data.variable;
     });
   },

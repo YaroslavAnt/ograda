@@ -18,7 +18,7 @@
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
       >
-        <span>{{getCyrylic(category.name) }}</span>
+        <span>{{(category.name) }}</span>
         <ul
           class="sidebar-subnav"
           :class="{'sidebar-subnav-active': category.name === activeCategory }"
@@ -38,11 +38,34 @@
       <li
         v-for="(nav_item,idx) in static_menu_list"
         :key="idx+'static'"
-        @click="$store.dispatch('common/closeMenu')"
+        @click="nav_item.children?onClickNavItem(nav_item.name):$store.dispatch('common/closeMenu')"
+        class="nav-link"
+        :class="{'with-submenu': nav_item.children}"
       >
-        <router-link :to="nav_item.path">
-          <span class="nav-link">{{nav_item.name}}</span>
+        <router-link
+          v-if="!nav_item.children"
+          :to="nav_item.path"
+        >
+          <span>{{nav_item.name}}</span>
         </router-link>
+
+        <span v-if="nav_item.children">{{(nav_item.name) }}</span>
+
+        <ul
+          v-if="nav_item.children"
+          class="sidebar-subnav"
+          :class="{'sidebar-subnav-active': nav_item.name === activeCategory }"
+        >
+          <li
+            v-for="(subcategory,idx) in nav_item.children"
+            :key="idx"
+            @click="$store.dispatch('common/closeMenu')"
+          >
+            <router-link :to='{path:`${nav_item.path}/${subcategory.path}`}'>
+              <span class="subnav-link">{{subcategory.name}}</span>
+            </router-link>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -50,7 +73,7 @@
 
 <script>
 import { getAll } from "~/api/categories";
-import { replaceWithDash, getCyrylic } from "../../static/utils";
+import { replaceWithDash } from "../../static/utils";
 export default {
   name: "sidebar.vue",
 
@@ -69,8 +92,7 @@ export default {
         this.activeCategory === categoryName ? null : categoryName;
     },
 
-    replaceWithDash,
-    getCyrylic
+    replaceWithDash
   },
 
   props: ["current_page"],
@@ -80,7 +102,17 @@ export default {
       activeCategory: null,
       static_menu_list: [
         { name: "О нас", path: "/about" },
-        { name: "Услуги", path: "/services" },
+        {
+          name: "Услуги",
+          path: "/services",
+          children: [
+            { name: "Вызов замерщика", path: "zamer" },
+            { name: "Доставка", path: "dostavka" },
+            { name: "Заливка фундамента", path: "fundament" },
+            { name: "Установка забора", path: "montazh" },
+            { name: "Покраска еврозабора", path: "pokraska" }
+          ]
+        },
         { name: "Наши работы", path: "/blog" },
         { name: "Вопрос-ответ", path: "/faq" },
         { name: "Цены", path: "/prices" },
@@ -120,7 +152,11 @@ export default {
   .sidebar-nav {
     display: flex;
     flex-direction: column;
-    // overflow: scroll;
+    overflow: auto;
+
+    @media (min-width: 768px) {
+      overflow: unset;
+    }
 
     &::-webkit-scrollbar {
       width: 0px; /* Remove scrollbar space */

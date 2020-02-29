@@ -69,7 +69,7 @@ export default {
         this.exhibitions = data.data.data;
       })
       .catch(() => alert("Невозножно загрузить данные"));
-    getVarsByPage(this.$route.name).then(({ data }) => {
+    getVarsByPage(this.$route.path).then(({ data }) => {
       console.log({ data });
       this.fetchedVars = data.data.variable;
     });
