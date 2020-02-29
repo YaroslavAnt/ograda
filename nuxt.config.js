@@ -72,7 +72,9 @@ export default {
           data.data.forEach(priceObj =>
             priceObj.products.forEach(product =>
               dynRoutes.push(
-                `products/${replaceWithDash(priceObj.name)}/${product.id}`
+                `products/${replaceWithDash(priceObj.name)}/${replaceWithDash(
+                  product.name
+                )}`
               )
             )
           );

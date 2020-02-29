@@ -25,7 +25,7 @@
         <h3
           v-if="slide.category.name"
           class="slider-heading huge-font"
-        >{{ String(slide.category.name).toUpperCase() }}</h3>
+        >{{ String(getCyrylic(slide.category.name) ).toUpperCase() }}</h3>
         <p
           v-if="slide.text"
           class="slider-text base-font"
@@ -71,7 +71,7 @@ import ButtonVue from "./Button.vue";
 import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
-import { replaceWithDash } from "../../static/utils";
+import { replaceWithDash, getCyrylic } from "../../static/utils";
 
 export default {
   name: "Slider.vue",
@@ -81,7 +81,8 @@ export default {
     "app-image": ImageBaseVue
   },
   methods: {
-    replaceWithDash: replaceWithDash,
+    replaceWithDash,
+    getCyrylic,
     forvard() {
       this.current_slide =
         this.current_slide < this.slider_items.length - 1

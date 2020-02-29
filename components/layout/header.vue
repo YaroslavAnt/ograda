@@ -14,7 +14,7 @@
     <div class="header-padding base-font header-logo">
       <logo />
       <div class="contact">
-        <div class="contact-item">
+        <div class="contact-item contact-item-phones">
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
@@ -99,7 +99,10 @@
     &-item {
       display: flex;
       align-items: center;
-      margin-right: 24px;
+      &-phones {
+        margin-right: 24px;
+        white-space: nowrap;
+      }
     }
 
     svg {

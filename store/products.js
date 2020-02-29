@@ -10,7 +10,7 @@ export const state = () => ({
   list: [],
   byCategory: [],
   product: {
-    name: ""
+    name: {}
   },
   prices: [
     {
@@ -61,12 +61,18 @@ const actions = {
     } catch (err) {
       alert("Невозможно загрузить данные");
     }
+  },
+  setProduct({ commit }, product) {
+    commit("SET_PRODUCT", product);
   }
 };
 
 export const mutations = {
   SET_PRODUCTS(state, data) {
     state.list = data;
+  },
+  SET_PRODUCT(state, product) {
+    state.product = product;
   },
   SET_PRODUCT(state, product) {
     state.product = product;

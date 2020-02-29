@@ -18,7 +18,7 @@
         v-for="(category,idx) in $store.state.categories.list"
         :key="idx"
       >
-        <span>{{category.name}}</span>
+        <span>{{getCyrylic(category.name) }}</span>
         <ul
           class="sidebar-subnav"
           :class="{'sidebar-subnav-active': category.name === activeCategory }"
@@ -50,7 +50,7 @@
 
 <script>
 import { getAll } from "~/api/categories";
-import { replaceWithDash } from "../../static/utils";
+import { replaceWithDash, getCyrylic } from "../../static/utils";
 export default {
   name: "sidebar.vue",
 
@@ -69,7 +69,8 @@ export default {
         this.activeCategory === categoryName ? null : categoryName;
     },
 
-    replaceWithDash
+    replaceWithDash,
+    getCyrylic
   },
 
   props: ["current_page"],
@@ -78,10 +79,11 @@ export default {
       categories: [],
       activeCategory: null,
       static_menu_list: [
-        { name: "Услуги", path: "/services" },
-        { name: "Цены", path: "/prices" },
-        { name: "Наши работы", path: "/blog" },
         { name: "О нас", path: "/about" },
+        { name: "Услуги", path: "/services" },
+        { name: "Наши работы", path: "/blog" },
+        { name: "Вопрос-ответ", path: "/faq" },
+        { name: "Цены", path: "/prices" },
         { name: "Контакты", path: "/contact" }
       ]
     };

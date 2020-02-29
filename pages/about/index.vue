@@ -98,7 +98,7 @@ export default {
     position: relative;
   }
   .heading {
-    position: absolute;
+    position: relative;
     width: calc(100% - 32px);
     font-weight: bold;
     font-size: 22px;
@@ -106,7 +106,7 @@ export default {
     display: inline-block;
     text-align: center;
     color: #fff;
-    margin: 20px 16px 20px;
+    margin: 20px 16px -30px;
     padding: 12px 24px;
     z-index: 5;
     display: flex;

@@ -1,11 +1,5 @@
 ﻿<template>
   <article class="card">
-    <!-- <app-image
-      :img_src="getImageUrl(product)"
-      :img_alt="product.img_alt"
-      :lazy="false"
-      :ratio="67"
-    /> -->
 
     <div class="card-img-box">
       <img
@@ -17,7 +11,7 @@
     </div>
 
     <nuxt-link
-      :to="`/products/${replaceWithDash(product.category.name) }/${product.id}`"
+      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
       class="card-name base-font"
       itemprop="url"
     ><span itemprop="name">{{product.name}}</span> </nuxt-link>

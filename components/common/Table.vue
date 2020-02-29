@@ -20,7 +20,7 @@
           class="table-cell table-cell-name"
           itemprop="name"
         >
-          <nuxt-link :to='`products/${replaceWithDash(category)}/${item.id}`'>{{item.name}}</nuxt-link>
+          <nuxt-link :to='`products/${replaceWithDash(category)}/${replaceWithDash(item.name) }`'>{{item.name}}</nuxt-link>
         </td>
         <td
           class="table-cell table-cell-price"
