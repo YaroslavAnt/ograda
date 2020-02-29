@@ -64,7 +64,6 @@ export default {
     sitemaps: [
       {
         path: "/sitemap-products.xml",
-        exclude: ["/*/**"],
         gzip: true,
         routes: async () => {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
@@ -96,5 +95,14 @@ export default {
   googleAnalytics: {
     id: "UA-158653896-1",
     dev: false
+  },
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: "custom",
+        path: "*",
+        component: resolve(__dirname, "pages/404.vue")
+      });
+    }
   }
 };

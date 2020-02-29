@@ -104,6 +104,9 @@ export default {
     background-color: #fff;
     flex: 1;
     padding-top: 100px;
+    @media (min-width: 1024px) {
+      padding-top: unset;
+    }
   }
 
   .tables {
