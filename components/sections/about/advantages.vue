@@ -43,12 +43,12 @@ export default {
       display: grid;
       grid-gap: 12px;
 
-      @media (min-width: 500px) {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      // @media (min-width: 500px) {
+      //   grid-template-columns: repeat(2, 1fr);
+      // }
 
       @media (min-width: 768px) {
-        // grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       &-item {

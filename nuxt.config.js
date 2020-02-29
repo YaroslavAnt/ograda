@@ -1,3 +1,8 @@
+import { BASE_URL } from "./config";
+
+import axios from "axios";
+import { replaceWithDash } from "./static/utils";
+
 export default {
   mode: "universal",
   /*
@@ -50,7 +55,34 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/google-analytics"],
+  modules: ["@nuxtjs/google-analytics", "@nuxtjs/sitemap"],
+
+  sitemap: {
+    path: "/sitemap.xml",
+    hostname: "http://ograda.zp.ua/",
+
+    sitemaps: [
+      {
+        path: "/sitemap-products.xml",
+        gzip: true,
+        routes: async () => {
+          const { data } = await axios.get(BASE_URL + "api/products-prices");
+          let dynRoutes = [];
+          data.data.forEach(priceObj =>
+            priceObj.products.forEach(product =>
+              dynRoutes.push(
+                `products/${replaceWithDash(priceObj.name)}/${replaceWithDash(
+                  product.name
+                )}`
+              )
+            )
+          );
+
+          return dynRoutes;
+        }
+      }
+    ]
+  },
   /*
    ** Build configuration
    */
@@ -63,5 +95,14 @@ export default {
   googleAnalytics: {
     id: "UA-158653896-1",
     dev: false
+  },
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: "custom",
+        path: "*",
+        component: resolve(__dirname, "pages/error.vue")
+      });
+    }
   }
 };

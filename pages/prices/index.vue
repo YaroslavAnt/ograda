@@ -6,7 +6,7 @@
       <app-table
         v-for="(price, idx) in prices"
         :key="idx"
-        :heading="`Цены (прайсы) на ${price.name.toUpperCase()}`"
+        :category='price.name'
         :items="price.products"
         class="section-table"
       />
@@ -104,6 +104,9 @@ export default {
     background-color: #fff;
     flex: 1;
     padding-top: 100px;
+    @media (min-width: 1024px) {
+      padding-top: unset;
+    }
   }
 
   .tables {

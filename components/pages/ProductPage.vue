@@ -45,11 +45,20 @@
         </div>
 
         <div class="info-box">
-          <div class="info-box-breadcrumbs">
+          <div
+            class="info-box-breadcrumbs"
+            itemscope
+            itemtype="https://schema.org/BreadcrumbList"
+          >
             <nuxt-link
               to='/'
               class="small-font crumb"
             >&#8962; ГЛАВНАЯ ></nuxt-link>
+
+            <nuxt-link
+              :to='{path:`/products`}'
+              class="small-font crumb"
+            >КАТЕГОРИИ ></nuxt-link>
 
             <nuxt-link
               :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
@@ -58,7 +67,7 @@
 
             <nuxt-link
               class="small-font crumb"
-              :to='{path:`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }`}'
+              :to='{path:`/products/${replaceWithDash(product.category.name) }?subcategory=${replaceWithDash(product.subcategory.name) }`}'
             >
               {{product.subcategory.name}} </nuxt-link>
           </div>

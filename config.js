@@ -1,4 +1,4 @@
-﻿export const BASE_URL = "http://demo.ograda.zp.ua/";
+﻿export const BASE_URL = "https://demo.ograda.zp.ua/";
 export const DOMAIN = "https://ograda.zp.ua";
 
 export const PHONE = "+38(099)548 60 10";

@@ -87,6 +87,7 @@
           <h6>Страницы в соцсетях</h6>
           <a
             target="_blank"
+            rel="noreferrer noopener"
             :href='FACEBOOK'
           >
             <img
@@ -198,8 +199,10 @@ export default {
           name: "Информация",
           links: [
             { name: "о нас", path: "/about" },
-            { name: "каталог", path: "/prices" },
-            { name: "новости", path: "/blog" }
+            { name: "цены", path: "/prices" },
+            { name: "новости", path: "/blog" },
+            { name: "вопросы", path: "/faq" },
+            { name: "карта сайта", path: "/sitemap" }
           ]
         }
       ],

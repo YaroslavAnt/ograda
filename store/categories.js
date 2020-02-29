@@ -18,7 +18,7 @@ export const state = () => ({
 });
 
 const getters = {
-  getFence(state) {
+  getAllCategories(state) {
     return state.list;
   }
 };

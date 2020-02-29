@@ -6,7 +6,7 @@
       class="logo-text big-font"
     >ograda.zp.ua</nuxt-link>
     <!-- <img class="logo-img" src="../../assets/img/fence.png" alt="fence" /> -->
-    <span class="logo-about small-font">
+    <span class="logo-about">
       Производство и установка
       <br />всех видов ограждений
     </span>
@@ -31,6 +31,8 @@
     }
     &-about {
       display: none;
+      font-size: 14px;
+      line-height: 1.2;
       @media (min-width: 1200px) {
         display: block;
       }

@@ -26,10 +26,10 @@ main {
 }
 
 .section-padding {
-  padding: 60px 16px;
+  padding: 30px 16px;
 
-  @media (min-width: 1200px) {
-    padding: 60px 32px;
+  @media (min-width: 1024px) {
+    padding: 40px 32px;
   }
 }
 .section-padding-x {

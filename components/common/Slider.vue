@@ -10,19 +10,22 @@
         class="slider-filterbox"
         :class="{'with-filter': withFilter}"
       >
-        <app-image
-          :img_src="BASE_URL+ slide.img_set[0]"
-          :img_alt="slide.img_alt"
-          :lazy="true"
-          :ratio="45"
-        />
+
+        <div class="picture">
+          <img
+            :src="BASE_URL+ slide.img_set[0]"
+            :alt="slide.img_alt"
+            class="picture-img"
+          />
+        </div>
+
       </div>
 
       <div class="slider-content section-padding">
         <h3
           v-if="slide.category.name"
           class="slider-heading huge-font"
-        >{{ String(slide.category.name).toUpperCase() }}</h3>
+        >{{ String(getCyrylic(slide.category.name) ).toUpperCase() }}</h3>
         <p
           v-if="slide.text"
           class="slider-text base-font"
@@ -68,7 +71,7 @@ import ButtonVue from "./Button.vue";
 import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
-import { replaceWithDash } from "../../static/utils";
+import { replaceWithDash, getCyrylic } from "../../static/utils";
 
 export default {
   name: "Slider.vue",
@@ -78,7 +81,8 @@ export default {
     "app-image": ImageBaseVue
   },
   methods: {
-    replaceWithDash: replaceWithDash,
+    replaceWithDash,
+    getCyrylic,
     forvard() {
       this.current_slide =
         this.current_slide < this.slider_items.length - 1
@@ -158,13 +162,40 @@ export default {
       height: 100%;
     }
     &-content {
-      width: 66%;
+      width: 67%;
       max-width: 100vw;
       position: absolute;
     }
     &-btn,
     &-text {
       margin-top: 20px;
+    }
+
+    .picture {
+      width: 100%;
+      overflow: hidden;
+      padding-bottom: 67%;
+      position: relative;
+
+      @media (min-width: 768px) {
+        padding-bottom: 45%;
+      }
+
+      &-img {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+
+        &.square {
+          top: 0;
+          left: 50%;
+          width: unset;
+          height: 100%;
+          transform: translateX(-50%);
+        }
+      }
     }
 
     .arrows {

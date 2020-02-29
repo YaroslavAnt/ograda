@@ -1,23 +1,17 @@
 ﻿<template>
   <article class="card">
-    <!-- <app-image
-      :img_src="getImageUrl(product)"
-      :img_alt="product.img_alt"
-      :lazy="false"
-      :ratio="67"
-    /> -->
 
     <div class="card-img-box">
       <img
-        class="card-image"
-        :src="getImageUrl(product)"
+        class="card-image lazyload"
+        :data-src="getImageUrl(product)"
         :alt="product.img_alt"
         itemprop="image"
       >
     </div>
 
     <nuxt-link
-      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.subcategory.name) }/${product.id}`"
+      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
       class="card-name base-font"
       itemprop="url"
     ><span itemprop="name">{{product.name}}</span> </nuxt-link>
@@ -32,13 +26,16 @@
         v-if="product.option.label"
         class="card-label small-font"
       >{{product.option.label}}</span>
-      <p
-        class="card-price medium-font"
-        itemprop="price"
-      >Цена: <span
+      <p class="card-price medium-font">
+        Цена:
+        <span
           itemprop="priceCurrency"
           content="UAH"
-        >&#8372; </span>{{product.price}}</p>
+        >&#8372; </span>
+        <span
+          itemprop="price"
+          :content='product.price'
+        >{{product.price}}</span> </p>
     </div>
   </article>
 </template>
@@ -102,7 +99,6 @@ export default {
     }
 
     &-image {
-      height: 100%;
       position: absolute;
       width: 100%;
       transform: translate(-50%, -50%);

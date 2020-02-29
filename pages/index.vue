@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1 class="heading with-skewed-bg">{{this.parsedVars.title || this.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{this.fetchedVars.title || this.title}}</h1>
     <hero />
     <special :special='special'></special>
     <services :content="services" />
@@ -9,12 +9,12 @@
 </template>
   
 <script>
-import heroVue from "./home/sections/hero.vue";
-import popularVue from "./home/sections/popular.vue";
-import servicesVue from "./home/sections/services.vue";
-import newsVue from "./home/sections/news.vue";
+import heroVue from "../components/sections/home/hero";
+import servicesVue from "../components/sections/home/services.vue";
+import newsVue from "../components/sections/home/news.vue";
+import specialVue from "../components/sections/home/special.vue";
+
 import { mapGetters } from "vuex";
-import specialVue from "./home/sections/special.vue";
 import { getSpecialProducts, getAllProducts } from "../api/products";
 import { getAll } from "../api/categories";
 import { getAllPosts } from "../api/posts";
@@ -30,7 +30,6 @@ export default {
 
   components: {
     hero: heroVue,
-    popular: popularVue,
     special: specialVue,
     services: servicesVue,
     news: newsVue
@@ -39,11 +38,7 @@ export default {
   computed: {
     ...mapGetters({
       firstProduct: "products/getFirstProduct"
-    }),
-
-    parsedVars() {
-      return JSON.parse(this.fetchedVars);
-    }
+    })
   },
 
   mounted() {
@@ -61,8 +56,8 @@ export default {
       .catch(() => alert("Невозможно загрузить данные"))
       .finally(() => this.$store.dispatch("common/stopSpinner"));
 
-    getVarsByPage("home").then(({ data }) => {
-      this.fetchedVars = data.data.variable;
+    getVarsByPage("/home").then(({ data }) => {
+      this.fetchedVars = JSON.parse(data.data.variable);
     });
   },
 
@@ -82,7 +77,7 @@ export default {
       description:
         "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
       special: [],
-      fetchedVars: "{}",
+      fetchedVars: {},
       keywords:
         "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье",
       services: {
@@ -92,21 +87,25 @@ export default {
         card_list: [
           {
             icon: cargo,
+            id: "delivery",
             heading: "Доставка продукции и строй-материалов",
             link: "/services"
           },
           {
             icon: fence,
+            id: "montage",
             heading: "Установка заборов, ворот",
             link: "/services"
           },
           {
             icon: brush,
+            id: "pokraska",
             heading: "Покраска заборов",
             link: "/services"
           },
           {
             icon: measure,
+            id: "measure",
             heading: "Выезд замерщика",
             link: "/services"
           }
@@ -117,27 +116,27 @@ export default {
 
   head() {
     return {
-      title: this.parsedVars.title || this.title,
+      title: this.fetchedVars.title || this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.parsedVars.description || this.description
+          content: this.fetchedVars.description || this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.parsedVars.keywords || this.keywords
+          content: this.fetchedVars.keywords || this.keywords
         },
 
         //Open Graph
         {
           name: "og:title",
-          content: this.parsedVars.title || this.title
+          content: this.fetchedVars.title || this.title
         },
         {
           name: "og:description",
-          content: this.parsedVars.description || this.description
+          content: this.fetchedVars.description || this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
@@ -152,11 +151,11 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.parsedVars.title || this.title
+          content: this.fetchedVars.title || this.title
         },
         {
           name: "twitter:description",
-          content: this.parsedVars.description || this.description
+          content: this.fetchedVars.description || this.description
         },
         {
           name: "twitter:image",
@@ -180,15 +179,15 @@ export default {
     position: relative;
 
     .heading {
-      position: absolute;
+      position: relative;
       font-weight: bold;
       font-size: 22px;
-      width: calc(100% - 32px);
+      // width: calc(100% - 32px);
       line-height: 1;
       display: inline-block;
       text-align: center;
       color: #fff;
-      margin: 20px 16px 20px;
+      margin: 20px 16px -20px;
       padding: 12px 24px;
       z-index: 5;
       display: flex;

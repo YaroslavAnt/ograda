@@ -19,6 +19,7 @@ import zabor from "~/assets/img/fence/but/but_1.jpg";
 import rabitsa from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
 import vorota from "~/assets/img/fence/fagot/fagot_1.jpg";
 import stolbiki from "~/assets/img/fence/but_loza/but_loza_3.jpg";
+import { mapGetters } from "vuex";
 
 export default {
   name: "hero.vue",
@@ -27,35 +28,20 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      products: "products/getProducts"
+    }),
     slides() {
-      if (this.$store.state.products.list.length > 0) {
-        return this.$store.state.categories.list.map(category => {
-          return (
-            [...this.$store.state.products.list]
-              .reverse()
-              .find(product => product.category.name === category.name) || {
-              img_set: [],
-              img_alt: "",
-              name: "",
-              category: {
-                name: "",
-                id: ""
-              }
-            }
+      let productsByCategory = [];
+      if (this.products.length > 0) {
+        this.categories.forEach(category => {
+          const newItem = this.products.find(
+            product => product.category.name === category.name
           );
+          newItem && productsByCategory.push(newItem);
         });
       }
-      return [
-        {
-          img_set: [],
-          img_alt: "",
-          name: "",
-          category: {
-            name: "",
-            id: ""
-          }
-        }
-      ];
+      return productsByCategory;
     },
     categories() {
       return this.$store.state.categories.list;
@@ -109,7 +95,7 @@ export default {
     }
 
     &-slider {
-      min-width: 800px;
+      min-width: 400px;
     }
   }
 </style>

@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import aboutVue from "./sections/about.vue";
-import advantagesVue from "./sections/advantages.vue";
-import expositionVue from "./sections/exposition.vue";
+import aboutVue from "~/components/sections/about/about.vue";
+import advantagesVue from "~/components/sections/about/advantages.vue";
+import expositionVue from "~/components/sections/about/exposition.vue";
 import { about } from "~/static/content_data";
 import { getExhibitions } from "../../api/products";
 import { getVarsByPage } from "../../api/variables";
@@ -69,7 +69,7 @@ export default {
         this.exhibitions = data.data.data;
       })
       .catch(() => alert("Невозножно загрузить данные"));
-    getVarsByPage(this.$route.name).then(({ data }) => {
+    getVarsByPage(this.$route.path).then(({ data }) => {
       console.log({ data });
       this.fetchedVars = data.data.variable;
     });
@@ -98,7 +98,7 @@ export default {
     position: relative;
   }
   .heading {
-    position: absolute;
+    position: relative;
     width: calc(100% - 32px);
     font-weight: bold;
     font-size: 22px;
@@ -106,7 +106,7 @@ export default {
     display: inline-block;
     text-align: center;
     color: #fff;
-    margin: 20px 16px 20px;
+    margin: 20px 16px -30px;
     padding: 12px 24px;
     z-index: 5;
     display: flex;

@@ -30,6 +30,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    left: 0;
   }
   .lds-dual-ring {
     display: flex;

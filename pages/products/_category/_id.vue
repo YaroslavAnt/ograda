@@ -9,7 +9,8 @@
  
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { getProduct, getPopularProducts } from "~/api/products";
+import { getProduct, getPopularProducts, getPrices } from "~/api/products";
+import { replaceWithDash } from "../../../static/utils";
 export default {
   name: "product.vue",
   head() {
@@ -77,7 +78,9 @@ export default {
       return this.$route.params.category;
     },
     title() {
-      return `Цена и описание товара ${this.product.name}`;
+      return `${this.product.name.toUpperCase()} от производителя. Цена - ${
+        this.product.price
+      } грн`;
     },
     description() {
       return `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`;
@@ -86,19 +89,28 @@ export default {
       return this.product.img_set[0];
     }
   },
-  mounted() {
-    this.$store.dispatch("common/runSpinner");
-    this.fetchProduct();
+  async mounted() {
+    const {
+      data: { data: pricesData }
+    } = await getPrices();
+    const categoryArr = pricesData.find(
+      category => replaceWithDash(category.name) === this.$route.params.category
+    );
+    console.log({ categoryArr });
+    const product =
+      categoryArr.products.find(
+        product => replaceWithDash(product.name) === this.$route.params.id
+      ) || {};
+    this.fetchProduct(product.id);
     this.fetchPopular();
   },
   methods: {
-    fetchProduct() {
-      getProduct(this.$route.params.id)
+    fetchProduct(id) {
+      getProduct(id)
         .then(res => {
           this.product = res.data.data;
         })
         .catch(() => {
-          this.$store.dispatch("common/stopSpinner");
           alert("Невозможно загрузить данные");
         });
     },
@@ -107,8 +119,7 @@ export default {
         .then(res => {
           this.popular = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
+        .catch(() => alert("Невозможно загрузить данные"));
     }
   }
 };

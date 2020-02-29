@@ -1,6 +1,9 @@
 ﻿<template>
   <main>
-    <h1 class="with-skewed-bg">{{replaceWithSpace(category)}}</h1>
+    <h1
+      v-if="heading"
+      class="with-skewed-bg"
+    >{{replaceWithSpace(heading)}}</h1>
 
     <app-section class="section">
       <div class="section-switchbox">
@@ -8,22 +11,16 @@
           class="section-switch"
           v-if="subcategories.length>1"
         >
-          <!-- <router-link :to='{path:`/products/${category}?category_id=${categoryId}`}'>
-          <span
-            class="switch-tab"
-            :class="{'switch-tab-active': !$route.query.subcategory}"
-          >ВСЕ ВИДЫ</span>
-        </router-link> -->
 
           <router-link
             v-for="(tab,idx) in subcategories"
             :key="idx"
-            :to="{ path: `/products/${replaceWithDash(category) }/${replaceWithDash(tab.name) }`}"
+            :to="{ path: `/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`}"
           >
             <span
               class="switch-tab"
-              :class="{'switch-tab-active': $route.params.subcategory===replaceWithDash(tab.name)}"
-            >{{tab.name}}</span>
+              :class="{'switch-tab-active': $route.query.subcategory===replaceWithDash(tab.name)}"
+            >{{getCyrylic(tab.name) }}</span>
           </router-link>
         </div>
       </div>
@@ -54,11 +51,27 @@
       v-html="categoryObj.description"
       v-if="categoryObj.description"
     ></p>
+
     <p
-      class="base-font section-description"
-      v-if="subcategoryObj.description"
-      v-html="subcategoryObj.description"
-    ></p>
+      class="section-description"
+      v-if="subcategories[0].name"
+    >Товары данной категории можно разделить на:</p>
+
+    <div
+      v-for="(subcategory,idx) in subcategories"
+      :key='subcategory.id'
+    >
+      <h2
+        v-if="subcategory.name"
+        class="medium-font subheading"
+      >{{idx+1}}. {{subcategory.name}}</h2>
+      <p
+        class="base-font section-description"
+        v-if="subcategory.description"
+        v-html="subcategory.description"
+      ></p>
+
+    </div>
 
     <div class="container-paginate">
       <app-pagination
@@ -89,8 +102,8 @@ import {
   getProductsByPage
 } from "~/api/products";
 import { getByCategory } from "~/api/subcategories";
-import { replaceWithDash, replaceWithSpace } from "../../../../static/utils";
-import { getAll } from "../../../../api/categories";
+import { replaceWithDash, replaceWithSpace, getCyrylic } from "~/static/utils";
+import { getAll } from "~/api/categories";
 
 export default {
   name: "productPage.vue",
@@ -159,11 +172,16 @@ export default {
 
   watch: {
     $route(from, to) {
-      return this.$route.params.subcategory
-        ? this.fetchProductsBySubcategory()
+      return this.$route.query.subcategory
+        ? this.fetchProductsBySubcategory(this.subcategoryObj.id)
         : this.getProductsByCategory();
     }
   },
+
+  // watchQuery: (...rest) => {
+  //   console.log({ rest });
+  //   // return this.fetchProductsBySubcategory(subcategoryObj.id);
+  // },
 
   components: {
     "app-section": sectionVue,
@@ -178,50 +196,60 @@ export default {
       },
       set(page) {
         if (this.page === page) return;
-        this.fetchProductsByPage(page);
+        this.getProductsByCategory(this.categoryObj.id, page);
         scrolledContent.scrollTo(0, 0);
       }
     },
     title() {
-      return `${this.category} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
+      return `${this.replaceWithSpace(
+        this.category
+      ).toUpperCase()} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
     },
     description() {
-      return `Полный перечень продукции в каегории ${this.category} с описанием, ценами и фотографиями. `;
+      return `Полный перечень продукции в каегории ${this.replaceWithSpace(
+        this.category
+      ).toUpperCase()} с описанием, ценами и фотографиями. `;
+    },
+    heading() {
+      return this.categoryObj.name;
     }
   },
 
   methods: {
-    getProductsByCategory(id) {
-      return getProductByCategory(id)
+    getProductsByCategory(id, page) {
+      return getProductByCategory(id, page)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
+        .catch(() => alert("Невозможно загрузить данные"));
     },
 
-    fetchProductsBySubcategory(id) {
-      getProductBySubcategory(id)
+    fetchProductsBySubcategory() {
+      const subcategoryObj = this.subcategories.find(
+        subcategory =>
+          replaceWithDash(subcategory.name) === this.$route.query.subcategory
+      );
+      this.subcategoryObj = subcategoryObj;
+
+      getProductBySubcategory(subcategoryObj.id)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
+        .catch(() => alert("Невозможно загрузить данные"));
     },
     fetchProductsByPage(page) {
       getProductsByPage(page)
         .then((res = {}) => {
           this.productsData = res.data.data;
         })
-        .catch(() => alert("Невозможно загрузить данные"))
-        .finally(() => this.$store.dispatch("common/stopSpinner"));
+        .catch(() => alert("Невозможно загрузить данные"));
     },
     replaceWithSpace,
-    replaceWithDash
+    replaceWithDash,
+    getCyrylic
   },
 
   async mounted() {
-    this.$store.dispatch("common/runSpinner");
     const { data: categoryData } = await getAll();
     const categoryObj = categoryData.data.find(
       category => replaceWithDash(category.name) === this.$route.params.category
@@ -230,10 +258,10 @@ export default {
     this.subcategories = subcategoryData.data;
     this.categoryObj = categoryObj;
 
-    if (this.$route.params.subcategory) {
+    if (this.$route.query.subcategory) {
       const subcategoryObj = subcategoryData.data.find(
         subcategory =>
-          replaceWithDash(subcategory.name) === this.$route.params.subcategory
+          replaceWithDash(subcategory.name) === this.$route.query.subcategory
       );
       this.subcategoryObj = subcategoryObj;
       await this.fetchProductsBySubcategory(subcategoryObj.id);
@@ -244,9 +272,9 @@ export default {
 
   data() {
     return {
-      subcategory: this.$route.params.subcategory,
+      subcategory: this.$route.query.subcategory,
       category: this.$route.params.category,
-      activeTab: this.$route.params.subcategory || "ВСЕ ВИДЫ",
+      activeTab: this.$route.query.subcategory || "ВСЕ ВИДЫ",
       // categoryId: this.$route.query.category_id,
       productsData: {
         last_page: "",
@@ -255,8 +283,8 @@ export default {
       },
       categories: [{}],
       subcategories: [{}],
-      categoryObj: "",
-      subcategoryObj: ""
+      categoryObj: {},
+      subcategoryObj: {}
     };
   }
 };
@@ -313,11 +341,19 @@ export default {
 
     &-description {
       white-space: pre-wrap;
-      padding: 20px 16px;
+      padding: 16px 16px 30px;
 
       @media (min-width: 1200px) {
-        padding: 20px 32px;
+        padding: 20px 32px 30px;
       }
+    }
+  }
+  .subheading {
+    color: var(--red);
+    font-weight: bold;
+    padding: 0 16px;
+    @media (min-width: 1024px) {
+      padding: 0 32px;
     }
   }
 </style>
