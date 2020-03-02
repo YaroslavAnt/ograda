@@ -29,17 +29,13 @@ export default {
         rel: "stylesheet",
         href:
           "https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap"
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css?family=Pacifico&display=swap"
       }
     ]
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: "#fff" },
+  loading: { color: "#f77", height: "5px" },
   /*
    ** Global CSS
    */
@@ -92,10 +88,12 @@ export default {
      */
     extend(config, ctx) {}
   },
+
   googleAnalytics: {
     id: "UA-158653896-1",
     dev: false
   },
+
   router: {
     extendRoutes(routes, resolve) {
       routes.push({

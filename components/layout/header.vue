@@ -60,6 +60,9 @@
     .menu {
       display: flex;
       align-items: center;
+      padding: 16px;
+      border-radius: 4px;
+      background-color: var(--red);
       @media (min-width: 1024px) {
         display: none;
       }
@@ -82,10 +85,6 @@
       align-items: center;
       justify-content: space-between;
     }
-  }
-
-  .logo-text {
-    font-family: "Pacifico", cursive;
   }
 
   .contact {

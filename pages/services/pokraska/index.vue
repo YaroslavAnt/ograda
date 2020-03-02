@@ -1,9 +1,9 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{this.fetchedVars.title || serviceObj.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{serviceObj.title}}</h1>
     <app-section class="section">
       <app-intro
-        :img_src="serviceObj.img_src"
+        :img_set="serviceObj.img_src"
         :img_alt="serviceObj.img_alt"
         :paragraphs="serviceObj.paragraphs"
         :withBorder="true"
@@ -17,32 +17,35 @@ import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
 import { getVarsByPage } from "~/api/variables";
 import pokraska from "~/assets/img/services/but_paint.jpg";
+import zvetnoi_zabor2 from "../../../assets/img/services/zvetnoi_zabor2.jpg";
+import zvetnoi_zabor3 from "../../../assets/img/services/zvetnoi_zabor3.jpg";
+import zvetnoi_zabor4 from "../../../assets/img/services/zvetnoi_zabor4.jpg";
 
 export default {
   name: "index.vue",
   head() {
     return {
-      title: this.fetchedVars.title || this.serviceObj.title,
+      title: this.serviceObj.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.fetchedVars.description || this.description
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.fetchedVars.keywords || this.keywords
+          content: this.keywords
         },
 
         //Open Graph
         {
           name: "og:title",
-          content: this.fetchedVars.title || this.serviceObj.title
+          content: this.serviceObj.title
         },
         {
           name: "og:description",
-          content: this.fetchedVars.description || this.description
+          content: this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
@@ -51,11 +54,11 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.fetchedVars.title || this.serviceObj.title
+          content: this.serviceObj.title
         },
         {
           name: "twitter:description",
-          content: this.fetchedVars.description || this.description
+          content: this.description
         },
         { name: "twitter:image", content: this.serviceObj.img_src },
         {
@@ -72,20 +75,16 @@ export default {
 
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
-
-    getVarsByPage("/pokraska").then(({ data }) => {
-      this.fetchedVars = data.data.variable && JSON.parse(data.data.variable);
-    });
   },
   data() {
     return {
       fetchedVars: {},
-      keywords: `еврозаборов, доставка строительных материалов`,
+      keywords: `покраска еврозаборов, покраска бетонного забора, кислотная покраска`,
       // title: "Доставка еврозаборов и строительных материалов",
       description:
-        "Услуги по доставке всех видов заборов. Доставка стройматериалов.",
+        "Услуги по покраске бетонных еврозаборов. Покраска за один день.",
       serviceObj: {
-        img_src: pokraska,
+        img_src: [zvetnoi_zabor2, zvetnoi_zabor3, zvetnoi_zabor4],
         id: "pokraska",
         img_alt: "Покраска еврозабора в Запорожье",
         title: "Покраска еврозабора",

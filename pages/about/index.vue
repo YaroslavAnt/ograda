@@ -1,6 +1,6 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
     <about :content=" about.about" />
     <advantages :content="about.advantages" />
     <exposition
@@ -20,38 +20,44 @@ import { getVarsByPage } from "../../api/variables";
 export default {
   head() {
     return {
-      title: this.parsedVars.title || this.title,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.parsedVars.keywords || this.keywords
+          content: this.keywords
         },
         // Open Graph
-        { name: "og:title", content: this.parsedVars.title || this.title },
+        { name: "og:title", content: this.title },
         {
           name: "og:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "og:image",
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+        },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.parsedVars.title || this.title
+          content: this.title
         },
         {
           name: "twitter:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "twitter:image",
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+        },
         { name: "twitter:image:alt", content: "Производство еврозаборов" }
       ]
     };
@@ -65,20 +71,15 @@ export default {
     this.$store.commit("common/CLOSE_MENU");
     getExhibitions()
       .then(({ data }) => {
-        console.log({ data });
         this.exhibitions = data.data.data;
       })
       .catch(() => alert("Невозножно загрузить данные"));
-    getVarsByPage(this.$route.path).then(({ data }) => {
-      console.log({ data });
-      this.fetchedVars = data.data.variable;
-    });
+    // getVarsByPage(this.$route.path).then(({ data }) => {
+    //   console.log({ data });
+    //   this.fetchedVars = data.data.variable;
+    // });
   },
-  computed: {
-    parsedVars() {
-      return JSON.parse(this.fetchedVars);
-    }
-  },
+
   data() {
     return {
       about,

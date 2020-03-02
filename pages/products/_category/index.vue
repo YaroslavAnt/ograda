@@ -120,7 +120,7 @@ export default {
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье`
+          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье, ${this.subcategoryObj.name} цена, ${this.categoryObj.name}`
         },
 
         //Open Graph
@@ -139,7 +139,7 @@ export default {
           content:
             this.productsData.data.length > 0
               ? this.productsData.data[0].img_set[0]
-              : ""
+              : "../../../assets/img/services/zvetnoi_zabor2.jpg"
         },
 
         // Twitter Card
@@ -157,14 +157,14 @@ export default {
           content:
             this.productsData.data.length > 0
               ? this.productsData.data[0].img_set[0]
-              : ""
+              : "../../../assets/img/services/zvetnoi_zabor2.jpg"
         },
         {
           name: "twitter:image:alt",
           content:
             this.productsData.data.length > 0
               ? this.productsData.data[0].img_alt
-              : ""
+              : "Заборы"
         }
       ]
     };

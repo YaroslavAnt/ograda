@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1 class="heading with-skewed-bg">{{this.fetchedVars.title || this.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
     <hero />
     <special :special='special'></special>
     <services :content="services" />
@@ -17,6 +17,7 @@ import specialVue from "../components/sections/home/special.vue";
 import { mapGetters } from "vuex";
 import { getSpecialProducts, getAllProducts } from "../api/products";
 import { getAll } from "../api/categories";
+import { getAllSlides } from "../api/slides";
 import { getAllPosts } from "../api/posts";
 
 import measure from "~/assets/icons/measure.svg";
@@ -46,8 +47,10 @@ export default {
     this.fetchSpecial();
     this.$store.commit("common/CLOSE_MENU");
     Promise.all([
-      getAllProducts().then(res => {
-        this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
+      getAllSlides().then(({ data }) => {
+        console.log({ data });
+        this.slides = data.data.data;
+        this.$store.commit("slides/SET_SLIDES", data.data);
       }),
       getAllPosts().then(({ data }) => {
         this.$store.commit("posts/SET_POSTS", data.data);
@@ -55,10 +58,6 @@ export default {
     ])
       .catch(() => alert("Невозможно загрузить данные"))
       .finally(() => this.$store.dispatch("common/stopSpinner"));
-
-    getVarsByPage("/home").then(({ data }) => {
-      this.fetchedVars = JSON.parse(data.data.variable);
-    });
   },
 
   methods: {
@@ -77,6 +76,7 @@ export default {
       description:
         "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
       special: [],
+      slides: [],
       fetchedVars: {},
       keywords:
         "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье",
@@ -116,27 +116,27 @@ export default {
 
   head() {
     return {
-      title: this.fetchedVars.title || this.title,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.fetchedVars.description || this.description
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.fetchedVars.keywords || this.keywords
+          content: this.keywords
         },
 
         //Open Graph
         {
           name: "og:title",
-          content: this.fetchedVars.title || this.title
+          content: this.title
         },
         {
           name: "og:description",
-          content: this.fetchedVars.description || this.description
+          content: this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
@@ -151,11 +151,11 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.fetchedVars.title || this.title
+          content: this.title
         },
         {
           name: "twitter:description",
-          content: this.fetchedVars.description || this.description
+          content: this.description
         },
         {
           name: "twitter:image",

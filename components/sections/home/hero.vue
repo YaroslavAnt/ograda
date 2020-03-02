@@ -1,7 +1,7 @@
 <template>
   <section
     class="section"
-    v-if="slides.length > 0 && $store.state.products.list.length > 0"
+    v-if="slides.length > 0"
   >
 
     <slider
@@ -29,20 +29,21 @@ export default {
 
   computed: {
     ...mapGetters({
-      products: "products/getProducts"
+      products: "products/getProducts",
+      slides: "slides/getSlides"
     }),
-    slides() {
-      let productsByCategory = [];
-      if (this.products.length > 0) {
-        this.categories.forEach(category => {
-          const newItem = this.products.find(
-            product => product.category.name === category.name
-          );
-          newItem && productsByCategory.push(newItem);
-        });
-      }
-      return productsByCategory;
-    },
+    // slides() {
+    //   let productsByCategory = [];
+    //   if (this.products.length > 0) {
+    //     this.categories.forEach(category => {
+    //       const newItem = this.products.find(
+    //         product => product.category.name === category.name
+    //       );
+    //       newItem && productsByCategory.push(newItem);
+    //     });
+    //   }
+    //   return productsByCategory;
+    // },
     categories() {
       return this.$store.state.categories.list;
     }

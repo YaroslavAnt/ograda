@@ -1,6 +1,6 @@
 ﻿<template>
   <main class="section-padding">
-    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
     <p
       class="huge-font"
       v-if="posts.data.length === 0"
@@ -51,17 +51,17 @@ export default {
   name: "blog",
   head() {
     return {
-      title: this.parsedVars.title || this.title,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.parsedVars.keywords || this.keywords
+          content: this.keywords
         },
         // Open Graph
         {
@@ -70,16 +70,13 @@ export default {
         },
         {
           name: "og:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
         {
           name: "og:image",
-          content:
-            this.posts.data.length > 0
-              ? this.posts.data[0].image
-              : "https://nuxtjs.org/meta_640.png"
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -89,14 +86,11 @@ export default {
         },
         {
           name: "twitter:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         {
           name: "twitter:image",
-          content:
-            this.posts.data.length > 0
-              ? this.posts.data[0].image
-              : "https://nuxtjs.org/meta_640.png"
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
         },
         {
           name: "twitter:image:alt",
@@ -131,11 +125,6 @@ export default {
       })
       .catch(() => alert("Невозможно загрузить данные"))
       .finally(() => this.$store.commit("common/STOP_SPINNER"));
-
-    getVarsByPage(this.$route.name).then(({ data }) => {
-      console.log({ data });
-      this.fetchedVars = data.data.variable;
-    });
   },
   computed: {
     ...mapGetters({
@@ -150,9 +139,6 @@ export default {
         this.getPosts(page);
         scrolledContent.scrollTo(0, 0);
       }
-    },
-    parsedVars() {
-      return JSON.parse(this.fetchedVars);
     }
   },
   methods: {
