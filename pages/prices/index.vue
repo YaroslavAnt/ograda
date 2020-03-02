@@ -1,6 +1,6 @@
 ﻿<template>
   <main class="section-padding">
-    <h1 class="heading with-skewed-bg">{{this.parsedVars.title || this.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{this.title}}</h1>
 
     <div class="tables">
       <app-table
@@ -23,43 +23,49 @@ import { getVarsByPage } from "../../api/variables";
 export default {
   head() {
     return {
-      title: this.parsedVars.title || this.title,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.parsedVars.keywords || this.keywords
+          content: this.keywords
         },
 
         //Open Graph
         {
           name: "og:title",
-          content: this.parsedVars.title || this.title
+          content: this.title
         },
         {
           name: "og:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "og:image",
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+        },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.parsedVars.title || this.title
+          content: this.title
         },
         {
           name: "twitter:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "twitter:image",
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+        },
         { name: "twitter:image:alt", content: "Цены на установку заборов" }
       ]
     };
@@ -72,18 +78,11 @@ export default {
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
     this.$store.dispatch("products/fetchPrices");
-
-    getVarsByPage("prices").then(({ data }) => {
-      this.fetchedVars = data.data.variable;
-    });
   },
   computed: {
     ...mapGetters({
       prices: "products/getPrices"
-    }),
-    parsedVars() {
-      return JSON.parse(this.fetchedVars);
-    }
+    })
   },
   data() {
     return {

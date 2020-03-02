@@ -67,24 +67,18 @@ export default {
   },
   computed: {
     title() {
-      return this.fetchedVars.title || "Часто задаваемые вопросы";
+      return "Часто задаваемые вопросы";
     },
     description() {
       return;
-      this.fetchedVars.description ||
-        "Здесь собраны самые часто задаваемые вопросы касательно монтажа ограждений и ворот";
+
+      ("Здесь собраны самые часто задаваемые вопросы касательно монтажа ограждений и ворот");
     },
     keywords() {
       return;
-      this.fetchedVars.keywords ||
-        "faq, монтаж заборов, покраска еврозаборов, как оформить заказ на еврозабор, скидки, акции";
+
+      ("faq, монтаж заборов, покраска еврозаборов, как оформить заказ на еврозабор, скидки, акции");
     }
-  },
-  mounted() {
-    getVarsByPage(this.$route.path).then(({ data }) => {
-      console.log({ data });
-      this.fetchedVars = JSON.parse(data.data.variable);
-    });
   },
 
   head() {

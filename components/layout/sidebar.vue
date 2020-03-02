@@ -7,8 +7,9 @@
         <router-link
           exact
           to="/"
+          class="nav-link"
         >
-          <span class="nav-link">Главная</span>
+          <span>Главная</span>
         </router-link>
       </li>
 
@@ -172,6 +173,9 @@ export default {
     .nav-link {
       font-size: 18px;
       padding: 12px 32px 12px 16px;
+      a {
+        display: block;
+      }
     }
     .subnav-link {
       font-size: 16px;

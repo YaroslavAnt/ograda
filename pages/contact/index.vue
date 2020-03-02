@@ -1,6 +1,6 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{parsedVars.title || title}}</h1>
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
     <app-section class="section">
       <div class="contact">
         <form class="form">
@@ -76,37 +76,43 @@ export default {
   name: "contact",
   head() {
     return {
-      title: this.parsedVars.title || this.title,
+      title: this.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.parsedVars.keywords || this.keywords
+          content: this.keywords
         },
 
         // Open Graph
-        { name: "og:title", content: this.parsedVars.title || this.title },
+        { name: "og:title", content: this.title },
         {
           name: "og:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "og:image",
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+        },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:title", content: this.parsedVars.title || this.title },
+        { name: "twitter:title", content: this.title },
         {
           name: "twitter:description",
-          content: this.parsedVars.description || this.description
+          content: this.description
         },
-        { name: "twitter:image", content: "https://nuxtjs.org/meta_640.png" },
+        {
+          name: "twitter:image",
+          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+        },
         {
           name: "twitter:image:alt",
           content: "Адрес производства еврозаборов в Запорожье"
@@ -120,11 +126,6 @@ export default {
     "icon-mail": IconMailVue,
     "icon-phone": IconPhoneVue,
     "icon-location": IconLocationVue
-  },
-  computed: {
-    parsedVars() {
-      return JSON.parse(this.fetchedVars);
-    }
   },
 
   methods: {
@@ -153,11 +154,6 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
-
-    getVarsByPage(this.$route.name).then(({ data }) => {
-      console.log({ data });
-      this.fetchedVars = data.data.variable;
-    });
   },
   data() {
     return {
