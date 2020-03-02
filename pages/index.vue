@@ -17,6 +17,7 @@ import specialVue from "../components/sections/home/special.vue";
 import { mapGetters } from "vuex";
 import { getSpecialProducts, getAllProducts } from "../api/products";
 import { getAll } from "../api/categories";
+import { getAllSlides } from "../api/slides";
 import { getAllPosts } from "../api/posts";
 
 import measure from "~/assets/icons/measure.svg";
@@ -46,8 +47,10 @@ export default {
     this.fetchSpecial();
     this.$store.commit("common/CLOSE_MENU");
     Promise.all([
-      getAllProducts().then(res => {
-        this.$store.commit("products/SET_PRODUCTS", res.data.data.data);
+      getAllSlides().then(({ data }) => {
+        console.log({ data });
+        this.slides = data.data.data;
+        this.$store.commit("slides/SET_SLIDES", data.data);
       }),
       getAllPosts().then(({ data }) => {
         this.$store.commit("posts/SET_POSTS", data.data);
@@ -73,6 +76,7 @@ export default {
       description:
         "Еврозаборы от производителя в большом ассортименте. Высокое качество продукции и материалов. Весь перечень работ по установке ограждений",
       special: [],
+      slides: [],
       fetchedVars: {},
       keywords:
         "Каталог еврозаборов, еврозабор цена с установкой в запорожье, еврозабор Запорожье, бетонный забор запорожье, еврозабор цена Запорожье, стоимость установки еврозабора, забор под ключ Запорожье, глянцевые еврозаборы в запорожье",

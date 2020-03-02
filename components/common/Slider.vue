@@ -13,7 +13,7 @@
 
         <div class="picture">
           <img
-            :src="BASE_URL+ slide.img_set[0]"
+            :src="BASE_URL+ slide.image"
             :alt="slide.img_alt"
             class="picture-img"
           />
@@ -22,19 +22,19 @@
       </div>
 
       <div class="slider-content section-padding">
-        <h3
-          v-if="slide.category.name"
-          class="slider-heading huge-font"
-        >{{ String(getCyrylic(slide.category.name) ).toUpperCase() }}</h3>
-        <p
-          v-if="slide.text"
-          class="slider-text base-font"
-        >{{ slide.text }}</p>
         <nuxt-link
-          v-if="slide.category.name"
-          :to='`products/${replaceWithDash(slide.category.name) }`'
+          :to='slide.short_body || "/"'
           class="slider-btn app-button"
-        >Подробнее</nuxt-link>
+        >
+          <h3
+            v-if="slide.title"
+            class="slider-heading huge-font"
+          >{{ String((slide.title) ).toUpperCase() }}</h3>
+        </nuxt-link>
+        <p
+          v-if="slide.body"
+          class="slider-text medium-font"
+        >{{ slide.body }}</p>
       </div>
 
       <div class="arrows">
@@ -162,13 +162,12 @@ export default {
       height: 100%;
     }
     &-content {
-      width: 67%;
-      max-width: 100vw;
+      max-width: 700px;
       position: absolute;
     }
     &-btn,
     &-text {
-      margin-top: 20px;
+      margin-bottom: 30px;
     }
 
     .picture {

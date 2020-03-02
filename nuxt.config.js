@@ -88,10 +88,12 @@ export default {
      */
     extend(config, ctx) {}
   },
+
   googleAnalytics: {
     id: "UA-158653896-1",
     dev: false
   },
+
   router: {
     extendRoutes(routes, resolve) {
       routes.push({
