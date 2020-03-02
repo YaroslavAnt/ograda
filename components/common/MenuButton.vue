@@ -17,7 +17,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: "#777"
+      default: "#fff"
     },
     isMenuOpen: {
       type: Boolean,

@@ -3,7 +3,7 @@
     <h1 class="heading with-skewed-bg">{{this.fetchedVars.title || serviceObj.title}}</h1>
     <app-section class="section">
       <app-intro
-        :img_src="serviceObj.img_src"
+        :img_set="serviceObj.img_src"
         :img_alt="serviceObj.img_alt"
         :paragraphs="serviceObj.paragraphs"
         :withBorder="true"
@@ -85,7 +85,7 @@ export default {
       description:
         "Услуги по доставке всех видов заборов. Доставка стройматериалов.",
       serviceObj: {
-        img_src: fundament,
+        img_src: [fundament],
         id: "fundament",
         img_alt: "Заливка фундамента под еврозабор",
         title: "Заливка фундаментной ленты",

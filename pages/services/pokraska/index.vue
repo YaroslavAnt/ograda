@@ -3,7 +3,7 @@
     <h1 class="heading with-skewed-bg">{{this.fetchedVars.title || serviceObj.title}}</h1>
     <app-section class="section">
       <app-intro
-        :img_src="serviceObj.img_src"
+        :img_set="serviceObj.img_src"
         :img_alt="serviceObj.img_alt"
         :paragraphs="serviceObj.paragraphs"
         :withBorder="true"
@@ -17,6 +17,9 @@ import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
 import { getVarsByPage } from "~/api/variables";
 import pokraska from "~/assets/img/services/but_paint.jpg";
+import zvetnoi_zabor2 from "../../../assets/img/services/zvetnoi_zabor2.jpg";
+import zvetnoi_zabor3 from "../../../assets/img/services/zvetnoi_zabor3.jpg";
+import zvetnoi_zabor4 from "../../../assets/img/services/zvetnoi_zabor4.jpg";
 
 export default {
   name: "index.vue",
@@ -85,7 +88,7 @@ export default {
       description:
         "Услуги по доставке всех видов заборов. Доставка стройматериалов.",
       serviceObj: {
-        img_src: pokraska,
+        img_src: [zvetnoi_zabor2, zvetnoi_zabor3, zvetnoi_zabor4],
         id: "pokraska",
         img_alt: "Покраска еврозабора в Запорожье",
         title: "Покраска еврозабора",

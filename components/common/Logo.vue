@@ -24,7 +24,6 @@
       background-repeat: no-repeat;
       background-position: center;
       background-image: url("../../assets/img/fence_logo.png");
-      // font-family: "Pacifico", cursive;
       color: var(--dark);
       font-weight: 600;
       cursor: pointer;
