@@ -1,12 +1,16 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{serviceObj.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{title}}</h1>
     <app-section class="section">
       <app-intro
-        :img_set="serviceObj.img_src"
-        :img_alt="serviceObj.img_alt"
-        :paragraphs="serviceObj.paragraphs"
+        v-for="(item,idx) in serviceData"
+        :key="idx"
+        :img_set="item.img_src"
+        :img_alt="item.img_alt"
+        :paragraphs="item.paragraphs"
         :withBorder="true"
+        :reversed='Boolean(idx%2)'
+        :ratio='item.ratio'
       />
     </app-section>
   </main>
@@ -16,13 +20,15 @@
 import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
 import { getVarsByPage } from "~/api/variables";
-import fundament from "~/assets/img/services/fundament.jpg";
+import fundament1 from "~/assets/img/services/fundament1.jpg";
+import fundament2 from "~/assets/img/services/fundament2.jpg";
+import fundament3 from "~/assets/img/services/fundament3.jpg";
 
 export default {
   name: "index.vue",
   head() {
     return {
-      title: this.serviceObj.title,
+      title: this.title,
       meta: [
         {
           hid: "description",
@@ -38,7 +44,7 @@ export default {
         //Open Graph
         {
           name: "og:title",
-          content: this.serviceObj.title
+          content: this.title
         },
         {
           name: "og:description",
@@ -46,21 +52,21 @@ export default {
         },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$route.path },
-        { name: "og:image", content: this.serviceObj.img_src },
+        { name: "og:image", content: this.serviceData[0].img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.serviceObj.title
+          content: this.title
         },
         {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: this.serviceObj.img_src },
+        { name: "twitter:image", content: this.serviceData[0].img_src },
         {
           name: "twitter:image:alt",
-          content: this.serviceObj.img_alt
+          content: this.serviceData[0].img_alt
         }
       ]
     };
@@ -80,20 +86,37 @@ export default {
       // title: "Доставка еврозаборов и строительных материалов",
       description:
         "Услуги по заливке фундамента для всех видов заборов. Доставка стройматериалов.",
-      serviceObj: {
-        img_src: [fundament],
-        id: "fundament",
-        img_alt: "Заливка фундамента под еврозабор",
-        title: "Заливка фундаментной ленты",
-        paragraphs: [
-          {
-            text: `По желанию заказчика возможна заливка фундаментной ленты.`
-          },
-          {
-            text: `Для повышения прочности бетонного основания забора применяется арматура`
-          }
-        ]
-      }
+      title: "Заливка фундаментной ленты",
+      serviceData: [
+        {
+          img_src: [fundament1, fundament2],
+          id: "fundament1",
+          img_alt: "Заливка фундамента под еврозабор",
+          ratio: "120%",
+          paragraphs: [
+            {
+              text: `Установка бетонного забора делиться на бетонирование столбов и набор плит. Недостаток точечного бетонирования это и есть точечная нагрузка. Поэтому если на периметре устанавливаемого забора есть какая либа просадка грунта, она обязательно приведёт к тому что столбы будут отклоняться от положенного уровня, при чем каждый столб, независимо от рядом стоящего. Это может привести к тому, что плита выпадает с паза столба. Чтобы этого избежать, нужно залить под бетонный забор фундаментную ленту, касаясь лентой основания нижней плиты. Когда вы выполните это работу, бетонный забор распределит свою нагрузку на перимитр всего фундамента, тем самым уберёт точечную нагрузку с столба. `
+            },
+            {
+              text: `Дополнительно фундамент можно проармировать, тогда вы сможете связать фундамент между пролетами и это даст ему дополнительную прочность. Наша бригада выполняет заливку фундамента после установки самого забора, так как нужно выдержать точное расстояние между столбами и контроливоть заливку что бы залитый бетон касался основания плиты.`
+            }
+          ]
+        },
+        {
+          img_src: [fundament3],
+          id: "fundament2",
+          img_alt: "Заливка фундамента под еврозабор",
+          ratio: "67%",
+          paragraphs: [
+            {
+              text: `Второе назначение фундамента это заливка его на неровных участках, что позволяет установить забор без ступеней или терас. Фундамент в данном случае заполняет неровности забора по отношению к земле, возникшие при установке забора, так как бетонный забор нужно устанавливать строго горизонтально.`
+            },
+            {
+              text: `Бетонный забор имеет стандартную высоту плиты она составляет 0,5м. Поэтому его высота в наборе составляет 0,5м.,1,0м.,1,5м.,2м.,и 2,5м включельно. Бывают случаи при установке забора на ровном участке, когда заказчик требует нестандартной высоты забора, к примеру 1,7м. или 2,3м., так вот в таких случаях мы тоже используем фундамент. Мы поднимаем уровень забора на заданную высоту, а после проливаем появившийся зазор.`
+            }
+          ]
+        }
+      ]
     };
   }
 };

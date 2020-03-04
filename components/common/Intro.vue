@@ -18,7 +18,7 @@
     <div class="slider-box">
       <div
         class="slider-imagebox"
-        :style="{'padding-bottom': `67%`}"
+        :style="{'padding-bottom': ratio}"
       >
         <img
           :src="img_set[active_img]"
@@ -51,7 +51,7 @@
             :img_src="img"
             :img_alt="img_alt"
             :lazy="true"
-            :ratio="50"
+            :ratio="60"
           />
         </div>
       </div>
@@ -172,6 +172,10 @@ export default {
       type: String,
       default: "img-alt"
     },
+    ratio: {
+      type: String,
+      default: "67%"
+    },
     heading: {
       type: String
     },
@@ -206,11 +210,13 @@ export default {
 
 <style lang="scss" scoped>
   .box {
-    display: grid;
-    grid-gap: 24px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
 
     @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
+      flex-direction: row;
+      justify-content: space-between;
     }
 
     &.reversed {
@@ -221,7 +227,28 @@ export default {
       .box-text {
         @media (min-width: 768px) {
           padding-left: 0px;
-          padding-right: 24px;
+        }
+      }
+    }
+
+    .slider-box {
+      width: 100%;
+      @media (min-width: 768px) {
+        width: 42%;
+      }
+    }
+
+    .box-text {
+      @media (min-width: 768px) {
+        width: 55%;
+      }
+      .heading {
+        color: var(--red);
+      }
+
+      .intro-text {
+        p {
+          margin-top: 10px;
         }
       }
     }
@@ -293,18 +320,6 @@ export default {
 
     &.with-border {
       border: 4px solid #fff;
-    }
-  }
-
-  .box-text {
-    .heading {
-      color: var(--red);
-    }
-
-    .intro-text {
-      p {
-        margin-top: 10px;
-      }
     }
   }
 

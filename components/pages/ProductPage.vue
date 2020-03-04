@@ -10,7 +10,6 @@
           <div
             class="slider-imagebox"
             :style="{'padding-bottom': `70%`}"
-            @click="isZoomActive=true"
           >
             <img
               :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
@@ -21,6 +20,14 @@
               v-if="product.option.label"
               class="slider-imagebox-label small-font"
             >{{product.option.label}}</span>
+            <div
+              @click="isZoomActive=true"
+              class="icon-box"
+            >
+              <base-icon color='#fff'>
+                <zoom-icon></zoom-icon>
+              </base-icon>
+            </div>
           </div>
 
           <div
@@ -164,6 +171,8 @@ import MenuButtonVue from "../common/MenuButton.vue";
 import ArrowVue from "../common/Arrow.vue";
 import { replaceWithDash } from "../../static/utils";
 import ProductCardVue from "../common/ProductCard.vue";
+import IconBaseVue from "../common/IconBase.vue";
+import IconZoomVue from "../icons/IconZoom.vue";
 
 export default {
   name: "Product.vue",
@@ -171,7 +180,9 @@ export default {
     "app-image": ImageBaseVue,
     "app-close": MenuButtonVue,
     "app-arrow": ArrowVue,
-    "product-card": ProductCardVue
+    "product-card": ProductCardVue,
+    "base-icon": IconBaseVue,
+    "zoom-icon": IconZoomVue
   },
   methods: {
     replaceWithDash: replaceWithDash,
@@ -332,10 +343,21 @@ export default {
       padding: 4px 8px;
       border-radius: 0px 0 0 4px;
     }
+    .icon-box {
+      display: none;
+      @media (min-width: 768px) {
+        display: block;
+        position: absolute;
+        padding: 10px;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+        right: 10px;
+        bottom: 10px;
+        cursor: pointer;
+      }
+    }
   }
 
   .slider-image {
-    cursor: zoom-in;
     position: absolute;
     top: 50%;
     left: 0;
