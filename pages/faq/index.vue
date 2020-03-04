@@ -13,11 +13,17 @@
         itemprop="name"
         class="question medium-font"
       >{{idx+1}}. {{question.question}}</h2>
+      <img
+        v-if="question.img"
+        :src="question.img"
+        alt="image"
+      >
       <p
         itemscope
         itemprop="acceptedAnswer"
         itemtype="https://schema.org/Answer"
         class="answer small-font"
+        v-if="question.answer"
       > <span itemprop="text">{{question.answer}}</span></p>
     </section>
   </main>
@@ -25,6 +31,7 @@
 
 <script>
 import { getVarsByPage } from "../../api/variables";
+import eye from "../../assets/img/services/eye.jpg";
 export default {
   name: "faq.vue",
   data() {
@@ -47,15 +54,18 @@ export default {
         },
         {
           question: "Для чего нужна замазка щелей между плитами?",
-          answer: "???"
+          img: eye
         },
         {
           question: "Заливать фундамент обязательно?",
-          answer: ""
+          answer:
+            "Только в случае просадки грунта или при большом уклоне участка."
         },
         {
-          question: "Как рассчитать необходимое количество заборов?",
-          answer: ""
+          question: "Как рассчитать необходимое количество плит еврозаборов?",
+          answer: `Необходимо длину периметра умножить на высоту забора в метрах. Например участок 10м х 15м, высота забора 1,5м: 
+          - периметр равен 50м (10м + 15м + 10м + 15м) 
+          - необходимое количество плит 75 (50м умножить на 1,5м)`
         },
         {
           question: "Как установить ограждение на поверхности с уклоном?",

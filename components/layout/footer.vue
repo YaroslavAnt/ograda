@@ -95,11 +95,11 @@
               alt="fb-icon"
               class="footer-icon"
             /></a>
-          <img
+          <!-- <img
             src="../../assets/icons/youtube.svg"
             alt="fb-icon"
             class="footer-icon"
-          />
+          /> -->
         </div>
       </address>
     </div>
