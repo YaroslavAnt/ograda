@@ -48,7 +48,6 @@ export default {
     this.$store.commit("common/CLOSE_MENU");
     Promise.all([
       getAllSlides().then(({ data }) => {
-        console.log({ data });
         this.slides = data.data.data;
         this.$store.commit("slides/SET_SLIDES", data.data);
       }),
@@ -142,9 +141,7 @@ export default {
         { name: "og:url", content: this.$route.path },
         {
           name: "og:image",
-          content:
-            (this.firstProduct && this.firstProduct.img_set[0]) ||
-            "https://nuxtjs.org/meta_640.png"
+          content: "../assets/img/services/zvetnoi_zabor2.jpg"
         },
 
         // Twitter Card
@@ -159,13 +156,11 @@ export default {
         },
         {
           name: "twitter:image",
-          content:
-            (this.firstProduct && this.firstProduct.img_set[0]) ||
-            "https://nuxtjs.org/meta_640.png"
+          content: "../assets/img/services/zvetnoi_zabor2.jpg"
         },
         {
           name: "twitter:image:alt",
-          content: this.firstProduct && this.firstProduct.name
+          content: this.title
         }
       ]
     };
