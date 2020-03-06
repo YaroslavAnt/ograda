@@ -22,15 +22,23 @@
       </div>
 
       <div class="slider-content section-padding">
+
         <nuxt-link
-          :to='slide.short_body || "/"'
-          class="slider-btn app-button"
+          v-if="slide.short_body"
+          :to='slide.short_body'
+          class=""
         >
           <h3
             v-if="slide.title"
-            class="slider-heading huge-font"
+            class="slider-heading huge-font slider-btn app-button"
           >{{ String((slide.title) ).toUpperCase() }}</h3>
         </nuxt-link>
+
+        <h3
+          v-else
+          class="slider-heading huge-font slider-btn app-button"
+        >{{ String((slide.title) ).toUpperCase() }}</h3>
+
         <p
           v-if="slide.body"
           class="slider-text medium-font"
@@ -164,10 +172,10 @@ export default {
     &-content {
       max-width: 700px;
       position: absolute;
+      padding-bottom: 100px;
     }
-    &-btn,
-    &-text {
-      margin-bottom: 30px;
+    &-btn {
+      margin-bottom: 15px;
     }
 
     .picture {

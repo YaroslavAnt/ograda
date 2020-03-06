@@ -1,6 +1,6 @@
 ﻿<template>
   <main class="section-padding">
-    <h1 class="heading with-skewed-bg">{{title}}</h1>
+    <h1 class="heading with-skewed-bg">{{section_heading}}</h1>
     <p
       class="huge-font"
       v-if="posts.data.length === 0"
@@ -106,7 +106,7 @@ export default {
   },
   data() {
     return {
-      section_heading: "Отчеты о выполненных работах",
+      section_heading: "Наши работы",
       title: "Отчеты о выполненых работах по установке ограждений",
       description:
         "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. ",
