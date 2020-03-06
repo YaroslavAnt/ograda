@@ -77,7 +77,7 @@ export default {
     &-cell {
       vertical-align: middle;
       border: 1px solid #aaa;
-      padding: 12px 24px;
+      padding: 12px;
       &-name {
         &:hover {
           color: var(--red);
