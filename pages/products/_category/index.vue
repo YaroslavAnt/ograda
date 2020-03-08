@@ -20,7 +20,7 @@
             <span
               class="switch-tab"
               :class="{'switch-tab-active': $route.query.subcategory===replaceWithDash(tab.name)}"
-            >{{getCyrylic(tab.name) }}</span>
+            >{{(tab.name) }}</span>
           </router-link>
         </div>
       </div>
@@ -55,7 +55,7 @@
     <p
       class="section-description"
       v-if="subcategories[0].name"
-    >Товары данной категории можно разделить на:</p>
+    ><strong>{{categoryObj.name}}</strong> можно разделить на:</p>
 
     <div
       v-for="(subcategory,idx) in subcategories"
@@ -102,7 +102,7 @@ import {
   getProductsByPage
 } from "~/api/products";
 import { getByCategory } from "~/api/subcategories";
-import { replaceWithDash, replaceWithSpace, getCyrylic } from "~/static/utils";
+import { replaceWithDash, replaceWithSpace } from "~/static/utils";
 import { getAll } from "~/api/categories";
 
 export default {
@@ -245,29 +245,38 @@ export default {
         .catch(() => alert("Невозможно загрузить данные"));
     },
     replaceWithSpace,
-    replaceWithDash,
-    getCyrylic
+    replaceWithDash
   },
 
-  async mounted() {
+  async asyncData({ params, query }) {
     const { data: categoryData } = await getAll();
     const categoryObj = categoryData.data.find(
-      category => replaceWithDash(category.name) === this.$route.params.category
+      category => replaceWithDash(category.name) === params.category
     );
-    const { data: subcategoryData } = await getByCategory(categoryObj.id);
-    this.subcategories = subcategoryData.data;
-    this.categoryObj = categoryObj;
+    const {
+      data: { data: subcategories }
+    } = await getByCategory(categoryObj.id);
 
-    if (this.$route.query.subcategory) {
-      const subcategoryObj = subcategoryData.data.find(
-        subcategory =>
-          replaceWithDash(subcategory.name) === this.$route.query.subcategory
+    let productsData;
+    if (query.subcategory) {
+      const subcategoryObj = subcategories.find(
+        subcategory => replaceWithDash(subcategory.name) === query.subcategory
       );
-      this.subcategoryObj = subcategoryObj;
-      await this.fetchProductsBySubcategory(subcategoryObj.id);
+      const {
+        data: { data }
+      } = await getProductBySubcategory(subcategoryObj.id);
+      productsData = data;
     } else {
-      await this.getProductsByCategory(categoryObj.id);
+      const {
+        data: { data }
+      } = await this.getProductsByCategory(categoryObj.id);
+      productsData = data;
     }
+    return {
+      productsData,
+      subcategories,
+      categoryObj
+    };
   },
 
   data() {

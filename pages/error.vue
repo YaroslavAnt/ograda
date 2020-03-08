@@ -40,7 +40,7 @@
 <script>
 import { replaceWithDash } from "../static/utils";
 export default {
-  name: "404.vue",
+  name: "error.vue",
   methods: {
     replaceWithDash
   },
