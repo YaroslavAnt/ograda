@@ -4,8 +4,6 @@
   getPrices
 } from "~/api/products";
 
-import { runSpinner } from "./common";
-
 export const state = () => ({
   list: [],
   byCategory: [],

@@ -48,13 +48,12 @@
               style="vertical-align: bottom"
             > {{PHONE1}}</a>
         </div>
-        <icon-base
-          :width='75'
-          :height='75'
-          @click.native="isPhoneActive = !isPhoneActive"
+        <div
+          class="icon-box"
+          @click="isPhoneActive = !isPhoneActive"
         >
           <icon-phone />
-        </icon-base>
+        </div>
       </div>
     </div>
   </div>
@@ -131,6 +130,10 @@
     right: 30px;
     bottom: 120px;
     padding: 20px;
+  }
+  .icon-box {
+    width: 75px;
+    height: 75px;
   }
 </style>
 

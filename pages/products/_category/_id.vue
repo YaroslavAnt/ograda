@@ -1,7 +1,7 @@
 ﻿<template>
   <main>
     <product-page
-      :product='product'
+      :product='productData'
       :popular='popular'
     />
   </main>
@@ -25,7 +25,7 @@ export default {
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.product.name} с ценой и описанием, ${this.product.category.name}, ${this.product.subcategory.name}`
+          content: `${this.productData.name} с ценой и описанием, ${this.productData.name}, ${this.productData.name}`
         },
         {
           name: "og:title",
@@ -50,7 +50,7 @@ export default {
           content: this.description
         },
         { name: "twitter:image", content: this.image },
-        { name: "twitter:image:alt", content: this.product.name }
+        { name: "twitter:image:alt", content: this.productData.name }
       ]
     };
   },
@@ -70,56 +70,48 @@ export default {
       popular: []
     };
   },
+
   components: {
     "product-page": ProductPage
   },
+
   computed: {
     category() {
       return this.$route.params.category;
     },
     title() {
-      return `${this.product.name.toUpperCase()} от производителя. Цена - ${
-        this.product.price
-      } грн`;
+      return `${this.productData.name} от производителя. Цена - ${this.productData.price} грн`;
     },
     description() {
-      return `Цены (прайсы) от производителя на ${this.product.name} в Запорожье`;
+      return `Цены (прайсы) от производителя на ${this.productData.name} в Запорожье`;
     },
     image() {
-      return this.product.img_set[0];
+      return this.productData.img_set[0];
     }
   },
-  async mounted() {
-    const {
-      data: { data: pricesData }
-    } = await getPrices();
-    const categoryArr = pricesData.find(
-      category => replaceWithDash(category.name) === this.$route.params.category
-    );
-    console.log({ categoryArr });
-    const product =
-      categoryArr.products.find(
-        product => replaceWithDash(product.name) === this.$route.params.id
-      ) || {};
-    this.fetchProduct(product.id);
-    this.fetchPopular();
-  },
-  methods: {
-    fetchProduct(id) {
-      getProduct(id)
-        .then(res => {
-          this.product = res.data.data;
-        })
-        .catch(() => {
-          alert("Невозможно загрузить данные");
-        });
-    },
-    fetchPopular() {
-      getPopularProducts()
-        .then(res => {
-          this.popular = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"));
+
+  async asyncData({ params }) {
+    try {
+      const {
+        data: { data: pricesData }
+      } = await getPrices();
+      const categoryArr = pricesData.find(
+        category => replaceWithDash(category.name) === params.category
+      );
+      const product =
+        categoryArr.products.find(
+          product => replaceWithDash(product.name) === params.id
+        ) || {};
+      const {
+        data: { data: productData }
+      } = await getProduct(product.id);
+      const {
+        data: { data: popular }
+      } = await getPopularProducts();
+
+      return { productData, popular };
+    } catch (error) {
+      () => alert("Невозможно загрузить данные");
     }
   }
 };
