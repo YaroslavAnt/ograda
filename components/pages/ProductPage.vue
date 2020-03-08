@@ -16,10 +16,28 @@
               :alt="product.img_alt"
               class="slider-image"
               itemprop="image"
-            /><span
+            />
+
+            <span
               v-if="product.option.label"
               class="slider-imagebox-label small-font"
             >{{product.option.label}}</span>
+
+            <div class="img-arrows">
+              <app-arrow
+                color="#fff"
+                :size="'20px'"
+                :direction="'left'"
+                @click.native="prevImg"
+              ></app-arrow>
+              <app-arrow
+                color="#fff"
+                :size="'20px'"
+                :direction="'right'"
+                @click.native="nextImg"
+              ></app-arrow>
+            </div>
+
             <div
               @click="isZoomActive=true"
               class="icon-box"
@@ -45,7 +63,7 @@
                 :img_src="baseUrl+img"
                 :img_alt="product.img_alt"
                 :lazy="true"
-                :ratio="50"
+                :ratio="60"
               />
             </div>
           </div>
@@ -290,6 +308,7 @@ export default {
       max-width: 900px;
     }
   }
+
   .gridbox {
     display: grid;
     grid-gap: 24px;
@@ -313,13 +332,24 @@ export default {
         margin: 0 5px;
         cursor: pointer;
         background: #fff;
+        position: relative;
 
         &:hover {
           opacity: 0.8;
         }
 
         &-active {
-          border: 1px solid var(--red);
+          // border: 1px solid var(--red);
+
+          &::after {
+            position: absolute;
+            content: "";
+            display: block;
+            width: 100%;
+            height: 4px;
+            bottom: -10px;
+            background-color: var(--red);
+          }
         }
       }
     }
@@ -342,6 +372,13 @@ export default {
       top: 0;
       padding: 4px 8px;
       border-radius: 0px 0 0 4px;
+    }
+    .img-arrows {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
     }
     .icon-box {
       display: none;
