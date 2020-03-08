@@ -20,6 +20,8 @@
 <script>
 import sectionVue from "../../components/layout/section.vue";
 import { getVarsByPage } from "../../api/variables";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+import { DOMAIN } from "../../config";
 
 export default {
   name: "index.vue",
@@ -48,12 +50,21 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
+        {
+          name: "og:image",
+          content: ogImage
+        },
+
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
           content: this.title
+        },
+        {
+          name: "twitter:image",
+          content: ogImage
         },
         {
           name: "twitter:description",
@@ -72,6 +83,8 @@ export default {
   data() {
     return {
       fetchedVars: "{}",
+      ogImage,
+      DOMAIN,
       keywords: `Услуги по установке заборов, доставка еврозаборов, монтаж ограждений и ворот, покраска еврозаборов, цветные еврозаборы`,
       title:
         "Выезд на замер забора. Доставка, установка, покраска еврозаборов.",

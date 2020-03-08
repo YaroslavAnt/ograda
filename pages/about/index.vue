@@ -7,6 +7,7 @@
       :content="about.expo"
       :exhibitions='exhibitions'
     />
+
   </main>
 </template>
 
@@ -17,6 +18,9 @@ import expositionVue from "~/components/sections/about/exposition.vue";
 import { about } from "~/static/content_data";
 import { getExhibitions } from "../../api/products";
 import { getVarsByPage } from "../../api/variables";
+import { DOMAIN } from "../../config";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+
 export default {
   head() {
     return {
@@ -39,10 +43,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -56,7 +60,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
         { name: "twitter:image:alt", content: "Производство еврозаборов" }
       ]
@@ -83,6 +87,8 @@ export default {
   data() {
     return {
       about,
+      DOMAIN,
+      ogImage,
       title: "О нашей компании",
       description: "Производство и установка еврозаборов в Запорожье",
       keywords:

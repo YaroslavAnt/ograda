@@ -19,6 +19,8 @@ import section from "../../components/layout/section";
 import TableVue from "../../components/common/Table.vue";
 import { mapGetters } from "vuex";
 import { getVarsByPage } from "../../api/variables";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+import { DOMAIN } from "../../config";
 
 export default {
   head() {
@@ -46,10 +48,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: ogImage
         },
 
         // Twitter Card
@@ -64,7 +66,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: ogImage
         },
         { name: "twitter:image:alt", content: "Цены на установку заборов" }
       ]
@@ -87,6 +89,8 @@ export default {
   data() {
     return {
       fetchedVars: "{}",
+      ogImage,
+      DOMAIN,
       keywords:
         "Цены на установку заборов, прайсы плит еврозаборов, цены на ворота, цены на калитки, цены на автоматику для ворот",
       title: "Цены на продукцию",

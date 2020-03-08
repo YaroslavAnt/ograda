@@ -68,10 +68,11 @@ import IconBaseVue from "~/components/common/IconBase.vue";
 import IconMailVue from "~/components/icons/IconMail.vue";
 import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
-import { contact } from "~/static/content_data";
 import { postEmail } from "../../api/email";
-import { PHONE, EMAIL, PHONE1 } from "../../config";
+import { PHONE, EMAIL, PHONE1, DOMAIN, LOCATION } from "../../config";
 import { getVarsByPage } from "../../api/variables";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+
 export default {
   name: "contact",
   head() {
@@ -96,10 +97,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: this.DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
 
         // Twitter Card
@@ -111,7 +112,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
         {
           name: "twitter:image:alt",
@@ -161,13 +162,15 @@ export default {
       PHONE,
       PHONE1,
       email: EMAIL,
-      location: contact.location,
+      location: LOCATION,
       formData: { name: "", email: "", phone: "", message: "" },
       title: "Контакты для заказа еврозаборов",
       description: "Наши контакты",
       keywords:
         "Адрес производства еврозаборов в Запорожье, контакты производителя еврозаборов, телефоны производства заборов",
-      fetchedVars: "{}"
+      fetchedVars: "{}",
+      ogImage,
+      DOMAIN
     };
   }
 };

@@ -32,11 +32,16 @@
 <script>
 import { getVarsByPage } from "../../api/variables";
 import eye from "../../assets/img/services/eye.jpg";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+import { DOMAIN } from "../../config";
+
 export default {
   name: "faq.vue",
   data() {
     return {
       // title:
+      ogImage,
+      DOMAIN,
 
       questions: [
         {
@@ -116,13 +121,21 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
+        {
+          name: "og:image",
+          content: this.ogImage
+        },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
           content: this.title
+        },
+        {
+          name: "twitter:image",
+          content: this.ogImage
         },
         {
           name: "twitter:description",

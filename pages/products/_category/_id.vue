@@ -11,6 +11,8 @@
 import ProductPage from "~/components/pages/ProductPage";
 import { getProduct, getPopularProducts, getPrices } from "~/api/products";
 import { replaceWithDash } from "../../../static/utils";
+import { BASE_URL, DOMAIN } from "../../../config";
+
 export default {
   name: "product.vue",
   head() {
@@ -36,7 +38,7 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         { name: "og:image", content: this.image },
 
         // Twitter Card
@@ -86,7 +88,7 @@ export default {
       return `Цены (прайсы) от производителя на ${this.productData.name} в Запорожье`;
     },
     image() {
-      return this.productData.img_set[0];
+      return BASE_URL + this.productData.img_set[0];
     }
   },
 

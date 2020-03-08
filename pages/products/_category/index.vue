@@ -104,6 +104,8 @@ import {
 import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "~/static/utils";
 import { getAll } from "~/api/categories";
+import { BASE_URL, DOMAIN } from "../../../config";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 
 export default {
   name: "productPage.vue",
@@ -133,13 +135,13 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         {
           name: "og:image",
           content:
             this.productsData.data.length > 0
-              ? this.productsData.data[0].img_set[0]
-              : "../../../assets/img/services/zvetnoi_zabor2.jpg"
+              ? BASE_URL + this.productsData.data[0].img_set[0]
+              : this.ogImage
         },
 
         // Twitter Card
@@ -156,8 +158,8 @@ export default {
           name: "twitter:image",
           content:
             this.productsData.data.length > 0
-              ? this.productsData.data[0].img_set[0]
-              : "../../../assets/img/services/zvetnoi_zabor2.jpg"
+              ? BASE_URL + this.productsData.data[0].img_set[0]
+              : this.ogImage
         },
         {
           name: "twitter:image:alt",
@@ -269,7 +271,7 @@ export default {
     } else {
       const {
         data: { data }
-      } = await this.getProductsByCategory(categoryObj.id);
+      } = await getProductByCategory(categoryObj.id);
       productsData = data;
     }
     return {
@@ -293,7 +295,9 @@ export default {
       categories: [{}],
       subcategories: [{}],
       categoryObj: {},
-      subcategoryObj: {}
+      subcategoryObj: {},
+      ogImage,
+      DOMAIN
     };
   }
 };

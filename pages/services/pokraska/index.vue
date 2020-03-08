@@ -20,6 +20,7 @@ import pokraska from "~/assets/img/services/but_paint.jpg";
 import zvetnoi_zabor2 from "../../../assets/img/services/zvetnoi_zabor2.jpg";
 import zvetnoi_zabor3 from "../../../assets/img/services/zvetnoi_zabor3.jpg";
 import zvetnoi_zabor4 from "../../../assets/img/services/zvetnoi_zabor4.jpg";
+import { DOMAIN } from "../../../config";
 
 export default {
   name: "index.vue",
@@ -48,7 +49,7 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         { name: "og:image", content: this.serviceObj.img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -79,6 +80,7 @@ export default {
   data() {
     return {
       fetchedVars: {},
+      DOMAIN,
       keywords: `покраска еврозаборов, покраска бетонного забора, кислотная покраска`,
       // title: "Доставка еврозаборов и строительных материалов",
       description:
