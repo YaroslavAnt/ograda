@@ -1,6 +1,6 @@
 ﻿<template>
   <app-secion
-    :heading="section_heading"
+    :heading="'Отчеты о выполненных работах'"
     class="section"
     v-if="lastNews.length > 0"
   >
@@ -19,11 +19,6 @@
 
 <script>
 import sectionVue from "~/components/layout/section.vue";
-import but_3 from "~/assets/img/fence/but/but_3.jpg";
-import but_loza_3 from "~/assets/img/fence/but_loza/but_loza_3.jpg";
-import but_rovnyi_1 from "~/assets/img/fence/but_rovnyi/but_rovnyi_1.jpg";
-import fagot_2 from "~/assets/img/fence/fagot/fagot_2.jpg";
-import krym_1 from "~/assets/img/fence/krym/krym_1.jpg";
 import BlogCardVue from "~/components/common/BlogCard.vue";
 import { mapGetters } from "vuex";
 
@@ -33,11 +28,7 @@ export default {
     "app-secion": sectionVue,
     "blog-card": BlogCardVue
   },
-  data() {
-    return {
-      section_heading: "Отчеты о выполненных работах"
-    };
-  },
+
   computed: {
     ...mapGetters({
       lastNews: "posts/getLastPosts"

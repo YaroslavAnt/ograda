@@ -42,6 +42,9 @@ import BlogCardVue from "~/components/common/BlogCard.vue";
 import { getPostsByPage, getAllPosts } from "../../api/posts";
 import { mapGetters } from "vuex";
 import { getVarsByPage } from "../../api/variables";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+import { DOMAIN } from "../../config";
+
 let Paginate;
 if (process.client) {
   Paginate = require("vuejs-paginate");
@@ -73,10 +76,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -90,7 +93,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: "../../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
         {
           name: "twitter:image:alt",
@@ -112,7 +115,9 @@ export default {
         "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. ",
       keywords:
         "Отчеты по установке заборов, Отчеты по установке ворот, Отчеты по установке калиток",
-      fetchedVars: "{}"
+      fetchedVars: "{}",
+      ogImage,
+      DOMAIN
     };
   },
   mounted() {

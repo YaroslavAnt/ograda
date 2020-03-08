@@ -25,6 +25,8 @@ import cargo from "~/assets/icons/cargo.svg";
 import brush from "~/assets/icons/brush.svg";
 import fence from "~/assets/icons/fence.svg";
 import { getVarsByPage } from "../api/variables";
+import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
+import { DOMAIN } from "../config";
 
 export default {
   scrollToTop: true,
@@ -109,7 +111,9 @@ export default {
             link: "/services"
           }
         ]
-      }
+      },
+      ogImage,
+      DOMAIN
     };
   },
 
@@ -138,10 +142,10 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: "../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
 
         // Twitter Card
@@ -156,7 +160,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: "../assets/img/services/zvetnoi_zabor2.jpg"
+          content: this.ogImage
         },
         {
           name: "twitter:image:alt",

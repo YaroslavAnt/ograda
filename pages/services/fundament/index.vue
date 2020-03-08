@@ -23,6 +23,7 @@ import { getVarsByPage } from "~/api/variables";
 import fundament1 from "~/assets/img/services/fundament1.jpg";
 import fundament2 from "~/assets/img/services/fundament2.jpg";
 import fundament3 from "~/assets/img/services/fundament3.jpg";
+import { DOMAIN } from "../../../config";
 
 export default {
   name: "index.vue",
@@ -51,7 +52,7 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         { name: "og:image", content: this.serviceData[0].img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -82,6 +83,7 @@ export default {
   data() {
     return {
       fetchedVars: {},
+      DOMAIN,
       keywords: `фундамент для еврозаборов, Заливка фундамента, стоимость работ по заливке фундамента для заборов`,
       // title: "Доставка еврозаборов и строительных материалов",
       description:

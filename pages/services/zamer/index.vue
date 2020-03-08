@@ -17,6 +17,7 @@ import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
 import { getVarsByPage } from "~/api/variables";
 import measure from "~/assets/img/services/measure.jpg";
+import { DOMAIN } from "../../../config";
 
 export default {
   name: "index.vue",
@@ -45,7 +46,7 @@ export default {
           content: this.description
         },
         { name: "og:type", content: "website" },
-        { name: "og:url", content: this.$route.path },
+        { name: "og:url", content: DOMAIN + this.$route.path },
         { name: "og:image", content: this.serviceObj.img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
@@ -76,6 +77,7 @@ export default {
   data() {
     return {
       fetchedVars: {},
+      DOMAIN,
       keywords: `замер еврозаборов, вызов замерщика, обмер участка под ограждение`,
       // title: "Доставка еврозаборов и строительных материалов",
       description:
