@@ -30,16 +30,16 @@ export default {
           content: `${this.productData.name} с ценой и описанием, ${this.productData.name}, ${this.productData.name}`
         },
         {
-          name: "og:title",
+          property: "og:title",
           content: this.title
         },
         {
-          name: "og:description",
+          property: "og:description",
           content: this.description
         },
-        { name: "og:type", content: "website" },
-        { name: "og:url", content: DOMAIN + this.$route.path },
-        { name: "og:image", content: this.image },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: DOMAIN + this.$route.path },
+        { property: "og:image", content: this.image },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },

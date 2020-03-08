@@ -38,16 +38,16 @@ export default {
 
         //Open Graph
         {
-          name: "og:title",
+          property: "og:title",
           content: this.serviceObj.title
         },
         {
-          name: "og:description",
+          property: "og:description",
           content: this.description
         },
-        { name: "og:type", content: "website" },
-        { name: "og:url", content: DOMAIN + this.$route.path },
-        { name: "og:image", content: this.serviceObj.img_src },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: DOMAIN + this.$route.path },
+        { property: "og:image", content: this.serviceObj.img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {

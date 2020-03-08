@@ -42,17 +42,17 @@ export default {
 
         //Open Graph
         {
-          name: "og:title",
+          property: "og:title",
           content: this.title
         },
         {
-          name: "og:description",
+          property: "og:description",
           content: this.description
         },
-        { name: "og:type", content: "website" },
-        { name: "og:url", content: DOMAIN + this.$route.path },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: DOMAIN + this.$route.path },
         {
-          name: "og:image",
+          property: "og:image",
           content: DOMAIN + this.ogImage
         },
 
