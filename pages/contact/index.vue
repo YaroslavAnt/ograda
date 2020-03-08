@@ -100,7 +100,7 @@ export default {
         { name: "og:url", content: this.DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: this.ogImage
+          content: DOMAIN + this.ogImage
         },
 
         // Twitter Card
@@ -112,7 +112,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: this.ogImage
+          content: DOMAIN + this.ogImage
         },
         {
           name: "twitter:image:alt",

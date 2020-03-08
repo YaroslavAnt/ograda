@@ -141,7 +141,7 @@ export default {
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
-              : this.ogImage
+              : DOMAIN + this.ogImage
         },
 
         // Twitter Card
@@ -159,7 +159,7 @@ export default {
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
-              : this.ogImage
+              : DOMAIN + this.ogImage
         },
         {
           name: "twitter:image:alt",

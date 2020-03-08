@@ -51,7 +51,7 @@ export default {
         { name: "og:url", content: DOMAIN + this.$route.path },
         {
           name: "og:image",
-          content: ogImage
+          content: DOMAIN + this.ogImage
         },
 
         // Twitter Card
@@ -66,7 +66,7 @@ export default {
         },
         {
           name: "twitter:image",
-          content: ogImage
+          content: DOMAIN + this.ogImage
         },
         { name: "twitter:image:alt", content: "Цены на установку заборов" }
       ]
