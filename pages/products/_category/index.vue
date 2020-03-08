@@ -127,17 +127,17 @@ export default {
 
         //Open Graph
         {
-          name: "og:title",
+          property: "og:title",
           content: this.title
         },
         {
-          name: "og:description",
+          property: "og:description",
           content: this.description
         },
-        { name: "og:type", content: "website" },
-        { name: "og:url", content: DOMAIN + this.$route.path },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: DOMAIN + this.$route.path },
         {
-          name: "og:image",
+          property: "og:image",
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
