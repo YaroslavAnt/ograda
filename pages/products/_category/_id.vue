@@ -27,7 +27,7 @@ export default {
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.productData.name} с ценой и описанием, ${this.productData.name}, ${this.productData.name}`
+          content: `${this.productData.name} с ценой и описанием, ${this.productData.category.name}, ${this.productData.subcategory.name}`
         },
         {
           property: "og:title",
@@ -85,7 +85,7 @@ export default {
       return `${this.productData.name} от производителя. Цена - ${this.productData.price} грн`;
     },
     description() {
-      return `Цены (прайсы) от производителя на ${this.productData.name} в Запорожье`;
+      return `${this.productData.name} в Запорожье без посредников. Без предоплаты. Возможна доставка. `;
     },
     image() {
       return BASE_URL + this.productData.img_set[0];
