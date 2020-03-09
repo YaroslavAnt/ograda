@@ -47,7 +47,7 @@ export default {
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
-        { property: "og:image", content: this.serviceObj.img_src },
+        { property: "og:image", content: DOMAIN + this.serviceObj.img_src },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
@@ -58,7 +58,7 @@ export default {
           name: "twitter:description",
           content: this.description
         },
-        { name: "twitter:image", content: this.serviceObj.img_src },
+        { name: "twitter:image", content: DOMAIN + this.serviceObj.img_src },
         {
           name: "twitter:image:alt",
           content: this.serviceObj.img_alt
