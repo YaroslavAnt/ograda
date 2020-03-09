@@ -99,6 +99,9 @@ export default {
           name: "twitter:image:alt",
           content: "установка еврозабора в Запорожье"
         }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },

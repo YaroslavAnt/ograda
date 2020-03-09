@@ -69,6 +69,9 @@ export default {
           content: DOMAIN + this.ogImage
         },
         { name: "twitter:image:alt", content: "Цены на установку заборов" }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },

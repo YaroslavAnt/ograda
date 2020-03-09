@@ -169,9 +169,12 @@ export default {
       height: 100%;
     }
     &-content {
-      max-width: 700px;
+      max-width: 100vw;
       position: absolute;
-      padding-bottom: 100px;
+      padding-bottom: 70px;
+      @media (min-width: 7680px) {
+        max-width: 700px;
+      }
     }
     &-btn {
       margin-bottom: 15px;

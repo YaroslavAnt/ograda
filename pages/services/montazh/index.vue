@@ -63,6 +63,9 @@ export default {
           name: "twitter:image:alt",
           content: this.serviceObj.img_alt
         }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },

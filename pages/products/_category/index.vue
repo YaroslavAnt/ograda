@@ -168,6 +168,9 @@ export default {
               ? this.productsData.data[0].img_alt
               : "Заборы"
         }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },
