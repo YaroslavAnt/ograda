@@ -85,7 +85,7 @@ export default {
       return this.$route.params.category;
     },
     title() {
-      return `${this.productData.name} от производителя. Цена - ${this.productData.price} грн`;
+      return `${this.productData.name}. Цена - ${this.productData.price} грн`;
     },
     description() {
       return `${this.productData.name} в Запорожье без посредников. Без предоплаты. Возможна доставка. `;
