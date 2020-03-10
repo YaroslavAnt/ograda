@@ -37,6 +37,21 @@ export default {
   },
   methods: {
     replaceWithDash
+  },
+  head() {
+    return {
+      title: "Категории товаров",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Здесь собраны основные категории выпускаемой продукции"
+        }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
+    };
   }
 };
 </script>

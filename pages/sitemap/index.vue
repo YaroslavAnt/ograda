@@ -36,7 +36,7 @@
 
   </main>
 </template>
-
+ 
 <script>
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../../static/utils";
@@ -74,6 +74,21 @@ export default {
     ...mapGetters({
       dynamicLinks: "categories/getAllCategories"
     })
+  },
+  head() {
+    return {
+      title: "Навигация по сайту",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Эта страница предназначена для навигации по сайту"
+        }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
+    };
   }
 };
 </script>
