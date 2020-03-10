@@ -78,13 +78,13 @@
         itemscope
         itemtype="http://schema.org/Organization"
       >
-        <div
-          itemprop="address"
-          itemscope
-          itemtype="http://schema.org/PostalAddress"
-        >
+        <div>
           <h6>{{contact_list.name}}</h6>
-          <ul>
+          <ul
+            itemprop="address"
+            itemscope
+            itemtype="http://schema.org/PostalAddress"
+          >
             <li><span itemprop="addressLocality"> г. Запорожье,</span> <br /> <span itemprop="streetAddress"> ул.Стартовая 1ж</span></li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a
@@ -104,24 +104,23 @@
                 itemprop="email"
               >{{EMAIL}}</a>
             </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noreferrer noopener"
-                :href='FACEBOOK'
-                itemprop="sameAs"
-              >
-                <img
-                  src="../../assets/icons/facebook.svg"
-                  alt="fb-icon"
-                  class="footer-icon"
-                /></a>
-            </li>
-            <li
-              itemprop="openingHours"
-              content="Mo-Sa 9:00-18:00"
-            >Пн-Сб, 9:00 - 18:00</li>
+
           </ul>
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            :href='FACEBOOK'
+            itemprop="sameAs"
+          >
+            <img
+              src="../../assets/icons/facebook.svg"
+              alt="fb-icon"
+              class="footer-icon"
+            /></a>
+          <p
+            itemprop="openingHours"
+            content="Mo-Sa 9:00-18:00"
+          >Пн-Сб, 9:00 - 18:00</p>
         </div>
 
         <!--<div>
