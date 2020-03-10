@@ -168,7 +168,7 @@ export default {
         }
       ],
       link: [
-        { rel: "canonical", href: this.DOMAIN } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+        { rel: "canonical", href: this.DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   }

@@ -104,24 +104,23 @@
                 itemprop="email"
               >{{EMAIL}}</a>
             </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noreferrer noopener"
-                :href='FACEBOOK'
-                itemprop="sameAs"
-              >
-                <img
-                  src="../../assets/icons/facebook.svg"
-                  alt="fb-icon"
-                  class="footer-icon"
-                /></a>
-            </li>
+
           </ul>
-          <span
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            :href='FACEBOOK'
+            itemprop="sameAs"
+          >
+            <img
+              src="../../assets/icons/facebook.svg"
+              alt="fb-icon"
+              class="footer-icon"
+            /></a>
+          <p
             itemprop="openingHours"
             content="Mo-Sa 9:00-18:00"
-          >Пн-Сб, 9:00 - 18:00</span>
+          >Пн-Сб, 9:00 - 18:00</p>
         </div>
 
         <!--<div>
