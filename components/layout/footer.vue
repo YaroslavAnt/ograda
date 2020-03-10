@@ -76,7 +76,7 @@
       <address
         class="footer-navitem footer-contacts"
         itemscope
-        itemtype="http://schema.org/Organization"
+        itemtype="http://schema.org/LocalBusiness"
       >
         <div>
           <h6>{{contact_list.name}}</h6>
