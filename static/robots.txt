@@ -1,3 +1,4 @@
 ﻿User-agent: *
 Disallow: /content_data/
 Disallow: /*?*
+Sitemap: https://ograda.zp.ua/sitemap.xml

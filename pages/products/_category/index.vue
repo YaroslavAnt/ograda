@@ -168,6 +168,9 @@ export default {
               ? this.productsData.data[0].img_alt
               : "Заборы"
         }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },
@@ -203,14 +206,12 @@ export default {
       }
     },
     title() {
-      return `${this.replaceWithSpace(
-        this.category
-      ).toUpperCase()} от производителя в Запорожье. Большой ассортимент. Низкие цены`;
+      return `${this.replaceWithSpace(this.category).toUpperCase()} `;
     },
     description() {
-      return `Полный перечень продукции в каегории ${this.replaceWithSpace(
+      return `${this.replaceWithSpace(
         this.category
-      ).toUpperCase()} с описанием, ценами и фотографиями. `;
+      ).toUpperCase()} от производителя в Запорожье с ценами, описанием и фотографиями. Большой ассортимент.`;
     },
     heading() {
       return this.categoryObj.name;

@@ -70,6 +70,9 @@ export default {
           name: "twitter:description",
           content: this.description
         }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },

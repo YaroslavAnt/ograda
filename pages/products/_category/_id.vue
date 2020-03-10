@@ -53,6 +53,9 @@ export default {
         },
         { name: "twitter:image", content: this.image },
         { name: "twitter:image:alt", content: this.productData.name }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   },
@@ -82,7 +85,7 @@ export default {
       return this.$route.params.category;
     },
     title() {
-      return `${this.productData.name} от производителя. Цена - ${this.productData.price} грн`;
+      return `${this.productData.name}. Цена - ${this.productData.price} грн`;
     },
     description() {
       return `${this.productData.name} в Запорожье без посредников. Без предоплаты. Возможна доставка. `;

@@ -73,34 +73,65 @@
         </ul>
       </nav>
 
-      <address class="footer-navitem footer-contacts">
-        <div>
+      <address
+        class="footer-navitem footer-contacts"
+        itemscope
+        itemtype="http://schema.org/Organization"
+      >
+        <div
+          itemprop="address"
+          itemscope
+          itemtype="http://schema.org/PostalAddress"
+        >
           <h6>{{contact_list.name}}</h6>
           <ul>
-            <li class="footer-navlink footer-navlink_contact small-font"><a :href="`tel:${PHONE}`">{{PHONE}}</a></li>
-            <li class="footer-navlink footer-navlink_contact small-font"><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></li>
-            <li class="footer-navlink footer-navlink_contact small-font"><a :href="`mailto:${EMAIL}`">{{EMAIL}}</a></li>
+            <li><span itemprop="addressLocality"> г. Запорожье,</span> <br /> <span itemprop="streetAddress"> ул.Стартовая 1ж</span></li>
+            <li class="footer-navlink footer-navlink_contact small-font">
+              <a
+                :href="`tel:${PHONE}`"
+                itemprop="telephone"
+              >{{PHONE}}</a>
+            </li>
+            <li class="footer-navlink footer-navlink_contact small-font">
+              <a
+                :href="`tel:${PHONE1}`"
+                itemprop="telephone"
+              >{{PHONE1}}</a>
+            </li>
+            <li class="footer-navlink footer-navlink_contact small-font">
+              <a
+                :href="`mailto:${EMAIL}`"
+                itemprop="email"
+              >{{EMAIL}}</a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                rel="noreferrer noopener"
+                :href='FACEBOOK'
+                itemprop="sameAs"
+              >
+                <img
+                  src="../../assets/icons/facebook.svg"
+                  alt="fb-icon"
+                  class="footer-icon"
+                /></a>
+            </li>
+            <li
+              itemprop="openingHours"
+              content="Mo-Sa 9:00-18:00"
+            >Пн-Сб, 9:00 - 18:00</li>
           </ul>
         </div>
 
-        <div>
+        <!--<div>
           <h6>Страницы в соцсетях</h6>
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            :href='FACEBOOK'
-          >
-            <img
-              src="../../assets/icons/facebook.svg"
-              alt="fb-icon"
-              class="footer-icon"
-            /></a>
-          <!-- <img
+           <img
             src="../../assets/icons/youtube.svg"
             alt="fb-icon"
             class="footer-icon"
-          /> -->
-        </div>
+          /> 
+        </div>-->
       </address>
     </div>
   </footer>

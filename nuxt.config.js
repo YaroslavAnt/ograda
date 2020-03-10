@@ -8,9 +8,9 @@ export default {
   /*
    ** Headers of the page
    */
-    //server: {
-    //port: 3000, // default: 3000
-    //host: '0.0.0.0' // default: localhost
+  //server: {
+  //port: 3000, // default: 3000
+  //host: '0.0.0.0' // default: localhost
   //},
   head: {
     htmlAttrs: {
@@ -18,7 +18,12 @@ export default {
     },
     meta: [
       { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" }
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      //Open Graph
+      {
+        property: "og:site_name ",
+        content: "ograda.zp.ua"
+      }
     ],
     script: [
       {

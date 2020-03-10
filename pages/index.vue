@@ -166,6 +166,9 @@ export default {
           name: "twitter:image:alt",
           content: this.title
         }
+      ],
+      link: [
+        { rel: "canonical", href: this.DOMAIN } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
     };
   }
