@@ -22,7 +22,7 @@
         itemscope
         itemprop="acceptedAnswer"
         itemtype="https://schema.org/Answer"
-        class="answer small-font"
+        class="answer base-font"
         v-if="question.answer"
       > <span itemprop="text">{{question.answer}}</span></p>
     </section>
@@ -73,8 +73,10 @@ export default {
           - необходимое количество плит 75 (50м умножить на 1,5м)`
         },
         {
-          question: "Как установить ограждение на поверхности с уклоном?",
-          answer: ""
+          question: "В течение какого времени устанавливается забор?",
+          answer: `Еврозабор - до 40 метров в день
+Заборы из профнастила - до 20 метров в день
+Сетка рабица - до 80 метров в день.`
         }
       ],
       fetchedVars: {}

@@ -36,14 +36,15 @@
 
   </main>
 </template>
-
+ 
 <script>
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../../static/utils";
+import { DOMAIN } from "../../config";
 export default {
   name: "sitemap.vue",
   data() {
-    return {};
+    return { DOMAIN };
   },
   methods: {
     replaceWithDash
@@ -74,6 +75,21 @@ export default {
     ...mapGetters({
       dynamicLinks: "categories/getAllCategories"
     })
+  },
+  head() {
+    return {
+      title: "Навигация по сайту",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Эта страница предназначена для навигации по сайту"
+        }
+      ],
+      link: [
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
+    };
   }
 };
 </script>

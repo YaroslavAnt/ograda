@@ -3,11 +3,7 @@
     <h1 class="heading with-skewed-bg">{{title}}</h1>
     <about :content=" about.about" />
     <advantages :content="about.advantages" />
-    <exposition
-      :content="about.expo"
-      :exhibitions='exhibitions'
-    />
-
+    <exposition :exhibitions='exhibitions' />
   </main>
 </template>
 

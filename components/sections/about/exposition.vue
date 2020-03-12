@@ -1,6 +1,6 @@
 ﻿<template>
   <app-section
-    :heading="content.heading"
+    :heading="'Выставки образцов еврозабора'"
     class="section"
   >
     <p
@@ -71,10 +71,6 @@ export default {
     }
   },
   props: {
-    content: {
-      type: Object,
-      default: {}
-    },
     exhibitions: {
       type: Array,
       default: []

@@ -13,6 +13,7 @@
           class="grid-item-icon"
           :src="card.icon"
           alt="icon"
+          width="70px"
         />
         <p class="grid-item-text medium-font">{{card.heading}}</p>
       </div>
@@ -59,7 +60,7 @@ export default {
         border-radius: 4px;
         padding: 24px;
         &-icon {
-          width: 70px;
+          // width: 70px;
           margin-right: 16px;
         }
 

@@ -30,7 +30,7 @@
             class="footer-navitem"
             v-if="$store.state.categories.list.length > 0"
           >
-            <h6>Продукция</h6>
+            <p>Продукция</p>
             <ul>
               <li
                 class="footer-navlink footer-navlink_info small-font"
@@ -76,10 +76,10 @@
       <address
         class="footer-navitem footer-contacts"
         itemscope
-        itemtype="http://schema.org/Organization"
+        itemtype="http://schema.org/LocalBusiness"
       >
         <div>
-          <h6>{{contact_list.name}}</h6>
+          <p>{{contact_list.name}}</p>
           <ul
             itemprop="address"
             itemscope
@@ -104,7 +104,6 @@
                 itemprop="email"
               >{{EMAIL}}</a>
             </li>
-
           </ul>
           <a
             target="_blank"
