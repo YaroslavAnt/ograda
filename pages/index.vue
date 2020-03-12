@@ -14,9 +14,7 @@ import servicesVue from "../components/sections/home/services.vue";
 import newsVue from "../components/sections/home/news.vue";
 import specialVue from "../components/sections/home/special.vue";
 
-import { mapGetters } from "vuex";
-import { getSpecialProducts, getAllProducts } from "../api/products";
-import { getAll } from "../api/categories";
+import { getSpecialProducts } from "../api/products";
 import { getAllSlides } from "../api/slides";
 import { getAllPosts } from "../api/posts";
 
@@ -24,8 +22,8 @@ import measure from "~/assets/icons/measure.svg";
 import cargo from "~/assets/icons/cargo.svg";
 import brush from "~/assets/icons/brush.svg";
 import fence from "~/assets/icons/fence.svg";
-import { getVarsByPage } from "../api/variables";
 import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
+
 import { DOMAIN } from "../config";
 
 export default {
@@ -38,37 +36,29 @@ export default {
     news: newsVue
   },
 
-  computed: {
-    ...mapGetters({
-      firstProduct: "products/getFirstProduct"
-    })
+  async fetch({ store }) {
+    try {
+      const {
+        data: { data: slidesData }
+      } = await getAllSlides();
+      const {
+        data: { data: specialData }
+      } = await getSpecialProducts();
+      const {
+        data: { data: postsData }
+      } = await getAllPosts();
+
+      store.commit("slides/SET_SLIDES", slidesData);
+      store.commit("posts/SET_POSTS", postsData);
+      this.special = specialData;
+      return { slidesData, specialData, postsData };
+    } catch (error) {
+      () => alert("Невозможно загрузить данные");
+    }
   },
 
   mounted() {
-    this.$store.dispatch("common/runSpinner");
-    this.fetchSpecial();
     this.$store.commit("common/CLOSE_MENU");
-    Promise.all([
-      getAllSlides().then(({ data }) => {
-        this.slides = data.data.data;
-        this.$store.commit("slides/SET_SLIDES", data.data);
-      }),
-      getAllPosts().then(({ data }) => {
-        this.$store.commit("posts/SET_POSTS", data.data);
-      })
-    ])
-      .catch(() => alert("Невозможно загрузить данные"))
-      .finally(() => this.$store.dispatch("common/stopSpinner"));
-  },
-
-  methods: {
-    fetchSpecial() {
-      return getSpecialProducts()
-        .then(res => {
-          this.special = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"));
-    }
   },
 
   data() {

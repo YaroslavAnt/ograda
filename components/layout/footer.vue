@@ -53,7 +53,7 @@
             v-for="(item, index) in menu_list"
             :key="index"
           >
-            <h6>{{item.name}}</h6>
+            <p>{{item.name}}</p>
             <ul>
               <li
                 class="footer-navlink footer-navlink_info small-font"
@@ -85,7 +85,11 @@
             itemscope
             itemtype="http://schema.org/PostalAddress"
           >
-            <li><span itemprop="addressLocality"> г. Запорожье,</span> <br /> <span itemprop="streetAddress"> ул.Стартовая 1ж</span></li>
+            <li>
+              <span itemprop="addressLocality"> г. Запорожье,</span>
+              <br />
+              <span itemprop="streetAddress"> ул.Стартовая 1ж</span>
+            </li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a
                 :href="`tel:${PHONE}`"
