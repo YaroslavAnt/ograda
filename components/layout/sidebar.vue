@@ -23,6 +23,7 @@
         <ul
           class="sidebar-subnav"
           :class="{'sidebar-subnav-active': category.name === activeCategory }"
+          v-if="category.name"
         >
           <li
             v-for="(subcategory,idx) in category.subcategories"
@@ -179,7 +180,7 @@ export default {
     }
     .subnav-link {
       font-size: 16px;
-      padding: 12px 16px;
+      padding: 8px 16px;
     }
     .nav-link,
     .subnav-link {
@@ -195,10 +196,10 @@ export default {
           content: "";
           position: absolute;
           display: block;
-          width: 12px;
-          height: 12px;
-          border-left: 3px solid;
-          border-top: 3px solid;
+          width: 8px;
+          height: 8px;
+          border-left: 1px solid;
+          border-top: 1px solid;
           top: 15px;
           right: 15px;
           transform: rotate(-135deg);
@@ -235,7 +236,7 @@ export default {
     overflow: hidden;
 
     &-active {
-      margin-top: 20px;
+      margin-top: 10px;
       max-height: 500px;
       @media (min-width: 768px) {
         margin-top: 0;

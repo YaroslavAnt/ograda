@@ -2,7 +2,6 @@
 import time from "../../../assets/icons/time.svg";
 import coins from "../../../assets/icons/prices.svg";
 import shield from "../../../assets/icons/garanty.svg";
-import contract from "../../../assets/icons/contract.svg";
 import choise from "../../../assets/icons/choise.svg";
 import recycle from "../../../assets/icons/recycle.svg";
 
@@ -30,6 +29,10 @@ export default {
           "10+ лет опыта производства ограждений. \n500+ обьектов выполненных работ"
       },
       {
+        icon: recycle,
+        heading: "Полный перечень услуг по установке заборов и ворот"
+      },
+      {
         icon: time,
         heading: "Выполнение работ в сжатые сроки"
       },
@@ -41,17 +44,10 @@ export default {
         icon: shield,
         heading: "Высокое качество и гарантия работ"
       },
-      {
-        icon: contract,
-        heading: "Работаем по договору"
-      },
+
       {
         icon: choise,
         heading: "Большой асортимент продукции"
-      },
-      {
-        icon: recycle,
-        heading: "Полный перечень услуг по установке заборов и ворот"
       }
     ]
   }

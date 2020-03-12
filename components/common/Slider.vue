@@ -178,9 +178,11 @@ export default {
     }
     &-btn {
       margin-bottom: 15px;
+      max-width: 67%;
 
       @media (min-width: 768px) {
         font-size: 36px;
+        max-width: unset;
       }
       @media (min-width: 1024px) {
         font-size: 48px;
@@ -188,6 +190,7 @@ export default {
     }
     &-text {
       text-shadow: 1px 1px 2px #333, 0 0 1em #333, 0 0 0.2em #333;
+      white-space: pre-wrap;
     }
 
     .picture {
@@ -227,9 +230,11 @@ export default {
       align-items: center;
       color: var(--dark);
       max-width: 100vw;
+      padding: 16px;
 
-      padding: 30px 16px;
-
+      @media (min-width: 400px) {
+        padding: 30px 16px;
+      }
       @media (min-width: 1200px) {
         padding: 30px 32px;
       }

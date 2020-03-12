@@ -40,10 +40,11 @@
 <script>
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../../static/utils";
+import { DOMAIN } from "../../config";
 export default {
   name: "sitemap.vue",
   data() {
-    return {};
+    return { DOMAIN };
   },
   methods: {
     replaceWithDash

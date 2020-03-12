@@ -44,6 +44,11 @@ export default {
   methods: {
     replaceWithDash
   },
+  head() {
+    return {
+      title: "Ошибка!"
+    };
+  },
   data() {
     return {
       staticLinks: [

@@ -28,8 +28,12 @@
 <script>
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../../static/utils";
+import { DOMAIN } from "../../config";
 export default {
   name: "products",
+  data() {
+    return { DOMAIN };
+  },
   computed: {
     ...mapGetters({
       categories: "categories/getAllCategories"

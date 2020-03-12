@@ -5,7 +5,7 @@
       alt="icon"
       class="card-icon lazyload"
     />
-    <h5 class="card-heading medium-font">{{heading}}</h5>
+    <h3 class="card-heading medium-font">{{heading}}</h3>
     <p
       v-if="text"
       class="card-text small-font"
@@ -34,10 +34,11 @@ export default {
     display: flex;
     align-items: center;
     &-icon {
-      width: 100px;
+      max-width: 70px;
       flex-grow: 0;
       display: block;
       margin-right: 24px;
+      width: 30%;
     }
     &-heading {
       font-weight: 600;

@@ -111,7 +111,7 @@
   }
   .connect {
     position: fixed;
-    right: 30px;
+    right: 15px;
     bottom: 30px;
     z-index: 150;
     cursor: pointer;
@@ -180,6 +180,18 @@ export default {
   },
   methods: {
     name() {}
+  },
+
+  async asyncData() {
+    try {
+      const {
+        data: { data: categories }
+      } = await getAll();
+    } catch (error) {
+      alert("Невозможно загрузить данные");
+    }
+    console.log({ categories });
+    return { categories };
   },
 
   mounted() {
