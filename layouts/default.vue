@@ -182,18 +182,6 @@ export default {
     name() {}
   },
 
-  async asyncData() {
-    try {
-      const {
-        data: { data: categories }
-      } = await getAll();
-    } catch (error) {
-      alert("Невозможно загрузить данные");
-    }
-    console.log({ categories });
-    return { categories };
-  },
-
   mounted() {
     Promise.all([
       getAll().then(res => {
