@@ -27,16 +27,16 @@
           v-if="slide.short_body && slide.short_body !== 'null'"
           :to='slide.short_body'
         >
-          <h3
+          <h2
             v-if="slide.title"
             class="slider-heading app-button huge-font slider-btn "
-          >{{ String((slide.title) ).toUpperCase() }}</h3>
+          >{{ String((slide.title) ).toUpperCase() }}</h2>
         </nuxt-link>
 
-        <h3
+        <h2
           v-else
           class="slider-heading app-button huge-font slider-btn "
-        >{{ String((slide.title) ).toUpperCase() }}</h3>
+        >{{ String((slide.title) ).toUpperCase() }}</h2>
 
         <p
           v-if="slide.body"
