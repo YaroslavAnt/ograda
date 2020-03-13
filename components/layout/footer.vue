@@ -76,9 +76,10 @@
       <address
         class="footer-navitem footer-contacts"
         itemscope
-        itemtype="http://schema.org/LocalBusiness"
+        itemtype="http://schema.org/Organization"
       >
         <div>
+          <span></span>
           <p>{{contact_list.name}}</p>
           <ul
             itemprop="address"
@@ -120,10 +121,7 @@
               alt="fb-icon"
               class="footer-icon"
             /></a>
-          <p
-            itemprop="openingHours"
-            content="Mo-Sa 9:00-18:00"
-          >Пн-Сб, 9:00 - 18:00</p>
+          <p>Пн-Сб, 9:00 - 18:00</p>
         </div>
 
         <!--<div>

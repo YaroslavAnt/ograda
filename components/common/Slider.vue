@@ -34,7 +34,7 @@
         </nuxt-link>
 
         <h2
-          v-else
+          v-if='slide.title'
           class="slider-heading app-button huge-font slider-btn "
         >{{ String((slide.title) ).toUpperCase() }}</h2>
 
