@@ -9,17 +9,26 @@
       :img_alt="card.title"
       :lazy="true"
     />
+    <span
+      itemprop="image"
+      :content='BASE_URL + card.image'
+    ></span>
 
     <div class="card-text">
       <span
         class="card-label base-font"
         itemprop="startDate"
+        :content='card.created_at'
       >
         <icon-base>
           <icon-calendar />
         </icon-base>
         {{date}}
       </span>
+      <span
+        itemprop="location"
+        content='Запорожская обл.'
+      ></span>
       <p
         class="card-name"
         itemprop="name"

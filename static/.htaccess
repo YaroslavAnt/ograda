@@ -1,0 +1,3 @@
+﻿RewriteEngine On
+RewriteCond %{HTTP_HOST} !^ograda.zp.ua$
+RewriteRule ^(.*)$ http://ograda.zp.ua/$1 [R=301,L]
