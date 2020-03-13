@@ -26,7 +26,7 @@ export default {
       },
       // Search Console <meta name="google-site-verification" content="..." />
       {
-        name: "google-site-verification", content='google-site-verification=BdJ_xcoSc2r3G9tAUUS0qVuEj-4ZNA3gYX2lOoL_wUA'
+        name: "google-site-verification", content="=BdJ_xcoSc2r3G9tAUUS0qVuEj-4ZNA3gYX2lOoL_wUA"
       }
     ],
     script: [
