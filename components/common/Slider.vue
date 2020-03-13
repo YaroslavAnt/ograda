@@ -24,7 +24,7 @@
       <div class="slider-content section-padding">
 
         <nuxt-link
-          v-if="slide.short_body && slide.short_body !== 'null'"
+          v-if="slide.short_body && slide.short_body !== 'null' && slide.title"
           :to='slide.short_body'
         >
           <h2
@@ -34,7 +34,7 @@
         </nuxt-link>
 
         <h2
-          v-if='slide.title'
+          v-else
           class="slider-heading app-button huge-font slider-btn "
         >{{ String((slide.title) ).toUpperCase() }}</h2>
 
