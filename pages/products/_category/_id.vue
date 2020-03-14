@@ -27,7 +27,7 @@ export default {
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.productData.name} с ценой и описанием, ${this.productData.category.name}, ${this.productData.subcategory.name}`
+          content: `${this.productData.name} с ценой и описанием, ${this.productData.category.name}, ${this.productData.subcategory.name}, ${this.productData.subcategory.name} фото`
         },
         {
           property: "og:title",

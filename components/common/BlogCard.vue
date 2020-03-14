@@ -28,6 +28,7 @@
       <span
         itemprop="location"
         content='Запорожская обл.'
+        address='Запорожская обл.'
       ></span>
       <p
         class="card-name"
