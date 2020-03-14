@@ -1,7 +1,8 @@
-import { BASE_URL } from "./config";
+import { BASE_URL, DOMAIN } from "./config";
 
 import axios from "axios";
 import { replaceWithDash } from "./static/utils";
+// import appleIcon from "./assets/icons/appletouch.png";
 
 export default {
   mode: "universal",
@@ -38,12 +39,18 @@ export default {
       }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       // {
       //   rel: "stylesheet",
       //   href:
       //     "https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap"
       // }
+
+      //<link rel="apple-touch-icon" size="120x120" href="/apple-touch-icon.png">
+      {
+        rel: "apple-touch-icon",
+        href: "/appletouch.png"
+      }
     ]
   },
   /*
