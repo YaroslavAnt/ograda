@@ -22,10 +22,10 @@ export default {
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       //Open Graph
       {
-        property: "og:site_name ",
+        property: "og:site_name",
         content: "ograda.zp.ua"
       },
-      // Search Console <meta name="google-site-verification" content="..." />
+      // Search Console <meta name="google-site-verification" content="..." /> og:site_name
       {
         name: "google-site-verification",
         content: "BdJ_xcoSc2r3G9tAUUS0qVuEj-4ZNA3gYX2lOoL_wUA"
