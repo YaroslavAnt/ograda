@@ -1,8 +1,5 @@
 ﻿<template>
-  <app-section
-    :heading="'Выставки образцов еврозабора'"
-    class="section"
-  >
+  <app-section class="section">
     <p
       class="base-font"
       style="margin-bottom: 20px"

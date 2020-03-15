@@ -103,7 +103,7 @@ export default {
       categories: [],
       activeCategory: null,
       static_menu_list: [
-        { name: "О нас", path: "/about" },
+        // { name: "О нас", path: "/about" },
         {
           name: "Услуги",
           path: "/services",
@@ -115,7 +115,7 @@ export default {
             { name: "Покраска еврозабора", path: "pokraska" }
           ]
         },
-        { name: "Наши работы", path: "/blog" },
+        // { name: "Наши работы", path: "/blog" },
         { name: "Вопрос-ответ", path: "/faq" },
         { name: "Цены", path: "/prices" },
         { name: "Контакты", path: "/contact" }
