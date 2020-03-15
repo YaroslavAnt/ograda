@@ -26,10 +26,14 @@
         {{date}}
       </span>
       <span
+        itemscope
+        itemtype="http://schema.org/Place"
         itemprop="location"
         content='Запорожская обл.'
-        address='Запорожская обл.'
-      ></span>
+      ><span
+          itemprop="address"
+          content='Запорожская обл.'
+        ></span> </span>
       <p
         class="card-name"
         itemprop="name"
