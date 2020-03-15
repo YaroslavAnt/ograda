@@ -1,17 +1,12 @@
 ﻿<template>
   <main>
     <h1 class="heading with-skewed-bg">{{title}}</h1>
-    <about :content=" about.about" />
-    <advantages :content="about.advantages" />
     <exposition :exhibitions='exhibitions' />
   </main>
 </template>
-
+ 
 <script>
-import aboutVue from "~/components/sections/about/about.vue";
-import advantagesVue from "~/components/sections/about/advantages.vue";
 import expositionVue from "~/components/sections/about/exposition.vue";
-import { about } from "~/static/content_data";
 import { getExhibitions } from "../../api/products";
 import { getVarsByPage } from "../../api/variables";
 import { DOMAIN } from "../../config";
@@ -66,8 +61,6 @@ export default {
     };
   },
   components: {
-    about: aboutVue,
-    advantages: advantagesVue,
     exposition: expositionVue
   },
   mounted() {
@@ -85,10 +78,9 @@ export default {
 
   data() {
     return {
-      about,
       DOMAIN,
       ogImage,
-      title: "О нашей компании",
+      title: "Выставки еврозабора",
       description: "Производство и установка еврозаборов в Запорожье",
       keywords:
         "Выставки еврозаборов, производство бетонного забора, производство тротуарной плитки",

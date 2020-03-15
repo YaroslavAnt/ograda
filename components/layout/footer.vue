@@ -79,7 +79,10 @@
         itemtype="http://schema.org/Organization"
       >
         <div>
-          <span></span>
+          <span
+            itemprop="name"
+            content='Ограда'
+          ></span>
           <p>{{contact_list.name}}</p>
           <ul
             itemprop="address"
@@ -115,6 +118,7 @@
             rel="noreferrer noopener"
             :href='FACEBOOK'
             itemprop="sameAs"
+            content="https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
           >
             <img
               src="../../assets/icons/facebook.svg"
