@@ -1,0 +1,7 @@
+﻿RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+RewriteCond %{HTTP_HOST} ^www\.ograda\.zp\.com$
+RewriteRule ^/?$ "http\:\/\/ograda\.zp\.com\/" [R=301,L]
