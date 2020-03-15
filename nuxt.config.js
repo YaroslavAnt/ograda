@@ -20,15 +20,15 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      //Open Graph
+      // Search Console <meta name="google-site-verification" content="..." /> og:site_name
       {
         property: "og:site_name",
         content: "ograda.zp.ua"
       },
-      // Search Console <meta name="google-site-verification" content="..." /> og:site_name
+      // search console google-site-verification=GfuhtdrpgdSYOTTXhX_YqpKrQnMPw6Eyoz9h02s7lv8
       {
         name: "google-site-verification",
-        content: "BdJ_xcoSc2r3G9tAUUS0qVuEj-4ZNA3gYX2lOoL_wUA"
+        content: "GfuhtdrpgdSYOTTXhX_YqpKrQnMPw6Eyoz9h02s7lv8"
       }
     ],
     script: [
