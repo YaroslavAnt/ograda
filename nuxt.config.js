@@ -113,15 +113,15 @@ export default {
   googleAnalytics: {
     id: "UA-158653896-1",
     dev: false
-  },
-
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: "custom",
-        path: "*",
-        component: resolve(__dirname, "pages/error.vue")
-      });
-    }
   }
+
+  // router: {
+  //   extendRoutes(routes, resolve) {
+  //     routes.push({
+  //       name: "custom",
+  //       path: "*",
+  //       component: resolve(__dirname, "pages/error.vue")
+  //     });
+  //   }
+  // }
 };
