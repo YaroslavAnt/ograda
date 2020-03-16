@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1 class="heading heading-page with-skewed-bg">{{title}}</h1>
+    <h1 class="heading heading-page with-skewed-bg">Еврозаборы в Запорожье</h1>
     <hero />
     <section class="about section-padding">
       <!-- <h2 class="heading heading-section with-skewed-bg">О нас</h2> -->
