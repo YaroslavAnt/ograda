@@ -54,7 +54,7 @@ export default {
       staticLinks: [
         { name: "Главная", path: "/" },
         { name: "Товары", path: "/products" },
-        { name: "О нас", path: "/about" },
+        { name: "Выставки", path: "/expo" },
         {
           name: "Услуги",
           path: "/services",

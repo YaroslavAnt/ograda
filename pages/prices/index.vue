@@ -21,6 +21,7 @@ import { mapGetters } from "vuex";
 import { getVarsByPage } from "../../api/variables";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 import { DOMAIN } from "../../config";
+import { getPrices } from "../../api/products";
 
 export default {
   head() {
@@ -84,10 +85,17 @@ export default {
     this.$store.commit("common/CLOSE_MENU");
     this.$store.dispatch("products/fetchPrices");
   },
-  computed: {
-    ...mapGetters({
-      prices: "products/getPrices"
-    })
+
+  async asyncData() {
+    try {
+      const {
+        data: { data: prices }
+      } = await getPrices();
+      console.log({ prices });
+      return { prices };
+    } catch (error) {
+      () => alert("Невозможно загрузить данные");
+    }
   },
   data() {
     return {
@@ -116,9 +124,9 @@ export default {
 
   .tables {
     display: grid;
+    grid-gap: 24px;
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 24px;
     }
   }
 
