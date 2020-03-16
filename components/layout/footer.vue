@@ -233,7 +233,7 @@ export default {
         {
           name: "Информация",
           links: [
-            { name: "о нас", path: "/about" },
+            { name: "выставки", path: "/expo" },
             { name: "цены", path: "/prices" },
             { name: "новости", path: "/blog" },
             { name: "вопросы", path: "/faq" },
