@@ -237,7 +237,7 @@ export default {
             { name: "цены", path: "/prices" },
             { name: "новости", path: "/blog" },
             { name: "вопросы", path: "/faq" },
-            { name: "карта сайта", path: "/sitemap" }
+            { name: "карта сайта", path: "/karta" }
           ]
         }
       ],

@@ -54,7 +54,7 @@ export default {
       return [
         { name: "Главная", path: "/" },
         { name: "Товары", path: "/products", children: this.dynamicLinks },
-        { name: "О нас", path: "/about" },
+        { name: "Выставки", path: "/expo" },
         {
           name: "Услуги",
           path: "/services",
