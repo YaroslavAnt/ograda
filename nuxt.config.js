@@ -76,7 +76,7 @@ export default {
 
   sitemap: {
     path: "/sitemap.xml",
-    hostname: "http://ograda.zp.ua/",
+    hostname: "https://ograda.zp.ua/",
 
     sitemaps: [
       {
