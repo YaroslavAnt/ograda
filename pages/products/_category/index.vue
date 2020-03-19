@@ -34,13 +34,12 @@
         v-if="productsData.data.length > 0"
         itemscope
         itemtype="http://schema.org/ItemList"
+        itemListElement='ListItem'
       >
         <product-card
           v-for="(product) in productsData.data"
           :key="product.id"
           :product="product"
-          itemprop="position"
-          :content='product.id'
         />
       </div>
     </app-section>
