@@ -39,9 +39,8 @@
           v-for="(product) in productsData.data"
           :key="product.id"
           :product="product"
-          itemprop="itemListElement"
-          itemscope
-          itemtype="http://schema.org/Product"
+          itemprop="position"
+          :content='product.id'
         />
       </div>
     </app-section>
