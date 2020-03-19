@@ -1,10 +1,13 @@
 ﻿<template>
   <article
     class="card"
-    itemprop="itemListElement"
     itemscope
     itemtype="http://schema.org/Product"
   >
+    <meta
+      itemprop="position"
+      :content='product.id'
+    />
 
     <div class="card-img-box">
       <img
