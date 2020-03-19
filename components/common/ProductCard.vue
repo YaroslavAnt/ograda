@@ -1,5 +1,10 @@
 ﻿<template>
-  <article class="card">
+  <article
+    class="card"
+    itemprop="itemListElement"
+    itemscope
+    itemtype="http://schema.org/Product"
+  >
 
     <div class="card-img-box">
       <img
@@ -20,11 +25,6 @@
     ><span itemprop="name">{{product.name}}</span> </nuxt-link>
 
     <span
-      itemprop="position"
-      :content='product.id'
-    > </span>
-
-    <span
       itemprop="description"
       :content='product.description'
     ></span>
@@ -35,10 +35,10 @@
       itemscope
       itemtype="http://schema.org/Offer"
     >
-      <span
+      <link
         itemprop="availability"
-        content='в наличии'
-      ></span>
+        href="http://schema.org/InStock"
+      />
       <span
         v-if="product.option.label"
         class="card-label small-font"
