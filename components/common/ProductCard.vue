@@ -6,8 +6,11 @@
         class="card-image lazyload"
         :data-src="getImageUrl(product)"
         :alt="product.img_alt"
-        itemprop="image"
       >
+      <span
+        itemprop="image"
+        :content='getImageUrl(product)'
+      ></span>
     </div>
 
     <nuxt-link
@@ -16,12 +19,26 @@
       itemprop="url"
     ><span itemprop="name">{{product.name}}</span> </nuxt-link>
 
+    <span
+      itemprop="position"
+      :content='product.id'
+    > </span>
+
+    <span
+      itemprop="description"
+      :content='product.description'
+    ></span>
+
     <div
       class="card-text"
       itemprop="offers"
       itemscope
       itemtype="http://schema.org/Offer"
     >
+      <span
+        itemprop="availability"
+        content='в наличии'
+      ></span>
       <span
         v-if="product.option.label"
         class="card-label small-font"
@@ -34,7 +51,7 @@
         >&#8372; </span>
         <span
           itemprop="price"
-          :content='product.price'
+          :content='getPrice(product.price)'
         >{{product.price}}</span> </p>
     </div>
   </article>
@@ -50,10 +67,8 @@ export default {
       BASE_URL
     };
   },
-  computed: {},
 
   name: "ProductCard.vue",
-  props: ["product"],
   props: {
     product: {
       type: Object,
@@ -74,7 +89,11 @@ export default {
         ? this.BASE_URL + product.img_set[0]
         : "";
     },
-    replaceWithDash: replaceWithDash
+    replaceWithDash: replaceWithDash,
+    getPrice(priceStr) {
+      const [price] = priceStr.match(/\d+/g);
+      return price;
+    }
   },
   components: {
     "app-image": ImageBaseVue
