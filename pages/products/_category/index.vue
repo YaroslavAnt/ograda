@@ -32,9 +32,6 @@
       <div
         class="section-grid"
         v-if="productsData.data.length > 0"
-        itemscope
-        itemtype="http://schema.org/ItemList"
-        itemListElement='ListItem'
       >
         <product-card
           v-for="(product) in productsData.data"
