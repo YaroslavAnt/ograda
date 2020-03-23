@@ -1,9 +1,5 @@
 ﻿<template>
-  <article
-    class="card"
-    itemscope
-    itemtype="http://schema.org/Product"
-  >
+  <article class="card">
 
     <div class="card-img-box">
       <img
@@ -11,47 +7,24 @@
         :data-src="getImageUrl(product)"
         :alt="product.img_alt"
       >
-      <span
-        itemprop="image"
-        :content='getImageUrl(product)'
-      ></span>
+      <span :content='getImageUrl(product)'></span>
     </div>
 
     <nuxt-link
       :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
       class="card-name base-font"
-      itemprop="url"
-    ><span itemprop="name">{{product.name}}</span> </nuxt-link>
+    ><span>{{product.name}}</span> </nuxt-link>
 
-    <span
-      itemprop="description"
-      :content='product.description'
-    ></span>
+    <div class="card-text">
 
-    <div
-      class="card-text"
-      itemprop="offers"
-      itemscope
-      itemtype="http://schema.org/Offer"
-    >
-      <link
-        itemprop="availability"
-        href="http://schema.org/InStock"
-      />
       <span
         v-if="product.option.label"
         class="card-label small-font"
       >{{product.option.label}}</span>
       <p class="card-price medium-font">
         Цена:
-        <span
-          itemprop="priceCurrency"
-          content="UAH"
-        >&#8372; </span>
-        <span
-          itemprop="price"
-          :content='getPrice(product.price)'
-        >{{product.price}}</span> </p>
+        <span>&#8372; </span>
+        <span>{{product.price}}</span> </p>
     </div>
   </article>
 </template>
