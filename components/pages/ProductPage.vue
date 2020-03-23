@@ -80,11 +80,11 @@
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
+              class="small-font crumb"
             >
               <nuxt-link
                 itemprop="item"
                 to='/'
-                class="small-font crumb"
               >&#8962; ГЛАВНАЯ ></nuxt-link>
               <meta
                 itemprop="name"
@@ -99,11 +99,11 @@
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
+              class="small-font crumb"
             >
               <nuxt-link
                 itemprop="item"
                 :to='{path:`/products`}'
-                class="small-font crumb"
               >КАТЕГОРИИ ></nuxt-link>
               <meta
                 itemprop="name"
@@ -118,11 +118,11 @@
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
+              class="small-font crumb"
             >
               <nuxt-link
                 itemprop="item"
                 :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
-                class="small-font crumb"
               >{{product.category.name}} ></nuxt-link>
               <meta
                 itemprop="name"
@@ -136,11 +136,11 @@
             <li
               itemprop="itemListElement"
               itemscope
+              class="small-font crumb"
               itemtype="https://schema.org/ListItem"
             >
               <nuxt-link
                 itemprop="item"
-                class="small-font crumb"
                 :to='{path:`/products/${replaceWithDash(product.category.name) }?subcategory=${replaceWithDash(product.subcategory.name) }`}'
               >
                 {{product.subcategory.name}} </nuxt-link>
@@ -485,6 +485,7 @@ export default {
       margin-bottom: 10px;
       .crumb {
         font-weight: bold;
+        display: inline-block;
       }
     }
     &-description,
