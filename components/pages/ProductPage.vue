@@ -5,6 +5,10 @@
       itemscope
       itemtype="http://schema.org/Product"
     >
+      <link
+        itemprop="availability"
+        href="http://schema.org/InStock"
+      />
       <div class="gridbox">
         <div class="slider-box">
           <div
@@ -168,11 +172,14 @@
             Цена:
             <span
               class="bold"
+              itemprop="priceCurrency"
+              content="UAH"
+            >&#8372;</span>
+            <span
+              class="bold"
               itemprop="price"
-            > <span
-                itemprop="priceCurrency"
-                content="UAH"
-              >&#8372;</span> {{product.price}}</span>
+              :content='getPrice(product.price)'
+            >{{product.price}}</span>
           </p>
           <p
             itemprop="description"
@@ -277,6 +284,10 @@ export default {
           ? 0
           : this.active_img + 1;
       this.active_img = newIdx;
+    },
+    getPrice(priceStr) {
+      const [price] = priceStr.match(/\d+/g);
+      return price;
     }
   },
 
