@@ -5,10 +5,7 @@
       itemscope
       itemtype="http://schema.org/Product"
     >
-      <link
-        itemprop="availability"
-        href="http://schema.org/InStock"
-      />
+
       <div class="gridbox">
         <div class="slider-box">
           <div
@@ -169,6 +166,10 @@
             itemscope
             itemtype="http://schema.org/Offer"
           >
+            <link
+              itemprop="availability"
+              href="http://schema.org/InStock"
+            />
             Цена:
             <span
               class="bold"
