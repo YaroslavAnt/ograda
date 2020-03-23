@@ -70,32 +70,89 @@
         </div>
 
         <div class="info-box">
-          <div
+          <ul
             class="info-box-breadcrumbs"
             itemscope
             itemtype="https://schema.org/BreadcrumbList"
           >
-            <nuxt-link
-              to='/'
-              class="small-font crumb"
-            >&#8962; ГЛАВНАЯ ></nuxt-link>
-
-            <nuxt-link
-              :to='{path:`/products`}'
-              class="small-font crumb"
-            >КАТЕГОРИИ ></nuxt-link>
-
-            <nuxt-link
-              :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
-              class="small-font crumb"
-            >{{product.category.name}} ></nuxt-link>
-
-            <nuxt-link
-              class="small-font crumb"
-              :to='{path:`/products/${replaceWithDash(product.category.name) }?subcategory=${replaceWithDash(product.subcategory.name) }`}'
+            <li
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
             >
-              {{product.subcategory.name}} </nuxt-link>
-          </div>
+              <nuxt-link
+                itemprop="item"
+                to='/'
+                class="small-font crumb"
+              >&#8962; ГЛАВНАЯ ></nuxt-link>
+              <meta
+                itemprop="name"
+                content="ГЛАВНАЯ"
+              />
+              <meta
+                itemprop="position"
+                content="1"
+              />
+            </li>
+            <li
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <nuxt-link
+                itemprop="item"
+                :to='{path:`/products`}'
+                class="small-font crumb"
+              >КАТЕГОРИИ ></nuxt-link>
+              <meta
+                itemprop="name"
+                content="КАТЕГОРИИ"
+              />
+              <meta
+                itemprop="position"
+                content="2"
+              />
+            </li>
+            <li
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <nuxt-link
+                itemprop="item"
+                :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
+                class="small-font crumb"
+              >{{product.category.name}} ></nuxt-link>
+              <meta
+                itemprop="name"
+                :content="product.category.name"
+              />
+              <meta
+                itemprop="position"
+                content="3"
+              />
+            </li>
+            <li
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <nuxt-link
+                itemprop="item"
+                class="small-font crumb"
+                :to='{path:`/products/${replaceWithDash(product.category.name) }?subcategory=${replaceWithDash(product.subcategory.name) }`}'
+              >
+                {{product.subcategory.name}} </nuxt-link>
+              <meta
+                itemprop="name"
+                :content="product.subcategory.name"
+              />
+              <meta
+                itemprop="position"
+                content="4"
+              />
+            </li>
+          </ul>
 
           <h1
             class="info-box-name big-font bold"
