@@ -80,7 +80,7 @@
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
-              class="small-font crumb"
+              class="crumb"
             >
               <nuxt-link
                 itemprop="item"
@@ -99,7 +99,7 @@
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
-              class="small-font crumb"
+              class="crumb"
             >
               <nuxt-link
                 itemprop="item"
@@ -118,7 +118,7 @@
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
-              class="small-font crumb"
+              class="crumb"
             >
               <nuxt-link
                 itemprop="item"
@@ -136,7 +136,7 @@
             <li
               itemprop="itemListElement"
               itemscope
-              class="small-font crumb"
+              class="crumb"
               itemtype="https://schema.org/ListItem"
             >
               <nuxt-link
@@ -485,6 +485,8 @@ export default {
       margin-bottom: 10px;
       .crumb {
         font-weight: bold;
+        font-size: 16px;
+        line-height: 1.5;
         display: inline-block;
       }
     }
