@@ -41,6 +41,18 @@
       </div>
     </app-section>
 
+    <div class="container-paginate">
+      <app-pagination
+        v-if="productsData.last_page > 1"
+        :page-count="productsData.last_page"
+        v-model="page"
+        :prev-text="'<'"
+        :next-text="'>'"
+        :container-class="'pagination'"
+        :prev-link-class="'prev-link'"
+        :next-link-class="'next-link'"
+      ></app-pagination>
+    </div>
     <p
       class="base-font section-description"
       v-html="categoryObj.description"
@@ -68,18 +80,6 @@
 
     </div>
 
-    <div class="container-paginate">
-      <app-pagination
-        v-if="productsData.last_page > 1"
-        :page-count="productsData.last_page"
-        v-model="page"
-        :prev-text="'<'"
-        :next-text="'>'"
-        :container-class="'pagination'"
-        :prev-link-class="'prev-link'"
-        :next-link-class="'next-link'"
-      ></app-pagination>
-    </div>
   </main>
 </template>
  

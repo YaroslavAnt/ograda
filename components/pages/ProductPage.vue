@@ -287,7 +287,7 @@ export default {
       this.active_img = newIdx;
     },
     getPrice(priceStr) {
-      const [price] = priceStr.match(/\d+/g);
+      const [price] = priceStr.match(/\d+/g) || ["0"];
       return price;
     }
   },

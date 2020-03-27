@@ -1,7 +1,14 @@
 ﻿<template>
   <main>
     <h1 class="heading with-skewed-bg">{{title}}</h1>
-    <exposition :exhibitions='exhibitions' />
+    <p class="base-font section-padding">Для возможности убедиться в качестве нашей продукции "вживую" есть <b>натурные выставки еврозаборов:</b></p>
+    <div
+      :class="{'exposition-item': expo_idx !==0}"
+      v-for="(expo, expo_idx) in exhibitions"
+      :key="expo_idx"
+    >
+      <exposition :expo='expo' />
+    </div>
   </main>
 </template>
  
@@ -65,15 +72,19 @@ export default {
   },
   mounted() {
     this.$store.commit("common/CLOSE_MENU");
-    getExhibitions()
-      .then(({ data }) => {
-        this.exhibitions = data.data.data;
-      })
-      .catch(() => alert("Невозножно загрузить данные"));
-    // getVarsByPage(this.$route.path).then(({ data }) => {
-    //   console.log({ data });
-    //   this.fetchedVars = data.data.variable;
-    // });
+  },
+
+  async asyncData() {
+    try {
+      const {
+        data: {
+          data: { data: exhibitions }
+        }
+      } = await getExhibitions();
+      return { exhibitions };
+    } catch (error) {
+      () => alert("Невозможно загрузить данные");
+    }
   },
 
   data() {
@@ -104,7 +115,7 @@ export default {
     display: inline-block;
     text-align: center;
     color: #fff;
-    margin: 20px 16px -30px;
+    margin: 20px 16px -20px;
     padding: 12px 24px;
     z-index: 5;
     display: flex;

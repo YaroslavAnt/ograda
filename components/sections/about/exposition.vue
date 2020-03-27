@@ -1,49 +1,40 @@
 ﻿<template>
   <app-section class="section">
-    <p
-      class="base-font"
-      style="margin-bottom: 20px"
-    >Для возможности убедиться в качестве нашей продукции "вживую" есть <b>натурные выставки еврозаборов:</b></p>
-    <div
-      :class="{'exposition-item': expo_idx !==0}"
-      v-for="(exposition, expo_idx) in [...exhibitions]"
-      :key="expo_idx"
-    >
-      <div class="flexbox">
-        <div class="slider-box">
-          <app-image
-            :img_src="BASE_URL + exposition.img_set[active_imgs[expo_idx]]"
-            :img_alt="exposition.name"
-            :lazy="false"
-            :ratio="80"
-            class="slider-box-image"
-          />
 
+    <div class="flexbox">
+      <div class="slider-box">
+        <app-image
+          :img_src="BASE_URL + expo.img_set[active_img]"
+          :img_alt="expo.name"
+          :lazy="false"
+          :ratio="80"
+          class="slider-box-image"
+        />
+
+        <div
+          class="preview"
+          v-if="expo.img_set.length > 1"
+        >
           <div
-            class="preview"
-            v-if="exposition.img_set.length > 1"
+            class="preview-item"
+            :class="{'preview-item-active': active_img===idx}"
+            v-for="(img, idx) in expo.img_set"
+            :key="idx"
+            @click="setActiveImg(idx)"
           >
-            <div
-              class="preview-item"
-              :class="{'preview-item-active': active_imgs[expo_idx]===idx}"
-              v-for="(img, idx) in exposition.img_set"
-              :key="idx"
-              @click="setActiveImg(expo_idx, idx)"
-            >
-              <app-image
-                :img_src="BASE_URL + (img||'')"
-                :img_alt="exposition.name"
-                :lazy="true"
-                :ratio="100"
-              />
-            </div>
+            <app-image
+              :img_src="BASE_URL + (img||'')"
+              :img_alt="expo.name"
+              :lazy="true"
+              :ratio="100"
+            />
           </div>
         </div>
+      </div>
 
-        <div class="info-box">
-          <h2 class="info-box-name big-font">{{exposition.name}}</h2>
-          <p class="info-box-place base-font">{{exposition.description}}</p>
-        </div>
+      <div class="info-box">
+        <h2 class="info-box-name big-font">{{expo.name}}</h2>
+        <p class="info-box-place base-font">{{expo.description}}</p>
       </div>
     </div>
   </app-section>
@@ -61,22 +52,20 @@ export default {
     "app-image": ImageBase
   },
   methods: {
-    setActiveImg(expo_idx, idx) {
-      let newArr = this.active_imgs.slice();
-      newArr.splice(expo_idx, 1, idx);
-      this.active_imgs = newArr;
+    setActiveImg(idx) {
+      this.active_img = idx;
     }
   },
   props: {
-    exhibitions: {
-      type: Array,
-      default: []
+    expo: {
+      type: Object,
+      default: {}
     }
   },
 
   data() {
     return {
-      active_imgs: [0, 0, 0],
+      active_img: 0,
       BASE_URL
     };
   }
