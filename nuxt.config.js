@@ -81,19 +81,17 @@ export default {
     sitemaps: [
       {
         path: "/sitemap-products.xml",
-        gzip: true,
         routes: async () => {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
           let dynRoutes = [];
-          data.data.forEach(priceObj =>
-            priceObj.products.forEach(product =>
+          data.data.forEach(priceObj => {
+            dynRoutes.push(replaceWithDash(`products/${priceObj.name}`));
+            return priceObj.products.forEach(product =>
               dynRoutes.push(
-                `products/${replaceWithDash(priceObj.name)}/${replaceWithDash(
-                  product.name
-                )}`
+                replaceWithDash(`products/${priceObj.name}/${product.name}`)
               )
-            )
-          );
+            );
+          });
 
           return dynRoutes;
         }
