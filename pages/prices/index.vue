@@ -26,7 +26,7 @@ import { getPrices } from "../../api/products";
 export default {
   head() {
     return {
-      title: this.title,
+      title: "$ " + this.title,
       meta: [
         {
           hid: "description",

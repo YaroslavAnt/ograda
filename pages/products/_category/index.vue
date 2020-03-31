@@ -201,12 +201,12 @@ export default {
       }
     },
     title() {
-      return `${this.replaceWithSpace(this.category).toUpperCase()} `;
+      return `✔ ${this.replaceWithSpace(this.category).toUpperCase()} `;
     },
     description() {
       return `${this.replaceWithSpace(
         this.category
-      ).toUpperCase()} от производителя в Запорожье с ценами, описанием и фотографиями. Большой ассортимент.`;
+      ).toUpperCase()} в Запорожье с ценами от производителя, описанием и фотографиями. Большой ассортимент.`;
     },
     heading() {
       return this.categoryObj.name;

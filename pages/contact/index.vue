@@ -167,7 +167,7 @@ export default {
       email: EMAIL,
       location: LOCATION,
       formData: { name: "", email: "", phone: "", message: "" },
-      title: "Контакты для заказа еврозаборов",
+      title: "☎ Контакты для заказа еврозаборов",
       description: "Наши контакты",
       keywords:
         "купить бетонный забор, еврозабор в запорожье цена, тротуарная плитка в запорожье цена, ворота и калитки",
