@@ -2,16 +2,16 @@
   <main>
     <h1 class="heading with-skewed-bg">{{title}}</h1>
     <p class="base-font section-padding">Для возможности убедиться в качестве нашей продукции "вживую" есть <b>натурные выставки еврозаборов:</b></p>
-    <div
-      :class="{'exposition-item': expo_idx !==0}"
+
+    <exposition
       v-for="(expo, expo_idx) in exhibitions"
+      :expo='expo'
       :key="expo_idx"
-    >
-      <exposition :expo='expo' />
-    </div>
+      :class="{'with-bordertop': expo_idx!==0}"
+    />
   </main>
 </template>
- 
+  
 <script>
 import expositionVue from "~/components/sections/about/exposition.vue";
 import { getExhibitions } from "../../api/products";
@@ -128,5 +128,9 @@ export default {
       font-size: 28px;
       line-height: 1;
     }
+  }
+
+  .with-bordertop {
+    border-top: 1px solid var(--green);
   }
 </style>

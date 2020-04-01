@@ -56,22 +56,23 @@
 
   li {
     display: inline;
-    a {
-      border-radius: 4px;
-      margin: 0 2px;
-      position: relative;
-      // float: left;
-      padding: 6px 12px;
-      line-height: 32px;
-      // color: #337ab7;
-      text-decoration: none;
-      // background-color: #fff;
-    }
+  }
+  &-btn {
+    border-radius: 4px;
+    margin: 0 2px;
+    position: relative;
+    padding: 6px 12px;
+    line-height: 32px;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #eee;
   }
 
   .prev-link,
   .next-link {
     border: 1px solid #1a294a;
+    box-sizing: border-box;
+    margin: 0 16px;
   }
 
   .disabled {

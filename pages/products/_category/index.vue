@@ -12,16 +12,16 @@
           v-if="subcategories.length>1"
         >
 
-          <router-link
+          <div
             v-for="(tab,idx) in subcategories"
             :key="idx"
-            :to="{ path: `/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`}"
+            v-on:click="$router.push(`/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`)"
           >
             <span
               class="switch-tab"
               :class="{'switch-tab-active': $route.query.subcategory===replaceWithDash(tab.name)}"
             >{{(tab.name) }}</span>
-          </router-link>
+          </div>
         </div>
       </div>
       <p
@@ -41,9 +41,12 @@
       </div>
     </app-section>
 
-    <div class="container-paginate">
-      <app-pagination
-        v-if="productsData.last_page > 1"
+    <div
+      class="container-paginate"
+      v-if="productsData.last_page > 1"
+    >
+      <!-- <app-pagination
+        
         :page-count="productsData.last_page"
         v-model="page"
         :prev-text="'<'"
@@ -51,8 +54,38 @@
         :container-class="'pagination'"
         :prev-link-class="'prev-link'"
         :next-link-class="'next-link'"
-      ></app-pagination>
+      ></app-pagination> -->
+      <ul class="pagination">
+        <li class="disabled">
+          <span
+            tabindex="-1"
+            class="prev-link pagination-btn"
+            @click="changePage('<')"
+          >&lt;</span>
+        </li>
+
+        <li
+          v-for="page in (productsData.last_page)"
+          :key='page'
+          :class="{active: +$route.query.page===+page}"
+        >
+          <nuxt-link
+            tabindex="0"
+            class="pagination-btn"
+            :to="`/products/${replaceWithDash(category)}?page=${(page)}`"
+          >{{page}}</nuxt-link>
+        </li>
+
+        <li class="disabled">
+          <span
+            tabindex="0"
+            class="next-link pagination-btn"
+            @click="changePage('>')"
+          >&gt;</span>
+        </li>
+      </ul>
     </div>
+
     <p
       class="base-font section-description"
       v-html="categoryObj.description"
@@ -174,7 +207,10 @@ export default {
     $route(from, to) {
       return this.$route.query.subcategory
         ? this.fetchProductsBySubcategory(this.subcategoryObj.id)
-        : this.getProductsByCategory();
+        : this.getProductsByCategory(
+            this.categoryObj.id,
+            this.$route.query.page
+          );
     }
   },
 
@@ -201,12 +237,14 @@ export default {
       }
     },
     title() {
-      return `✔ ${this.replaceWithSpace(this.category).toUpperCase()} `;
+      return `✔ ${this.replaceWithSpace(
+        this.category
+      ).toUpperCase()} в Запорожье`;
     },
     description() {
       return `${this.replaceWithSpace(
         this.category
-      ).toUpperCase()} в Запорожье с ценами от производителя, описанием и фотографиями. Большой ассортимент.`;
+      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка`;
     },
     heading() {
       return this.categoryObj.name;
@@ -221,14 +259,12 @@ export default {
         })
         .catch(() => alert("Невозможно загрузить данные"));
     },
-
     fetchProductsBySubcategory() {
       const subcategoryObj = this.subcategories.find(
         subcategory =>
           replaceWithDash(subcategory.name) === this.$route.query.subcategory
       );
       this.subcategoryObj = subcategoryObj;
-
       getProductBySubcategory(subcategoryObj.id)
         .then((res = {}) => {
           this.productsData = res.data.data;
@@ -241,6 +277,15 @@ export default {
           this.productsData = res.data.data;
         })
         .catch(() => alert("Невозможно загрузить данные"));
+    },
+    changePage(direction) {
+      const page = this.$route.query.page || 1;
+      if (direction === ">" && page < this.productsData.last_page) {
+        this.$router.push(this.$route.path + "?page=" + (+page + 1));
+      }
+      if (direction === "<" && page > 1) {
+        this.$router.push(this.$route.path + "?page=" + (page - 1));
+      }
     },
     replaceWithSpace,
     replaceWithDash
