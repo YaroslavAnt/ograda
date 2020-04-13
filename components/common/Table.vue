@@ -20,7 +20,12 @@
           class="table-cell table-cell-name"
           itemprop="name"
         >
-          <nuxt-link :to='`products/${replaceWithDash(category)}/${replaceWithDash(item.name) }`'>{{item.name}}</nuxt-link>
+
+          <nuxt-link
+            v-if="withLinks"
+            :to='`products/${replaceWithDash(category)}/${replaceWithDash(item.name) }`'
+          >{{item.name}}</nuxt-link>
+          <span v-else>{{item.name}}</span>
         </td>
         <td
           class="table-cell table-cell-price"
@@ -51,6 +56,10 @@ export default {
     category: {
       type: String,
       default: ""
+    },
+    withLinks: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

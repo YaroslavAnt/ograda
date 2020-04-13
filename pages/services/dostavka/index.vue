@@ -15,7 +15,6 @@
 <script>
 import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
-import { getVarsByPage } from "~/api/variables";
 import delivery from "~/assets/img/services/delivery.png";
 import { DOMAIN } from "../../../config";
 
