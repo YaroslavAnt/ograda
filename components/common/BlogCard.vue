@@ -1,54 +1,40 @@
 ﻿<template>
-  <article
-    class="card"
-    itemscope
-    itemtype="http://schema.org/Event"
-  >
+  <article class="card">
     <app-image
       :img_src="BASE_URL + card.image"
       :img_alt="card.title"
       :lazy="true"
     />
-    <span
-      itemprop="image"
-      :content='BASE_URL + card.image'
-    ></span>
 
     <div class="card-text">
-      <span
-        class="card-label base-font"
-        itemprop="startDate"
-        :content='card.created_at'
-      >
+      <span class="card-label base-font">
         <icon-base>
           <icon-calendar />
         </icon-base>
-        {{date}}
+        <time :datetime="dateTime">{{date}}</time>
       </span>
-      <span
-        itemscope
-        itemtype="http://schema.org/Place"
-        itemprop="location"
-        content='Запорожская обл.'
-      ><span
-          itemprop="address"
-          content='Запорожская обл.'
-        ></span> </span>
-      <p
+
+      <h4
         class="card-name"
-        itemprop="name"
         :class="{'base-font': !isWhole, 'medium-font': isWhole}"
-      >{{card.title}}</p>
-      <p
+      >
+        <nuxt-link :to='`/blog/${card.id}`'>
+          {{card.title}}
+        </nuxt-link>
+      </h4>
+
+      <span
+        class="small-font red card-link"
+        @click="$router.push(`/blog/${card.id}`)"
+      >&rarr; Подробнее...</span>
+      <!-- <p
         v-if="!isWhole"
-        itemprop="description"
         class="card-price small-font"
       >{{card.short_body}}</p>
       <p
         v-if="isWhole"
-        itemprop="description"
         class="card-price base-font"
-      >{{card.body}}</p>
+      >{{card.body}}</p> -->
     </div>
   </article>
 </template>
@@ -73,6 +59,10 @@ export default {
         .split("-")
         .reverse()
         .join(".");
+    },
+    dateTime() {
+      const [dashedDate] = this.card.created_at.split(" ");
+      return dashedDate;
     }
   },
   props: {
@@ -98,16 +88,31 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.25);
     overflow: hidden;
+    transition-duration: 0.3s;
+    display: flex;
+    flex-direction: column;
+    &:hover {
+      box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
+      transform: translateY(-4px);
+    }
 
     &-text {
       padding: 40px 16px 20px;
       background-color: #eee;
       position: relative;
       height: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
     }
 
     &-name {
-      margin-bottom: 24px;
+      flex: 1;
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        color: var(--red);
+      }
     }
 
     &-label {
@@ -121,6 +126,13 @@ export default {
       transform: translateY(-50%);
       padding: 10px;
       border-radius: 4px;
+    }
+
+    &-link {
+      cursor: pointer;
+      margin-top: 12px;
+      display: block;
+      font-weight: bold;
     }
   }
 </style>

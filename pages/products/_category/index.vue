@@ -271,13 +271,7 @@ export default {
         })
         .catch(() => alert("Невозможно загрузить данные"));
     },
-    fetchProductsByPage(page) {
-      getProductsByPage(page)
-        .then((res = {}) => {
-          this.productsData = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"));
-    },
+
     changePage(direction) {
       const page = this.$route.query.page || 1;
       if (direction === ">" && page < this.productsData.last_page) {

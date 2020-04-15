@@ -4,6 +4,9 @@ const END_POINT = "/posts";
 
 const getAllPosts = () => httpClient.get(END_POINT);
 
-const getPostsByPage = page => httpClient.get(`${END_POINT}?page=${page}`);
+const getPost = id => httpClient.get(`${END_POINT}/${id}`);
 
-export { getAllPosts, getPostsByPage };
+const getPostsByPage = (page = 1) =>
+  httpClient.get(`${END_POINT}?page=${page}`);
+
+export { getAllPosts, getPostsByPage, getPost };

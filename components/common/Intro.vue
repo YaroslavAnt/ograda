@@ -3,17 +3,6 @@
     class="box"
     :class="{reversed: reversed}"
   >
-    <!-- <div
-      class="box-img"
-      :class="{'with-border': withBorder}"
-    >
-      <app-image
-        :img_src="img_src"
-        :img_alt="img_alt"
-        :lazy="true"
-        :ratio="100"
-      />
-    </div> -->
 
     <div class="slider-box">
       <div
@@ -299,27 +288,6 @@ export default {
       width: unset;
       height: 100%;
       transform: translateX(-50%);
-    }
-  }
-
-  .box-img {
-    box-shadow: 0px 10px 18px rgba(130, 151, 196, 0.85);
-    margin-bottom: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 4px;
-    overflow: hidden;
-    width: 100%;
-    flex-shrink: 0;
-    flex-grow: 0;
-
-    @media (min-width: 768px) {
-      width: 40%;
-    }
-
-    &.with-border {
-      border: 4px solid #fff;
     }
   }
 

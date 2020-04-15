@@ -10,28 +10,45 @@
       class="section"
       v-if="posts.data.length > 0"
     >
-      <div class="grid">
-        <blog-card
-          :isWhole='true'
-          class="article"
-          v-for="(card) in posts.data"
-          :key="card.id"
-          :card="card"
-        />
-      </div>
+      <blog-card
+        :isWhole='false'
+        v-for="(card) in posts.data"
+        :key="card.id"
+        :card="card"
+      />
     </section>
 
     <div class="container-paginate">
-      <app-pagination
-        v-if="posts.last_page > 1"
-        :page-count="posts.last_page"
-        v-model="page"
-        :prev-text="'<'"
-        :next-text="'>'"
-        :container-class="'pagination'"
-        :prev-link-class="'prev-link'"
-        :next-link-class="'next-link'"
-      ></app-pagination>
+
+      <ul class="pagination">
+        <li class="disabled">
+          <span
+            tabindex="-1"
+            class="prev-link pagination-btn"
+            @click="changePage('<')"
+          >&lt;</span>
+        </li>
+
+        <li
+          v-for="page in (posts.last_page)"
+          :key='page'
+          :class="{active: +currentPage===+page}"
+        >
+          <nuxt-link
+            tabindex="0"
+            class="pagination-btn"
+            :to="`/blog?page=${(page)}`"
+          >{{page}}</nuxt-link>
+        </li>
+
+        <li class="disabled">
+          <span
+            tabindex="0"
+            class="next-link pagination-btn"
+            @click="changePage('>')"
+          >&gt;</span>
+        </li>
+      </ul>
     </div>
   </main>
 </template>
@@ -110,6 +127,18 @@ export default {
     "blog-card": BlogCardVue,
     "app-pagination": Paginate
   },
+  watch: {
+    async $route(from, to) {
+      try {
+        const {
+          data: { data: posts }
+        } = await getPostsByPage(this.$route.query.page);
+        this.posts = posts;
+      } catch (error) {
+        () => alert("Невозможно загрузить данные");
+      }
+    }
+  },
   data() {
     return {
       section_heading: "Наши работы",
@@ -118,46 +147,43 @@ export default {
         "Работы по установке ограждений (еврозаборов, заборов из профнастила и сетки-рабицы), а также ворот и калиток. ",
       keywords:
         "еврозабор фото, ворота фото, калитки фото, установка ограждений, монтаж забора из плит",
-      fetchedVars: "{}",
       ogImage,
-      DOMAIN
+      DOMAIN,
+      posts: {
+        last_page: "",
+        current_page: "",
+        data: []
+      }
+      // currentPage: this.$route.query.page || 1
     };
   },
-  mounted() {
-    this.$store.commit("common/CLOSE_MENU");
-    this.$store.commit("common/RUN_SPINNER");
 
-    getAllPosts()
-      .then(({ data }) => {
-        this.$store.commit("posts/SET_POSTS", data.data);
-      })
-      .catch(() => alert("Невозможно загрузить данные"))
-      .finally(() => this.$store.commit("common/STOP_SPINNER"));
-  },
-  computed: {
-    ...mapGetters({
-      posts: "posts/getPosts"
-    }),
-    page: {
-      get() {
-        return Number(this.posts.current_page) || this.default_page;
-      },
-      set(page) {
-        if (this.page === page) return;
-        this.getPosts(page);
-        scrolledContent.scrollTo(0, 0);
-      }
+  async asyncData() {
+    try {
+      const {
+        data: { data: posts }
+      } = await getAllPosts();
+      return { posts };
+    } catch (error) {
+      () => alert("Невозможно загрузить данные");
     }
   },
+
+  computed: {
+    currentPage() {
+      return this.$route.query.page || 1;
+    }
+  },
+
   methods: {
-    getPosts(page) {
-      this.$store.commit("common/RUN_SPINNER");
-      getPostsByPage(page)
-        .then(({ data }) => {
-          this.$store.commit("posts/SET_POSTS", data.data);
-        })
-        .catch(() => alert("Невозножно загрузить данные"))
-        .finally(() => this.$store.commit("common/STOP_SPINNER"));
+    changePage(direction) {
+      const page = this.$route.query.page || 1;
+      if (direction === ">" && page < this.posts.last_page) {
+        this.$router.push(this.$route.path + "?page=" + (+page + 1));
+      }
+      if (direction === "<" && page > 1) {
+        this.$router.push(this.$route.path + "?page=" + (page - 1));
+      }
     }
   }
 };
@@ -197,13 +223,13 @@ export default {
   }
   .section {
     background-color: #fff;
-  }
-  .grid {
     display: grid;
     grid-gap: 24px;
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+  .grid {
   }
   .article {
     background-color: #f2f1ef;
