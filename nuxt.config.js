@@ -72,7 +72,11 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/google-analytics", "@nuxtjs/sitemap"],
+  modules: [
+    "@nuxtjs/google-analytics",
+    "@nuxtjs/sitemap",
+    "vue-social-sharing/nuxt"
+  ],
 
   sitemap: {
     path: "/sitemap.xml",

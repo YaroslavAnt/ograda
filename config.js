@@ -12,3 +12,12 @@ export const INSTAGRAM = "https://www.instagram.com/ograda_zp/";
 export const TWITTER = "https://twitter.com/OgradaZ?s=09";
 export const YOUTUBE =
   "https://www.youtube.com/channel/UC-hAZEqOv5yPYMQK26--PDQ";
+
+export const SOCIAL_SHARE = [
+  { network: "facebook", name: "Facebook", color: "#4267b2" },
+  { network: "twitter", name: "Twitter", color: "rgb(29, 161, 242)" },
+  { network: "vk", name: "ВКонтакте", color: "#4c75a3" },
+  { network: "odnoklassniki", name: "Одноклассники", color: "#ee8208" },
+  { network: "viber", name: "Viber", color: "#8e24aa" },
+  { network: "telegram", name: "Telegram", color: "#039be5" }
+];

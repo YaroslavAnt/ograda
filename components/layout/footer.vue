@@ -2,25 +2,26 @@
   <footer class="footer  base-font">
     <div class="share footer-padding">
       Поделиться:
-      <social-sharing
-        :url="currentURL"
-        inline-template
-      >
-        <div>
-          <network network="facebook">
-            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #4267b2; color: #fff; padding: 10px; border-radius: 4px">Facebook</span>
-          </network>
-          <network network="twitter">
-            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: rgb(29, 161, 242); color: #fff; padding: 10px; border-radius: 4px">Twitter</span>
-          </network>
-          <network network="vk">
-            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #4c75a3; color: #fff; padding: 10px; border-radius: 4px">ВКонтакте</span>
-          </network>
-          <network network="odnoklassniki">
-            <span style="margin-top: 5px; font-weight: bold; cursor: pointer; display: inline-block; background-color: #ee8208; color: #fff; padding: 10px; border-radius: 4px">Одноклассники</span>
-          </network>
-        </div>
-      </social-sharing>
+
+      <div style="text-align: center">
+        <ShareNetwork
+          v-for="network in SOCIAL_SHARE"
+          :network="network.network"
+          :key="network.name"
+          :style="{
+          backgroundColor: network.color
+        }"
+          :url="currentURL"
+          class="footer-share-link"
+        >
+          <!-- :title="sharing.title"
+        :description="sharing.description"
+        :quote="sharing.quote"
+        :hashtags="sharing.hashtags"
+        :twitterUser="sharing.twitterUser" -->
+          {{network.name}}
+        </ShareNetwork>
+      </div>
     </div>
 
     <div class="footer-with-bg footer-padding container">
@@ -237,6 +238,16 @@
   &-icon {
     width: 36px;
   }
+
+  &-share-link {
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+  }
 }
 </style>
 
@@ -251,15 +262,16 @@ import {
   FACEBOOK,
   INSTAGRAM,
   YOUTUBE,
-  TWITTER
+  TWITTER,
+  SOCIAL_SHARE
 } from "../../config";
 import { replaceWithDash } from "../../static/utils";
-import SocialSharing from "vue-social-sharing";
+// import SocialSharing from "vue-social-sharing";
 export default {
   name: "footer.vue",
   components: {
-    arrow: ArrowVue,
-    "social-sharing": SocialSharing
+    arrow: ArrowVue
+    // "social-sharing": SocialSharing
   },
   methods: {
     replaceWithDash
@@ -286,6 +298,7 @@ export default {
       INSTAGRAM,
       YOUTUBE,
       TWITTER,
+      SOCIAL_SHARE,
       menu_list: [
         {
           name: "Информация",
