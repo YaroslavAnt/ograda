@@ -11,7 +11,10 @@
         :card="post"
       />
     </div>
-    <nuxt-link to='/blog'>
+    <nuxt-link
+      title="Смотреть больше новостей"
+      to='/blog'
+    >
       <span class="section-link base-font">&rarr; Смотреть больше новостей </span>
     </nuxt-link>
   </app-secion>
@@ -38,23 +41,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .section {
-    background-color: #fff;
+.section {
+  background-color: #fff;
 
-    .news-grid {
-      display: grid;
-      margin-bottom: 40px;
+  .news-grid {
+    display: grid;
+    margin-bottom: 40px;
 
-      grid-gap: 24px;
-      @media (min-width: 768px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    &-link {
-      cursor: pointer;
-      color: var(--red);
+    grid-gap: 24px;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  &-link {
+    cursor: pointer;
+    color: var(--red);
+  }
+}
 </style>
 

@@ -24,6 +24,7 @@
           <nuxt-link
             v-if="withLinks"
             :to='`products/${replaceWithDash(category)}/${replaceWithDash(item.name) }`'
+            title='На страницу товара'
           >{{item.name}}</nuxt-link>
           <span v-else>{{item.name}}</span>
         </td>
@@ -69,37 +70,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .table {
-    border-collapse: collapse;
-    width: 100%;
+.table {
+  border-collapse: collapse;
+  width: 100%;
 
-    &-head {
-      color: var(--red);
-      font-weight: bold;
-    }
-    &-row {
-      &:nth-child(2n + 1) {
-        background-color: var(--white);
-      }
-    }
-
-    &-cell {
-      vertical-align: middle;
-      border: 1px solid #aaa;
-      padding: 12px;
-      &-name {
-        &:hover {
-          color: var(--red);
-        }
-      }
-
-      &-price {
-        width: 30%;
-      }
-
-      &-image {
-        width: 50%;
-      }
+  &-head {
+    color: var(--red);
+    font-weight: bold;
+  }
+  &-row {
+    &:nth-child(2n + 1) {
+      background-color: var(--white);
     }
   }
+
+  &-cell {
+    vertical-align: middle;
+    border: 1px solid #aaa;
+    padding: 12px;
+    &-name {
+      &:hover {
+        color: var(--red);
+      }
+    }
+
+    &-price {
+      width: 30%;
+    }
+
+    &-image {
+      width: 50%;
+    }
+  }
+}
 </style>

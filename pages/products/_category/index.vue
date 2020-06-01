@@ -72,6 +72,7 @@
           <nuxt-link
             tabindex="0"
             class="pagination-btn"
+            title="листать"
             :to="`/products/${replaceWithDash(category)}?page=${(page)}`"
           >{{page}}</nuxt-link>
         </li>
@@ -339,69 +340,69 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  main {
-    flex: 1;
-    background-color: #fff;
+main {
+  flex: 1;
+  background-color: #fff;
+}
+h1 {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 1;
+  display: block;
+  text-align: center;
+  color: #fff;
+  margin: 20px 16px 0;
+  padding: 12px 24px;
+  position: relative;
+  z-index: 5;
+  text-transform: uppercase;
+
+  &::before {
+    background-color: var(--green);
   }
-  h1 {
-    font-weight: bold;
-    font-size: 22px;
+
+  @media (min-width: 600px) {
+    font-size: 28px;
     line-height: 1;
-    display: block;
+    margin: 40px 16px 0;
+  }
+}
+.section {
+  background-color: #fff;
+  margin: -30px 0;
+
+  &-placeholder {
+    animation: fade_out 3s;
+  }
+
+  &-switchbox {
     text-align: center;
-    color: #fff;
-    margin: 20px 16px 0;
-    padding: 12px 24px;
-    position: relative;
-    z-index: 5;
-    text-transform: uppercase;
+  }
 
-    &::before {
-      background-color: var(--green);
-    }
+  &-grid {
+    display: grid;
+    grid-gap: 24px;
 
-    @media (min-width: 600px) {
-      font-size: 28px;
-      line-height: 1;
-      margin: 40px 16px 0;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
-  .section {
-    background-color: #fff;
-    margin: -30px 0;
 
-    &-placeholder {
-      animation: fade_out 3s;
-    }
+  &-description {
+    white-space: pre-wrap;
+    padding: 16px 16px 30px;
 
-    &-switchbox {
-      text-align: center;
-    }
-
-    &-grid {
-      display: grid;
-      grid-gap: 24px;
-
-      @media (min-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    &-description {
-      white-space: pre-wrap;
-      padding: 16px 16px 30px;
-
-      @media (min-width: 1200px) {
-        padding: 20px 32px 30px;
-      }
+    @media (min-width: 1200px) {
+      padding: 20px 32px 30px;
     }
   }
-  .subheading {
-    color: var(--red);
-    font-weight: bold;
-    padding: 0 16px;
-    @media (min-width: 1024px) {
-      padding: 0 32px;
-    }
+}
+.subheading {
+  color: var(--red);
+  font-weight: bold;
+  padding: 0 16px;
+  @media (min-width: 1024px) {
+    padding: 0 32px;
   }
+}
 </style>

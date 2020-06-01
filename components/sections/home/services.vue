@@ -9,7 +9,10 @@
         v-for="(card,idx) in card_list"
         :key="idx"
       >
-        <nuxt-link :to="{path: card.link}">
+        <nuxt-link
+          :title="card.heading"
+          :to="{path: card.link}"
+        >
           <icon-card
             :icon_src="card.icon"
             :heading="card.heading"
@@ -80,30 +83,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  section {
-    background-color: var(--dark);
-    color: var(--white);
+section {
+  background-color: var(--dark);
+  color: var(--white);
 
-    .card-grid {
-      display: grid;
-      margin: 0 auto 40px;
-      grid-gap: 12px;
+  .card-grid {
+    display: grid;
+    margin: 0 auto 40px;
+    grid-gap: 12px;
 
-      @media (min-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 24px;
-      }
-    }
-
-    .card-item {
-      background: var(--white);
-      color: var(--dark);
-      padding: 5%;
-      border-radius: 4px;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 24px;
     }
   }
-  .section-link {
-    color: var(--orange);
-    cursor: pointer;
+
+  .card-item {
+    background: var(--white);
+    color: var(--dark);
+    padding: 5%;
+    border-radius: 4px;
   }
+}
+.section-link {
+  color: var(--orange);
+  cursor: pointer;
+}
 </style>

@@ -44,7 +44,10 @@
                   :size="'10px'"
                   :direction="'right'"
                 />
-                <nuxt-link :to='`/products/${replaceWithDash(link.name) }`'>{{link.name}}</nuxt-link>
+                <nuxt-link
+                  title="страница товара"
+                  :to='`/products/${replaceWithDash(link.name) }`'
+                >{{link.name}}</nuxt-link>
               </li>
             </ul>
           </li>
@@ -67,7 +70,10 @@
                   :size="'10px'"
                   :direction="'right'"
                 />
-                <nuxt-link :to="link.path">{{link.name}}</nuxt-link>
+                <nuxt-link
+                  title="Подробнее"
+                  :to="link.path"
+                >{{link.name}}</nuxt-link>
               </li>
             </ul>
           </li>

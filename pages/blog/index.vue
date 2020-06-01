@@ -37,6 +37,7 @@
           <nuxt-link
             tabindex="0"
             class="pagination-btn"
+            title='листать'
             :to="`/blog?page=${(page)}`"
           >{{page}}</nuxt-link>
         </li>
@@ -190,54 +191,54 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  main {
-    flex: 1;
-    background-color: #fff;
-    margin-top: 85px;
-    @media (min-width: 1024px) {
-      margin-top: 0;
-    }
+main {
+  flex: 1;
+  background-color: #fff;
+  margin-top: 85px;
+  @media (min-width: 1024px) {
+    margin-top: 0;
   }
-  .heading {
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 1;
-    display: inline-block;
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-    padding: 12px 24px;
-    position: relative;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    &::before {
-      background-color: var(--green);
-    }
+}
+.heading {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 1;
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+  padding: 12px 24px;
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  &::before {
+    background-color: var(--green);
+  }
 
-    @media (min-width: 600px) {
-      font-size: 28px;
-      line-height: 1;
-      margin-bottom: 40px;
-    }
+  @media (min-width: 600px) {
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 40px;
   }
-  .section {
-    background-color: #fff;
-    display: grid;
-    grid-gap: 24px;
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+}
+.section {
+  background-color: #fff;
+  display: grid;
+  grid-gap: 24px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .grid {
-  }
-  .article {
-    background-color: #f2f1ef;
-    border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
-    padding: 0;
-    // @media (min-width: 768px) {
-    //   padding: 20px 16px;
-    // }
-  }
+}
+.grid {
+}
+.article {
+  background-color: #f2f1ef;
+  border-radius: 4px;
+  box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
+  padding: 0;
+  // @media (min-width: 768px) {
+  //   padding: 20px 16px;
+  // }
+}
 </style>

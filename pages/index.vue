@@ -1,12 +1,18 @@
 <template>
   <main>
-    <h1 class="heading heading-page with-skewed-bg">Еврозаборы в Запорожье</h1>
+    <h1 class="heading heading-page with-skewed-bg">{{title}}</h1>
     <hero />
     <section class="about section-padding">
       <!-- <h2 class="heading heading-section with-skewed-bg">О нас</h2> -->
       <p class="about-paragraph base-font">
-        Наше предприятие основано в 2010 году и является одним из основных изготовителей секционных <strong>бетонных заборов</strong> в Запорожье.
-        Предоставляем широкий <strong>перечень услуг</strong>, связанных с установкой еврозабора 'под ключ' от замера участка до <strong>покраски плит</strong> после окончания строительных работ.
+        Наше предприятие основано в 2010 году и является одним из основных изготовителей секционных <strong>
+          <nuxt-link
+            title="бетонные заборы"
+            to='/products/заборы?subcategory=бетонные-заборы'
+          > бетонных заборов</nuxt-link>
+        </strong> в Запорожье.
+        Предоставляем широкий <strong>перечень услуг</strong>, связанных с установкой еврозабора 'под ключ' от замера участка до
+        <strong>покраски плит</strong> после окончания строительных работ.
         Принимаем заказы на монтаж ограждений и ворот по всей Запорожской области.
       </p>
 
@@ -19,6 +25,7 @@
         >
           &rarr;&ensp;<nuxt-link
             :to='`/products/${replaceWithDash(category.name)}`'
+            :title="category.name"
             class="category-link"
           >{{category.name.toUpperCase()}}</nuxt-link>
         </li>
@@ -29,6 +36,7 @@
         <nuxt-link
           to='/blog'
           class="category-link"
+          title="Наши отчеты"
         >&rarr; новостей</nuxt-link>
         опубликованы отчеты о выполненных работах
       </p>
@@ -41,6 +49,7 @@
         <nuxt-link
           to='/expo'
           class="category-link"
+          title="натурные выставки ограждений"
         >&rarr; натурные выставки</nuxt-link> ограждений.
         В них представлены основные образцы бетонных плит с применением покраски и без.
       </p>
@@ -128,7 +137,7 @@ export default {
 
   data() {
     return {
-      title: "✔ Еврозаборы в Запорожье c ценой и описанием ",
+      title: "✔ Секционные бетонные Еврозаборы в Запорожье",
       about,
       description:
         "Бетонные секционные заборы в Запорожье от производителя в большом ассортименте. Высокое качество продукции. Весь перечень работ по установке ограждений",
@@ -232,55 +241,55 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  main {
-    // background-color: #fff;
+main {
+  // background-color: #fff;
+  position: relative;
+
+  .heading {
     position: relative;
+    font-weight: bold;
+    font-size: 22px;
+    // width: calc(100% - 32px);
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    padding: 12px 24px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
 
-    .heading {
-      position: relative;
-      font-weight: bold;
-      font-size: 22px;
-      // width: calc(100% - 32px);
+    &::before {
+      background-color: var(--green);
+    }
+
+    &-page {
+      margin: 20px 16px -20px;
+    }
+
+    @media (min-width: 600px) {
+      font-size: 28px;
       line-height: 1;
-      display: inline-block;
-      text-align: center;
-      color: #fff;
-      padding: 12px 24px;
-      z-index: 5;
-      display: flex;
-      justify-content: center;
-
-      &::before {
-        background-color: var(--green);
-      }
-
-      &-page {
-        margin: 20px 16px -20px;
-      }
-
-      @media (min-width: 600px) {
-        font-size: 28px;
-        line-height: 1;
-      }
-    }
-
-    .about {
-      background-color: #fff;
-
-      &-paragraph {
-        margin-top: 24px;
-        &:nth-child(1) {
-          margin-top: 0;
-        }
-      }
-    }
-    .category {
-      line-height: 42px;
-    }
-    .category-link {
-      color: var(--red);
     }
   }
+
+  .about {
+    background-color: #fff;
+
+    &-paragraph {
+      margin-top: 24px;
+      &:nth-child(1) {
+        margin-top: 0;
+      }
+    }
+  }
+  .category {
+    line-height: 42px;
+  }
+  .category-link {
+    color: var(--red);
+  }
+}
 </style>
 
 

@@ -13,10 +13,10 @@
     <nuxt-link
       :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
       class="card-name base-font"
+      :title="product.name"
     ><span>{{product.name}}</span> </nuxt-link>
 
     <div class="card-text">
-
       <span
         v-if="product.option.label"
         class="card-label small-font"
@@ -74,79 +74,79 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .card {
-    position: relative;
-    border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(130, 151, 196, 0.85);
+.card {
+  position: relative;
+  border-radius: 4px;
+  box-shadow: 0px 10px 18px rgba(130, 151, 196, 0.85);
+  overflow: hidden;
+  max-width: 500px;
+  border: 1px solid #ddd;
+
+  &-img-box {
+    width: 100%;
     overflow: hidden;
-    max-width: 500px;
-    border: 1px solid #ddd;
+    padding-bottom: 67%;
+    position: relative;
+  }
 
-    &-img-box {
-      width: 100%;
-      overflow: hidden;
-      padding-bottom: 67%;
-      position: relative;
-    }
+  &-image {
+    position: absolute;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
 
-    &-image {
-      position: absolute;
-      width: 100%;
-      transform: translate(-50%, -50%);
-      top: 50%;
-      left: 50%;
-    }
-
-    &-text {
-      padding: 10px 16px;
-      background-color: var(--white);
-    }
-    &-label {
-      display: block;
-      background-color: var(--green);
-      color: #fff;
-      text-transform: uppercase;
-      position: absolute;
-      right: 0;
-      top: 0;
-      padding: 4px 8px;
-      border-radius: 0px 0 0 4px;
-    }
-    &-name {
-      // font-weight: 600;
-      color: #fff;
-      padding: 8px 16px;
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, 0%);
-      width: 65%;
-      min-width: 260px;
-      text-align: center;
-      text-transform: uppercase;
-      cursor: pointer;
-      &:hover {
-        &::after {
-          opacity: 1;
-        }
-      }
+  &-text {
+    padding: 10px 16px;
+    background-color: var(--white);
+  }
+  &-label {
+    display: block;
+    background-color: var(--green);
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px 8px;
+    border-radius: 0px 0 0 4px;
+  }
+  &-name {
+    // font-weight: 600;
+    color: #fff;
+    padding: 8px 16px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 65%;
+    min-width: 260px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
       &::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 100%;
-        height: 100%;
-        display: block;
-        background-color: var(--red);
-        opacity: 0.7;
-        z-index: -1;
-        border-radius: 4px;
+        opacity: 1;
       }
     }
-    &-price {
-      font-weight: bold;
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      width: 100%;
+      height: 100%;
+      display: block;
+      background-color: var(--red);
+      opacity: 0.7;
+      z-index: -1;
+      border-radius: 4px;
     }
   }
+  &-price {
+    font-weight: bold;
+  }
+}
 </style>
 
