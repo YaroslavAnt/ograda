@@ -94,14 +94,13 @@ section {
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 24px;
     }
   }
 
   .card-item {
     background: var(--white);
     color: var(--dark);
-    padding: 5%;
+    padding: 3%;
     border-radius: 4px;
   }
 }

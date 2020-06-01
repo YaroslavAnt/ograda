@@ -9,13 +9,13 @@
           :network="network.network"
           :key="network.name"
           :style="{
-          backgroundColor: network.color
-        }"
+            backgroundColor: network.color
+          }"
           :url="currentURL"
           class="footer-share-link"
+          :title="'Еврозаборы в Запорожье'"
         >
-          <!-- :title="sharing.title"
-        :description="sharing.description"
+          <!--:description="sharing.description"
         :quote="sharing.quote"
         :hashtags="sharing.hashtags"
         :twitterUser="sharing.twitterUser" -->
@@ -100,21 +100,24 @@
               <span itemprop="addressLocality"> г. Запорожье,</span>
               <br />
               <span itemprop="streetAddress"> ул.Стартовая 1ж</span>
+              <!-- :href="`tel:${PHONE}`" -->
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a
-                :href="`tel:${PHONE}`"
                 itemprop="telephone"
+                title="Телефон"
               >{{PHONE}}</a>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a
                 :href="`tel:${PHONE1}`"
                 itemprop="telephone"
+                title="Телефон"
               >{{PHONE1}}</a>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a
+                title="Эл.почта"
                 :href="`mailto:${EMAIL}`"
                 itemprop="email"
               >{{EMAIL}}</a>
@@ -123,11 +126,12 @@
 
           <div>
             <a
-              target="_blank"
-              rel="noreferrer noopener"
-              :href='FACEBOOK'
               itemprop="sameAs"
               :content="FACEBOOK"
+              :href='FACEBOOK'
+              target="_blank"
+              rel="noreferrer noopener"
+              title='Наша страничка в соцсетях'
             >
               <img
                 src="../../assets/icons/facebook.svg"
@@ -136,11 +140,12 @@
               />
             </a>
             <a
-              target="_blank"
-              rel="noreferrer noopener"
-              :href='INSTAGRAM'
               itemprop="sameAs"
               :content="INSTAGRAM"
+              :href='INSTAGRAM'
+              target="_blank"
+              rel="noreferrer noopener"
+              title='Наша страничка в соцсетях'
             >
               <img
                 src="../../assets/icons/instagram.svg"
@@ -149,11 +154,12 @@
               />
             </a>
             <a
-              target="_blank"
-              rel="noreferrer noopener"
-              :href='TWITTER'
               itemprop="sameAs"
               :content="TWITTER"
+              :href='TWITTER'
+              target="_blank"
+              rel="noreferrer noopener"
+              title='Наша страничка в соцсетях'
             >
               <img
                 src="../../assets/icons/twitter.svg"
@@ -162,11 +168,12 @@
               />
             </a>
             <a
-              target="_blank"
-              rel="noreferrer noopener"
-              :href='YOUTUBE'
               itemprop="sameAs"
               :content="YOUTUBE"
+              :href='YOUTUBE'
+              target="_blank"
+              rel="noreferrer noopener"
+              title='Наша страничка в соцсетях'
             >
               <img
                 src="../../assets/icons/youtube.svg"

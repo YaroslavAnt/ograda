@@ -95,7 +95,7 @@ export default {
     }
   },
 
-  async asyncData({ params }) {
+  async asyncData({ params, store, redirect }) {
     try {
       const {
         data: { data: pricesData }
@@ -107,6 +107,7 @@ export default {
         categoryArr.products.find(
           product => replaceWithDash(product.name) === params.id
         ) || {};
+
       const {
         data: { data: productData }
       } = await getProduct(product.id);
@@ -116,14 +117,15 @@ export default {
 
       return { productData, popular };
     } catch (error) {
-      () => alert("Невозможно загрузить данные");
+      redirect("/error");
+      // () => alert("Невозможно загрузить данные");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  main {
-    flex: 1;
-  }
+main {
+  flex: 1;
+}
 </style>

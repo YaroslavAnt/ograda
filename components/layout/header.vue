@@ -18,14 +18,26 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-phone />
           </icon-base>
-          <span class="text"><a :href="`tel:${PHONE}`">{{PHONE}}</a><br /><a :href="`tel:${PHONE1}`">{{PHONE1}}</a></span>
+          <span class="text">
+            <a
+              title='Телефон'
+              :href="`tel:${PHONE}`"
+            >{{PHONE}}</a><br />
+            <a
+              title='Телефон'
+              :href="`tel:${PHONE1}`"
+            >{{PHONE1}}</a>
+          </span>
         </div>
 
         <div class="contact-item">
           <icon-base :iconColor="'#ff5b00'">
             <icon-mail />
           </icon-base>
-          <span class="text"><a :href="`mailto:${EMAIL}`">{{EMAIL}}</a></span>
+          <span class="text"><a
+              title='Почта'
+              :href="`mailto:${EMAIL}`"
+            >{{EMAIL}}</a></span>
         </div>
       </div>
       <div class="menu">
@@ -39,78 +51,78 @@
 </template>
 
 <style lang="scss" scoped>
-  .header {
-    color: var(--dark);
+.header {
+  color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  font-weight: 500;
+  height: 85px;
+  background-color: #eee;
+  z-index: 50;
+  box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+  position: fixed;
+
+  @media (min-width: 1024px) {
+    height: 105px;
+    position: relative;
+  }
+
+  .menu {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: space-between;
-    font-weight: 500;
-    height: 85px;
-    background-color: #eee;
-    z-index: 50;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
-    position: fixed;
-
-    @media (min-width: 1024px) {
-      height: 105px;
-      position: relative;
-    }
-
-    .menu {
-      display: flex;
-      align-items: center;
-      padding: 16px;
-      border-radius: 4px;
-      background-color: var(--red);
-      @media (min-width: 1024px) {
-        display: none;
-      }
-    }
-
-    &-location {
-      display: none;
-      @media (min-width: 1024px) {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        background-color: var(--dark);
-        color: var(--white);
-        height: 35px;
-      }
-    }
-    &-logo {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  .contact {
     align-items: center;
-    display: none;
-
-    @media (min-width: 768px) {
-      display: flex;
-    }
-
-    &-item {
-      display: flex;
-      align-items: center;
-      &-phones {
-        margin-right: 24px;
-        white-space: nowrap;
-      }
-    }
-
-    svg {
-      margin-right: 12px;
-      path {
-        fill: var(--orange);
-      }
+    padding: 16px;
+    border-radius: 4px;
+    background-color: var(--red);
+    @media (min-width: 1024px) {
+      display: none;
     }
   }
+
+  &-location {
+    display: none;
+    @media (min-width: 1024px) {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      background-color: var(--dark);
+      color: var(--white);
+      height: 35px;
+    }
+  }
+  &-logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.contact {
+  align-items: center;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    &-phones {
+      margin-right: 24px;
+      white-space: nowrap;
+    }
+  }
+
+  svg {
+    margin-right: 12px;
+    path {
+      fill: var(--orange);
+    }
+  }
+}
 </style>
 
 <script>

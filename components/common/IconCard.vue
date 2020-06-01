@@ -30,28 +30,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .card {
-    display: flex;
-    align-items: center;
-    &-icon {
-      max-width: 70px;
-      flex-grow: 0;
-      display: block;
-      margin-right: 24px;
-      width: 30%;
-    }
-    &-heading {
-      font-weight: 600;
-    }
-
-    &-text,
-    &-link {
-      margin-top: 24px;
-    }
-    &-link {
-      display: inline-block;
-      color: var(--red);
-      cursor: pointer;
-    }
+.card {
+  display: flex;
+  align-items: center;
+  &-icon {
+    max-width: 70px;
+    flex-grow: 0;
+    display: block;
+    margin-right: 24px;
+    width: 20%;
   }
+  &-heading {
+    font-weight: 600;
+  }
+
+  &-text,
+  &-link {
+    margin-top: 24px;
+  }
+  &-link {
+    display: inline-block;
+    color: var(--red);
+    cursor: pointer;
+  }
+}
 </style>

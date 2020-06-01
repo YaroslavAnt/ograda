@@ -215,6 +215,7 @@ export default {
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
+        { name: "twitter:site", content: "@OgradaZ" },
         {
           name: "twitter:title",
           content: this.title
