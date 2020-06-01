@@ -113,18 +113,62 @@
               >{{EMAIL}}</a>
             </li>
           </ul>
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            :href='FACEBOOK'
-            itemprop="sameAs"
-            content="https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
-          >
-            <img
-              src="../../assets/icons/facebook.svg"
-              alt="fb-icon"
-              class="footer-icon"
-            /></a>
+
+          <div>
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              :href='FACEBOOK'
+              itemprop="sameAs"
+              :content="FACEBOOK"
+            >
+              <img
+                src="../../assets/icons/facebook.svg"
+                alt="fb-icon"
+                class="footer-icon"
+              />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              :href='INSTAGRAM'
+              itemprop="sameAs"
+              :content="INSTAGRAM"
+            >
+              <img
+                src="../../assets/icons/instagram.svg"
+                alt="fb-icon"
+                class="footer-icon"
+              />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              :href='TWITTER'
+              itemprop="sameAs"
+              :content="TWITTER"
+            >
+              <img
+                src="../../assets/icons/twitter.svg"
+                alt="fb-icon"
+                class="footer-icon"
+              />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              :href='YOUTUBE'
+              itemprop="sameAs"
+              :content="YOUTUBE"
+            >
+              <img
+                src="../../assets/icons/youtube.svg"
+                alt="fb-icon"
+                class="footer-icon"
+              />
+            </a>
+          </div>
+
           <p>Пн-Сб, 9:00 - 18:00</p>
         </div>
 
@@ -142,62 +186,73 @@
 </template>
 
 <style lang="scss" scoped>
-  .footer {
-    font-weight: 500;
-    position: relative;
+.footer {
+  font-weight: 500;
+  position: relative;
 
-    @media (min-width: 500px) {
-      flex-direction: row;
-    }
+  @media (min-width: 500px) {
+    flex-direction: row;
+  }
 
-    &-with-bg {
-      background-color: var(--dark);
-      color: var(--white);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
+  &-with-bg {
+    background-color: var(--dark);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 
-    &-navitems {
-      display: inline-flex;
-      flex-wrap: wrap;
-    }
-    &-navitem {
-      margin-bottom: 36px;
-    }
-    &-contacts {
-      display: flex;
-      flex-wrap: wrap;
-    }
-    &-icon,
-    &-navlink {
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    &-navlink {
-      &:hover {
-        color: var(--orange);
-      }
-
-      &_info {
-        text-transform: uppercase;
-        margin-right: 12px;
-      }
-
-      &_contact {
-        margin-right: 10px;
-      }
+  &-navitems {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+  &-navitem {
+    margin-bottom: 36px;
+    max-width: 240px;
+  }
+  &-contacts {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &-icon,
+  &-navlink {
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  &-navlink {
+    &:hover {
+      color: var(--orange);
     }
 
-    &-icon {
-      width: 36px;
+    &_info {
+      text-transform: uppercase;
+      margin-right: 12px;
+    }
+
+    &_contact {
+      margin-right: 10px;
     }
   }
+
+  &-icon {
+    width: 36px;
+  }
+}
 </style>
 
 <script>
 import ArrowVue from "../common/Arrow.vue";
-import { DOMAIN, BASE_URL, PHONE, EMAIL, PHONE1, FACEBOOK } from "../../config";
+import {
+  DOMAIN,
+  BASE_URL,
+  PHONE,
+  EMAIL,
+  PHONE1,
+  FACEBOOK,
+  INSTAGRAM,
+  YOUTUBE,
+  TWITTER
+} from "../../config";
 import { replaceWithDash } from "../../static/utils";
 import SocialSharing from "vue-social-sharing";
 export default {
@@ -228,7 +283,9 @@ export default {
       PHONE1,
       EMAIL,
       FACEBOOK,
-
+      INSTAGRAM,
+      YOUTUBE,
+      TWITTER,
       menu_list: [
         {
           name: "Информация",

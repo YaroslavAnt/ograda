@@ -8,3 +8,7 @@ export const EMAIL = "info@ograda.zp.ua";
 export const LOCATION = "г.Запорожье, пос.Леваневского, ул.Стартовая 1ж";
 export const FACEBOOK =
   "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/";
+export const INSTAGRAM = "https://www.instagram.com/ograda_zp/";
+export const TWITTER = "https://twitter.com/OgradaZ?s=09";
+export const YOUTUBE =
+  "https://www.youtube.com/channel/UC-hAZEqOv5yPYMQK26--PDQ";

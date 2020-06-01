@@ -109,8 +109,6 @@ export default {
       const {
         data: { data: blog }
       } = await getPost(id);
-      console.log({ blog });
-
       return { blog };
     } catch (error) {
       () => alert("Невозможно загрузить данные");
