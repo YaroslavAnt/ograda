@@ -208,7 +208,7 @@
   }
   &-navitem {
     margin-bottom: 36px;
-    max-width: 240px;
+    max-width: 270px;
   }
   &-contacts {
     display: flex;
