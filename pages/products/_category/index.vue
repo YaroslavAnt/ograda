@@ -286,35 +286,39 @@ export default {
     replaceWithDash
   },
 
-  async asyncData({ params, query }) {
-    const { data: categoryData } = await getAll();
-    const categoryObj = categoryData.data.find(
-      category => replaceWithDash(category.name) === params.category
-    );
-    const {
-      data: { data: subcategories }
-    } = await getByCategory(categoryObj.id);
-
-    let productsData;
-    if (query.subcategory) {
-      const subcategoryObj = subcategories.find(
-        subcategory => replaceWithDash(subcategory.name) === query.subcategory
+  async asyncData({ params, query, redirect }) {
+    try {
+      const { data: categoryData } = await getAll();
+      const categoryObj = categoryData.data.find(
+        category => replaceWithDash(category.name) === params.category
       );
       const {
-        data: { data }
-      } = await getProductBySubcategory(subcategoryObj.id);
-      productsData = data;
-    } else {
-      const {
-        data: { data }
-      } = await getProductByCategory(categoryObj.id);
-      productsData = data;
+        data: { data: subcategories }
+      } = await getByCategory(categoryObj.id);
+
+      let productsData;
+      if (query.subcategory) {
+        const subcategoryObj = subcategories.find(
+          subcategory => replaceWithDash(subcategory.name) === query.subcategory
+        );
+        const {
+          data: { data }
+        } = await getProductBySubcategory(subcategoryObj.id);
+        productsData = data;
+      } else {
+        const {
+          data: { data }
+        } = await getProductByCategory(categoryObj.id);
+        productsData = data;
+      }
+      return {
+        productsData,
+        subcategories,
+        categoryObj
+      };
+    } catch (error) {
+      redirect("/error");
     }
-    return {
-      productsData,
-      subcategories,
-      categoryObj
-    };
   },
 
   data() {
