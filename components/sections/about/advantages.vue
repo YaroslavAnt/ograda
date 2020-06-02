@@ -6,15 +6,24 @@
     <div class="grid">
       <div
         class="grid-item"
-        v-for="(card,idx) in content.card_list"
+        v-for="(card,idx) in card_list"
         :key="idx"
       >
-        <img
+        <!-- <img
           class="grid-item-icon"
           :src="card.icon"
           alt="icon"
           width="70px"
-        />
+        /> -->
+        <span class="grid-item-icon">
+          <svg
+            width="70px"
+            height="70px"
+          >
+            <use :xlink:href="sprite + '#' + card.icon"></use>
+          </svg>
+        </span>
+
         <p class="grid-item-text medium-font">{{card.heading}}</p>
       </div>
     </div>
@@ -23,18 +32,54 @@
 
 <script>
 import sectionVue from "~/components/layout/section.vue";
+import sprite from "../../../assets/icons/sprite_c.svg";
+import { about } from "~/static/content_data";
 
 export default {
   name: "advantages.vue",
   components: {
     "app-section": sectionVue
   },
-  props: {
-    content: {
-      type: Object,
-      default: {}
-    }
+  data() {
+    return {
+      sprite,
+      about,
+      content: about.advantages,
+      card_list: [
+        {
+          icon: "case",
+          heading:
+            "10+ лет опыта производства ограждений. \n500+ обьектов выполненных работ"
+        },
+        {
+          icon: "recycle",
+          heading: "Полный перечень услуг по установке заборов и ворот"
+        },
+        {
+          icon: "time",
+          heading: "Выполнение работ в сжатые сроки"
+        },
+        {
+          icon: "prices",
+          heading: "Товар по цене произврдителя"
+        },
+        {
+          icon: "garanty",
+          heading: "Высокое качество и гарантия работ"
+        },
+        {
+          icon: "choise",
+          heading: "Большой асортимент продукции"
+        }
+      ]
+    };
   }
+  // props: {
+  //   content: {
+  //     type: Object,
+  //     default: {}
+  //   }
+  // }
 };
 </script>
 
@@ -61,8 +106,9 @@ export default {
       padding: 3%;
 
       &-icon {
-        // width: 70px;
+        width: 70px;
         margin-right: 16px;
+        flex-shrink: 0;
       }
 
       &-text {

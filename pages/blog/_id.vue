@@ -63,13 +63,17 @@
             v-if="isZoomActive"
           >
             <div class="zoom-content">
-              <app-close
+              <!-- <app-close
                 color='#fff'
                 :width='40'
                 :isMenuOpen='true'
                 class="zoom-close"
                 @click.native="isZoomActive=false"
-              ></app-close>
+              ></app-close> -->
+              <span
+                @click="isZoomActive=false"
+                class="zoom-close"
+              >&#10006;</span>
               <img
                 class="zoom-image"
                 :src="BASE_URL + blog.image"
@@ -85,14 +89,13 @@
 </template>
 
 <script>
-import IntroVue from "~/components/common/Intro.vue";
+// import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
 import { BASE_URL } from "../../config";
 import { getPost } from "../../api/posts";
 import IconZoomVue from "../../components/icons/IconZoom.vue";
-import MenuButtonVue from "../../components/common/MenuButton.vue";
 
 export default {
   name: "BlogPage",
@@ -119,8 +122,7 @@ export default {
     "icon-base": IconBaseVue,
     "icon-calendar": IconCalendarVue,
     "icon-zoom": IconZoomVue,
-    "app-section": sectionVue,
-    "app-close": MenuButtonVue
+    "app-section": sectionVue
   },
   computed: {
     date() {
@@ -271,6 +273,9 @@ export default {
     top: 5%;
     right: 5%;
     z-index: 250;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
   }
 
   &-arrows {

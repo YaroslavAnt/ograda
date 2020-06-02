@@ -1,49 +1,44 @@
 ﻿<template>
   <header class="header">
     <div class="header-padding header-location">
-      <icon-base
-        :iconColor="'#ff5b00'"
-        :width="18"
-        :height="18"
-      >
+      <icon-base :iconColor="'#ff5b00'" :width="18" :height="18">
         <icon-location />
       </icon-base>
-      <span>{{location}}</span>
+      <span>{{ location }}</span>
     </div>
 
     <div class="header-padding base-font header-logo">
       <logo />
       <div class="contact">
         <div class="contact-item contact-item-phones">
-          <icon-base :iconColor="'#ff5b00'">
-            <icon-phone />
-          </icon-base>
+          <span>
+            <svg class="header-icon">
+              <use :xlink:href="sprite + '#phone-svg'"></use>
+            </svg>
+          </span>
           <span class="text">
-            <a
-              title='Телефон'
-              :href="`tel:${PHONE}`"
-            >{{PHONE}}</a><br />
-            <a
-              title='Телефон'
-              :href="`tel:${PHONE1}`"
-            >{{PHONE1}}</a>
+            <a title="Телефон" :href="`tel:${PHONE}`">{{ PHONE }}</a> <br />
+            <a title="Телефон" :href="`tel:${PHONE1}`">{{ PHONE1 }}</a>
           </span>
         </div>
 
         <div class="contact-item">
-          <icon-base :iconColor="'#ff5b00'">
-            <icon-mail />
-          </icon-base>
-          <span class="text"><a
-              title='Почта'
-              :href="`mailto:${EMAIL}`"
-            >{{EMAIL}}</a></span>
+          <span>
+            <svg class="header-icon">
+              <use :xlink:href="sprite + '#mail-svg'"></use>
+            </svg>
+          </span>
+          <span class="text">
+            <a title="Почта" :href="`mailto:${EMAIL}`">{{ EMAIL }}</a>
+          </span>
         </div>
       </div>
       <div class="menu">
         <menu-btn
           :isMenuOpen="$store.state.common.isMenuOpen"
-          @click.native="$store.commit('common/SET_MENU', !$store.state.common.isMenuOpen)"
+          @click.native="
+            $store.commit('common/SET_MENU', !$store.state.common.isMenuOpen)
+          "
         ></menu-btn>
       </div>
     </div>
@@ -67,6 +62,13 @@
   @media (min-width: 1024px) {
     height: 105px;
     position: relative;
+  }
+
+  &-icon {
+    width: 36px;
+    height: 36px;
+    color: #ff5b00;
+    fill: currentColor;
   }
 
   .menu {
@@ -133,6 +135,7 @@ import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
 import MenuButtonVue from "../common/MenuButton.vue";
 import { PHONE, EMAIL, LOCATION, PHONE1 } from "../../config";
+import sprite from "../../assets/icons/sprite.svg";
 
 export default {
   name: "header.vue",
@@ -151,8 +154,9 @@ export default {
       PHONE1,
       EMAIL,
       location: LOCATION,
-      isMenuOpen: false
+      isMenuOpen: false,
+      sprite
     };
   }
 };
-</script> 
+</script>

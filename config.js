@@ -12,7 +12,7 @@ export const INSTAGRAM = "https://www.instagram.com/ograda_zp/";
 export const TWITTER = "https://twitter.com/OgradaZ?s=09";
 export const YOUTUBE =
   "https://www.youtube.com/channel/UC-hAZEqOv5yPYMQK26--PDQ";
-
+export const PINTEREST = "https://www.pinterest.com/ograda_zp0599/";
 export const SOCIAL_SHARE = [
   { network: "facebook", name: "Facebook", color: "#4267b2" },
   { network: "twitter", name: "Twitter", color: "rgb(29, 161, 242)" },

@@ -24,29 +24,28 @@ export default {
     section_intro: "Наши приемущества",
     card_list: [
       {
-        icon: goal,
+        icon: "goal-svg",
         heading:
           "10+ лет опыта производства ограждений. \n500+ обьектов выполненных работ"
       },
       {
-        icon: recycle,
+        icon: "recycle-svg",
         heading: "Полный перечень услуг по установке заборов и ворот"
       },
       {
-        icon: time,
+        icon: "time-svg",
         heading: "Выполнение работ в сжатые сроки"
       },
       {
-        icon: coins,
+        icon: "coins-svg",
         heading: "Товар по цене произврдителя"
       },
       {
-        icon: shield,
+        icon: "shield-svg",
         heading: "Высокое качество и гарантия работ"
       },
-
       {
-        icon: choise,
+        icon: "choise-svg",
         heading: "Большой асортимент продукции"
       }
     ]

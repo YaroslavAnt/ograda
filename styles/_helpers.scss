@@ -27,6 +27,10 @@
   }
 }
 
+.align-center {
+  text-align: center;
+}
+
 .with-skewed-bg {
   &::before {
     position: absolute;

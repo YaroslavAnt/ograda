@@ -1,20 +1,10 @@
 ﻿<template>
-  <app-section
-    :heading="content.section_heading"
-    class="section"
-  >
+  <app-section :heading="content.section_heading" class="section">
     <div class="card-grid">
-      <article
-        class="card-item"
-        v-for="(card,idx) in card_list"
-        :key="idx"
-      >
-        <nuxt-link
-          :title="card.heading"
-          :to="{path: card.link}"
-        >
+      <article class="card-item" v-for="(card, idx) in card_list" :key="idx">
+        <nuxt-link :title="card.heading" :to="{ path: card.link }">
           <icon-card
-            :icon_src="card.icon"
+            :icon_id="card.id"
             :heading="card.heading"
             :text="card.intro_txt"
           ></icon-card>
@@ -32,10 +22,10 @@
 import IconCardVue from "~/components/common/IconCard.vue";
 import sectionVue from "~/components/layout/section.vue";
 
-import measure from "~/assets/icons/measure.svg";
-import cargo from "~/assets/icons/cargo.svg";
-import brush from "~/assets/icons/brush.svg";
-import fence from "~/assets/icons/fence.svg";
+// import measure from "~/assets/icons/measure.svg";
+// import cargo from "~/assets/icons/cargo.svg";
+// import brush from "~/assets/icons/brush.svg";
+// import fence from "~/assets/icons/fence.svg";
 
 export default {
   name: "services.vue",
@@ -53,26 +43,26 @@ export default {
     return {
       card_list: [
         {
-          icon: cargo,
-          id: "delivery",
+          // icon: cargo,
+          id: "cargo-svg",
           heading: "Доставка продукции и строй-материалов",
           link: "/services/dostavka"
         },
         {
-          icon: fence,
-          id: "montage",
+          // icon: fence,
+          id: "fence-svg",
           heading: "Установка заборов, ворот",
           link: "/services/montazh"
         },
         {
-          icon: brush,
-          id: "pokraska",
+          // icon: brush,
+          id: "brush-svg",
           heading: "Покраска заборов",
           link: "/services/pokraska"
         },
         {
-          icon: measure,
-          id: "measure",
+          // icon: measure,
+          id: "measure-svg",
           heading: "Выезд замерщика",
           link: "/services/zamer"
         }

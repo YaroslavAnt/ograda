@@ -8,10 +8,7 @@
 
       <div class="gridbox">
         <div class="slider-box">
-          <div
-            class="slider-imagebox"
-            :style="{'padding-bottom': `70%`}"
-          >
+          <div class="slider-imagebox">
             <img
               :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
               :alt="product.img_alt"
@@ -219,13 +216,11 @@
       v-if="isZoomActive"
     >
       <div class="zoom-content">
-        <app-close
-          color='#fff'
-          :width='40'
-          :isMenuOpen='true'
+
+        <span
+          @click="isZoomActive=false"
           class="zoom-close"
-          @click.native="isZoomActive=false"
-        ></app-close>
+        >&#10006;</span>
         <img
           class="zoom-image"
           :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
@@ -254,7 +249,6 @@
 import ImageBaseVue from "../common/ImageBase.vue";
 import { getProduct } from "../../api/products";
 import { BASE_URL } from "../../config";
-import MenuButtonVue from "../common/MenuButton.vue";
 import ArrowVue from "../common/Arrow.vue";
 import { replaceWithDash } from "../../static/utils";
 import ProductCardVue from "../common/ProductCard.vue";
@@ -265,7 +259,6 @@ export default {
   name: "Product.vue",
   components: {
     "app-image": ImageBaseVue,
-    "app-close": MenuButtonVue,
     "app-arrow": ArrowVue,
     "product-card": ProductCardVue,
     "base-icon": IconBaseVue,
@@ -349,6 +342,9 @@ article {
     top: 5%;
     right: 5%;
     z-index: 250;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
   }
 
   &-arrows {
@@ -434,6 +430,7 @@ article {
   box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
   position: relative;
   overflow: hidden;
+  padding-bottom: 70%;
 
   &-label {
     display: block;

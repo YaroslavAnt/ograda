@@ -55,7 +55,7 @@
       </p>
     </section>
     <advantages :content="about.advantages" />
-    <special :special='special'></special>
+    <!-- <special :special='speciales'></special> -->
     <services :content="services" />
     <news />
   </main>
@@ -65,7 +65,7 @@
 import heroVue from "../components/sections/home/hero";
 import servicesVue from "../components/sections/home/services.vue";
 import newsVue from "../components/sections/home/news.vue";
-import specialVue from "../components/sections/home/special.vue";
+// import specialVue from "../components/sections/home/special.vue";
 import aboutVue from "~/components/sections/about/about.vue";
 import advantagesVue from "~/components/sections/about/advantages.vue";
 import sectionVue from "~/components/layout/section.vue";
@@ -92,7 +92,7 @@ export default {
 
   components: {
     hero: heroVue,
-    special: specialVue,
+    // special: specialVue,
     services: servicesVue,
     news: newsVue,
     about: aboutVue,
@@ -115,17 +115,18 @@ export default {
       const {
         data: { data: slidesData }
       } = await getAllSlides();
-      const {
-        data: { data: specialData }
-      } = await getSpecialProducts();
+      // const {
+      //   data: { data: specialData }
+      // } = await getSpecialProducts();
+      // console.log({ specialData });
       const {
         data: { data: postsData }
       } = await getAllPosts();
 
       store.commit("slides/SET_SLIDES", slidesData);
       store.commit("posts/SET_POSTS", postsData);
-      this.special = specialData;
-      return { slidesData, specialData, postsData };
+      this.speciales = specialData;
+      return { slidesData, postsData };
     } catch (error) {
       () => alert("Невозможно загрузить данные");
     }
@@ -141,7 +142,7 @@ export default {
       about,
       description:
         "Бетонные секционные заборы в Запорожье от производителя в большом ассортименте. Высокое качество продукции. Весь перечень работ по установке ограждений",
-      special: [],
+      speciales: [],
       slides: [],
       fetchedVars: {},
       keywords:
@@ -284,6 +285,7 @@ main {
       }
     }
   }
+
   .category {
     line-height: 42px;
   }

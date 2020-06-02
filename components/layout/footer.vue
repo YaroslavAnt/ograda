@@ -1,9 +1,9 @@
 ﻿<template>
   <footer class="footer  base-font">
     <div class="share footer-padding">
-      Поделиться:
+      <span class="medium-font">Поделиться:</span>
 
-      <div style="text-align: center">
+      <div class="align-center">
         <ShareNetwork
           v-for="network in SOCIAL_SHARE"
           :network="network.network"
@@ -133,11 +133,14 @@
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <img
-                src="../../assets/icons/facebook.svg"
+              <!-- <img
+                src="../../assets/icons/sprite_s.svg#facebook"
                 alt="fb-icon"
                 class="footer-icon"
-              />
+              /> -->
+              <svg class="footer-icon">
+                <use xlink:href="../../assets/icons/sprite_s.svg#facebook" />
+              </svg>
             </a>
             <a
               itemprop="sameAs"
@@ -152,6 +155,9 @@
                 alt="fb-icon"
                 class="footer-icon"
               />
+              <!-- <svg class="footer-icon">
+                <use xlink:href="../../assets/icons/instagram.svg" />
+              </svg> -->
             </a>
             <a
               itemprop="sameAs"
@@ -161,11 +167,14 @@
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <img
-                src="../../assets/icons/twitter.svg"
+              <!-- <img
+                src="../../assets/icons/sprite_s.svg#twitter"
                 alt="fb-icon"
                 class="footer-icon"
-              />
+              /> -->
+              <svg class="footer-icon">
+                <use xlink:href="../../assets/icons/sprite_s.svg#twitter" />
+              </svg>
             </a>
             <a
               itemprop="sameAs"
@@ -175,11 +184,31 @@
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <img
-                src="../../assets/icons/youtube.svg"
+              <!-- <img
+                src="../../assets/icons/sprite_s.svg#youtube"
                 alt="fb-icon"
                 class="footer-icon"
-              />
+              /> -->
+              <svg class="footer-icon">
+                <use xlink:href="../../assets/icons/sprite_s.svg#youtube" />
+              </svg>
+            </a>
+            <a
+              itemprop="sameAs"
+              :content="PINTEREST"
+              :href='PINTEREST'
+              target="_blank"
+              rel="noreferrer noopener"
+              title='Наша страничка в соцсетях'
+            >
+              <!-- <img
+                src="../../assets/icons/sprite_s.svg#pinterest"
+                alt="fb-icon"
+                class="footer-icon"
+              /> -->
+              <svg class="footer-icon">
+                <use xlink:href="../../assets/icons/sprite_s.svg#pinterest" />
+              </svg>
             </a>
           </div>
 
@@ -250,6 +279,7 @@
 
   &-icon {
     width: 36px;
+    height: 36px;
   }
 
   &-share-link {
@@ -276,6 +306,7 @@ import {
   INSTAGRAM,
   YOUTUBE,
   TWITTER,
+  PINTEREST,
   SOCIAL_SHARE
 } from "../../config";
 import { replaceWithDash } from "../../static/utils";
@@ -311,6 +342,7 @@ export default {
       INSTAGRAM,
       YOUTUBE,
       TWITTER,
+      PINTEREST,
       SOCIAL_SHARE,
       menu_list: [
         {

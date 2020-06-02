@@ -20,6 +20,11 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      // Pinterest <meta name="p:domain_verify" content="6af9e360d6bb7aabcaeeb6735c8d5f6e"/>
+      {
+        name: "p:domain_verify",
+        content: "6af9e360d6bb7aabcaeeb6735c8d5f6e"
+      },
       // Search Console <meta name="google-site-verification" content="..." /> og:site_name
       {
         property: "og:site_name",
@@ -32,11 +37,11 @@ export default {
       }
     ],
     script: [
-      {
-        src:
-          "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js",
-        async: ""
-      }
+      // {
+      //   src:
+      //     "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js",
+      //   async: ""
+      // }
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
@@ -64,7 +69,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ["~/plugins/vue-lazysizes.client.js"],
   /*
    ** Nuxt.js dev-modules
    */
@@ -126,8 +131,17 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    vendor: ["axios"],
+    // extend(config, ctx) {},
+    extend(config, { isDev, isClient, loaders: { vue } }) {
+      if (isClient) {
+        vue.transformAssetUrls.img = ["data-src", "src"];
+        vue.transformAssetUrls.source = ["data-srcset", "srcset"];
+      }
+    }
   },
+
+  cache: true,
 
   googleAnalytics: {
     id: "UA-158653896-1",

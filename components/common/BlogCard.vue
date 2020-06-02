@@ -11,6 +11,7 @@
         <icon-base>
           <icon-calendar />
         </icon-base>
+
         <time :datetime="dateTime">{{date}}</time>
       </span>
 
@@ -44,6 +45,7 @@ import ImageBaseVue from "./ImageBase.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
 import { BASE_URL } from "../../config";
+import sprite from "../../assets/icons/sprite.svg";
 
 export default {
   name: "BlogCard",
@@ -76,63 +78,78 @@ export default {
   },
   data() {
     return {
-      BASE_URL
+      BASE_URL,
+      sprite
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  .card {
+.card {
+  position: relative;
+  border-radius: 4px;
+  box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.25);
+  overflow: hidden;
+  transition-duration: 0.3s;
+  display: flex;
+  flex-direction: column;
+  &:hover {
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
+    transform: translateY(-4px);
+  }
+
+  &-text {
+    padding: 40px 16px 20px;
+    background-color: #eee;
     position: relative;
-    border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.25);
-    overflow: hidden;
-    transition-duration: 0.3s;
+    height: 100%;
     display: flex;
+    flex: 1;
     flex-direction: column;
+  }
+
+  &-name {
+    flex: 1;
+    font-weight: bold;
     &:hover {
-      box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
-      transform: translateY(-4px);
-    }
-
-    &-text {
-      padding: 40px 16px 20px;
-      background-color: #eee;
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-    }
-
-    &-name {
-      flex: 1;
-      font-weight: bold;
-      &:hover {
-        cursor: pointer;
-        color: var(--red);
-      }
-    }
-
-    &-label {
-      display: flex;
-      align-items: center;
-      background-color: var(--red);
-      color: #fff;
-      position: absolute;
-      left: 16px;
-      top: 0;
-      transform: translateY(-50%);
-      padding: 10px;
-      border-radius: 4px;
-    }
-
-    &-link {
       cursor: pointer;
-      margin-top: 12px;
-      display: block;
-      font-weight: bold;
+      color: var(--red);
     }
   }
+
+  &-label {
+    display: flex;
+    align-items: center;
+    background-color: var(--red);
+    color: #fff;
+    position: absolute;
+    left: 16px;
+    top: 0;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  &-icon {
+    flex-grow: 0;
+    margin-right: 24px;
+    width: 36px;
+    height: 36px;
+    color: #fff;
+    fill: currentColor;
+
+    // svg {
+    //   max-height: 70px;
+    //   max-width: 100%;
+    // }
+  }
+
+  &-link {
+    cursor: pointer;
+    margin-top: 12px;
+    display: block;
+    font-weight: bold;
+  }
+}
 </style>

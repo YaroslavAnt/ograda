@@ -79,7 +79,7 @@ import ButtonVue from "./Button.vue";
 import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
-import { replaceWithDash, getCyrylic } from "../../static/utils";
+import { replaceWithDash } from "../../static/utils";
 
 export default {
   name: "Slider.vue",
@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     replaceWithDash,
-    getCyrylic,
     forvard() {
       this.current_slide =
         this.current_slide < this.slider_items.length - 1

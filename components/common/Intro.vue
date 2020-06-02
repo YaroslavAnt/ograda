@@ -86,13 +86,11 @@
       v-if="isZoomActive"
     >
       <div class="zoom-content">
-        <app-close
-          color='#fff'
-          :width='40'
-          :isMenuOpen='true'
+
+        <span
           class="zoom-close"
-          @click.native="isZoomActive=false"
-        ></app-close>
+          @click="isZoomActive=false"
+        >&#10006;</span>
         <img
           class="zoom-image"
           :src="img_set[active_img]"
@@ -122,7 +120,6 @@ import ButtonVue from "./Button.vue";
 import ImageBaseVue from "./ImageBase.vue";
 import IconBaseVue from "./IconBase.vue";
 import IconZoomVue from "../icons/IconZoom.vue";
-import MenuButtonVue from "./MenuButton.vue";
 import ArrowVue from "./Arrow.vue";
 export default {
   name: "Intro.vue",
@@ -191,174 +188,176 @@ export default {
     "app-image": ImageBaseVue,
     "base-icon": IconBaseVue,
     "zoom-icon": IconZoomVue,
-    "app-close": MenuButtonVue,
     "app-arrow": ArrowVue
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  .box {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 36px;
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
 
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &.reversed {
     @media (min-width: 768px) {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    &.reversed {
-      @media (min-width: 768px) {
-        flex-direction: row-reverse;
-      }
-
-      .box-text {
-        @media (min-width: 768px) {
-          padding-left: 0px;
-        }
-      }
-    }
-
-    .slider-box {
-      width: 100%;
-      @media (min-width: 768px) {
-        width: 42%;
-      }
+      flex-direction: row-reverse;
     }
 
     .box-text {
       @media (min-width: 768px) {
-        width: 55%;
-      }
-      .heading {
-        color: var(--red);
-      }
-
-      .intro-text {
-        p {
-          margin-top: 10px;
-        }
+        padding-left: 0px;
       }
     }
   }
 
-  .slider-imagebox {
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.85);
-    position: relative;
-    overflow: hidden;
-
-    &-label {
-      display: block;
-      background-color: var(--green);
-      color: #fff;
-      text-transform: uppercase;
-      position: absolute;
-      right: 0;
-      top: 0;
-      padding: 4px 8px;
-      border-radius: 0px 0 0 4px;
-    }
-    .icon-box {
-      display: none;
-      @media (min-width: 768px) {
-        display: block;
-        position: absolute;
-        padding: 10px;
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-        right: 10px;
-        bottom: 10px;
-        cursor: pointer;
-      }
-    }
-  }
-
-  .slider-image {
-    position: absolute;
-    top: 50%;
-    left: 0;
+  .slider-box {
     width: 100%;
-    transform: translateY(-50%);
-
-    &.square {
-      top: 0;
-      left: 50%;
-      width: unset;
-      height: 100%;
-      transform: translateX(-50%);
+    @media (min-width: 768px) {
+      width: 42%;
     }
   }
 
-  .preview {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  .box-text {
+    @media (min-width: 768px) {
+      width: 55%;
+    }
+    .heading {
+      color: var(--red);
+    }
 
-    &-item {
-      width: 30%;
-      margin: 0 5px;
-      cursor: pointer;
-      background: #fff;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      &-active {
-        border: 1px solid var(--red);
+    .intro-text {
+      p {
+        margin-top: 10px;
       }
     }
   }
+}
 
-  .zoom {
+.slider-imagebox {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.85);
+  position: relative;
+  overflow: hidden;
+
+  &-label {
+    display: block;
+    background-color: var(--green);
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px 8px;
+    border-radius: 0px 0 0 4px;
+  }
+  .icon-box {
     display: none;
     @media (min-width: 768px) {
       display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 200;
-    }
-
-    &-close {
-      position: fixed;
-      top: 5%;
-      right: 5%;
-      z-index: 250;
-    }
-
-    &-arrows {
-      position: fixed;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      height: 100%;
-
-      &::before {
-        position: absolute;
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
-      }
-    }
-    &-image {
-      position: relative;
-      width: 80%;
-      max-width: 900px;
+      position: absolute;
+      padding: 10px;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+      right: 10px;
+      bottom: 10px;
+      cursor: pointer;
     }
   }
+}
+
+.slider-image {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+
+  &.square {
+    top: 0;
+    left: 50%;
+    width: unset;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+}
+
+.preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  &-item {
+    width: 30%;
+    margin: 0 5px;
+    cursor: pointer;
+    background: #fff;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &-active {
+      border: 1px solid var(--red);
+    }
+  }
+}
+
+.zoom {
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 200;
+  }
+
+  &-close {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    z-index: 250;
+    color: #fff;
+    cursor: pointer;
+    font-size: 30px;
+  }
+
+  &-arrows {
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+
+    &::before {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
+    }
+  }
+  &-image {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+  }
+}
 </style>
