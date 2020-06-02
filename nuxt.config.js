@@ -69,13 +69,13 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vue-lazysizes.js"],
+  plugins: [{ src: "~/plugins/vue-lazyload", ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [],
   /*
-   ** Nuxt.js modules
+   **  Nuxt.js modules
    */
   modules: [
     "@nuxtjs/google-analytics",
