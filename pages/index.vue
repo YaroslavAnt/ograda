@@ -1,57 +1,65 @@
 <template>
   <main>
-    <h1 class="heading heading-page with-skewed-bg">{{title}}</h1>
+    <h1 class="heading heading-page with-skewed-bg">{{ title }}</h1>
     <hero />
     <section class="about section-padding">
       <!-- <h2 class="heading heading-section with-skewed-bg">О нас</h2> -->
       <p class="about-paragraph base-font">
-        Наше предприятие основано в 2010 году и является одним из основных изготовителей секционных <strong>
+        Наше предприятие основано в 2010 году и является одним из основных
+        изготовителей секционных
+        <strong>
           <nuxt-link
             title="бетонные заборы"
-            to='/products/заборы?subcategory=бетонные-заборы'
-          > бетонных заборов</nuxt-link>
-        </strong> в Запорожье.
-        Предоставляем широкий <strong>перечень услуг</strong>, связанных с установкой еврозабора 'под ключ' от замера участка до
+            to="/products/заборы?subcategory=бетонные-заборы"
+          >
+            бетонных заборов</nuxt-link
+          >
+        </strong>
+        в Запорожье. Предоставляем широкий <strong>перечень услуг</strong>,
+        связанных с установкой еврозабора 'под ключ' от замера участка до
         <strong>покраски плит</strong> после окончания строительных работ.
-        Принимаем заказы на монтаж ограждений и ворот по всей Запорожской области.
+        Принимаем заказы на монтаж ограждений и ворот по всей Запорожской
+        области.
       </p>
 
-      <p class="about-paragraph base-font">На данном сайте вы можете ознакомиться с полным списком товаров с ценами и описанием в категориях:</p>
+      <p class="about-paragraph base-font">
+        На данном сайте вы можете ознакомиться с полным списком товаров с ценами
+        и описанием в категориях:
+      </p>
       <ul class="medium-font">
         <li
           v-for="category in categories"
-          :key='category.name'
+          :key="category.name"
           class="category"
         >
           &rarr;&ensp;<nuxt-link
-            :to='`/products/${replaceWithDash(category.name)}`'
+            :to="`/products/${replaceWithDash(category.name)}`"
             :title="category.name"
             class="category-link"
-          >{{category.name.toUpperCase()}}</nuxt-link>
+            >{{ category.name.toUpperCase() }}</nuxt-link
+          >
         </li>
       </ul>
 
       <p class="base-font">
         В разделе
-        <nuxt-link
-          to='/blog'
-          class="category-link"
-          title="Наши отчеты"
-        >&rarr; новостей</nuxt-link>
+        <nuxt-link to="/blog" class="category-link" title="Наши отчеты"
+          >&rarr; новостей</nuxt-link
+        >
         опубликованы отчеты о выполненных работах
       </p>
 
-      <p
-        id='services'
-        class="about-paragraph base-font"
-      >
-        Чтобы вы могли убедиться в качестве нашых <strong>еврозаборов</strong>, организованы
+      <p id="services" class="about-paragraph base-font">
+        Чтобы вы могли убедиться в качестве нашых <strong>еврозаборов</strong>,
+        организованы
         <nuxt-link
-          to='/expo'
+          to="/expo"
           class="category-link"
           title="натурные выставки ограждений"
-        >&rarr; натурные выставки</nuxt-link> ограждений.
-        В них представлены основные образцы бетонных плит с применением покраски и без.
+          >&rarr; натурные выставки</nuxt-link
+        >
+        ограждений. В них представлены основные образцы бетонных плит с
+        применением покраски и без.
       </p>
     </section>
     <advantages :content="about.advantages" />
@@ -60,7 +68,7 @@
     <news />
   </main>
 </template>
-  
+
 <script>
 import heroVue from "../components/sections/home/hero";
 import servicesVue from "../components/sections/home/services.vue";
@@ -248,18 +256,24 @@ main {
   position: relative;
 
   .heading {
-    position: relative;
-    font-weight: bold;
-    font-size: 22px;
-    // width: calc(100% - 32px);
-    line-height: 1;
-    display: inline-block;
-    text-align: center;
-    color: #fff;
-    padding: 12px 24px;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    right: 150%;
+
+    @media (min-width: 425px) {
+      position: relative;
+      font-weight: bold;
+      font-size: 22px;
+      // width: calc(100% - 32px);
+      line-height: 1;
+      display: inline-block;
+      text-align: center;
+      color: #fff;
+      padding: 12px 24px;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      right: unset;
+    }
 
     &::before {
       background-color: var(--green);
@@ -294,5 +308,3 @@ main {
   }
 }
 </style>
-
-

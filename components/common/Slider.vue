@@ -4,70 +4,68 @@
       v-for="(slide, idx) in slider_items"
       :key="idx"
       class="slider-item"
-      :class="{'active-slide': current_slide===idx}"
+      :class="{ 'active-slide': current_slide === idx }"
     >
-      <div
-        class="slider-filterbox"
-        :class="{'with-filter': withFilter}"
-      >
-
+      <div class="slider-filterbox" :class="{ 'with-filter': withFilter }">
         <div class="picture">
-          <img
-            :src="BASE_URL+ slide.image"
-            :alt="slide.img_alt"
-            class="picture-img"
-          />
+          <picture>
+            <source
+              :srcSet="`${BASE_URL + slide.image}?webp`"
+              type="image/webp"
+            />
+            <!-- <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> -->
+            <img
+              srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              :src="BASE_URL + slide.image"
+              :alt="slide.img_alt"
+              class="picture-img"
+            />
+          </picture>
         </div>
-
       </div>
 
       <div class="slider-content section-padding">
-
         <nuxt-link
           v-if="slide.short_body && slide.short_body !== 'null' && slide.title"
-          :to='slide.short_body'
+          :to="slide.short_body"
           :title="slide.title"
         >
           <h2
             v-if="slide.title"
             class="slider-heading app-button huge-font slider-btn "
-          >{{ String((slide.title) ).toUpperCase() }}</h2>
+          >
+            {{ String(slide.title).toUpperCase() }}
+          </h2>
         </nuxt-link>
 
-        <h2
-          v-else
-          class="slider-heading app-button huge-font slider-btn "
-        >{{ String((slide.title) ).toUpperCase() }}</h2>
+        <h2 v-else class="slider-heading app-button huge-font slider-btn ">
+          {{ String(slide.title).toUpperCase() }}
+        </h2>
 
-        <p
-          v-if="slide.body"
-          class="slider-text medium-font"
-        >{{ slide.body }}</p>
+        <p v-if="slide.body" class="slider-text medium-font">
+          {{ slide.body.trim() }}
+        </p>
       </div>
 
       <div class="arrows">
-        <div
-          class="arrow arrow-left"
-          @click="backvard()"
-        >
-          <app-arrow :size="'12px'" />
+        <div class="arrow" @click="backvard()">
+          <!-- <app-arrow :size="'12px'" /> -->
+          &#10094;
         </div>
 
         <div class="indicator">
           <div
             class="button"
-            v-for="(item,idx) in slider_items"
+            v-for="(item, idx) in slider_items"
             :key="idx"
-            :class="{active:current_slide === idx}"
+            :class="{ active: current_slide === idx }"
             @click="setActive(idx)"
           ></div>
         </div>
 
-        <div
-          class="arrow arrow-right"
-          @click="forvard()"
-        >
-          <app-arrow :size="'12px'" />
+        <div class="arrow " @click="forvard()">
+          <!-- <app-arrow :size="'12px'" arrow-right/> -->
+          &#10095;
         </div>
       </div>
     </div>
@@ -76,7 +74,7 @@
 
 <script>
 import ButtonVue from "./Button.vue";
-import ArrowVue from "./Arrow.vue";
+// import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
 import { replaceWithDash } from "../../static/utils";
@@ -85,7 +83,7 @@ export default {
   name: "Slider.vue",
   components: {
     "app-button": ButtonVue,
-    "app-arrow": ArrowVue,
+    // "app-arrow": ArrowVue,
     "app-image": ImageBaseVue
   },
   methods: {
@@ -190,7 +188,6 @@ export default {
   }
   &-text {
     text-shadow: 1px 1px 2px #333, 0 0 1em #333, 0 0 0.2em #333;
-    white-space: pre-wrap;
   }
 
   .picture {
@@ -249,13 +246,14 @@ export default {
       background: #fff;
       opacity: 0.7;
       cursor: pointer;
+      font-size: 20px;
 
-      &-left {
-        transform: rotate(90deg);
-      }
-      &-right {
-        transform: rotate(-90deg);
-      }
+      // &-left {
+      //   transform: rotate(90deg);
+      // }
+      // &-right {
+      //   transform: rotate(-90deg);
+      // }
 
       &:hover {
         opacity: 1;

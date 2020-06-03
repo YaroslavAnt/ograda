@@ -73,7 +73,10 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: ["@aceforth/nuxt-optimized-images"],
+  optimizedImages: {
+    optimizeImages: true
+  },
   /*
    **  Nuxt.js modules
    */
