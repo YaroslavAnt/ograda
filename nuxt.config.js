@@ -134,7 +134,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    vendor: ["axios"],
     // extend(config, ctx) {},
     extend(config, { isDev, isClient, loaders: { vue } }) {
       if (isClient) {

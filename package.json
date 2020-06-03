@@ -24,19 +24,16 @@
     "vue-lazyload": "^1.3.3",
     "vue-multiselect": "^2.1.6",
     "vue-social-sharing": "^3.0.0-beta.10",
-    "vuejs-paginate": "^2.1.0"
+    "vuejs-paginate": "^2.1.0",
+    "webp-loader": "^0.6.0"
   },
   "devDependencies": {
     "@aceforth/nuxt-optimized-images": "^1.0.1",
-    "@bazzite/nuxt-optimized-images": "^0.4.0",
     "@nuxtjs/vuetify": "^1.9.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^4.0.0",
-    "imagemin-mozjpeg": "^9.0.0",
-    "imagemin-pngquant": "^9.0.0",
-    "webp-loader": "^0.6.0"
+    "eslint-plugin-vue": "^4.0.0"
   }
 }
