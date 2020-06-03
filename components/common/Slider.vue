@@ -13,10 +13,14 @@
               :srcSet="`${BASE_URL + slide.image}?webp`"
               type="image/webp"
             />
+            <source
+              :srcSet="`${BASE_URL + slide.image}?webp`"
+              type="image/webp"
+            />
             <!-- <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> -->
             <img
-              srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
               :src="BASE_URL + slide.image"
+              srcset="../../assets/icons/img-placeholder.png"
               :alt="slide.img_alt"
               class="picture-img"
             />
@@ -176,7 +180,8 @@ export default {
   }
   &-btn {
     margin-bottom: 15px;
-    max-width: 67%;
+    opacity: 0.8;
+    // max-width: 67%;
 
     @media (min-width: 768px) {
       font-size: 36px;
