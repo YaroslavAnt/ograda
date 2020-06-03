@@ -2,14 +2,8 @@
   <div class="nav">
     <div class="logo"></div>
     <ul class="sidebar-nav">
-
       <li @click="$store.dispatch('common/closeMenu')">
-        <router-link
-          exact
-          to="/"
-          class="nav-link"
-          title="Главная страница"
-        >
+        <router-link exact to="/" class="nav-link" title="Главная страница">
           <span>Главная</span>
         </router-link>
       </li>
@@ -17,61 +11,72 @@
       <li
         class="nav-link with-submenu"
         @click="onClickNavItem(category.name)"
-        v-for="(category,idx) in $store.state.categories.list"
+        v-for="(category, idx) in $store.state.categories.list"
         :key="idx"
       >
-        <span>{{(category.name) }}</span>
+        <span>{{ category.name }}</span>
         <ul
           class="sidebar-subnav"
-          :class="{'sidebar-subnav-active': category.name === activeCategory }"
+          :class="{ 'sidebar-subnav-active': category.name === activeCategory }"
           v-if="category.name"
         >
           <li
-            v-for="(subcategory,idx) in category.subcategories"
+            v-for="(subcategory, idx) in category.subcategories"
             :key="idx"
             @click="$store.dispatch('common/closeMenu')"
           >
             <span
               class="subnav-link"
               :title="subcategory.name"
-              @click="$router.push({path:`/products/${replaceWithDash(category.name)}?subcategory=${replaceWithDash(subcategory.name)}`})"
-            >{{subcategory.name}}</span>
+              @click="
+                $router.push({
+                  path: `/products/${replaceWithDash(
+                    category.name
+                  )}?subcategory=${replaceWithDash(subcategory.name)}`
+                })
+              "
+              >{{ subcategory.name }}</span
+            >
           </li>
         </ul>
       </li>
 
       <li
-        v-for="(nav_item,idx) in static_menu_list"
-        :key="idx+'static'"
-        @click="nav_item.children?onClickNavItem(nav_item.name):$store.dispatch('common/closeMenu')"
+        v-for="(nav_item, idx) in static_menu_list"
+        :key="idx + 'static'"
+        @click="
+          nav_item.children
+            ? onClickNavItem(nav_item.name)
+            : $store.dispatch('common/closeMenu')
+        "
         class="nav-link"
-        :class="{'with-submenu': nav_item.children}"
+        :class="{ 'with-submenu': nav_item.children }"
       >
         <router-link
           v-if="!nav_item.children"
           :to="nav_item.path"
           :title="nav_item.name"
         >
-          <span>{{nav_item.name}}</span>
+          <span>{{ nav_item.name }}</span>
         </router-link>
 
-        <span v-if="nav_item.children">{{(nav_item.name) }}</span>
+        <span v-if="nav_item.children">{{ nav_item.name }}</span>
 
         <ul
           v-if="nav_item.children"
           class="sidebar-subnav"
-          :class="{'sidebar-subnav-active': nav_item.name === activeCategory }"
+          :class="{ 'sidebar-subnav-active': nav_item.name === activeCategory }"
         >
           <li
-            v-for="(subcategory,idx) in nav_item.children"
+            v-for="(subcategory, idx) in nav_item.children"
             :key="idx"
             @click="$store.dispatch('common/closeMenu')"
           >
             <router-link
               :title="subcategory.name"
-              :to='{path:`${nav_item.path}/${subcategory.path}`}'
+              :to="{ path: `${nav_item.path}/${subcategory.path}` }"
             >
-              <span class="subnav-link">{{subcategory.name}}</span>
+              <span class="subnav-link">{{ subcategory.name }}</span>
             </router-link>
           </li>
         </ul>
@@ -143,18 +148,21 @@ export default {
 
 .logo {
   height: 120px;
-  background: url("../../assets/img/gras-resize.png") bottom,
-    url("../../assets/img/logo.png") center bottom,
-    url("../../assets/img/plita172-min.png") bottom;
-  background-repeat: repeat-x, no-repeat, no-repeat;
-  background-size: 50%, 40%, 100%;
-  background-color: var(--light-blue);
+  // background: url("../../assets/img/gras-resize.png") bottom,
+  //   url("../../assets/img/logo.png") center bottom,
+  //   url("../../assets/img/plita172-min.png") bottom;
+  // background-repeat: repeat-x, no-repeat, no-repeat;
+  // background-size: 50%, 40%, 100%;
+  // background-color: var(--light-blue);
+  background: url("../../assets/img/logo_main.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   flex-shrink: 0;
   transform: rotateY(180deg);
   // display: none;
   @media (min-width: 768px) {
     height: 150px;
-    background-size: 50%, 47%, 100%;
+    // background-size: 50%, 47%, 100%;
   }
 }
 
