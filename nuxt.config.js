@@ -55,6 +55,11 @@ export default {
       {
         rel: "apple-touch-icon",
         href: "/appletouch.png"
+      },
+      // rel="preconnect" href="https://example.com"
+      {
+        rel: "preconnect",
+        href: "https://back.ograda.zp.ua"
       }
     ]
   },
