@@ -59,7 +59,6 @@ import sectionVue from "~/components/layout/section.vue";
 import BlogCardVue from "~/components/common/BlogCard.vue";
 import { getPostsByPage, getAllPosts } from "../../api/posts";
 import { mapGetters } from "vuex";
-import { getVarsByPage } from "../../api/variables";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 import { DOMAIN } from "../../config";
 

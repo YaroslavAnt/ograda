@@ -56,7 +56,8 @@ export default {
       ],
       link: [
         { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ]
+      ],
+      script: [{ type: "application/ld+json", json: this.productMicrodata }]
     };
   },
   data() {
@@ -80,6 +81,13 @@ export default {
     "product-page": ProductPage
   },
 
+  methods: {
+    getPrice(priceStr) {
+      const [price] = priceStr.match(/\d+/g) || ["0"];
+      return price;
+    }
+  },
+
   computed: {
     category() {
       return this.$route.params.category;
@@ -92,6 +100,43 @@ export default {
     },
     image() {
       return BASE_URL + this.productData.img_set[0];
+    },
+    productMicrodata() {
+      return {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        name: this.productData.name,
+        image: [BASE_URL + this.productData.img_set[0]],
+        description: this.productData.description.split("#").join("."),
+        sku: "ograda-sku-" + this.productData.id,
+        brand: {
+          "@type": "Brand",
+          name: "ograda.zp.ua"
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.7",
+          reviewCount: "17"
+        },
+        offers: {
+          "@type": "Offer",
+          url: DOMAIN + this.$route.path,
+          priceCurrency: "UAH",
+          price: this.getPrice(this.productData.price),
+          priceValidUntil:
+            new Date().getMonth() < 10
+              ? new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 2) +
+                "-01"
+              : new Date().getFullYear() + 1 + "-01-01",
+          availability: "https://schema.org/InStock",
+          seller: {
+            "@type": "Organization",
+            name: "Oграда"
+          }
+        }
+      };
     }
   },
 

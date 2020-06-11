@@ -13,13 +13,8 @@
         class="table-row"
         v-for="(item,idx) in items"
         :key="idx"
-        itemscope
-        itemtype="http://schema.org/Offer"
       >
-        <td
-          class="table-cell table-cell-name"
-          itemprop="name"
-        >
+        <td class="table-cell table-cell-name">
 
           <nuxt-link
             v-if="withLinks"
@@ -28,13 +23,7 @@
           >{{item.name}}</nuxt-link>
           <span v-else>{{item.name}}</span>
         </td>
-        <td
-          class="table-cell table-cell-price"
-          itemprop="price"
-        ><span
-            itemprop="priceCurrency"
-            content="UAH"
-          >&#8372;</span> {{item.price}}</td>
+        <td class="table-cell table-cell-price"><span>&#8372;</span> {{item.price}}</td>
 
       </tr>
     </tbody>

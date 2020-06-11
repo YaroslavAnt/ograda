@@ -1,8 +1,18 @@
 ﻿<template>
-  <app-section :heading="content.section_heading" class="section">
+  <app-section
+    :heading="'Услуги'"
+    class="section"
+  >
     <div class="card-grid">
-      <article class="card-item" v-for="(card, idx) in card_list" :key="idx">
-        <nuxt-link :title="card.heading" :to="{ path: card.link }">
+      <article
+        class="card-item"
+        v-for="(card, idx) in card_list"
+        :key="idx"
+      >
+        <nuxt-link
+          :title="card.heading"
+          :to="{ path: card.link }"
+        >
           <icon-card
             :icon_id="card.id"
             :heading="card.heading"
@@ -33,12 +43,7 @@ export default {
     "icon-card": IconCardVue,
     "app-section": sectionVue
   },
-  props: {
-    content: {
-      type: Object,
-      default: {}
-    }
-  },
+
   data() {
     return {
       card_list: [

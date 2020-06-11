@@ -1,10 +1,6 @@
 ﻿<template>
   <section>
-    <article
-      class="section-padding"
-      itemscope
-      itemtype="http://schema.org/Product"
-    >
+    <article class="section-padding">
 
       <div class="gridbox">
         <div class="slider-box">
@@ -13,7 +9,6 @@
               :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
               :alt="product.img_alt"
               class="slider-image"
-              itemprop="image"
             />
 
             <span
@@ -22,7 +17,7 @@
             >{{product.option.label}}</span>
 
             <div class="img-arrows">
-              <app-arrow
+              <!-- <app-arrow
                 color="#fff"
                 :size="'20px'"
                 :direction="'left'"
@@ -33,7 +28,15 @@
                 :size="'20px'"
                 :direction="'right'"
                 @click.native="nextImg"
-              ></app-arrow>
+              ></app-arrow> -->
+              <span
+                @click="prevImg"
+                class="img-arrow"
+              >&#10094;</span>
+              <span
+                @click="nextImg"
+                class="img-arrow"
+              >&#10095;</span>
             </div>
 
             <div
@@ -156,40 +159,19 @@
             </li>
           </ul>
 
-          <h1
-            class="info-box-name big-font bold"
-            itemprop="name"
-          >{{product.name}}</h1>
+          <h1 class="info-box-name big-font bold">{{product.name}}</h1>
 
-          <p
-            class="info-box-price medium-font"
-            itemprop="offers"
-            itemscope
-            itemtype="http://schema.org/Offer"
-          >
-            <link
-              itemprop="availability"
-              href="http://schema.org/InStock"
-            />
+          <p class="info-box-price medium-font">
             Цена:
-            <span
-              class="bold"
-              itemprop="priceCurrency"
-              content="UAH"
-            >&#8372;</span>
-            <span
-              class="bold"
-              itemprop="price"
-              :content='getPrice(product.price)'
-            >{{product.price}}</span>
+            <span class="bold">&#8372;</span>
+            <span class="bold">{{product.price}}</span>
           </p>
           <p
-            itemprop="description"
             class="info-box-description base-font"
             v-for="(paragraph, idx) in getArrayFromDescription"
             :key="idx"
           >{{ paragraph }}</p>
-          <p class="info-box-category small-font">Категория: <span itemprop="category">{{product.category.name}}</span> </p>
+          <p class="info-box-category small-font">Категория: <span>{{product.category.name}}</span> </p>
           <p
             v-if="product.option"
             itemscope
@@ -227,18 +209,8 @@
           :alt="product.img_alt"
         >
         <div class="zoom-arrows">
-          <app-arrow
-            color="#fff"
-            :size="'40px'"
-            :direction="'left'"
-            @click.native="prevImg"
-          ></app-arrow>
-          <app-arrow
-            color="#fff"
-            :size="'40px'"
-            :direction="'right'"
-            @click.native="nextImg"
-          ></app-arrow>
+          <span @click="prevImg">&#10094;</span>
+          <span @click="nextImg">&#10095;</span>
         </div>
       </div>
     </div>
@@ -249,7 +221,6 @@
 import ImageBaseVue from "../common/ImageBase.vue";
 import { getProduct } from "../../api/products";
 import { BASE_URL } from "../../config";
-import ArrowVue from "../common/Arrow.vue";
 import { replaceWithDash } from "../../static/utils";
 import ProductCardVue from "../common/ProductCard.vue";
 import IconBaseVue from "../common/IconBase.vue";
@@ -259,7 +230,6 @@ export default {
   name: "Product.vue",
   components: {
     "app-image": ImageBaseVue,
-    "app-arrow": ArrowVue,
     "product-card": ProductCardVue,
     "base-icon": IconBaseVue,
     "zoom-icon": IconZoomVue
@@ -449,6 +419,18 @@ article {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 3%;
+  }
+  .img-arrow {
+    display: block;
+    line-height: 50px;
+    width: 50px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5));
+    text-align: center;
+    border-radius: 50%;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
   }
   .icon-box {
     display: none;

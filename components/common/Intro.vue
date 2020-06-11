@@ -13,7 +13,6 @@
           :src="img_set[active_img]"
           :alt="img_alt"
           class="slider-image"
-          itemprop="image"
         />
         <div
           @click="isZoomActive=true"

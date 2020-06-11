@@ -12,8 +12,7 @@
             title="бетонные заборы"
             to="/products/заборы?subcategory=бетонные-заборы"
           >
-            бетонных заборов</nuxt-link
-          >
+            бетонных заборов</nuxt-link>
         </strong>
         в Запорожье. Предоставляем широкий <strong>перечень услуг</strong>,
         связанных с установкой еврозабора 'под ключ' от замера участка до
@@ -36,35 +35,38 @@
             :to="`/products/${replaceWithDash(category.name)}`"
             :title="category.name"
             class="category-link"
-            >{{ category.name.toUpperCase() }}</nuxt-link
-          >
+          >{{ category.name.toUpperCase() }}</nuxt-link>
         </li>
       </ul>
 
       <p class="base-font">
         В разделе
-        <nuxt-link to="/blog" class="category-link" title="Наши отчеты"
-          >&rarr; новостей</nuxt-link
-        >
+        <nuxt-link
+          to="/blog"
+          class="category-link"
+          title="Наши отчеты"
+        >&rarr; новостей</nuxt-link>
         опубликованы отчеты о выполненных работах
       </p>
 
-      <p id="services" class="about-paragraph base-font">
+      <p
+        id="services"
+        class="about-paragraph base-font"
+      >
         Чтобы вы могли убедиться в качестве нашых <strong>еврозаборов</strong>,
         организованы
         <nuxt-link
           to="/expo"
           class="category-link"
           title="натурные выставки ограждений"
-          >&rarr; натурные выставки</nuxt-link
-        >
+        >&rarr; натурные выставки</nuxt-link>
         ограждений. В них представлены основные образцы бетонных плит с
         применением покраски и без.
       </p>
     </section>
-    <advantages :content="about.advantages" />
+    <advantages />
     <!-- <special :special='speciales'></special> -->
-    <services :content="services" />
+    <services />
     <news />
   </main>
 </template>
@@ -82,15 +84,13 @@ import { getSpecialProducts } from "../api/products";
 import { getAllSlides } from "../api/slides";
 import { getAllPosts } from "../api/posts";
 
-import measure from "~/assets/icons/measure.svg";
-import cargo from "~/assets/icons/cargo.svg";
-import brush from "~/assets/icons/brush.svg";
-import fence from "~/assets/icons/fence.svg";
+// import measure from "~/assets/icons/measure.svg";
+// import cargo from "~/assets/icons/cargo.svg";
+// import brush from "~/assets/icons/brush.svg";
+// import fence from "~/assets/icons/fence.svg";
 import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
 
 import { DOMAIN } from "../config";
-
-import { about } from "~/static/content_data";
 
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../static/utils";
@@ -133,7 +133,6 @@ export default {
 
       store.commit("slides/SET_SLIDES", slidesData);
       store.commit("posts/SET_POSTS", postsData);
-      this.speciales = specialData;
       return { slidesData, postsData };
     } catch (error) {
       () => alert("Невозможно загрузить данные");
@@ -147,47 +146,29 @@ export default {
   data() {
     return {
       title: "✔ Секционные бетонные Еврозаборы в Запорожье",
-      about,
       description:
-        "Бетонные секционные заборы в Запорожье от производителя в большом ассортименте. Высокое качество продукции. Весь перечень работ по установке ограждений",
+        "Бетонные секционные заборы в Запорожье от производителя в большом ассортименте. Весь перечень работ по установке ограждений",
       speciales: [],
       slides: [],
       fetchedVars: {},
       keywords:
         "еврозабор в запорожье, купить еврозабор, глянцевые еврозаборы, бетонный забор, забор из профнастила",
-      services: {
-        section_heading: "Услуги",
-        section_subheading:
-          "Дополнительно мы предоставляем услуги, связанные с установкой ограждений, бетонных заборов, ворот, калиток",
-        card_list: [
-          {
-            icon: cargo,
-            id: "delivery",
-            heading: "Доставка продукции и строй-материалов",
-            link: "/services"
-          },
-          {
-            icon: fence,
-            id: "montage",
-            heading: "Установка заборов, ворот",
-            link: "/services"
-          },
-          {
-            icon: brush,
-            id: "pokraska",
-            heading: "Покраска заборов",
-            link: "/services"
-          },
-          {
-            icon: measure,
-            id: "measure",
-            heading: "Выезд замерщика",
-            link: "/services"
-          }
-        ]
-      },
       ogImage,
-      DOMAIN
+      DOMAIN,
+      organisationMicrodata: {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        url: "https://ograda.zp.ua/",
+        sameAs: [
+          "https://www.instagram.com/ograda_zp/",
+          "https://twitter.com/OgradaZ?s=09",
+          "https://www.pinterest.com/ograda_zp0599/",
+          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
+        ],
+        "@id": "#organization",
+        name: "Ограда",
+        logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png"
+      }
     };
   },
 
@@ -244,6 +225,9 @@ export default {
       ],
       link: [
         { rel: "canonical", href: this.DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ],
+      script: [
+        { type: "application/ld+json", json: this.organisationMicrodata }
       ]
     };
   }

@@ -15,10 +15,7 @@
           class="footer-share-link"
           :title="'Еврозаборы в Запорожье'"
         >
-          <!--:description="sharing.description"
-        :quote="sharing.quote"
-        :hashtags="sharing.hashtags"
-        :twitterUser="sharing.twitterUser" -->
+
           {{network.name}}
         </ShareNetwork>
       </div>
@@ -38,12 +35,8 @@
                 v-for="(link, idx) in $store.state.categories.list"
                 :key="idx"
               >
-                <arrow
-                  :color="'#ff5b00'"
-                  :borderWidth="'1px'"
-                  :size="'10px'"
-                  :direction="'right'"
-                />
+
+                <span class="color-orange">&#10095;</span>
                 <nuxt-link
                   title="страница товара"
                   :to='`/products/${replaceWithDash(link.name) }`'
@@ -64,12 +57,8 @@
                 v-for="(link, idx) in item.links"
                 :key="idx"
               >
-                <arrow
-                  :color="'#ff5b00'"
-                  :borderWidth="'1px'"
-                  :size="'10px'"
-                  :direction="'right'"
-                />
+
+                <span class="color-orange">&#10095;</span>
                 <nuxt-link
                   title="Подробнее"
                   :to="link.path"
@@ -80,38 +69,22 @@
         </ul>
       </nav>
 
-      <address
-        class="footer-navitem footer-contacts"
-        itemscope
-        itemtype="http://schema.org/Organization"
-      >
+      <address class="footer-navitem footer-contacts">
         <div>
-          <span
-            itemprop="name"
-            content='Ограда'
-          ></span>
+
           <p>{{contact_list.name}}</p>
-          <ul
-            itemprop="address"
-            itemscope
-            itemtype="http://schema.org/PostalAddress"
-          >
+          <ul>
             <li>
-              <span itemprop="addressLocality"> г. Запорожье,</span>
+              <span> г. Запорожье,</span>
               <br />
-              <span itemprop="streetAddress"> ул.Стартовая 1ж</span>
-              <!-- :href="`tel:${PHONE}`" -->
+              <span> ул.Стартовая 1ж</span>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
-              <a
-                itemprop="telephone"
-                title="Телефон"
-              >{{PHONE}}</a>
+              <a title="Телефон">{{PHONE}}</a>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a
                 :href="`tel:${PHONE1}`"
-                itemprop="telephone"
                 title="Телефон"
               >{{PHONE1}}</a>
             </li>
@@ -119,31 +92,24 @@
               <a
                 title="Эл.почта"
                 :href="`mailto:${EMAIL}`"
-                itemprop="email"
               >{{EMAIL}}</a>
             </li>
           </ul>
 
           <div>
             <a
-              itemprop="sameAs"
               :content="FACEBOOK"
               :href='FACEBOOK'
               target="_blank"
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <!-- <img
-                src="../../assets/icons/sprite_s.svg#facebook"
-                alt="fb-icon"
-                class="footer-icon"
-              /> -->
+
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#facebook" />
               </svg>
             </a>
             <a
-              itemprop="sameAs"
               :content="INSTAGRAM"
               :href='INSTAGRAM'
               target="_blank"
@@ -155,57 +121,40 @@
                 alt="fb-icon"
                 class="footer-icon"
               />
-              <!-- <svg class="footer-icon">
-                <use xlink:href="../../assets/icons/instagram.svg" />
-              </svg> -->
+
             </a>
             <a
-              itemprop="sameAs"
               :content="TWITTER"
               :href='TWITTER'
               target="_blank"
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <!-- <img
-                src="../../assets/icons/sprite_s.svg#twitter"
-                alt="fb-icon"
-                class="footer-icon"
-              /> -->
+
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#twitter" />
               </svg>
             </a>
             <a
-              itemprop="sameAs"
               :content="YOUTUBE"
               :href='YOUTUBE'
               target="_blank"
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <!-- <img
-                src="../../assets/icons/sprite_s.svg#youtube"
-                alt="fb-icon"
-                class="footer-icon"
-              /> -->
+
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#youtube" />
               </svg>
             </a>
             <a
-              itemprop="sameAs"
               :content="PINTEREST"
               :href='PINTEREST'
               target="_blank"
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <!-- <img
-                src="../../assets/icons/sprite_s.svg#pinterest"
-                alt="fb-icon"
-                class="footer-icon"
-              /> -->
+
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#pinterest" />
               </svg>
@@ -215,14 +164,6 @@
           <p>Пн-Сб, 9:00 - 18:00</p>
         </div>
 
-        <!--<div>
-          <h6>Страницы в соцсетях</h6>
-           <img
-            src="../../assets/icons/youtube.svg"
-            alt="fb-icon"
-            class="footer-icon"
-          /> 
-        </div>-->
       </address>
     </div>
   </footer>
@@ -295,7 +236,6 @@
 </style>
 
 <script>
-import ArrowVue from "../common/Arrow.vue";
 import {
   DOMAIN,
   BASE_URL,
@@ -313,10 +253,7 @@ import { replaceWithDash } from "../../static/utils";
 // import SocialSharing from "vue-social-sharing";
 export default {
   name: "footer.vue",
-  components: {
-    arrow: ArrowVue
-    // "social-sharing": SocialSharing
-  },
+
   methods: {
     replaceWithDash
   },

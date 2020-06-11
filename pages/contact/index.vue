@@ -70,7 +70,6 @@ import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
 import { postEmail } from "../../api/email";
 import { PHONE, EMAIL, PHONE1, DOMAIN, LOCATION } from "../../config";
-import { getVarsByPage } from "../../api/variables";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 
 export default {
@@ -180,76 +179,76 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  main {
-    position: relative;
+main {
+  position: relative;
+}
+.section {
+  background-color: #fff;
+  padding-top: 100px;
+}
+.heading {
+  font-weight: bold;
+  width: calc(100% - 32px);
+  font-size: 22px;
+  line-height: 1;
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  margin: 20px 16px 20px;
+  padding: 12px 24px;
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+
+  &::before {
+    background-color: var(--green);
   }
-  .section {
-    background-color: #fff;
-    padding-top: 100px;
-  }
-  .heading {
-    font-weight: bold;
-    width: calc(100% - 32px);
-    font-size: 22px;
+
+  @media (min-width: 600px) {
+    font-size: 28px;
     line-height: 1;
-    display: inline-block;
-    text-align: center;
-    color: #fff;
-    margin: 20px 16px 20px;
-    padding: 12px 24px;
-    position: absolute;
-    z-index: 5;
+    margin-bottom: 20px 16px 40px;
+  }
+}
+.warn {
+  color: red;
+}
+.contact {
+  display: grid;
+  grid-gap: 24px;
+  align-items: center;
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form {
     display: flex;
-    justify-content: center;
-
-    &::before {
-      background-color: var(--green);
-    }
-
-    @media (min-width: 600px) {
-      font-size: 28px;
-      line-height: 1;
-      margin-bottom: 20px 16px 40px;
-    }
+    flex-direction: column;
   }
-  .warn {
-    color: red;
+  .input {
+    min-height: 50px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 8px;
+    padding: 8px 16px;
+    border: 1px solid #aaa;
   }
-  .contact {
+  .area {
+    min-height: 100px;
+    resize: none;
+  }
+  .btn {
+    cursor: pointer;
+  }
+  .contacts {
     display: grid;
-    grid-gap: 24px;
-    align-items: center;
-    @media (min-width: 600px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .form {
-      display: flex;
-      flex-direction: column;
-    }
-    .input {
-      min-height: 50px;
-      border: none;
-      border-radius: 4px;
-      margin-top: 8px;
-      padding: 8px 16px;
-      border: 1px solid #aaa;
-    }
-    .area {
-      min-height: 100px;
-      resize: none;
-    }
-    .btn {
-      cursor: pointer;
-    }
-    .contacts {
-      display: grid;
-      grid-template-columns: 12% 1fr;
-      grid-gap: 10px;
-    }
+    grid-template-columns: 12% 1fr;
+    grid-gap: 10px;
   }
+}
 
-  .map {
-    margin-top: 40px;
-  }
+.map {
+  margin-top: 40px;
+}
 </style>
