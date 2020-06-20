@@ -3,6 +3,22 @@
     :heading="'Услуги'"
     class="section"
   >
+    <p class="base-font">Установка еврозаборов это довольно трудоемкий процесс, состоящий из отдельных этапов:</p>
+    <ul>
+      <li
+        v-for="service in services"
+        :key="service.name"
+        class="color-orange small-font bold"
+        title="Подробнее об услуге"
+      >
+        <nuxt-link :to='service.to'>&bull; {{service.name}}</nuxt-link>
+      </li>
+    </ul>
+    <p class="base-font">Мы предоставляем услуги по каждому из перечисленных пунктов.
+      По желанию заказчика любой из этапов установки еврозабора он может выполнить самостоятельно,
+      что даст возможность оградить участок по более низкой цене
+    </p>
+    <p class="base-font">Более подробно ознакомиться с предоставляемыми услугами Вы можете перейдя по ссылке:</p>
     <div class="card-grid">
       <article
         class="card-item"
@@ -48,6 +64,12 @@ export default {
     return {
       card_list: [
         {
+          // icon: measure,
+          id: "measure-svg",
+          heading: "Выезд замерщика",
+          link: "/services/zamer"
+        },
+        {
           // icon: cargo,
           id: "cargo-svg",
           heading: "Доставка продукции и строй-материалов",
@@ -64,13 +86,25 @@ export default {
           id: "brush-svg",
           heading: "Покраска заборов",
           link: "/services/pokraska"
+        }
+      ],
+      services: [
+        { name: "Замер участка под установку", to: "/services/zamer" },
+        { name: "Демонтаж старого ограждения", to: "/" }, //TODO page
+        {
+          name: "Доставка материалов и комплектов бетонных плит",
+          to: "/services/dostavka"
         },
         {
-          // icon: measure,
-          id: "measure-svg",
-          heading: "Выезд замерщика",
-          link: "/services/zamer"
-        }
+          name: "Установка бетонных столбиков и секций еврозабора",
+          to: "/services/montazh"
+        },
+        { name: "Заливка фундаментной ленты", to: "/services/fundament" },
+        {
+          name: "Изготовление и монтаж калитки и ворот",
+          to: "/products/ворота-и-калитки"
+        }, //TODO page
+        { name: "Покраска еврозабора", to: "/services/pokraska" }
       ]
     };
   }
@@ -81,6 +115,15 @@ export default {
 section {
   background-color: var(--dark);
   color: var(--white);
+
+  p,
+  ul {
+    margin: 20px 0;
+  }
+
+  ul {
+    line-height: 1.3;
+  }
 
   .card-grid {
     display: grid;

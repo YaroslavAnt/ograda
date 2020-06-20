@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1 class="heading heading-page with-skewed-bg">{{ title }}</h1>
-    <hero />
+    <hero :slides='slides'></hero>
     <section class="about section-padding">
       <!-- <h2 class="heading heading-section with-skewed-bg">О нас</h2> -->
       <p class="about-paragraph base-font">
@@ -64,10 +64,11 @@
         применением покраски и без.
       </p>
     </section>
-    <advantages />
+    <popular :popularProducts="popularProducts"></popular>
+    <!-- <advantages></advantages> -->
     <!-- <special :special='speciales'></special> -->
-    <services />
-    <news />
+    <services></services>
+    <news :lastPosts='posts.slice(0,3)'></news>
   </main>
 </template>
 
@@ -75,25 +76,17 @@
 import heroVue from "../components/sections/home/hero";
 import servicesVue from "../components/sections/home/services.vue";
 import newsVue from "../components/sections/home/news.vue";
-// import specialVue from "../components/sections/home/special.vue";
-import aboutVue from "~/components/sections/about/about.vue";
-import advantagesVue from "~/components/sections/about/advantages.vue";
+// import aboutVue from "~/components/sections/about/about.vue";
+// import advantagesVue from "~/components/sections/about/advantages.vue";
 import sectionVue from "~/components/layout/section.vue";
 
-import { getSpecialProducts } from "../api/products";
-import { getAllSlides } from "../api/slides";
-import { getAllPosts } from "../api/posts";
-
-// import measure from "~/assets/icons/measure.svg";
-// import cargo from "~/assets/icons/cargo.svg";
-// import brush from "~/assets/icons/brush.svg";
-// import fence from "~/assets/icons/fence.svg";
 import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
 
 import { DOMAIN } from "../config";
 
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../static/utils";
+import popularVue from "../components/sections/home/popular.vue";
 
 export default {
   scrollToTop: true,
@@ -103,9 +96,10 @@ export default {
     // special: specialVue,
     services: servicesVue,
     news: newsVue,
-    about: aboutVue,
-    advantages: advantagesVue,
-    "app-section": sectionVue
+    // about: aboutVue,
+    // advantages: advantagesVue,
+    "app-section": sectionVue,
+    popular: popularVue
   },
 
   methods: {
@@ -118,39 +112,14 @@ export default {
     })
   },
 
-  async fetch({ store }) {
-    try {
-      const {
-        data: { data: slidesData }
-      } = await getAllSlides();
-      // const {
-      //   data: { data: specialData }
-      // } = await getSpecialProducts();
-      // console.log({ specialData });
-      const {
-        data: { data: postsData }
-      } = await getAllPosts();
-
-      store.commit("slides/SET_SLIDES", slidesData);
-      store.commit("posts/SET_POSTS", postsData);
-      return { slidesData, postsData };
-    } catch (error) {
-      () => alert("Невозможно загрузить данные");
-    }
-  },
-
-  mounted() {
-    this.$store.commit("common/CLOSE_MENU");
-  },
-
   data() {
     return {
       title: "✔ Секционные бетонные Еврозаборы в Запорожье",
       description:
         "Бетонные секционные заборы в Запорожье от производителя в большом ассортименте. Весь перечень работ по установке ограждений",
-      speciales: [],
+      popularProducts: [],
       slides: [],
-      fetchedVars: {},
+      posts: [],
       keywords:
         "еврозабор в запорожье, купить еврозабор, глянцевые еврозаборы, бетонный забор, забор из профнастила",
       ogImage,
@@ -170,6 +139,21 @@ export default {
         logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png"
       }
     };
+  },
+
+  async asyncData({ app }) {
+    const { data: popularProducts } = await app.$productsAPI.productsPopular();
+    const {
+      data: { data: posts }
+    } = await app.$postsAPI.posts();
+    const {
+      data: { data: slides }
+    } = await app.$slidesAPI.slides();
+    return { popularProducts, slides, posts };
+  },
+
+  async mounted() {
+    this.$store.commit("common/CLOSE_MENU");
   },
 
   head() {
@@ -285,7 +269,8 @@ main {
   }
 
   .category {
-    line-height: 42px;
+    line-height: 1.3;
+    padding: 8px 0;
   }
   .category-link {
     color: var(--red);

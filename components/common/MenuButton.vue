@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .menu-button {
   width: 30px;
-  height: 26px;
+  height: 21px;
   position: relative;
   display: flex;
   align-items: center;

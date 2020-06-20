@@ -166,6 +166,7 @@
 
       </address>
     </div>
+
   </footer>
 </template>
 
@@ -229,8 +230,15 @@
     cursor: pointer;
     display: inline-block;
     color: #fff;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 6px 20px;
+    border-radius: 32px;
+  }
+
+  .counters {
+    position: absolute;
+    bottom: 5px;
+    text-align: center;
+    visibility: hidden;
   }
 }
 </style>

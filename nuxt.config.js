@@ -4,6 +4,8 @@ import axios from "axios";
 import { replaceWithDash } from "./static/utils";
 // import appleIcon from "./assets/icons/appletouch.png";
 
+require("dotenv").config();
+
 export default {
   mode: "universal",
   /*
@@ -74,11 +76,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: "./plugins/vue-lazysizes.js", ssr: false }],
+  plugins: [{ src: "./plugins/vue-lazysizes.js", ssr: false }, "~/plugins/api"],
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ["@aceforth/nuxt-optimized-images"],
+  buildModules: ["@aceforth/nuxt-optimized-images", "@nuxtjs/dotenv"],
   optimizedImages: {
     optimizeImages: true
   },
@@ -88,7 +90,13 @@ export default {
   modules: [
     "@nuxtjs/google-analytics",
     "@nuxtjs/sitemap",
-    "vue-social-sharing/nuxt"
+    "vue-social-sharing/nuxt",
+    [
+      "@nuxtjs/axios",
+      {
+        baseURL: process.env.VUE_APP_API_URL
+      }
+    ]
   ],
 
   sitemap: {

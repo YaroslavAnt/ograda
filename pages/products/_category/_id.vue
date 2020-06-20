@@ -109,14 +109,27 @@ export default {
         image: [BASE_URL + this.productData.img_set[0]],
         description: this.productData.description.split("#").join("."),
         sku: "ograda-sku-" + this.productData.id,
+        mpn: "null",
         brand: {
           "@type": "Brand",
           name: "ograda.zp.ua"
         },
+        review: {
+          "@type": "Review",
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: "5",
+            bestRating: "5"
+          },
+          author: {
+            "@type": "Person",
+            name: "Olena Volyk"
+          }
+        },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "4.7",
-          reviewCount: "17"
+          ratingValue: "5",
+          reviewCount: "20"
         },
         offers: {
           "@type": "Offer",
@@ -124,12 +137,12 @@ export default {
           priceCurrency: "UAH",
           price: this.getPrice(this.productData.price),
           priceValidUntil:
-            new Date().getMonth() < 10
+            new Date().getMonth() < 9
               ? new Date().getFullYear() +
                 "-" +
-                (new Date().getMonth() + 2) +
+                (new Date().getMonth() + 3) +
                 "-01"
-              : new Date().getFullYear() + 1 + "-01-01",
+              : new Date().getFullYear() + 1 + "-02-01",
           availability: "https://schema.org/InStock",
           seller: {
             "@type": "Organization",

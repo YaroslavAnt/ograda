@@ -184,11 +184,11 @@
       <div class="popular">
         <h2 class="medium-font heading"><b>Популярные товары</b></h2>
         <div class="popular-grid">
-          <product-card
+          <product-preview
             v-for="product in popular"
             :key='product.id'
             :product='product'
-          ></product-card>
+          ></product-preview>
         </div>
       </div>
     </article>
@@ -225,6 +225,7 @@ import { replaceWithDash } from "../../static/utils";
 import ProductCardVue from "../common/ProductCard.vue";
 import IconBaseVue from "../common/IconBase.vue";
 import IconZoomVue from "../icons/IconZoom.vue";
+import ProductPreviewVue from "../common/ProductPreview.vue";
 
 export default {
   name: "Product.vue",
@@ -232,7 +233,8 @@ export default {
     "app-image": ImageBaseVue,
     "product-card": ProductCardVue,
     "base-icon": IconBaseVue,
-    "zoom-icon": IconZoomVue
+    "zoom-icon": IconZoomVue,
+    "product-preview": ProductPreviewVue
   },
   methods: {
     replaceWithDash: replaceWithDash,
@@ -512,7 +514,7 @@ article {
     grid-gap: 24px;
 
     @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }

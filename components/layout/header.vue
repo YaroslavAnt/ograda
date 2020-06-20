@@ -1,7 +1,11 @@
 ﻿<template>
   <header class="header">
     <div class="header-padding header-location">
-      <icon-base :iconColor="'#ff5b00'" :width="18" :height="18">
+      <icon-base
+        :iconColor="'#ff5b00'"
+        :width="18"
+        :height="18"
+      >
         <icon-location />
       </icon-base>
       <span>{{ location }}</span>
@@ -17,8 +21,14 @@
             </svg>
           </span>
           <span class="text">
-            <a title="Телефон" :href="`tel:${PHONE}`">{{ PHONE }}</a> <br />
-            <a title="Телефон" :href="`tel:${PHONE1}`">{{ PHONE1 }}</a>
+            <a
+              title="Телефон"
+              :href="`tel:${PHONE}`"
+            >{{ PHONE }}</a> <br />
+            <a
+              title="Телефон"
+              :href="`tel:${PHONE1}`"
+            >{{ PHONE1 }}</a>
           </span>
         </div>
 
@@ -29,7 +39,10 @@
             </svg>
           </span>
           <span class="text">
-            <a title="Почта" :href="`mailto:${EMAIL}`">{{ EMAIL }}</a>
+            <a
+              title="Почта"
+              :href="`mailto:${EMAIL}`"
+            >{{ EMAIL }}</a>
           </span>
         </div>
       </div>
@@ -53,7 +66,7 @@
   width: 100%;
   justify-content: space-between;
   font-weight: 500;
-  height: 85px;
+  height: 60px;
   background-color: #eee;
   z-index: 50;
   box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
@@ -74,7 +87,7 @@
   .menu {
     display: flex;
     align-items: center;
-    padding: 16px;
+    padding: 10px;
     border-radius: 4px;
     background-color: var(--red);
     @media (min-width: 1024px) {

@@ -1,7 +1,10 @@
 ﻿<template>
   <article class="card">
 
-    <div class="card-img-box">
+    <div
+      class="card-img-box"
+      @click="$router.push(`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`)"
+    >
       <img
         class="card-image lazyload"
         :data-src="getImageUrl(product)"
@@ -10,20 +13,21 @@
       <span :content='getImageUrl(product)'></span>
     </div>
 
-    <nuxt-link
-      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
-      class="card-name base-font"
-      :title="product.name"
-    ><span>{{product.name}}</span> </nuxt-link>
-
     <span
       v-if="product.option.label"
       class="card-label small-font"
     >{{product.option.label}}</span>
 
     <div class="card-text">
+      <nuxt-link
+        :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
+        class="card-name base-font"
+        :title="product.name"
+      >
+        <span>{{product.name}}</span>
+      </nuxt-link>
       <p class="card-price medium-font">
-        Цена:
+
         <span>&#8372; </span>
         <span>{{product.price}}</span> </p>
     </div>
@@ -82,12 +86,19 @@ export default {
   overflow: hidden;
   max-width: 500px;
   border: 1px solid #ddd;
+  transition-duration: 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 10px 18px rgba(91, 124, 196, 0.85);
+  }
 
   &-img-box {
     width: 100%;
     overflow: hidden;
     padding-bottom: 67%;
     position: relative;
+    cursor: pointer;
   }
 
   &-image {
@@ -101,6 +112,9 @@ export default {
   &-text {
     padding: 10px 16px;
     background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   &-label {
     display: block;
@@ -114,36 +128,10 @@ export default {
     border-radius: 0px 0 0 4px;
   }
   &-name {
-    // font-weight: 600;
-    color: #fff;
-    padding: 8px 16px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    width: 65%;
-    min-width: 260px;
-    text-align: center;
     text-transform: uppercase;
     cursor: pointer;
-    &:hover {
-      &::after {
-        opacity: 1;
-      }
-    }
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: "";
-      width: 100%;
-      height: 100%;
-      display: block;
-      background-color: var(--red);
-      opacity: 0.7;
-      z-index: -1;
-      border-radius: 4px;
-    }
+    font-weight: bold;
+    color: var(--red);
   }
   &-price {
     font-weight: bold;

@@ -1,5 +1,4 @@
-﻿import { getAll } from "~/api/categories";
-import { getAllPosts } from "~/api/posts";
+﻿import { getAllPosts } from "~/api/posts";
 
 export const state = () => {
   return {

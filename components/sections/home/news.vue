@@ -2,11 +2,11 @@
   <app-secion
     :heading="'Отчеты о выполненных работах'"
     class="section"
-    v-if="lastNews.length > 0"
+    v-if="lastPosts.length > 0"
   >
     <div class="news-grid">
       <blog-card
-        v-for="(post,idx) in lastNews"
+        v-for="(post,idx) in lastPosts"
         :key="idx"
         :card="post"
       />
@@ -31,12 +31,18 @@ export default {
     "app-secion": sectionVue,
     "blog-card": BlogCardVue
   },
-
-  computed: {
-    ...mapGetters({
-      lastNews: "posts/getLastPosts"
-    })
+  props: {
+    lastPosts: {
+      type: Array,
+      default: () => []
+    }
   }
+
+  // computed: {
+  //   ...mapGetters({
+  //     lastNews: "posts/getLastPosts"
+  //   })
+  // }
 };
 </script>
 

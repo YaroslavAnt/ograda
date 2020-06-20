@@ -35,3 +35,25 @@ export {
   getPrices,
   getExhibitions
 };
+
+export default $axios => ({
+  products() {
+    return $axios.$get(END_POINT);
+  },
+
+  product(id) {
+    return $axios.$get(`${END_POINT}/${id}`);
+  },
+
+  productsByPage(page) {
+    return $axios.$get(`${END_POINT}?page=${page}`);
+  },
+
+  productsPopular() {
+    return $axios.$get(`/products-popular`);
+  },
+
+  productsExhibitions() {
+    return $axios.$get("/exhibition");
+  }
+});

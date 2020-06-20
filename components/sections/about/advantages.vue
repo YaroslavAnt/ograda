@@ -1,6 +1,6 @@
 ﻿<template>
   <app-section
-    :heading="content.section_intro"
+    :heading="'Наши приемущества'"
     class="section"
   >
     <div class="grid">
@@ -33,7 +33,6 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import sprite from "../../../assets/icons/sprite_c.svg";
-import { about } from "~/static/content_data";
 
 export default {
   name: "advantages.vue",
@@ -43,8 +42,7 @@ export default {
   data() {
     return {
       sprite,
-      about,
-      content: about.advantages,
+
       card_list: [
         {
           icon: "case",

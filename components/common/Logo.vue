@@ -20,7 +20,7 @@
   align-items: center;
 
   &-text {
-    padding: 10px;
+    padding: 10px 0;
     background-size: 73%;
     background-repeat: no-repeat;
     background-position: center;
@@ -31,10 +31,11 @@
   }
   &-about {
     display: none;
-    font-size: 14px;
-    line-height: 1.2;
     @media (min-width: 1200px) {
+      font-size: 14px;
+      line-height: 1.2;
       display: block;
+      margin-left: 12px;
     }
   }
 }

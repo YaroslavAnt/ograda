@@ -1,7 +1,7 @@
-﻿import httpClient from "./httpClient";
+﻿const END_POINT = "/sliders";
 
-const END_POINT = "/sliders";
-
-const getAllSlides = () => httpClient.get(END_POINT);
-
-export { getAllSlides };
+export default $axios => ({
+  slides() {
+    return $axios.$get(END_POINT);
+  }
+});
