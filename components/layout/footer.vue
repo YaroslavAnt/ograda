@@ -116,12 +116,15 @@
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-              <img
+              <!-- <img
                 src="../../assets/icons/instagram.svg"
                 alt="fb-icon"
-                class="footer-icon"
-              />
+                class="footer-icon lazyload"
+              /> -->
 
+              <svg class="footer-icon">
+                <use xlink:href="../../assets/icons/sprite_s.svg#instagram" />
+              </svg>
             </a>
             <a
               :content="TWITTER"
@@ -130,7 +133,6 @@
               rel="noreferrer noopener"
               title='Наша страничка в соцсетях'
             >
-
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#twitter" />
               </svg>

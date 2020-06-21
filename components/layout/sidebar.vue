@@ -1,9 +1,19 @@
 ﻿<template>
   <div class="nav">
     <div class="logo"></div>
+    <!-- <img
+      src="../../assets/img/logo_main.png"
+      alt=""
+      class="logo"
+    > -->
     <ul class="sidebar-nav">
       <li @click="$store.dispatch('common/closeMenu')">
-        <router-link exact to="/" class="nav-link" title="Главная страница">
+        <router-link
+          exact
+          to="/"
+          class="nav-link"
+          title="Главная страница"
+        >
           <span>Главная</span>
         </router-link>
       </li>
@@ -35,8 +45,7 @@
                   )}?subcategory=${replaceWithDash(subcategory.name)}`
                 })
               "
-              >{{ subcategory.name }}</span
-            >
+            >{{ subcategory.name }}</span>
           </li>
         </ul>
       </li>
@@ -147,20 +156,21 @@ export default {
 }
 
 .logo {
-  height: 120px;
+  height: 20px;
   // background: url("../../assets/img/gras-resize.png") bottom,
   //   url("../../assets/img/logo.png") center bottom,
   //   url("../../assets/img/plita172-min.png") bottom;
   // background-repeat: repeat-x, no-repeat, no-repeat;
   // background-size: 50%, 40%, 100%;
   // background-color: var(--light-blue);
-  background: url("../../assets/img/logo_main.png");
-  background-repeat: no-repeat;
-  background-size: cover;
   flex-shrink: 0;
-  transform: rotateY(180deg);
+  flex-grow: 0;
   // display: none;
   @media (min-width: 768px) {
+    transform: rotateY(180deg);
+    background: url("../../assets/img/logo_main.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 150px;
     // background-size: 50%, 47%, 100%;
   }

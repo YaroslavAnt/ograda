@@ -6,21 +6,24 @@
       class="slider-item"
       :class="{ 'active-slide': current_slide === idx }"
     >
-      <div class="slider-filterbox" :class="{ 'with-filter': withFilter }">
+      <div
+        class="slider-filterbox"
+        :class="{ 'with-filter': withFilter }"
+      >
         <div class="picture">
           <picture>
             <source
-              :srcSet="`${BASE_URL + slide.image}?webp`"
+              :srcSet="`${BASE_URL + getImageName(slide.image) }.webp`"
               type="image/webp"
             />
             <source
-              :srcSet="`${BASE_URL + slide.image}?webp`"
-              type="image/webp"
+              :srcSet="`${BASE_URL + slide.image}`"
+              type="image/jpeg"
             />
             <!-- <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> -->
             <img
-              :src="BASE_URL + slide.image"
-              srcset="../../assets/icons/img-placeholder.png"
+              :srcset="`../../assets/icons/img-placeholder.png, ${BASE_URL + getImageName(slide.image) }.webp`"
+              :src="`${BASE_URL + slide.image}`"
               :alt="slide.img_alt"
               class="picture-img"
             />
@@ -31,7 +34,7 @@
       <div class="slider-content section-padding">
         <nuxt-link
           v-if="slide.short_body && slide.short_body !== 'null' && slide.title"
-          :to="slide.short_body"
+          :to="'/'"
           :title="slide.title"
         >
           <h2
@@ -42,17 +45,26 @@
           </h2>
         </nuxt-link>
 
-        <h2 v-else class="slider-heading app-button huge-font slider-btn ">
+        <h2
+          v-else
+          class="slider-heading app-button huge-font slider-btn "
+        >
           {{ String(slide.title).toUpperCase() }}
         </h2>
 
-        <p v-if="slide.body" class="slider-text medium-font">
+        <p
+          v-if="slide.body"
+          class="slider-text medium-font"
+        >
           {{ slide.body.trim() }}
         </p>
       </div>
 
       <div class="arrows">
-        <div class="arrow" @click="backvard()">
+        <div
+          class="arrow"
+          @click="backvard()"
+        >
           <!-- <app-arrow :size="'12px'" /> -->
           &#10094;
         </div>
@@ -67,7 +79,10 @@
           ></div>
         </div>
 
-        <div class="arrow " @click="forvard()">
+        <div
+          class="arrow "
+          @click="forvard()"
+        >
           <!-- <app-arrow :size="'12px'" arrow-right/> -->
           &#10095;
         </div>
@@ -92,6 +107,10 @@ export default {
   },
   methods: {
     replaceWithDash,
+    getImageName(url) {
+      const [imgName] = url.split(".").slice(0, -1);
+      return imgName;
+    },
     forvard() {
       this.current_slide =
         this.current_slide < this.slider_items.length - 1

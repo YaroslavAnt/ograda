@@ -82,7 +82,8 @@ export default {
    */
   buildModules: ["@aceforth/nuxt-optimized-images", "@nuxtjs/dotenv"],
   optimizedImages: {
-    optimizeImages: true
+    optimizeImages: true,
+    defaultImageLoader: "img-loader"
   },
   /*
    **  Nuxt.js modules

@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL } from "~/config";
 import { replaceWithDash } from "../../static/utils";
 export default {
@@ -71,9 +70,6 @@ export default {
       const [price] = priceStr.match(/\d+/g);
       return price;
     }
-  },
-  components: {
-    "app-image": ImageBaseVue
   }
 };
 </script>
