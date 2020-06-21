@@ -12,22 +12,30 @@
       >
         <div class="picture">
           <picture>
-            <source
+            <!-- <source
               :srcSet="`${BASE_URL + getImageName(slide.image) }.webp`"
               type="image/webp"
-            />
-            <source
+            /> -->
+            <!--<source
               :srcSet="`${BASE_URL + slide.image}`"
               type="image/jpeg"
             />
-            <!-- <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> -->
+             <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> 
             <img
               :srcset="`../../assets/icons/img-placeholder.png, ${BASE_URL + getImageName(slide.image) }.webp`"
               :src="`${BASE_URL + slide.image}`"
               :alt="slide.img_alt"
               class="picture-img"
-            />
+            />-->
+            <img
+              :srcset="`${THUMBOR_PROXY}/450x300/${BASE_URL + slide.image} 425w, ${THUMBOR_PROXY}/800x600/${BASE_URL + slide.image} 800w, ${THUMBOR_PROXY}/1280x960/${BASE_URL + slide.image} 1200w`"
+              sizes="(max-width: 425px) 425px, (max-width: 768px) 800px, 1200px"
+              class="picture-img"
+              :src="`${BASE_URL + slide.image}`"
+              :alt="slide.img_alt"
+            >
           </picture>
+          <!-- {{}} -->
         </div>
       </div>
 
@@ -95,7 +103,7 @@
 import ButtonVue from "./Button.vue";
 // import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
-import { BASE_URL } from "~/config";
+import { BASE_URL, THUMBOR_PROXY } from "~/config";
 import { replaceWithDash } from "../../static/utils";
 
 export default {
@@ -153,7 +161,8 @@ export default {
     return {
       current_slide: 0,
       intervalid1: null,
-      BASE_URL
+      BASE_URL,
+      THUMBOR_PROXY
     };
   },
   props: ["slider_items", "height", "withPreview", "withAutoPlay", "withFilter"]

@@ -2,6 +2,8 @@ export const BASE_URL = "https://back.ograda.zp.ua/";
 
 export const DOMAIN = "https://ograda.zp.ua";
 
+export const THUMBOR_PROXY = "http://185.233.118.96:8888/unsafe";
+
 export const PHONE = "+38(099)548 60 10";
 export const PHONE1 = "+38(098)030 50 10";
 export const EMAIL = "info@ograda.zp.ua";

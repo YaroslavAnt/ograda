@@ -8,10 +8,10 @@
       <li
         v-for="service in services"
         :key="service.name"
-        class="color-orange small-font bold"
+        class="color-orange base-font bold"
         title="Подробнее об услуге"
       >
-        <nuxt-link :to='service.to'>&bull; {{service.name}}</nuxt-link>
+        <nuxt-link :to='service.to'>→ {{service.name}}</nuxt-link>
       </li>
     </ul>
     <p class="base-font">Мы предоставляем услуги по каждому из перечисленных пунктов.
@@ -123,6 +123,11 @@ section {
 
   ul {
     line-height: 1.3;
+  }
+
+  li {
+    padding: 10px 0;
+    min-height: 48px;
   }
 
   .card-grid {

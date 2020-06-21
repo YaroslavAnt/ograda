@@ -10,7 +10,7 @@
       class="sidebar"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
     >
-      <app-sidebar :current_page="current_page"></app-sidebar>
+      <app-sidebar :isMenuActive='$store.state.common.isMenuOpen'></app-sidebar>
     </nav>
 
     <div
@@ -18,7 +18,7 @@
       ref="scrolledContent"
       id="scrolledContent"
     >
-      <app-header :current_page="current_page"></app-header>
+      <app-header></app-header>
       <nuxt />
       <app-footer></app-footer>
 
@@ -76,7 +76,7 @@
   &.isMenuActive {
     display: block;
     z-index: 100;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -105,8 +105,8 @@
 }
 .content {
   flex: 1;
-  height: 100vh;
-  overflow-y: scroll;
+  // height: 100vh;
+  // overflow-y: scroll;
   display: flex;
   flex-direction: column;
 }

@@ -81,9 +81,9 @@ export default {
     }
   }
 
-  &-slider {
-    min-width: 400px;
-  }
+  // &-slider {
+  //   min-width: 400px;
+  // }
 }
 </style>
 

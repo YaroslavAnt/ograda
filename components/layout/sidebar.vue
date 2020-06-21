@@ -118,7 +118,17 @@ export default {
     replaceWithDash
   },
 
-  props: ["current_page"],
+  watch: {
+    isMenuActive: {
+      immediate: true,
+      handler() {
+        this.activeCategory = null;
+      }
+    }
+  },
+
+  props: ["isMenuActive"],
+
   data() {
     return {
       categories: [],
@@ -153,19 +163,23 @@ export default {
   background-color: var(--white);
   display: flex;
   flex-direction: column;
+  position: fixed;
+  width: 260px;
+  border: 1px solid;
 }
 
 .logo {
   height: 20px;
+  flex-shrink: 0;
+  flex-grow: 0;
   // background: url("../../assets/img/gras-resize.png") bottom,
   //   url("../../assets/img/logo.png") center bottom,
   //   url("../../assets/img/plita172-min.png") bottom;
   // background-repeat: repeat-x, no-repeat, no-repeat;
   // background-size: 50%, 40%, 100%;
   // background-color: var(--light-blue);
-  flex-shrink: 0;
-  flex-grow: 0;
   // display: none;
+
   @media (min-width: 768px) {
     transform: rotateY(180deg);
     background: url("../../assets/img/logo_main.png");

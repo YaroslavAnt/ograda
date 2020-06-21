@@ -99,8 +99,7 @@ export default {
     // about: aboutVue,
     // advantages: advantagesVue,
     "app-section": sectionVue,
-    popular: popularVue,
-    lazyNews: () => import(newsVue)
+    popular: popularVue
   },
 
   methods: {

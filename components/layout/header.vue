@@ -160,7 +160,6 @@ export default {
     "icon-location": IconLocationVue,
     "menu-btn": MenuButtonVue
   },
-  props: ["current_page"],
   data() {
     return {
       PHONE,
