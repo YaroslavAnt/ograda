@@ -26,10 +26,10 @@
               :src="`${BASE_URL + slide.image}`"
               :alt="slide.img_alt"
               class="picture-img"
-            />-->
-            <img
               :srcset="`${THUMBOR_PROXY}/450x300/${BASE_URL + slide.image} 425w, ${THUMBOR_PROXY}/800x600/${BASE_URL + slide.image} 800w, ${THUMBOR_PROXY}/1280x960/${BASE_URL + slide.image} 1200w`"
               sizes="(max-width: 425px) 425px, (max-width: 768px) 800px, 1200px"
+            />-->
+            <img
               class="picture-img"
               :src="`${BASE_URL + slide.image}`"
               :alt="slide.img_alt"
