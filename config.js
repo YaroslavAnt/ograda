@@ -1,4 +1,5 @@
 export const BASE_URL = "https://back.ograda.zp.ua/";
+export const CDN_URL = "back.ograda.zp.ua/";
 
 export const DOMAIN = "https://ograda.zp.ua";
 

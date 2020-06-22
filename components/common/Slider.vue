@@ -19,6 +19,9 @@
             <!--<source
               :srcSet="`${BASE_URL + slide.image}`"
               type="image/jpeg"
+
+https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
+
             />
              <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> 
             <img
@@ -26,10 +29,10 @@
               :src="`${BASE_URL + slide.image}`"
               :alt="slide.img_alt"
               class="picture-img"
-              :srcset="`${THUMBOR_PROXY}/450x300/${BASE_URL + slide.image} 425w, ${THUMBOR_PROXY}/800x600/${BASE_URL + slide.image} 800w, ${THUMBOR_PROXY}/1280x960/${BASE_URL + slide.image} 1200w`"
-              sizes="(max-width: 425px) 425px, (max-width: 768px) 800px, 1200px"
             />-->
             <img
+              :srcset="`https://cdn.statically.io/img/${CDN_URL + slide.image}?w=450&f=auto 425w, https://cdn.statically.io/img/${CDN_URL + slide.image}?w=800&f=auto 768w, https://cdn.statically.io/img/${CDN_URL + slide.image}?w=1200&f=auto 1200w`"
+              sizes="(max-width: 425px) 425px, (max-width: 768px) 800px, 1200px"
               class="picture-img"
               :src="`${BASE_URL + slide.image}`"
               :alt="slide.img_alt"
@@ -103,7 +106,7 @@
 import ButtonVue from "./Button.vue";
 // import ArrowVue from "./Arrow.vue";
 import ImageBaseVue from "./ImageBase.vue";
-import { BASE_URL, THUMBOR_PROXY } from "~/config";
+import { BASE_URL, CDN_URL } from "~/config";
 import { replaceWithDash } from "../../static/utils";
 
 export default {
@@ -162,7 +165,7 @@ export default {
       current_slide: 0,
       intervalid1: null,
       BASE_URL,
-      THUMBOR_PROXY
+      CDN_URL
     };
   },
   props: ["slider_items", "height", "withPreview", "withAutoPlay", "withFilter"]

@@ -62,7 +62,12 @@ export default {
       {
         rel: "preconnect",
         href: "https://back.ograda.zp.ua"
-      }
+      },
+      {
+        rel: "preload",
+        href: "https://back.ograda.zp.ua/api/categories",
+        as: "fetch"
+      } //<link rel="preload" href="/test.json" as="fetch">
     ]
   },
   /*
