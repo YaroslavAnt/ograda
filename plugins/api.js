@@ -7,9 +7,9 @@ export default ({ $axios, store }, inject) => {
     console.log({ err });
   });
 
-  $axios.onRequest(config => {
-    console.log("req");
-  });
+  // $axios.onRequest(config => {
+  //   console.log("req");
+  // });
 
   // const repositoryWithAxios = createServicesAPI(ctx.$axios);
   inject("productsAPI", createProductsAPI($axios));

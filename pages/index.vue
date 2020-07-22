@@ -25,7 +25,7 @@
         На данном сайте вы можете ознакомиться с полным списком товаров с ценами
         и описанием в категориях:
       </p>
-      <ul class="medium-font">
+      <ul class="medium-font about-categories">
         <li
           v-for="category in categories"
           :key="category.name"
@@ -265,6 +265,10 @@ main {
       &:nth-child(1) {
         margin-top: 0;
       }
+    }
+
+    &-categories {
+      min-height: 250px;
     }
   }
 

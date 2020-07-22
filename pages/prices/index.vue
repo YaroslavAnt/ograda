@@ -100,7 +100,6 @@ export default {
       const {
         data: { data: prices }
       } = await getPrices();
-      console.log({ prices });
       return { prices };
     } catch (error) {
       () => alert("Невозможно загрузить данные");
@@ -183,44 +182,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  main {
-    background-color: #fff;
-    flex: 1;
-    padding-top: 100px;
-    @media (min-width: 1024px) {
-      padding-top: unset;
-    }
+main {
+  background-color: #fff;
+  flex: 1;
+  padding-top: 100px;
+  @media (min-width: 1024px) {
+    padding-top: unset;
+  }
+}
+
+.tables {
+  display: grid;
+  grid-gap: 24px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 22px;
+  width: calc(100% - 32px);
+  line-height: 1;
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  margin: 20px 16px 20px;
+  padding: 12px 24px;
+  z-index: 5;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  &::before {
+    background-color: var(--green);
   }
 
-  .tables {
-    display: grid;
-    grid-gap: 24px;
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .heading {
-    font-weight: bold;
-    font-size: 22px;
-    width: calc(100% - 32px);
+  @media (min-width: 600px) {
+    font-size: 28px;
     line-height: 1;
-    display: inline-block;
-    text-align: center;
-    color: #fff;
-    margin: 20px 16px 20px;
-    padding: 12px 24px;
-    z-index: 5;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    &::before {
-      background-color: var(--green);
-    }
-
-    @media (min-width: 600px) {
-      font-size: 28px;
-      line-height: 1;
-    }
   }
+}
 </style>

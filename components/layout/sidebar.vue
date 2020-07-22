@@ -19,13 +19,18 @@
       </li>
 
       <li
-        class="nav-link with-submenu"
         @click="onClickNavItem(category.name)"
         v-for="(category, idx) in $store.state.categories.list"
         :key="idx"
       >
-        <span>{{ category.name }}</span>
-        <ul
+        <nuxt-link
+          class="nav-link"
+          :to='`/products/${replaceWithDash(category.name)}`'
+          title="На страницу товаров"
+        >
+          <span>{{ category.name }}</span>
+        </nuxt-link>
+        <!-- <ul
           class="sidebar-subnav"
           :class="{ 'sidebar-subnav-active': category.name === activeCategory }"
           v-if="category.name"
@@ -47,7 +52,7 @@
               "
             >{{ subcategory.name }}</span>
           </li>
-        </ul>
+        </ul> -->
       </li>
 
       <li
@@ -135,17 +140,17 @@ export default {
       activeCategory: null,
       static_menu_list: [
         // { name: "О нас", path: "/about" },
-        {
-          name: "Услуги",
-          path: "/services",
-          children: [
-            { name: "Вызов замерщика", path: "zamer" },
-            { name: "Доставка", path: "dostavka" },
-            { name: "Заливка фундамента", path: "fundament" },
-            { name: "Установка забора", path: "montazh" },
-            { name: "Покраска еврозабора", path: "pokraska" }
-          ]
-        },
+        // {
+        //   name: "Услуги",
+        //   path: "/services",
+        //   children: [
+        //     { name: "Вызов замерщика", path: "zamer" },
+        //     { name: "Доставка", path: "dostavka" },
+        //     { name: "Заливка фундамента", path: "fundament" },
+        //     { name: "Установка забора", path: "montazh" },
+        //     { name: "Покраска еврозабора", path: "pokraska" }
+        //   ]
+        // },
         // { name: "Наши работы", path: "/blog" },
         { name: "Вопрос-ответ", path: "/faq" },
         { name: "Цены", path: "/prices" },
@@ -213,6 +218,7 @@ export default {
   .nav-link {
     font-size: 18px;
     padding: 12px 32px 12px 16px;
+    min-height: 50px;
     a {
       display: block;
     }

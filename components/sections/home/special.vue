@@ -28,9 +28,6 @@ export default {
       type: Array,
       default: []
     }
-  },
-  mounted() {
-    console.log(this.special);
   }
 };
 </script>

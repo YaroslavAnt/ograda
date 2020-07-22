@@ -9,6 +9,30 @@ export const state = () => ({
           name: ""
         }
       ]
+    },
+    {
+      name: "",
+      subcategories: [
+        {
+          name: ""
+        }
+      ]
+    },
+    {
+      name: "",
+      subcategories: [
+        {
+          name: ""
+        }
+      ]
+    },
+    {
+      name: "",
+      subcategories: [
+        {
+          name: ""
+        }
+      ]
     }
   ],
   category: {
