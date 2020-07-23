@@ -1,11 +1,7 @@
 ﻿<template>
   <div class="nav">
     <div class="logo"></div>
-    <!-- <img
-      src="../../assets/img/logo_main.png"
-      alt=""
-      class="logo"
-    > -->
+
     <ul class="sidebar-nav">
       <li @click="$store.dispatch('common/closeMenu')">
         <router-link
@@ -19,50 +15,22 @@
       </li>
 
       <li
-        @click="onClickNavItem(category.name)"
         v-for="(category, idx) in $store.state.categories.list"
         :key="idx"
+        @click="$store.dispatch('common/closeMenu')"
       >
-        <nuxt-link
+        <router-link
           class="nav-link"
           :to='`/products/${replaceWithDash(category.name)}`'
           title="На страницу товаров"
         >
           <span>{{ category.name }}</span>
-        </nuxt-link>
-        <!-- <ul
-          class="sidebar-subnav"
-          :class="{ 'sidebar-subnav-active': category.name === activeCategory }"
-          v-if="category.name"
-        >
-          <li
-            v-for="(subcategory, idx) in category.subcategories"
-            :key="idx"
-            @click="$store.dispatch('common/closeMenu')"
-          >
-            <span
-              class="subnav-link"
-              :title="subcategory.name"
-              @click="
-                $router.push({
-                  path: `/products/${replaceWithDash(
-                    category.name
-                  )}?subcategory=${replaceWithDash(subcategory.name)}`
-                })
-              "
-            >{{ subcategory.name }}</span>
-          </li>
-        </ul> -->
+        </router-link>
       </li>
 
       <li
         v-for="(nav_item, idx) in static_menu_list"
         :key="idx + 'static'"
-        @click="
-          nav_item.children
-            ? onClickNavItem(nav_item.name)
-            : $store.dispatch('common/closeMenu')
-        "
         class="nav-link"
         :class="{ 'with-submenu': nav_item.children }"
       >
@@ -74,26 +42,6 @@
           <span>{{ nav_item.name }}</span>
         </router-link>
 
-        <span v-if="nav_item.children">{{ nav_item.name }}</span>
-
-        <ul
-          v-if="nav_item.children"
-          class="sidebar-subnav"
-          :class="{ 'sidebar-subnav-active': nav_item.name === activeCategory }"
-        >
-          <li
-            v-for="(subcategory, idx) in nav_item.children"
-            :key="idx"
-            @click="$store.dispatch('common/closeMenu')"
-          >
-            <router-link
-              :title="subcategory.name"
-              :to="{ path: `${nav_item.path}/${subcategory.path}` }"
-            >
-              <span class="subnav-link">{{ subcategory.name }}</span>
-            </router-link>
-          </li>
-        </ul>
       </li>
     </ul>
   </div>
@@ -106,21 +54,12 @@ export default {
   name: "sidebar.vue",
 
   methods: {
-    onClickNavItem(categoryName) {
-      if (categoryName) {
-        this.setActiveCategory(categoryName);
-      } else {
-        this.setActiveCategory(null);
-        this.$store.commit("common/SET_MENU", false);
-      }
-    },
-
     setActiveCategory(categoryName) {
       this.activeCategory =
         this.activeCategory === categoryName ? null : categoryName;
     },
 
-    replaceWithDash
+    replaceWithDash,
   },
 
   watch: {
@@ -128,8 +67,8 @@ export default {
       immediate: true,
       handler() {
         this.activeCategory = null;
-      }
-    }
+      },
+    },
   },
 
   props: ["isMenuActive"],
@@ -139,25 +78,12 @@ export default {
       categories: [],
       activeCategory: null,
       static_menu_list: [
-        // { name: "О нас", path: "/about" },
-        // {
-        //   name: "Услуги",
-        //   path: "/services",
-        //   children: [
-        //     { name: "Вызов замерщика", path: "zamer" },
-        //     { name: "Доставка", path: "dostavka" },
-        //     { name: "Заливка фундамента", path: "fundament" },
-        //     { name: "Установка забора", path: "montazh" },
-        //     { name: "Покраска еврозабора", path: "pokraska" }
-        //   ]
-        // },
-        // { name: "Наши работы", path: "/blog" },
         { name: "Вопрос-ответ", path: "/faq" },
         { name: "Цены", path: "/prices" },
-        { name: "Контакты", path: "/contact" }
-      ]
+        { name: "Контакты", path: "/contact" },
+      ],
     };
-  }
+  },
 };
 </script>
 
@@ -177,13 +103,6 @@ export default {
   height: 20px;
   flex-shrink: 0;
   flex-grow: 0;
-  // background: url("../../assets/img/gras-resize.png") bottom,
-  //   url("../../assets/img/logo.png") center bottom,
-  //   url("../../assets/img/plita172-min.png") bottom;
-  // background-repeat: repeat-x, no-repeat, no-repeat;
-  // background-size: 50%, 40%, 100%;
-  // background-color: var(--light-blue);
-  // display: none;
 
   @media (min-width: 768px) {
     transform: rotateY(180deg);
@@ -191,7 +110,6 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     height: 150px;
-    // background-size: 50%, 47%, 100%;
   }
 }
 
