@@ -76,7 +76,6 @@ https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
           class="arrow"
           @click="backvard()"
         >
-          <!-- <app-arrow :size="'12px'" /> -->
           &#10094;
         </div>
 
@@ -94,7 +93,6 @@ https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
           class="arrow "
           @click="forvard()"
         >
-          <!-- <app-arrow :size="'12px'" arrow-right/> -->
           &#10095;
         </div>
       </div>
@@ -114,7 +112,7 @@ export default {
   components: {
     "app-button": ButtonVue,
     // "app-arrow": ArrowVue,
-    "app-image": ImageBaseVue
+    "app-image": ImageBaseVue,
   },
   methods: {
     replaceWithDash,
@@ -142,7 +140,7 @@ export default {
     },
     stop() {
       clearInterval(this.intervalid1);
-    }
+    },
   },
   mounted() {
     if (this.withAutoPlay) {
@@ -165,10 +163,16 @@ export default {
       current_slide: 0,
       intervalid1: null,
       BASE_URL,
-      CDN_URL
+      CDN_URL,
     };
   },
-  props: ["slider_items", "height", "withPreview", "withAutoPlay", "withFilter"]
+  props: [
+    "slider_items",
+    "height",
+    "withPreview",
+    "withAutoPlay",
+    "withFilter",
+  ],
 };
 </script>
 

@@ -17,18 +17,6 @@
             >{{product.option.label}}</span>
 
             <div class="img-arrows">
-              <!-- <app-arrow
-                color="#fff"
-                :size="'20px'"
-                :direction="'left'"
-                @click.native="prevImg"
-              ></app-arrow>
-              <app-arrow
-                color="#fff"
-                :size="'20px'"
-                :direction="'right'"
-                @click.native="nextImg"
-              ></app-arrow> -->
               <span
                 @click="prevImg"
                 class="img-arrow"
@@ -60,8 +48,9 @@
               :key="idx"
               @click="setActiveImg(idx)"
             >
+              <!-- :img_src="baseUrl+img" -->
               <app-image
-                :img_src="baseUrl+img"
+                :img_src="`https://cdn.statically.io/img/${CDN_URL + img}?w=150&f=auto `"
                 :img_alt="product.img_alt"
                 :lazy="true"
                 :ratio="60"
@@ -220,7 +209,7 @@
 <script>
 import ImageBaseVue from "../common/ImageBase.vue";
 import { getProduct } from "../../api/products";
-import { BASE_URL } from "../../config";
+import { BASE_URL, CDN_URL } from "../../config";
 import { replaceWithDash } from "../../static/utils";
 import ProductCardVue from "../common/ProductCard.vue";
 import IconBaseVue from "../common/IconBase.vue";
@@ -234,7 +223,7 @@ export default {
     "product-card": ProductCardVue,
     "base-icon": IconBaseVue,
     "zoom-icon": IconZoomVue,
-    "product-preview": ProductPreviewVue
+    "product-preview": ProductPreviewVue,
   },
   methods: {
     replaceWithDash: replaceWithDash,
@@ -258,29 +247,30 @@ export default {
     getPrice(priceStr) {
       const [price] = priceStr.match(/\d+/g) || ["0"];
       return price;
-    }
+    },
   },
 
   props: {
     product: {
-      type: Object
+      type: Object,
     },
-    popular: { type: Array }
+    popular: { type: Array },
   },
 
   data() {
     return {
       active_img: 0,
       baseUrl: BASE_URL,
-      isZoomActive: false
+      CDN_URL,
+      isZoomActive: false,
     };
   },
 
   computed: {
     getArrayFromDescription() {
       return this.product.description && this.product.description.split("#");
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -45,16 +45,7 @@
       class="container-paginate"
       v-if="productsData.last_page > 1"
     >
-      <!-- <app-pagination
-        
-        :page-count="productsData.last_page"
-        v-model="page"
-        :prev-text="'<'"
-        :next-text="'>'"
-        :container-class="'pagination'"
-        :prev-link-class="'prev-link'"
-        :next-link-class="'next-link'"
-      ></app-pagination> -->
+
       <ul class="pagination">
         <li class="disabled">
           <span
@@ -94,9 +85,9 @@
     ></p>
 
     <p
-      class="section-description"
+      class="section-description section-description--small"
       v-if="subcategories[0].name"
-    ><strong>{{categoryObj.name}}</strong> можно разделить на:</p>
+    >Категорию <strong>{{categoryObj.name}}</strong> можно разделить на:</p>
 
     <div
       v-for="(subcategory,idx) in subcategories"
@@ -128,7 +119,7 @@ if (process.client) {
 import {
   getProductByCategory,
   getProductBySubcategory,
-  getProductsByPage
+  getProductsByPage,
 } from "~/api/products";
 import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "~/static/utils";
@@ -146,22 +137,22 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье, ${this.subcategoryObj.name} цена, ${this.categoryObj.name}`
+          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье, ${this.subcategoryObj.name} цена, ${this.categoryObj.name}`,
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title
+          content: this.title,
         },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
@@ -170,37 +161,37 @@ export default {
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
-              : DOMAIN + this.ogImage
+              : DOMAIN + this.ogImage,
         },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.title,
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
-              : DOMAIN + this.ogImage
+              : DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
           content:
             this.productsData.data.length > 0
               ? this.productsData.data[0].img_alt
-              : "Заборы"
-        }
+              : "Заборы",
+        },
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ]
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ],
     };
   },
 
@@ -212,7 +203,7 @@ export default {
             this.categoryObj.id,
             this.$route.query.page
           );
-    }
+    },
   },
 
   // watchQuery: (...rest) => {
@@ -223,7 +214,7 @@ export default {
   components: {
     "app-section": sectionVue,
     "product-card": ProductCardVue,
-    "app-pagination": Paginate
+    "app-pagination": Paginate,
   },
 
   computed: {
@@ -235,7 +226,7 @@ export default {
         if (this.page === page) return;
         this.getProductsByCategory(this.categoryObj.id, page);
         scrolledContent.scrollTo(0, 0);
-      }
+      },
     },
     title() {
       return `✔ ${this.replaceWithSpace(
@@ -249,7 +240,7 @@ export default {
     },
     heading() {
       return this.categoryObj.name;
-    }
+    },
   },
 
   methods: {
@@ -262,7 +253,7 @@ export default {
     },
     fetchProductsBySubcategory() {
       const subcategoryObj = this.subcategories.find(
-        subcategory =>
+        (subcategory) =>
           replaceWithDash(subcategory.name) === this.$route.query.subcategory
       );
       this.subcategoryObj = subcategoryObj;
@@ -283,38 +274,39 @@ export default {
       }
     },
     replaceWithSpace,
-    replaceWithDash
+    replaceWithDash,
   },
 
   async asyncData({ params, query, redirect }) {
     try {
       const { data: categoryData } = await getAll();
       const categoryObj = categoryData.data.find(
-        category => replaceWithDash(category.name) === params.category
+        (category) => replaceWithDash(category.name) === params.category
       );
       const {
-        data: { data: subcategories }
+        data: { data: subcategories },
       } = await getByCategory(categoryObj.id);
 
       let productsData;
       if (query.subcategory) {
         const subcategoryObj = subcategories.find(
-          subcategory => replaceWithDash(subcategory.name) === query.subcategory
+          (subcategory) =>
+            replaceWithDash(subcategory.name) === query.subcategory
         );
         const {
-          data: { data }
+          data: { data },
         } = await getProductBySubcategory(subcategoryObj.id);
         productsData = data;
       } else {
         const {
-          data: { data }
+          data: { data },
         } = await getProductByCategory(categoryObj.id);
         productsData = data;
       }
       return {
         productsData,
         subcategories,
-        categoryObj
+        categoryObj,
       };
     } catch (error) {
       redirect("/error");
@@ -330,16 +322,16 @@ export default {
       productsData: {
         last_page: "",
         current_page: "",
-        data: []
+        data: [],
       },
       categories: [{}],
       subcategories: [{}],
       categoryObj: {},
       subcategoryObj: {},
       ogImage,
-      DOMAIN
+      DOMAIN,
     };
-  }
+  },
 };
 </script>
 
@@ -395,9 +387,15 @@ h1 {
   &-description {
     white-space: pre-wrap;
     padding: 16px 16px 30px;
+    min-height: 250px;
 
     @media (min-width: 1200px) {
+      min-height: 200px;
       padding: 20px 32px 30px;
+    }
+
+    &--small {
+      min-height: unset;
     }
   }
 }

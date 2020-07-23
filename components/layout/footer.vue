@@ -196,6 +196,7 @@
   &-navitem {
     margin-bottom: 36px;
     max-width: 270px;
+    min-height: 220px;
   }
   &-contacts {
     display: flex;
@@ -257,7 +258,7 @@ import {
   YOUTUBE,
   TWITTER,
   PINTEREST,
-  SOCIAL_SHARE
+  SOCIAL_SHARE,
 } from "../../config";
 import { replaceWithDash } from "../../static/utils";
 // import SocialSharing from "vue-social-sharing";
@@ -265,19 +266,19 @@ export default {
   name: "footer.vue",
 
   methods: {
-    replaceWithDash
+    replaceWithDash,
   },
   computed: {
     dynamicLinks() {
-      const links = this.$store.state.categories.list.map(category => ({
+      const links = this.$store.state.categories.list.map((category) => ({
         name: category.name,
-        id: category.id
+        id: category.id,
       }));
       return links;
     },
     currentURL() {
       return DOMAIN + this.$route.path;
-    }
+    },
   },
   data() {
     return {
@@ -299,18 +300,18 @@ export default {
             { name: "цены", path: "/prices" },
             { name: "новости", path: "/blog" },
             { name: "вопросы", path: "/faq" },
-            { name: "карта сайта", path: "/karta" }
-          ]
-        }
+            { name: "карта сайта", path: "/karta" },
+          ],
+        },
       ],
       contact_list: {
         name: "Контакты",
         links: [
           { name: PHONE, path: "/contact" },
-          { name: EMAIL, path: "/contact" }
-        ]
-      }
+          { name: EMAIL, path: "/contact" },
+        ],
+      },
     };
-  }
+  },
 };
 </script>
