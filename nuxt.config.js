@@ -74,6 +74,12 @@ export default {
    ** Customize the progress-bar color
    */
   loading: { color: "#b11030", height: "5px" },
+  router: {
+    prefetchLinks: false
+  },
+  render: {
+    resourceHints: false
+  },
   /*
    ** Global CSS
    */

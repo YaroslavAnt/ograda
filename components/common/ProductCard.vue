@@ -1,31 +1,40 @@
 ﻿<template>
   <article class="card">
-
     <div class="card-img-box">
       <img
         class="card-image lazyload"
         v-if="product.img_set[0]"
-        :data-src="`https://cdn.statically.io/img/${CDN_URL + product.img_set[0]}?w=450&f=auto `"
+        :data-src="
+          `https://cdn.statically.io/img/${CDN_URL +
+            product.img_set[0]}?w=450&f=auto `
+        "
         :alt="product.img_alt"
-      >
+      />
     </div>
 
     <nuxt-link
-      :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
+      :to="
+        `/products/${replaceWithDash(product.category.name)}/${replaceWithDash(
+          product.name
+        )}`
+      "
       class="card-name base-font"
       :title="product.name"
-    ><span>{{product.name}}</span> </nuxt-link>
+      ><span>{{ product.name }}</span>
+    </nuxt-link>
 
     <span
-      v-if="product.option&&product.option.label"
+      v-if="product.option && product.option.label"
       class="card-label small-font"
-    >{{product.option.label}}</span>
+      >{{ product.option.label }}</span
+    >
 
     <div class="card-text">
       <p class="card-price medium-font">
         Цена:
         <span>&#8372; </span>
-        <span>{{product.price}}</span> </p>
+        <span>{{ product.price }}</span>
+      </p>
     </div>
   </article>
 </template>
@@ -38,7 +47,7 @@ export default {
   data() {
     return {
       BASE_URL,
-      CDN_URL,
+      CDN_URL
     };
   },
 
@@ -49,13 +58,13 @@ export default {
       default: {
         price: "",
         category: {
-          name: "",
+          name: ""
         },
         subcategory: {
-          name: "",
-        },
-      },
-    },
+          name: ""
+        }
+      }
+    }
   },
   methods: {
     // getImageUrl(product) {
@@ -67,11 +76,11 @@ export default {
     getPrice(priceStr) {
       const [price] = priceStr.match(/\d+/g);
       return price;
-    },
+    }
   },
   components: {
-    "app-image": ImageBaseVue,
-  },
+    "app-image": ImageBaseVue
+  }
 };
 </script>
 
@@ -119,6 +128,7 @@ export default {
     color: #fff;
     padding: 8px 16px;
     position: absolute;
+    font-weight: 500;
     top: 40%;
     left: 50%;
     transform: translate(-50%, 0%);
@@ -140,8 +150,8 @@ export default {
       width: 100%;
       height: 100%;
       display: block;
-      background-color: var(--red);
-      opacity: 0.7;
+      background-color: var(--green);
+      opacity: 0.8;
       z-index: -1;
       border-radius: 4px;
     }
@@ -151,4 +161,3 @@ export default {
   }
 }
 </style>
-
