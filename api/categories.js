@@ -1,9 +1,10 @@
-﻿import httpClient from "./httpClient";
+﻿const END_POINT = "/categories";
 
-const END_POINT = "/categories";
-
-const getAll = () => httpClient.get(END_POINT);
-
-const getOne = id => httpClient.get(`${END_POINT}/${id}`);
-
-export { getAll, getOne };
+export default $axios => ({
+  categories() {
+    return $axios.$get(`${END_POINT}`);
+  },
+  category(id) {
+    return $axios.$get(`${END_POINT}/${id}`);
+  }
+});

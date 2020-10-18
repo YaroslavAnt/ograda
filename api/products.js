@@ -1,40 +1,4 @@
-﻿import httpClient from "./httpClient";
-
-const END_POINT = "/products";
-
-const getAllProducts = () => httpClient.get(END_POINT);
-
-const getProduct = id => httpClient.get(`${END_POINT}/${id}`);
-
-const getProductByCategory = (category_id, page = 1) =>
-  httpClient.get(
-    `${END_POINT}/search/query?category_id=${category_id}&page=${page}`
-  );
-
-const getProductBySubcategory = subcategory_id =>
-  httpClient.get(`${END_POINT}/search/query?subcategory_id=${subcategory_id}`);
-
-const getProductsByPage = page => httpClient.get(`${END_POINT}?page=${page}`);
-
-const getSpecialProducts = () => httpClient.get(`/products-stock`);
-
-const getPopularProducts = () => httpClient.get(`/products-popular`);
-
-const getPrices = () => httpClient.get("/products-prices");
-
-const getExhibitions = () => httpClient.get("/exhibition");
-
-export {
-  getAllProducts,
-  getProduct,
-  getProductByCategory,
-  getProductBySubcategory,
-  getProductsByPage,
-  getSpecialProducts,
-  getPopularProducts,
-  getPrices,
-  getExhibitions
-};
+﻿const END_POINT = "/products";
 
 export default $axios => ({
   products() {
@@ -49,8 +13,24 @@ export default $axios => ({
     return $axios.$get(`${END_POINT}?page=${page}`);
   },
 
+  productsByCategory(category_id, page = 1) {
+    return $axios.$get(
+      `${END_POINT}/search/query?category_id=${category_id}&page=${page}`
+    );
+  },
+
+  productsBySubcategory(subcategory_id, page = 1) {
+    return $axios.$get(
+      `${END_POINT}/search/query?subcategory_id=${subcategory_id}&page=${page}`
+    );
+  },
+
   productsPopular() {
     return $axios.$get(`/products-popular`);
+  },
+
+  productsPrices() {
+    return $axios.$get(`products-prices`);
   },
 
   productsExhibitions() {

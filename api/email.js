@@ -1,8 +1,7 @@
-﻿import httpClient from "./httpClient";
+﻿const END_POINT = "admin/send-email";
 
-const END_POINT = "admin/send-email";
-
-const postEmail = ({ message, email }) =>
-  httpClient.post(END_POINT, { message, email });
-
-export { postEmail };
+export default $axios => ({
+  send({ message, email }) {
+    return $axios.$post(`${END_POINT}`, { message, email });
+  }
+});
