@@ -15,8 +15,7 @@
           class="footer-share-link"
           :title="'Еврозаборы в Запорожье'"
         >
-
-          {{network.name}}
+          {{ network.name }}
         </ShareNetwork>
       </div>
     </div>
@@ -35,12 +34,12 @@
                 v-for="(link, idx) in $store.state.categories.list"
                 :key="idx"
               >
-
                 <span class="color-orange">&#10095;</span>
                 <nuxt-link
                   title="страница товара"
-                  :to='`/products/${replaceWithDash(link.name) }`'
-                >{{link.name}}</nuxt-link>
+                  :to="`/products/${replaceWithDash(link.name)}`"
+                  >{{ link.name }}</nuxt-link
+                >
               </li>
             </ul>
           </li>
@@ -50,19 +49,17 @@
             v-for="(item, index) in menu_list"
             :key="index"
           >
-            <p>{{item.name}}</p>
+            <p>{{ item.name }}</p>
             <ul>
               <li
                 class="footer-navlink footer-navlink_info small-font"
                 v-for="(link, idx) in item.links"
                 :key="idx"
               >
-
                 <span class="color-orange">&#10095;</span>
-                <nuxt-link
-                  title="Подробнее"
-                  :to="link.path"
-                >{{link.name}}</nuxt-link>
+                <nuxt-link title="Подробнее" :to="link.path">{{
+                  link.name
+                }}</nuxt-link>
               </li>
             </ul>
           </li>
@@ -71,50 +68,45 @@
 
       <address class="footer-navitem footer-contacts">
         <div>
-
-          <p>{{contact_list.name}}</p>
+          <p>{{ contact_list.name }}</p>
           <ul>
             <li>
               <span> г. Запорожье,</span>
               <br />
               <span> ул.Стартовая 1ж</span>
             </li>
-            <li class="footer-navlink footer-navlink_contact small-font">
-              <a title="Телефон">{{PHONE}}</a>
+            <li
+              class="footer-navlink footer-navlink_contact small-font"
+              :href="`tel:${PHONE}`"
+            >
+              <a title="Телефон">{{ PHONE }}</a>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
-              <a
-                :href="`tel:${PHONE1}`"
-                title="Телефон"
-              >{{PHONE1}}</a>
+              <a :href="`tel:${PHONE1}`" title="Телефон">{{ PHONE1 }}</a>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
-              <a
-                title="Эл.почта"
-                :href="`mailto:${EMAIL}`"
-              >{{EMAIL}}</a>
+              <a title="Эл.почта" :href="`mailto:${EMAIL}`">{{ EMAIL }}</a>
             </li>
           </ul>
 
           <div>
             <a
               :content="FACEBOOK"
-              :href='FACEBOOK'
+              :href="FACEBOOK"
               target="_blank"
               rel="noreferrer noopener"
-              title='Наша страничка в соцсетях'
+              title="Наша страничка в соцсетях"
             >
-
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#facebook" />
               </svg>
             </a>
             <a
               :content="INSTAGRAM"
-              :href='INSTAGRAM'
+              :href="INSTAGRAM"
               target="_blank"
               rel="noreferrer noopener"
-              title='Наша страничка в соцсетях'
+              title="Наша страничка в соцсетях"
             >
               <!-- <img
                 src="../../assets/icons/instagram.svg"
@@ -128,10 +120,10 @@
             </a>
             <a
               :content="TWITTER"
-              :href='TWITTER'
+              :href="TWITTER"
               target="_blank"
               rel="noreferrer noopener"
-              title='Наша страничка в соцсетях'
+              title="Наша страничка в соцсетях"
             >
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#twitter" />
@@ -139,24 +131,22 @@
             </a>
             <a
               :content="YOUTUBE"
-              :href='YOUTUBE'
+              :href="YOUTUBE"
               target="_blank"
               rel="noreferrer noopener"
-              title='Наша страничка в соцсетях'
+              title="Наша страничка в соцсетях"
             >
-
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#youtube" />
               </svg>
             </a>
             <a
               :content="PINTEREST"
-              :href='PINTEREST'
+              :href="PINTEREST"
               target="_blank"
               rel="noreferrer noopener"
-              title='Наша страничка в соцсетях'
+              title="Наша страничка в соцсетях"
             >
-
               <svg class="footer-icon">
                 <use xlink:href="../../assets/icons/sprite_s.svg#pinterest" />
               </svg>
@@ -165,10 +155,8 @@
 
           <p>Пн-Сб, 9:00 - 18:00</p>
         </div>
-
       </address>
     </div>
-
   </footer>
 </template>
 
@@ -258,7 +246,7 @@ import {
   YOUTUBE,
   TWITTER,
   PINTEREST,
-  SOCIAL_SHARE,
+  SOCIAL_SHARE
 } from "../../config";
 import { replaceWithDash } from "../../static/utils";
 // import SocialSharing from "vue-social-sharing";
@@ -266,19 +254,19 @@ export default {
   name: "footer.vue",
 
   methods: {
-    replaceWithDash,
+    replaceWithDash
   },
   computed: {
     dynamicLinks() {
-      const links = this.$store.state.categories.list.map((category) => ({
+      const links = this.$store.state.categories.list.map(category => ({
         name: category.name,
-        id: category.id,
+        id: category.id
       }));
       return links;
     },
     currentURL() {
       return DOMAIN + this.$route.path;
-    },
+    }
   },
   data() {
     return {
@@ -300,18 +288,18 @@ export default {
             { name: "цены", path: "/prices" },
             { name: "новости", path: "/blog" },
             { name: "вопросы", path: "/faq" },
-            { name: "карта сайта", path: "/karta" },
-          ],
-        },
+            { name: "карта сайта", path: "/karta" }
+          ]
+        }
       ],
       contact_list: {
         name: "Контакты",
         links: [
           { name: PHONE, path: "/contact" },
-          { name: EMAIL, path: "/contact" },
-        ],
-      },
+          { name: EMAIL, path: "/contact" }
+        ]
+      }
     };
-  },
+  }
 };
 </script>
