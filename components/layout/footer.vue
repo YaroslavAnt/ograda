@@ -75,11 +75,8 @@
               <br />
               <span> ул.Стартовая 1ж</span>
             </li>
-            <li
-              class="footer-navlink footer-navlink_contact small-font"
-              :href="`tel:${PHONE}`"
-            >
-              <a title="Телефон">{{ PHONE }}</a>
+            <li class="footer-navlink footer-navlink_contact small-font">
+              <a :href="`tel:${PHONE}`" title="Телефон">{{ PHONE }}</a>
             </li>
             <li class="footer-navlink footer-navlink_contact small-font">
               <a :href="`tel:${PHONE1}`" title="Телефон">{{ PHONE1 }}</a>
