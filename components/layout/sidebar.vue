@@ -33,6 +33,7 @@
         :key="idx + 'static'"
         class="nav-link"
         :class="{ 'with-submenu': nav_item.children }"
+        @click="$store.dispatch('common/closeMenu')"
       >
         <router-link
           v-if="!nav_item.children"
@@ -41,42 +42,23 @@
         >
           <span>{{ nav_item.name }}</span>
         </router-link>
-
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { getAll } from "~/api/categories";
 import { replaceWithDash } from "../../static/utils";
 export default {
   name: "sidebar.vue",
 
-  methods: {
-    setActiveCategory(categoryName) {
-      this.activeCategory =
-        this.activeCategory === categoryName ? null : categoryName;
-    },
-
-    replaceWithDash,
-  },
-
-  watch: {
-    isMenuActive: {
-      immediate: true,
-      handler() {
-        this.activeCategory = null;
-      },
-    },
-  },
+  methods: { replaceWithDash },
 
   props: ["isMenuActive"],
 
   data() {
     return {
       categories: [],
-      activeCategory: null,
       static_menu_list: [
         { name: "Вопрос-ответ", path: "/faq" },
         { name: "Цены", path: "/prices" },

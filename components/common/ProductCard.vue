@@ -4,10 +4,10 @@
     <div class="card-img-box">
       <img
         class="card-image lazyload"
+        v-if="product.img_set[0]"
         :data-src="`https://cdn.statically.io/img/${CDN_URL + product.img_set[0]}?w=450&f=auto `"
         :alt="product.img_alt"
       >
-      <!-- <span :content='getImageUrl(product)'></span> -->
     </div>
 
     <nuxt-link
@@ -17,7 +17,7 @@
     ><span>{{product.name}}</span> </nuxt-link>
 
     <span
-      v-if="product.option.label"
+      v-if="product.option&&product.option.label"
       class="card-label small-font"
     >{{product.option.label}}</span>
 

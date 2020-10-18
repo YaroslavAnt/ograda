@@ -11,23 +11,23 @@
           class="section-switch"
           v-if="subcategories.length>1"
         >
-
           <div
             v-for="(tab,idx) in subcategories"
             :key="idx"
-            v-on:click="$router.push(`/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`)"
+            @click="subcategory = (tab.name)"
           >
+            <!-- v-on:click="$router.push(`/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`)" -->
             <span
               class="switch-tab"
-              :class="{'switch-tab-active': $route.query.subcategory===replaceWithDash(tab.name)}"
+              :class="{'switch-tab-active': subcategory===(tab.name)}"
             >{{(tab.name) }}</span>
           </div>
         </div>
       </div>
-      <p
+      <!-- <p
         class="large-font section-placeholder"
         v-if="productsData.data.length === 0"
-      >Товары еще не загружены...</p>
+      >Товары еще не загружены...</p> -->
 
       <div
         class="section-grid"
@@ -116,14 +116,7 @@ if (process.client) {
   Paginate = require("vuejs-paginate");
 }
 
-import {
-  getProductByCategory,
-  getProductBySubcategory,
-  getProductsByPage,
-} from "~/api/products";
-import { getByCategory } from "~/api/subcategories";
 import { replaceWithDash, replaceWithSpace } from "~/static/utils";
-import { getAll } from "~/api/categories";
 import { BASE_URL, DOMAIN } from "../../../config";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 
@@ -196,20 +189,20 @@ export default {
   },
 
   watch: {
-    $route(from, to) {
-      return this.$route.query.subcategory
-        ? this.fetchProductsBySubcategory(this.subcategoryObj.id)
-        : this.getProductsByCategory(
-            this.categoryObj.id,
-            this.$route.query.page
-          );
+    async subcategory(newValue, oldValue) {
+      const subcategoryObj = this.subcategories.find(
+        (subcategory) => subcategory.name === newValue
+      );
+      const { data } = await this.$productsAPI.productsBySubcategory(
+        subcategoryObj.id
+      );
+      this.productsData = data;
     },
   },
 
-  // watchQuery: (...rest) => {
-  //   console.log({ rest });
-  //   // return this.fetchProductsBySubcategory(subcategoryObj.id);
-  // },
+  watchQuery({ page }) {
+    this.getProductsByCategory(this.categoryObj.id, page);
+  },
 
   components: {
     "app-section": sectionVue,
@@ -224,7 +217,7 @@ export default {
       },
       set(page) {
         if (this.page === page) return;
-        this.getProductsByCategory(this.categoryObj.id, page);
+        // this.getProductsByCategory(this.categoryObj.id, page);
         scrolledContent.scrollTo(0, 0);
       },
     },
@@ -244,24 +237,9 @@ export default {
   },
 
   methods: {
-    getProductsByCategory(id, page) {
-      return getProductByCategory(id, page)
-        .then((res = {}) => {
-          this.productsData = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"));
-    },
-    fetchProductsBySubcategory() {
-      const subcategoryObj = this.subcategories.find(
-        (subcategory) =>
-          replaceWithDash(subcategory.name) === this.$route.query.subcategory
-      );
-      this.subcategoryObj = subcategoryObj;
-      getProductBySubcategory(subcategoryObj.id)
-        .then((res = {}) => {
-          this.productsData = res.data.data;
-        })
-        .catch(() => alert("Невозможно загрузить данные"));
+    async getProductsByCategory(id, page) {
+      const { data } = await this.$productsAPI.productsByCategory(id, page);
+      this.productsData = data;
     },
 
     changePage(direction) {
@@ -277,37 +255,23 @@ export default {
     replaceWithDash,
   },
 
-  async asyncData({ params, query, redirect }) {
+  async fetch() {
     try {
-      const { data: categoryData } = await getAll();
-      const categoryObj = categoryData.data.find(
-        (category) => replaceWithDash(category.name) === params.category
+      const { data: categoryData } = await this.$categoriesAPI.categories();
+      const categoryObj = categoryData.find(
+        (category) => this.replaceWithDash(category.name) === this.category
       );
-      const {
-        data: { data: subcategories },
-      } = await getByCategory(categoryObj.id);
+      this.categoryObj = categoryObj;
 
-      let productsData;
-      if (query.subcategory) {
-        const subcategoryObj = subcategories.find(
-          (subcategory) =>
-            replaceWithDash(subcategory.name) === query.subcategory
-        );
-        const {
-          data: { data },
-        } = await getProductBySubcategory(subcategoryObj.id);
-        productsData = data;
-      } else {
-        const {
-          data: { data },
-        } = await getProductByCategory(categoryObj.id);
-        productsData = data;
-      }
-      return {
-        productsData,
-        subcategories,
-        categoryObj,
-      };
+      const {
+        data: subcategories,
+      } = await this.$subcategoriesAPI.subcategoriesByCategory(categoryObj.id);
+      this.subcategories = subcategories;
+
+      const { data: productsData } = await this.$productsAPI.productsByCategory(
+        categoryObj.id
+      );
+      this.productsData = productsData;
     } catch (error) {
       redirect("/error");
     }
@@ -315,14 +279,19 @@ export default {
 
   data() {
     return {
-      subcategory: this.$route.query.subcategory,
+      subcategory: "",
       category: this.$route.params.category,
-      activeTab: this.$route.query.subcategory || "ВСЕ ВИДЫ",
-      // categoryId: this.$route.query.category_id,
       productsData: {
         last_page: "",
         current_page: "",
-        data: [],
+        data: Array(6).fill({
+          img_set: [""],
+          img_alt: "",
+          category: { name: "" },
+          name: "",
+          option: "",
+          price: "",
+        }),
       },
       categories: [{}],
       subcategories: [{}],

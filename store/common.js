@@ -1,6 +1,4 @@
-﻿import { getProductByCategory } from "~/api/products";
-
-export const state = () => ({
+﻿export const state = () => ({
   isMenuOpen: false,
   isSpinnerActive: false
 });

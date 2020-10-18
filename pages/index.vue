@@ -27,8 +27,8 @@
       </p>
       <ul class="medium-font about-categories">
         <li
-          v-for="category in categories"
-          :key="category.name"
+          v-for="(category,idx) in categories"
+          :key="idx"
           class="category"
         >
           &rarr;&ensp;<nuxt-link
@@ -65,8 +65,7 @@
       </p>
     </section>
     <popular :popularProducts="popularProducts"></popular>
-    <!-- <advantages></advantages> -->
-    <!-- <special :special='speciales'></special> -->
+
     <services></services>
     <news :lastPosts='posts.slice(0,3)'></news>
   </main>
@@ -76,9 +75,8 @@
 import heroVue from "../components/sections/home/hero";
 import servicesVue from "../components/sections/home/services.vue";
 import newsVue from "../components/sections/home/news.vue";
-// import aboutVue from "~/components/sections/about/about.vue";
-// import advantagesVue from "~/components/sections/about/advantages.vue";
 import sectionVue from "~/components/layout/section.vue";
+import popularVue from "../components/sections/home/popular.vue";
 
 import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
 
@@ -86,30 +84,26 @@ import { DOMAIN } from "../config";
 
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../static/utils";
-import popularVue from "../components/sections/home/popular.vue";
 
 export default {
   scrollToTop: true,
 
   components: {
     hero: heroVue,
-    // special: specialVue,
     services: servicesVue,
     news: newsVue,
-    // about: aboutVue,
-    // advantages: advantagesVue,
     "app-section": sectionVue,
-    popular: popularVue
+    popular: popularVue,
   },
 
   methods: {
-    replaceWithDash
+    replaceWithDash,
   },
 
   computed: {
     ...mapGetters({
-      categories: "categories/getAllCategories"
-    })
+      categories: "categories/getAllCategories",
+    }),
   },
 
   data() {
@@ -132,24 +126,27 @@ export default {
           "https://www.instagram.com/ograda_zp/",
           "https://twitter.com/OgradaZ?s=09",
           "https://www.pinterest.com/ograda_zp0599/",
-          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
+          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/",
         ],
         "@id": "#organization",
         name: "Ограда",
-        logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png"
-      }
+        logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png",
+      },
     };
   },
 
-  async asyncData({ app }) {
-    const { data: popularProducts } = await app.$productsAPI.productsPopular();
+  async asyncData({ $slidesAPI, $productsAPI, $postsAPI }) {
     const {
-      data: { data: posts }
-    } = await app.$postsAPI.posts();
+      data: { data: slides },
+    } = await $slidesAPI.slides();
+
+    const { data: popularProducts } = await $productsAPI.productsPopular();
+
     const {
-      data: { data: slides }
-    } = await app.$slidesAPI.slides();
-    return { popularProducts, slides, posts };
+      data: { data: posts },
+    } = await $postsAPI.posts();
+
+    return { slides, popularProducts, posts };
   },
 
   async mounted() {
@@ -163,28 +160,28 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords
+          content: this.keywords,
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title
+          content: this.title,
         },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
 
         // Twitter Card
@@ -192,29 +189,29 @@ export default {
         { name: "twitter:site", content: "@OgradaZ" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.title,
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
-          content: this.title
-        }
+          content: this.title,
+        },
       ],
       link: [
-        { rel: "canonical", href: this.DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+        { rel: "canonical", href: this.DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ],
       script: [
-        { type: "application/ld+json", json: this.organisationMicrodata }
-      ]
+        { type: "application/ld+json", json: this.organisationMicrodata },
+      ],
     };
-  }
+  },
 };
 </script>
 

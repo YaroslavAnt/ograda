@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       active_img: 0,
-      isZoomActive: false
+      isZoomActive: false,
     };
   },
   methods: {
@@ -142,53 +142,50 @@ export default {
       const newIdx =
         this.active_img >= this.img_set.length - 1 ? 0 : this.active_img + 1;
       this.active_img = newIdx;
-    }
+    },
   },
   props: {
     img_set: {
       type: Array,
-      default: []
+      default: [],
     },
-    // active_img: {
-    //   type: Number,
-    //   default: 0
-    // },
+
     img_alt: {
       type: String,
-      default: "img-alt"
+      default: "img-alt",
     },
     ratio: {
       type: String,
-      default: "67%"
+      default: "67%",
     },
     heading: {
-      type: String
+      type: String,
     },
     paragraphs: {
       type: Array,
       default: [
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, repudiandae."
-      ]
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, repudiandae.",
+      ],
     },
     link: {
-      type: String
+      type: String,
     },
     reversed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     withBorder: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   components: {
     "app-button": ButtonVue,
     "app-image": ImageBaseVue,
     "base-icon": IconBaseVue,
     "zoom-icon": IconZoomVue,
-    "app-arrow": ArrowVue
-  }
+    "app-arrow": ArrowVue,
+  },
 };
 </script>
 
