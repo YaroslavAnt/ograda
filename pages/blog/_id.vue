@@ -89,12 +89,10 @@
 </template>
 
 <script>
-// import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
 import { BASE_URL } from "../../config";
-import { getPost } from "../../api/posts";
 import IconZoomVue from "../../components/icons/IconZoom.vue";
 
 export default {
@@ -103,16 +101,14 @@ export default {
     return {
       BASE_URL,
       blog: { created_at: "" },
-      isZoomActive: false
+      isZoomActive: false,
     };
   },
 
-  async asyncData({ params }) {
+  async asyncData({ params, $postsAPI }) {
     const { id } = params;
     try {
-      const {
-        data: { data: blog }
-      } = await getPost(id);
+      const { data: blog } = await $postsAPI.post(id);
       return { blog };
     } catch (error) {
       () => alert("Невозможно загрузить данные");
@@ -122,24 +118,20 @@ export default {
     "icon-base": IconBaseVue,
     "icon-calendar": IconCalendarVue,
     "icon-zoom": IconZoomVue,
-    "app-section": sectionVue
+    "app-section": sectionVue,
   },
   computed: {
     date() {
       return (
         this.blog.created_at &&
-        this.blog.created_at
-          .split(" ")[0]
-          .split("-")
-          .reverse()
-          .join(".")
+        this.blog.created_at.split(" ")[0].split("-").reverse().join(".")
       );
     },
     dateTime() {
       const [dashedDate] = this.blog.created_at.split(" ");
       return dashedDate;
-    }
-  }
+    },
+  },
 };
 </script>
 

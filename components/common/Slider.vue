@@ -233,11 +233,16 @@ export default {
   .picture {
     width: 100%;
     overflow: hidden;
-    padding-bottom: 67%;
+    // padding-bottom: 67%;
     position: relative;
+    height: 250px;
 
+    @media (min-width: 425px) {
+      height: 300px;
+    }
     @media (min-width: 768px) {
-      padding-bottom: 45%;
+      height: 400px;
+      // padding-bottom: 45%;
     }
 
     &-img {

@@ -1,5 +1,6 @@
 ﻿<template>
   <div class="page">
+
     <div
       class="overlay"
       :class="{'isMenuActive': $store.state.common.isMenuOpen}"
@@ -26,27 +27,26 @@
         <div
           class="numbers-box"
           v-if="isPhoneActive"
-        >
+        ><img
+            src="../assets/icons/vf.png"
+            alt="icon"
+            width="36px"
+          >
           <a
             class="base-font"
             :href="`tel:${PHONE}`"
             @click="isPhoneActive=false"
-          ><img
-              src="../assets/icons/vf.png"
-              alt="icon"
-              width="36px"
-              style="vertical-align: bottom"
-            > {{PHONE}}</a><br /><br />
+          > {{PHONE}}</a>
+          <img
+            src="../assets/icons/ks100.png"
+            alt="icon"
+            width="36px"
+          >
           <a
             class="base-font"
             :href="`tel:${PHONE1}`"
             @click="isPhoneActive=false"
-          ><img
-              src="../assets/icons/ks100.png"
-              alt="icon"
-              width="36px"
-              style="vertical-align: bottom"
-            > {{PHONE1}}</a>
+          > {{PHONE1}}</a>
         </div>
         <div
           class="icon-box"
@@ -125,6 +125,10 @@
   right: 30px;
   bottom: 120px;
   padding: 20px;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  column-gap: 8px;
+  row-gap: 16px;
 }
 .icon-box {
   width: 75px;
@@ -142,8 +146,6 @@
 import sidebarVue from "../components/layout/sidebar.vue";
 import headerVue from "../components/layout/header.vue";
 import footerVue from "../components/layout/footer.vue";
-import { getAll } from "../api/categories";
-import IconBaseVue from "../components/common/IconBase.vue";
 import IconPhoneBlueVue from "../components/icons/IconPhoneBlue.vue";
 import { PHONE, PHONE1 } from "../config";
 
@@ -153,34 +155,31 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "icon-base": IconBaseVue,
-    "icon-phone": IconPhoneBlueVue
+    "icon-phone": IconPhoneBlueVue,
   },
   watch: {
     $route(to) {
-      this.current_page = to.path;
       this.$refs.scrolledContent.scrollTo(0, 0);
-    }
+    },
   },
-  created() {
-    this.current_page = this.$route.path;
+  props: {
+    error: {
+      type: Object,
+    },
   },
   data() {
     return {
-      current_page: "/",
       PHONE,
       PHONE1,
-      isPhoneActive: false
+      isPhoneActive: false,
+      categories: [],
     };
   },
 
-  mounted() {
-    Promise.all([
-      getAll().then(res => {
-        this.$store.commit("categories/SET_CATEGORIES", res.data.data);
-      })
-    ]).catch(() => alert("Невозможно загрузить данные"));
-  }
+  async fetch() {
+    const { data } = await this.$categoriesAPI.categories();
+    this.$store.commit("categories/SET_CATEGORIES", data);
+  },
 };
 </script>
  

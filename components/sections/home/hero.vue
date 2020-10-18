@@ -15,25 +15,18 @@
 
 <script>
 import SliderVue from "~/components/common/Slider.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "hero.vue",
   components: {
-    slider: SliderVue
+    slider: SliderVue,
   },
   props: {
     slides: {
       type: Array,
-      default: []
-    }
-  }
-
-  // computed: {
-  //   ...mapGetters({
-  //     slides: "slides/getSlides"
-  //   })
-  // }
+      default: [],
+    },
+  },
 };
 </script>
 

@@ -46,8 +46,7 @@
           <icon-base :iconColor="'#ff5b00'">
             <icon-location />
           </icon-base>
-          <span class="text">{{location}}</span>
-        
+          <span class="text">{{location}}</span>        
       </address>
     </div>
 
@@ -68,7 +67,6 @@ import IconBaseVue from "~/components/common/IconBase.vue";
 import IconMailVue from "~/components/icons/IconMail.vue";
 import IconPhoneVue from "~/components/icons/IconPhone.vue";
 import IconLocationVue from "~/components/icons/IconLocation.vue";
-import { postEmail } from "../../api/email";
 import { PHONE, EMAIL, PHONE1, DOMAIN, LOCATION } from "../../config";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 
@@ -81,25 +79,25 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords
+          content: this.keywords,
         },
 
         // Open Graph
         { property: "og:title", content: this.title },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: this.DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
 
         // Twitter Card
@@ -107,20 +105,20 @@ export default {
         { name: "twitter:title", content: this.title },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
-          content: "Адрес производства еврозаборов в Запорожье"
-        }
+          content: "Адрес производства еврозаборов в Запорожье",
+        },
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ]
+        { rel: "canonical", href: DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ],
     };
   },
   components: {
@@ -128,15 +126,15 @@ export default {
     "icon-base": IconBaseVue,
     "icon-mail": IconMailVue,
     "icon-phone": IconPhoneVue,
-    "icon-location": IconLocationVue
+    "icon-location": IconLocationVue,
   },
 
   methods: {
     submit() {
       this.errors = [];
-      this.checkForm() && postEmail(this.formData);
+      this.checkForm() && this.$emailAPI.send(this.formData);
     },
-    checkForm: function(e) {
+    checkForm: function (e) {
       if (!this.formData.message) {
         this.errors.push("Введите Ваше сообщение.");
       }
@@ -150,14 +148,12 @@ export default {
         return true;
       }
     },
-    validEmail: function(email) {
+    validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
-    }
+    },
   },
-  mounted() {
-    this.$store.commit("common/CLOSE_MENU");
-  },
+
   data() {
     return {
       errors: [],
@@ -172,9 +168,9 @@ export default {
         "купить бетонный забор, еврозабор в запорожье цена, тротуарная плитка в запорожье цена, ворота и калитки",
       fetchedVars: "{}",
       ogImage,
-      DOMAIN
+      DOMAIN,
     };
-  }
+  },
 };
 </script>
 

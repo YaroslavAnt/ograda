@@ -10,7 +10,7 @@
     </div>
   </app-section>
 </template>
- 
+  
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
@@ -20,21 +20,14 @@ export default {
   name: "popular.vue",
   components: {
     "app-section": sectionVue,
-    "product-card": ProductPreviewVue
+    "product-card": ProductPreviewVue,
   },
   props: {
     popularProducts: {
       type: Array,
-      default: () => []
-    }
-  }
-
-  // computed: {
-  //   getPopularProducts() {
-  //     //TODO endpoint for popular products
-  //     return this.$store.getters["products/getPopularProducts"] || [{}];
-  //   }
-  // }
+      default: () => [],
+    },
+  },
 };
 </script>
 

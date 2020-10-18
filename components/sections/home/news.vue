@@ -23,26 +23,19 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import BlogCardVue from "~/components/common/BlogCard.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "news.vue",
   components: {
     "app-secion": sectionVue,
-    "blog-card": BlogCardVue
+    "blog-card": BlogCardVue,
   },
   props: {
     lastPosts: {
       type: Array,
-      default: () => []
-    }
-  }
-
-  // computed: {
-  //   ...mapGetters({
-  //     lastNews: "posts/getLastPosts"
-  //   })
-  // }
+      default: () => [],
+    },
+  },
 };
 </script>
 

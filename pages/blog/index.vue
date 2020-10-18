@@ -57,8 +57,6 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import BlogCardVue from "~/components/common/BlogCard.vue";
-import { getPostsByPage, getAllPosts } from "../../api/posts";
-import { mapGetters } from "vuex";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 import { DOMAIN } from "../../config";
 
@@ -76,68 +74,68 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords
+          content: this.keywords,
         },
         // Open Graph
         {
           property: "og:title",
-          content: this.title
+          content: this.title,
         },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.title,
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
-          content: "установка еврозабора в Запорожье"
-        }
+          content: "установка еврозабора в Запорожье",
+        },
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ]
+        { rel: "canonical", href: DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ],
     };
   },
   components: {
     "app-section": sectionVue,
     "blog-card": BlogCardVue,
-    "app-pagination": Paginate
+    "app-pagination": Paginate,
   },
   watch: {
     async $route(from, to) {
       try {
-        const {
-          data: { data: posts }
-        } = await getPostsByPage(this.$route.query.page);
+        const { data: posts } = await this.$postsAPI.posts(
+          this.$route.query.page
+        );
         this.posts = posts;
       } catch (error) {
         () => alert("Невозможно загрузить данные");
       }
-    }
+    },
   },
   data() {
     return {
@@ -152,17 +150,15 @@ export default {
       posts: {
         last_page: "",
         current_page: "",
-        data: []
-      }
+        data: [],
+      },
       // currentPage: this.$route.query.page || 1
     };
   },
 
-  async asyncData() {
+  async asyncData({ $postsAPI }) {
     try {
-      const {
-        data: { data: posts }
-      } = await getAllPosts();
+      const { data: posts } = await $postsAPI.posts();
       return { posts };
     } catch (error) {
       () => alert("Невозможно загрузить данные");
@@ -172,7 +168,7 @@ export default {
   computed: {
     currentPage() {
       return this.$route.query.page || 1;
-    }
+    },
   },
 
   methods: {
@@ -184,8 +180,8 @@ export default {
       if (direction === "<" && page > 1) {
         this.$router.push(this.$route.path + "?page=" + (page - 1));
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
