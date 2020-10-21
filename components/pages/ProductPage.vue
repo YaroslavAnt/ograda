@@ -1,12 +1,14 @@
 ﻿<template>
   <section>
     <article class="section-padding">
-
       <div class="gridbox">
         <div class="slider-box">
           <div class="slider-imagebox">
             <img
-              :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
+              :src="
+                product.img_set[active_img] &&
+                  baseUrl + product.img_set[active_img]
+              "
               :alt="product.img_alt"
               class="slider-image"
             />
@@ -14,43 +16,34 @@
             <span
               v-if="product.option.label"
               class="slider-imagebox-label small-font"
-            >{{product.option.label}}</span>
+              >{{ product.option.label }}</span
+            >
 
             <div class="img-arrows">
-              <span
-                @click="prevImg"
-                class="img-arrow"
-              >&#10094;</span>
-              <span
-                @click="nextImg"
-                class="img-arrow"
-              >&#10095;</span>
+              <span @click="prevImg" class="img-arrow">&#10094;</span>
+              <span @click="nextImg" class="img-arrow">&#10095;</span>
             </div>
 
-            <div
-              @click="isZoomActive=true"
-              class="icon-box"
-            >
-              <base-icon color='#fff'>
+            <div @click="isZoomActive = true" class="icon-box">
+              <base-icon color="#fff">
                 <zoom-icon></zoom-icon>
               </base-icon>
             </div>
           </div>
 
-          <div
-            class="preview"
-            v-if="product.img_set.length>1"
-          >
+          <div class="preview" v-if="product.img_set.length > 1">
             <div
               class="preview-item"
-              :class="{'preview-item-active': active_img===idx}"
+              :class="{ 'preview-item-active': active_img === idx }"
               v-for="(img, idx) in product.img_set"
               :key="idx"
               @click="setActiveImg(idx)"
             >
               <!-- :img_src="baseUrl+img" -->
               <app-image
-                :img_src="`https://cdn.statically.io/img/${CDN_URL + img}?w=150&f=auto `"
+                :img_src="
+                  `https://cdn.statically.io/img/${CDN_URL + img}?w=150&f=auto `
+                "
                 :img_alt="product.img_alt"
                 :lazy="true"
                 :ratio="60"
@@ -71,19 +64,11 @@
               itemtype="https://schema.org/ListItem"
               class="crumb"
             >
-              <nuxt-link
-                itemprop="item"
-                to='/'
-                title="Главная страница"
-              >&#8962; ГЛАВНАЯ ></nuxt-link>
-              <meta
-                itemprop="name"
-                content="ГЛАВНАЯ"
-              />
-              <meta
-                itemprop="position"
-                content="1"
-              />
+              <nuxt-link itemprop="item" to="/" title="Главная страница"
+                >&#8962; ГЛАВНАЯ ></nuxt-link
+              >
+              <meta itemprop="name" content="ГЛАВНАЯ" />
+              <meta itemprop="position" content="1" />
             </li>
             <li
               itemprop="itemListElement"
@@ -94,16 +79,11 @@
               <nuxt-link
                 itemprop="item"
                 title="Смотреть все категории товаров"
-                :to='{path:`/products`}'
-              >КАТЕГОРИИ ></nuxt-link>
-              <meta
-                itemprop="name"
-                content="КАТЕГОРИИ"
-              />
-              <meta
-                itemprop="position"
-                content="2"
-              />
+                :to="{ path: `/products` }"
+                >КАТЕГОРИИ ></nuxt-link
+              >
+              <meta itemprop="name" content="КАТЕГОРИИ" />
+              <meta itemprop="position" content="2" />
             </li>
             <li
               itemprop="itemListElement"
@@ -114,16 +94,13 @@
               <nuxt-link
                 itemprop="item"
                 title="Смотреть категорию товара"
-                :to='{path:`/products/${replaceWithDash(product.category.name)}`}'
-              >{{product.category.name}} ></nuxt-link>
-              <meta
-                itemprop="name"
-                :content="product.category.name"
-              />
-              <meta
-                itemprop="position"
-                content="3"
-              />
+                :to="{
+                  path: `/products/${replaceWithDash(product.category.name)}`
+                }"
+                >{{ product.category.name }} ></nuxt-link
+              >
+              <meta itemprop="name" :content="product.category.name" />
+              <meta itemprop="position" content="3" />
             </li>
             <li
               itemprop="itemListElement"
@@ -134,39 +111,44 @@
               <nuxt-link
                 itemprop="item"
                 title="Смотреть подкатегорию товара"
-                :to='{path:`/products/${replaceWithDash(product.category.name) }?subcategory=${replaceWithDash(product.subcategory.name) }`}'
+                :to="{
+                  path: `/products/${replaceWithDash(
+                    product.category.name
+                  )}?subcategory=${replaceWithDash(product.subcategory.name)}`
+                }"
               >
-                {{product.subcategory.name}} </nuxt-link>
-              <meta
-                itemprop="name"
-                :content="product.subcategory.name"
-              />
-              <meta
-                itemprop="position"
-                content="4"
-              />
+                {{ product.subcategory.name }}
+              </nuxt-link>
+              <meta itemprop="name" :content="product.subcategory.name" />
+              <meta itemprop="position" content="4" />
             </li>
           </ul>
 
-          <h1 class="info-box-name big-font bold">{{product.name}}</h1>
+          <h1 class="info-box-name big-font bold">{{ product.name }}</h1>
 
           <p class="info-box-price medium-font">
             Цена:
             <span class="bold">&#8372;</span>
-            <span class="bold">{{product.price}}</span>
+            <span class="bold">{{ product.price }}</span>
           </p>
           <p
             class="info-box-description base-font"
             v-for="(paragraph, idx) in getArrayFromDescription"
             :key="idx"
-          >{{ paragraph }}</p>
-          <p class="info-box-category small-font">Категория: <span>{{product.category.name}}</span> </p>
+          >
+            {{ paragraph }}
+          </p>
+          <p class="info-box-category small-font">
+            Категория: <span>{{ product.category.name }}</span>
+          </p>
           <p
             v-if="product.option"
             itemscope
             itemtype="http://schema.org/Action"
             class="info-box-option medium-font"
-          >{{product.option.details}}</p>
+          >
+            {{ product.option.details }}
+          </p>
         </div>
       </div>
 
@@ -175,28 +157,23 @@
         <div class="popular-grid">
           <product-preview
             v-for="product in popular"
-            :key='product.id'
-            :product='product'
+            :key="product.id"
+            :product="product"
           ></product-preview>
         </div>
       </div>
     </article>
 
-    <div
-      class="zoom"
-      v-if="isZoomActive"
-    >
+    <div class="zoom" v-if="isZoomActive">
       <div class="zoom-content">
-
-        <span
-          @click="isZoomActive=false"
-          class="zoom-close"
-        >&#10006;</span>
+        <span @click="isZoomActive = false" class="zoom-close">&#10006;</span>
         <img
           class="zoom-image"
-          :src="product.img_set[active_img]&&baseUrl+product.img_set[active_img]"
+          :src="
+            product.img_set[active_img] && baseUrl + product.img_set[active_img]
+          "
           :alt="product.img_alt"
-        >
+        />
         <div class="zoom-arrows">
           <span @click="prevImg">&#10094;</span>
           <span @click="nextImg">&#10095;</span>
@@ -205,7 +182,7 @@
     </div>
   </section>
 </template>
- 
+
 <script>
 import ImageBaseVue from "../common/ImageBase.vue";
 import { getProduct } from "../../api/products";
@@ -223,7 +200,7 @@ export default {
     "product-card": ProductCardVue,
     "base-icon": IconBaseVue,
     "zoom-icon": IconZoomVue,
-    "product-preview": ProductPreviewVue,
+    "product-preview": ProductPreviewVue
   },
   methods: {
     replaceWithDash: replaceWithDash,
@@ -247,14 +224,14 @@ export default {
     getPrice(priceStr) {
       const [price] = priceStr.match(/\d+/g) || ["0"];
       return price;
-    },
+    }
   },
 
   props: {
     product: {
-      type: Object,
+      type: Object
     },
-    popular: { type: Array },
+    popular: { type: Array }
   },
 
   data() {
@@ -262,15 +239,15 @@ export default {
       active_img: 0,
       baseUrl: BASE_URL,
       CDN_URL,
-      isZoomActive: false,
+      isZoomActive: false
     };
   },
 
   computed: {
     getArrayFromDescription() {
       return this.product.description && this.product.description.split("#");
-    },
-  },
+    }
+  }
 };
 </script>
 

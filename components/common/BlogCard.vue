@@ -1,10 +1,6 @@
 ﻿<template>
   <article class="card">
-    <app-image
-      :img_src="BASE_URL + card.image"
-      :img_alt="card.title"
-      :lazy="true"
-    />
+    <app-image :img_src="BASE_URL + card.image" :img_alt="card.title" />
 
     <div class="card-text">
       <span class="card-label base-font">
@@ -12,22 +8,23 @@
           <icon-calendar />
         </icon-base>
 
-        <time :datetime="dateTime">{{date}}</time>
+        <time :datetime="dateTime">{{ date }}</time>
       </span>
 
       <h4
         class="card-name"
-        :class="{'base-font': !isWhole, 'medium-font': isWhole}"
+        :class="{ 'base-font': !isWhole, 'medium-font': isWhole }"
       >
-        <nuxt-link :to='`/blog/${card.id}`'>
-          {{card.title}}
+        <nuxt-link :to="`/blog/${card.id}`">
+          {{ card.title }}
         </nuxt-link>
       </h4>
 
       <span
         class="small-font red card-link"
         @click="$router.push(`/blog/${card.id}`)"
-      >&rarr; Подробнее...</span>
+        >&rarr; Подробнее...</span
+      >
       <!-- <p
         v-if="!isWhole"
         class="card-price small-font"

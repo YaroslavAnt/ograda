@@ -2,9 +2,9 @@
   <article class="card">
     <div class="card-img-box">
       <img
-        class="card-image lazyload"
+        class="card-image"
         v-if="product.img_set[0]"
-        :data-src="
+        :src="
           `https://cdn.statically.io/img/${CDN_URL +
             product.img_set[0]}?w=450&f=auto `
         "
