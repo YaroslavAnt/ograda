@@ -1,46 +1,55 @@
 ﻿<template>
   <article class="card">
-
     <div
       class="card-img-box"
-      @click="$router.push(`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`)"
+      @click="
+        $router.push(
+          `/products/${replaceWithDash(
+            product.category.name
+          )}/${replaceWithDash(product.name)}`
+        )
+      "
     >
       <img
-        class="card-image lazyload"
-        :data-src="getImageUrl(product)"
+        class="card-image"
+        :src="getImageUrl(product)"
         :alt="product.img_alt"
-      >
-      <span :content='getImageUrl(product)'></span>
+      />
+      <span :content="getImageUrl(product)"></span>
     </div>
 
-    <span
-      v-if="product.option.label"
-      class="card-label small-font"
-    >{{product.option.label}}</span>
+    <span v-if="product.option.label" class="card-label small-font">{{
+      product.option.label
+    }}</span>
 
     <div class="card-text">
       <nuxt-link
-        :to="`/products/${replaceWithDash(product.category.name) }/${replaceWithDash(product.name)  }`"
+        :to="
+          `/products/${replaceWithDash(
+            product.category.name
+          )}/${replaceWithDash(product.name)}`
+        "
         class="card-name base-font"
         :title="product.name"
       >
-        <span>{{product.name}}</span>
+        <span>{{ product.name }}</span>
       </nuxt-link>
       <p class="card-price medium-font">
-
         <span>&#8372; </span>
-        <span>{{product.price}}</span> </p>
+        <span>{{ product.price }}</span>
+      </p>
     </div>
   </article>
 </template>
 
 <script>
-import { BASE_URL } from "~/config";
+import { BASE_URL, CDN_URL } from "~/config";
 import { replaceWithDash } from "../../static/utils";
 export default {
   data() {
     return {
-      BASE_URL
+      BASE_URL,
+      CDN_URL
     };
   },
 
@@ -62,8 +71,10 @@ export default {
   methods: {
     getImageUrl(product) {
       return product.img_set.length > 0
-        ? this.BASE_URL + product.img_set[0]
+        ? `https://cdn.statically.io/img/${this.CDN_URL +
+            product.img_set[0]}?w=500&f=auto`
         : "";
+      // ? this.BASE_URL + product.img_set[0]
     },
     replaceWithDash: replaceWithDash,
     getPrice(priceStr) {
@@ -134,4 +145,3 @@ export default {
   }
 }
 </style>
-

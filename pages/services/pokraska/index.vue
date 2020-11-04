@@ -1,6 +1,6 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{serviceObj.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{ serviceObj.title }}</h1>
     <app-section class="section">
       <app-intro
         :img_set="serviceObj.img_src"
@@ -11,7 +11,7 @@
     </app-section>
   </main>
 </template>
- 
+
 <script>
 import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
@@ -30,50 +30,50 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords,
+          content: this.keywords
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.serviceObj.title,
+          content: this.serviceObj.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
-        { property: "og:image", content: DOMAIN + this.serviceObj.img_src },
+        { property: "og:image", content: DOMAIN + this.serviceObj.img_src[0] },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.serviceObj.title,
+          content: this.serviceObj.title
         },
         {
           name: "twitter:description",
-          content: this.description,
+          content: this.description
         },
-        { name: "twitter:image", content: DOMAIN + this.serviceObj.img_src },
+        { name: "twitter:image", content: DOMAIN + this.serviceObj.img_src[0] },
         {
           name: "twitter:image:alt",
-          content: this.serviceObj.img_alt,
-        },
+          content: this.serviceObj.img_alt
+        }
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.fullPath }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ],
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
     };
   },
   components: {
     "app-intro": IntroVue,
-    "app-section": sectionVue,
+    "app-section": sectionVue
   },
 
   // mounted() {
@@ -96,27 +96,27 @@ export default {
           { text: "Забор окрашивается после монтажа." },
           {
             text:
-              "Возможная палитра цветов - от светло-бежевого до темно-коричневого.",
+              "Возможная палитра цветов - от светло-бежевого до темно-коричневого."
           },
           {
             text:
-              "Покраска выполняется нашим сотрудником непосредственно на объекте, используя специальный кислотный краситель.",
+              "Покраска выполняется нашим сотрудником непосредственно на объекте, используя специальный кислотный краситель."
           },
           {
             text: "Приемущества кислотной окраски:",
             list: [
               "- крашенные таким образом бетонные заборы имеют повышенную стойкость к выцветанию;",
-              "- заборы приобретают очень красивый глянцевый цвет с переливами, которого не достичь с помощью обычной краски;",
-            ],
+              "- заборы приобретают очень красивый глянцевый цвет с переливами, которого не достичь с помощью обычной краски;"
+            ]
           },
           {
             text:
-              "Стоимость покраски еврозабора зависит от насыщенности и глубины оттенка.",
-          },
-        ],
-      },
+              "Стоимость покраски еврозабора зависит от насыщенности и глубины оттенка."
+          }
+        ]
+      }
     };
-  },
+  }
 };
 </script>
 

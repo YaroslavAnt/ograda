@@ -1,26 +1,23 @@
 ﻿<template>
   <main>
-    <article
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <h1 class="heading with-skewed-bg">{{blog.title}}</h1>
+    <article itemscope itemtype="http://schema.org/BlogPosting">
+      <h1 class="heading with-skewed-bg">{{ blog.title }}</h1>
       <app-section class="section">
-
         <div class="box">
           <div class="slider-box">
             <div class="slider-imagebox">
+              <!-- :src="BASE_URL + blog.image" -->
               <img
-                :src="BASE_URL + blog.image"
+                :src="
+                  `https://cdn.statically.io/img/${CDN_URL +
+                    blog.image}?w=500&f=auto`
+                "
                 :alt="blog.title"
                 class="slider-image"
                 itemprop="image"
               />
-              <div
-                @click="isZoomActive=true"
-                class="icon-box"
-              >
-                <icon-base color='#fff'>
+              <div @click="isZoomActive = true" class="icon-box">
+                <icon-base color="#fff">
                   <icon-zoom></icon-zoom>
                 </icon-base>
               </div>
@@ -28,11 +25,10 @@
           </div>
 
           <div class="box-text">
-
             <span
               class="card-label base-font"
               itemprop="startDate"
-              :content='blog.created_at'
+              :content="blog.created_at"
             >
               <icon-base>
                 <icon-calendar />
@@ -40,8 +36,9 @@
               <time
                 :datetime="dateTime"
                 itemprop="datePublished"
-                :content='dateTime'
-              >{{date}}</time>
+                :content="dateTime"
+                >{{ date }}</time
+              >
             </span>
 
             <div itemprop="articleBody">
@@ -50,18 +47,12 @@
               </p>
             </div>
 
-            <nuxt-link
-              to='/blog'
-              title="Подробнее"
-              class="link red small-font"
-            >&rarr; Смотреть все новости</nuxt-link>
-
+            <nuxt-link to="/blog" title="Подробнее" class="link red small-font"
+              >&rarr; Смотреть все новости</nuxt-link
+            >
           </div>
 
-          <div
-            class="zoom"
-            v-if="isZoomActive"
-          >
+          <div class="zoom" v-if="isZoomActive">
             <div class="zoom-content">
               <!-- <app-close
                 color='#fff'
@@ -70,16 +61,17 @@
                 class="zoom-close"
                 @click.native="isZoomActive=false"
               ></app-close> -->
-              <span
-                @click="isZoomActive=false"
-                class="zoom-close"
-              >&#10006;</span>
+              <span @click="isZoomActive = false" class="zoom-close"
+                >&#10006;</span
+              >
+              <!-- :src="BASE_URL + blog.image" -->
               <img
                 class="zoom-image"
-                :src="BASE_URL + blog.image"
+                :src="
+                  `https://cdn.statically.io/img/${CDN_URL + blog.image}?f=auto`
+                "
                 :alt="blog.title"
-              >
-
+              />
             </div>
           </div>
         </div>
@@ -92,24 +84,30 @@
 import sectionVue from "~/components/layout/section.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
-import { BASE_URL } from "../../config";
+import { BASE_URL, CDN_URL } from "../../config";
 import IconZoomVue from "../../components/icons/IconZoom.vue";
 
 export default {
   name: "BlogPage",
   data() {
     return {
+      title: "",
+      description: "",
       BASE_URL,
-      blog: { created_at: "" },
-      isZoomActive: false,
+      CDN_URL,
+      blog: { created_at: "", image: "" },
+      isZoomActive: false
     };
   },
 
-  async asyncData({ params, $postsAPI }) {
-    const { id } = params;
+  async fetch() {
+    const { id } = this.$route.params;
     try {
-      const { data: blog } = await $postsAPI.post(id);
-      return { blog };
+      const { data: blog } = await this.$postsAPI.post(id);
+      // return { blog };
+      this.blog = blog;
+      this.title = blog.title;
+      this.description = blog.body;
     } catch (error) {
       () => alert("Невозможно загрузить данные");
     }
@@ -118,20 +116,36 @@ export default {
     "icon-base": IconBaseVue,
     "icon-calendar": IconCalendarVue,
     "icon-zoom": IconZoomVue,
-    "app-section": sectionVue,
+    "app-section": sectionVue
   },
   computed: {
     date() {
       return (
         this.blog.created_at &&
-        this.blog.created_at.split(" ")[0].split("-").reverse().join(".")
+        this.blog.created_at
+          .split(" ")[0]
+          .split("-")
+          .reverse()
+          .join(".")
       );
     },
     dateTime() {
       const [dashedDate] = this.blog.created_at.split(" ");
       return dashedDate;
-    },
+    }
   },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.description
+        }
+      ]
+    };
+  }
 };
 </script>
 

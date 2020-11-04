@@ -1,6 +1,12 @@
 ﻿<template>
   <article class="card">
-    <app-image :img_src="BASE_URL + card.image" :img_alt="card.title" />
+    <app-image
+      :img_src="
+        `https://cdn.statically.io/img/${CDN_URL +
+          (card.image || '')}?w=600&f=auto `
+      "
+      :img_alt="card.title"
+    />
 
     <div class="card-text">
       <span class="card-label base-font">
@@ -41,7 +47,7 @@
 import ImageBaseVue from "./ImageBase.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
-import { BASE_URL } from "../../config";
+import { BASE_URL, CDN_URL } from "../../config";
 import sprite from "../../assets/icons/sprite.svg";
 
 export default {
@@ -76,6 +82,7 @@ export default {
   data() {
     return {
       BASE_URL,
+      CDN_URL,
       sprite
     };
   }

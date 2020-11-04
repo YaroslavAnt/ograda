@@ -6,17 +6,14 @@
       class="slider-item"
       :class="{ 'active-slide': current_slide === idx }"
     >
-      <div
-        class="slider-filterbox"
-        :class="{ 'with-filter': withFilter }"
-      >
+      <div class="slider-filterbox" :class="{ 'with-filter': withFilter }">
         <div class="picture">
-          <picture>
-            <!-- <source
+          <!-- <picture> -->
+          <!-- <source
               :srcSet="`${BASE_URL + getImageName(slide.image) }.webp`"
               type="image/webp"
             /> -->
-            <!--<source
+          <!--<source
               :srcSet="`${BASE_URL + slide.image}`"
               type="image/jpeg"
 
@@ -30,14 +27,23 @@ https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
               :alt="slide.img_alt"
               class="picture-img"
             />-->
-            <img
-              :srcset="`https://cdn.statically.io/img/${CDN_URL + slide.image}?w=450&f=auto 425w, https://cdn.statically.io/img/${CDN_URL + slide.image}?w=800&f=auto 768w, https://cdn.statically.io/img/${CDN_URL + slide.image}?w=1200&f=auto 1200w`"
-              sizes="(max-width: 425px) 425px, (max-width: 768px) 800px, 1200px"
-              class="picture-img"
-              :src="`${BASE_URL + slide.image}`"
-              :alt="slide.img_alt"
-            >
-          </picture>
+          <img
+            :srcset="
+              `https://cdn.statically.io/img/${CDN_URL +
+                slide.image}?w=450&f=auto 425w, 
+                https://cdn.statically.io/img/${CDN_URL +
+                  slide.image}?w=800&f=auto 800w, 
+                https://cdn.statically.io/img/${CDN_URL +
+                  slide.image}?w=1200&f=auto 1200w`
+            "
+            sizes="(max-width: 425px) 425px, 
+                      (max-width: 800px) 800px, 
+                      1200px"
+            class="picture-img"
+            :src="`${BASE_URL + slide.image}`"
+            :alt="slide.img_alt"
+          />
+          <!-- </picture> -->
           <!-- {{}} -->
         </div>
       </div>
@@ -56,26 +62,17 @@ https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
           </h2>
         </nuxt-link>
 
-        <h2
-          v-else
-          class="slider-heading app-button huge-font slider-btn "
-        >
+        <h2 v-else class="slider-heading app-button huge-font slider-btn ">
           {{ String(slide.title).toUpperCase() }}
         </h2>
 
-        <p
-          v-if="slide.body"
-          class="slider-text medium-font"
-        >
+        <p v-if="slide.body" class="slider-text medium-font">
           {{ slide.body.trim() }}
         </p>
       </div>
 
       <div class="arrows">
-        <div
-          class="arrow"
-          @click="backvard()"
-        >
+        <div class="arrow" @click="backvard()">
           &#10094;
         </div>
 
@@ -89,10 +86,7 @@ https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
           ></div>
         </div>
 
-        <div
-          class="arrow "
-          @click="forvard()"
-        >
+        <div class="arrow " @click="forvard()">
           &#10095;
         </div>
       </div>
@@ -112,7 +106,7 @@ export default {
   components: {
     "app-button": ButtonVue,
     // "app-arrow": ArrowVue,
-    "app-image": ImageBaseVue,
+    "app-image": ImageBaseVue
   },
   methods: {
     replaceWithDash,
@@ -140,7 +134,7 @@ export default {
     },
     stop() {
       clearInterval(this.intervalid1);
-    },
+    }
   },
   mounted() {
     if (this.withAutoPlay) {
@@ -163,16 +157,10 @@ export default {
       current_slide: 0,
       intervalid1: null,
       BASE_URL,
-      CDN_URL,
+      CDN_URL
     };
   },
-  props: [
-    "slider_items",
-    "height",
-    "withPreview",
-    "withAutoPlay",
-    "withFilter",
-  ],
+  props: ["slider_items", "height", "withPreview", "withAutoPlay", "withFilter"]
 };
 </script>
 
