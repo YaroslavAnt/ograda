@@ -37,7 +37,7 @@
                 <span class="color-orange">&#10095;</span>
                 <nuxt-link
                   title="страница товара"
-                  :to="`/products/${replaceWithDash(link.name)}`"
+                  :to="`/${replaceWithDash(link.name)}`"
                   >{{ link.name }}</nuxt-link
                 >
               </li>

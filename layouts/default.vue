@@ -1,67 +1,51 @@
 ﻿<template>
   <div class="page">
-
     <div
       class="overlay"
-      :class="{'isMenuActive': $store.state.common.isMenuOpen}"
+      :class="{ isMenuActive: $store.state.common.isMenuOpen }"
       @click="$store.commit('common/SET_MENU', !$store.state.common.isMenuOpen)"
     ></div>
 
     <nav
       class="sidebar"
-      :class="{'isMenuActive': $store.state.common.isMenuOpen}"
+      :class="{ isMenuActive: $store.state.common.isMenuOpen }"
     >
-      <app-sidebar :isMenuActive='$store.state.common.isMenuOpen'></app-sidebar>
+      <app-sidebar :isMenuActive="$store.state.common.isMenuOpen"></app-sidebar>
     </nav>
 
-    <div
-      class="content"
-      ref="scrolledContent"
-      id="scrolledContent"
-    >
+    <div class="content" ref="scrolledContent" id="scrolledContent">
       <app-header></app-header>
       <nuxt />
       <app-footer></app-footer>
 
       <div class="connect">
-        <div
-          class="numbers-box"
-          v-if="isPhoneActive"
-        ><img
-            src="../assets/icons/vf.png"
-            alt="icon"
-            width="36px"
-          >
+        <div class="numbers-box" v-if="isPhoneActive">
+          <img src="../assets/icons/vf.png" alt="icon" width="36px" />
           <a
             class="base-font"
             :href="`tel:${PHONE}`"
-            @click="isPhoneActive=false"
-          > {{PHONE}}</a>
-          <img
-            src="../assets/icons/ks100.png"
-            alt="icon"
-            width="36px"
+            @click="isPhoneActive = false"
           >
+            {{ PHONE }}</a
+          >
+          <img src="../assets/icons/ks100.png" alt="icon" width="36px" />
           <a
             class="base-font"
             :href="`tel:${PHONE1}`"
-            @click="isPhoneActive=false"
-          > {{PHONE1}}</a>
+            @click="isPhoneActive = false"
+          >
+            {{ PHONE1 }}</a
+          >
         </div>
-        <div
-          class="icon-box"
-          @click="isPhoneActive = !isPhoneActive"
-        >
+        <div class="icon-box" @click="isPhoneActive = !isPhoneActive">
           <icon-phone />
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
-<style src='./../styles/index.scss' lang="scss" >
-</style>
+<style src="./../styles/index.scss" lang="scss"></style>
 
 <style lang="scss" scoped>
 .page {
@@ -155,31 +139,34 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "icon-phone": IconPhoneBlueVue,
+    "icon-phone": IconPhoneBlueVue
   },
   watch: {
     $route(to) {
       this.$refs.scrolledContent.scrollTo(0, 0);
-    },
+    }
   },
   props: {
     error: {
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {
       PHONE,
       PHONE1,
       isPhoneActive: false,
-      categories: [],
+      categories: []
     };
+  },
+
+  middleware({ error }) {
+    console.log({ error: error() });
   },
 
   async fetch() {
     const { data } = await this.$categoriesAPI.categories();
     this.$store.commit("categories/SET_CATEGORIES", data);
-  },
+  }
 };
 </script>
- 

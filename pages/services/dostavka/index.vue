@@ -1,6 +1,6 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{serviceObj.title}}</h1>
+    <h1 class="heading with-skewed-bg">{{ serviceObj.title }}</h1>
     <app-section class="section">
       <app-intro
         :img_set="serviceObj.img_src"
@@ -27,22 +27,22 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords,
+          content: this.keywords
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.serviceObj.title,
+          content: this.serviceObj.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
@@ -51,26 +51,26 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.serviceObj.title,
+          content: this.serviceObj.title
         },
         {
           name: "twitter:description",
-          content: this.description,
+          content: this.description
         },
         { name: "twitter:image", content: DOMAIN + this.serviceObj.img_src },
         {
           name: "twitter:image:alt",
-          content: this.serviceObj.img_alt,
-        },
+          content: this.serviceObj.img_alt
+        }
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.fullPath }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ],
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
     };
   },
   components: {
     "app-intro": IntroVue,
-    "app-section": sectionVue,
+    "app-section": sectionVue
   },
 
   // mounted() {
@@ -91,18 +91,18 @@ export default {
         title: "Доставка еврозаборов",
         paragraphs: [
           {
-            text: `Доставка плит и столбов на объект осуществляется бортовыми автомобилями с трехсторонней выгрузкой.`,
+            text: `Доставка плит и столбов на объект осуществляется бортовыми автомобилями с трехсторонней выгрузкой.`
           },
           {
-            text: `Доставка является платной услугой. Для расчета стоимости доставки сообщите район установки и метраж забора.`,
+            text: `Доставка является платной услугой. Для расчета стоимости доставки сообщите район установки и метраж забора.`
           },
           {
-            text: `Транспортировка, перенос, отгрузка, складирование и установка плит производится строго вертикально.`,
-          },
-        ],
-      },
+            text: `Транспортировка, перенос, отгрузка, складирование и установка плит производится строго вертикально.`
+          }
+        ]
+      }
     };
-  },
+  }
 };
 </script>
 
@@ -119,7 +119,7 @@ export default {
   z-index: 5;
   display: flex;
   justify-content: center;
-  margin: 20px 16px -20px;
+  margin: 40px 16px -20px;
   &::before {
     background-color: var(--green);
   }
@@ -129,7 +129,7 @@ export default {
     line-height: 1;
   }
   @media (min-width: 1024px) {
-    margin: 20px 32px -20px;
+    margin: 40px 32px -20px;
   }
 }
 </style>

@@ -16,7 +16,7 @@
       >
         <router-link
           class="nav-link"
-          :to="`/products/${replaceWithDash(category.name)}`"
+          :to="`/${replaceWithDash(category.name)}`"
           title="На страницу товаров"
         >
           <span>{{ category.name }}</span>

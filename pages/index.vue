@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1 class="heading heading-page with-skewed-bg">{{ title }}</h1>
-    <hero :slides='slides'></hero>
+    <hero :slides="slides"></hero>
     <section class="about section-padding">
       <!-- <h2 class="heading heading-section with-skewed-bg">О нас</h2> -->
       <p class="about-paragraph base-font">
@@ -10,9 +10,10 @@
         <strong>
           <nuxt-link
             title="бетонные заборы"
-            to="/products/заборы?subcategory=бетонные-заборы"
+            to="/заборы?subcategory=бетонные-заборы"
           >
-            бетонных заборов</nuxt-link>
+            бетонных заборов</nuxt-link
+          >
         </strong>
         в Запорожье. Предоставляем широкий <strong>перечень услуг</strong>,
         связанных с установкой еврозабора 'под ключ' от замера участка до
@@ -26,40 +27,33 @@
         и описанием в категориях:
       </p>
       <ul class="medium-font about-categories">
-        <li
-          v-for="(category,idx) in categories"
-          :key="idx"
-          class="category"
-        >
+        <li v-for="(category, idx) in categories" :key="idx" class="category">
           &rarr;&ensp;<nuxt-link
-            :to="`/products/${replaceWithDash(category.name)}`"
+            :to="`/${replaceWithDash(category.name)}`"
             :title="category.name"
             class="category-link"
-          >{{ category.name.toUpperCase() }}</nuxt-link>
+            >{{ category.name.toUpperCase() }}</nuxt-link
+          >
         </li>
       </ul>
 
       <p class="base-font">
         В разделе
-        <nuxt-link
-          to="/blog"
-          class="category-link"
-          title="Наши отчеты"
-        >&rarr; новостей</nuxt-link>
+        <nuxt-link to="/blog" class="category-link" title="Наши отчеты"
+          >&rarr; новостей</nuxt-link
+        >
         опубликованы отчеты о выполненных работах
       </p>
 
-      <p
-        id="services"
-        class="about-paragraph base-font"
-      >
+      <p id="services" class="about-paragraph base-font">
         Чтобы вы могли убедиться в качестве нашых <strong>еврозаборов</strong>,
         организованы
         <nuxt-link
           to="/expo"
           class="category-link"
           title="натурные выставки ограждений"
-        >&rarr; натурные выставки</nuxt-link>
+          >&rarr; натурные выставки</nuxt-link
+        >
         ограждений. В них представлены основные образцы бетонных плит с
         применением покраски и без.
       </p>
@@ -67,7 +61,7 @@
     <popular :popularProducts="popularProducts"></popular>
 
     <services></services>
-    <news :lastPosts='posts.slice(0,3)'></news>
+    <news :lastPosts="posts.slice(0, 3)"></news>
   </main>
 </template>
 
@@ -93,17 +87,17 @@ export default {
     services: servicesVue,
     news: newsVue,
     "app-section": sectionVue,
-    popular: popularVue,
+    popular: popularVue
   },
 
   methods: {
-    replaceWithDash,
+    replaceWithDash
   },
 
   computed: {
     ...mapGetters({
-      categories: "categories/getAllCategories",
-    }),
+      categories: "categories/getAllCategories"
+    })
   },
 
   data() {
@@ -126,24 +120,24 @@ export default {
           "https://www.instagram.com/ograda_zp/",
           "https://twitter.com/OgradaZ?s=09",
           "https://www.pinterest.com/ograda_zp0599/",
-          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/",
+          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
         ],
         "@id": "#organization",
         name: "Ограда",
-        logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png",
-      },
+        logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png"
+      }
     };
   },
 
   async asyncData({ $slidesAPI, $productsAPI, $postsAPI }) {
     const {
-      data: { data: slides },
+      data: { data: slides }
     } = await $slidesAPI.slides();
 
     const { data: popularProducts } = await $productsAPI.productsPopular();
 
     const {
-      data: { data: posts },
+      data: { data: posts }
     } = await $postsAPI.posts();
 
     return { slides, popularProducts, posts };
@@ -160,28 +154,28 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords,
+          content: this.keywords
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title,
+          content: this.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
 
         // Twitter Card
@@ -189,29 +183,29 @@ export default {
         { name: "twitter:site", content: "@OgradaZ" },
         {
           name: "twitter:title",
-          content: this.title,
+          content: this.title
         },
         {
           name: "twitter:description",
-          content: this.description,
+          content: this.description
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
         {
           name: "twitter:image:alt",
-          content: this.title,
-        },
+          content: this.title
+        }
       ],
       link: [
-        { rel: "canonical", href: this.DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+        { rel: "canonical", href: this.DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ],
       script: [
-        { type: "application/ld+json", json: this.organisationMicrodata },
-      ],
+        { type: "application/ld+json", json: this.organisationMicrodata }
+      ]
     };
-  },
+  }
 };
 </script>
 

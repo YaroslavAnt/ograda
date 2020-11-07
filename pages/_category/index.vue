@@ -55,7 +55,7 @@
             tabindex="0"
             class="pagination-btn"
             title="листать"
-            :to="`/products/${replaceWithDash(category)}?page=${page}`"
+            :to="`/${replaceWithDash($route.params.category)}?page=${page}`"
             >{{ page }}</nuxt-link
           >
         </li>
@@ -74,23 +74,24 @@
     <p
       class="base-font section-description"
       v-html="categoryObj.description"
-      v-if="categoryObj.description"
+      v-if="categoryObj && categoryObj.description"
     ></p>
 
     <p
       class="section-description section-description--small"
-      v-if="subcategories[0].name"
+      v-if="subcategories[0].name && subcategories.length > 1"
     >
       Категорию <strong>{{ categoryObj.name }}</strong> можно разделить на:
     </p>
 
     <div v-for="(subcategory, idx) in subcategories" :key="subcategory.id">
       <h2 v-if="subcategory.name" class="medium-font subheading">
-        {{ idx + 1 }}. {{ subcategory.name }}
+        <span v-if="subcategories.length > 1">{{ idx + 1 }}.</span>
+        {{ subcategory.name }}
       </h2>
       <p
         class="base-font section-description"
-        v-if="subcategory.description"
+        v-if="subcategory && subcategory.description"
         v-html="subcategory.description"
       ></p>
     </div>
@@ -100,18 +101,129 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
+import { replaceWithDash, replaceWithSpace } from "~/static/utils";
+import { BASE_URL, DOMAIN } from "~/config";
+import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
+
 let Paginate;
 if (process.client) {
   Paginate = require("vuejs-paginate");
 }
-
-import { replaceWithDash, replaceWithSpace } from "~/static/utils";
-import { BASE_URL, DOMAIN } from "../../../config";
-import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
-
 export default {
-  name: "productPage.vue",
+  data() {
+    return {
+      subcategory: "",
+      // category: this.$route.params.category,
+      productsData: {
+        last_page: "",
+        current_page: "",
+        data: Array(6).fill({
+          img_set: [""],
+          img_alt: "",
+          category: { name: "" },
+          name: "",
+          option: "",
+          price: ""
+        })
+      },
+      categories: [{}],
+      subcategories: [{}],
+      categoryObj: {},
+      subcategoryObj: {},
+      ogImage,
+      DOMAIN
+    };
+  },
+  components: {
+    "app-section": sectionVue,
+    "product-card": ProductCardVue,
+    "app-pagination": Paginate
+  },
+  async asyncData({
+    redirect,
+    $categoriesAPI,
+    $subcategoriesAPI,
+    $productsAPI,
+    params
+  }) {
+    console.log({ params });
+    try {
+      const { data: categoryData } = await $categoriesAPI.categories();
+      console.log({ params });
+      const categoryObj = categoryData.find(
+        category => replaceWithDash((category || {}).name) === params.category
+      );
 
+      console.log({ categoryObj });
+
+      // if (!categoryObj) {
+      //   redirect("/error");
+      // }
+      // this.categoryObj = categoryObj;
+
+      const {
+        data: subcategories
+      } = await $subcategoriesAPI.subcategoriesByCategory(categoryObj.id);
+      // this.subcategories = subcategories;
+
+      const { data: productsData } = await $productsAPI.productsByCategory(
+        categoryObj.id
+      );
+      // this.productsData = productsData;
+
+      return { categoryObj, subcategories, productsData };
+    } catch (error) {
+      console.log({ error });
+      redirect("/error");
+    }
+  },
+  computed: {
+    title() {
+      return `✔ ${this.replaceWithSpace(
+        this.$route.params.category
+      ).toUpperCase()} в Запорожье`;
+    },
+    description() {
+      return `${this.replaceWithSpace(
+        this.$route.params.category
+      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка`;
+    },
+    heading() {
+      return (this.categoryObj || {}).name;
+    }
+  },
+  methods: {
+    async getProductsByCategory(id, page) {
+      const { data } = await this.$productsAPI.productsByCategory(id, page);
+      this.productsData = data;
+    },
+
+    changePage(direction) {
+      const page = this.$route.query.page || 1;
+      if (direction === ">" && page < this.productsData.last_page) {
+        this.$router.push(this.$route.path + "?page=" + (+page + 1));
+      }
+      if (direction === "<" && page > 1) {
+        this.$router.push(this.$route.path + "?page=" + (page - 1));
+      }
+    },
+    replaceWithSpace,
+    replaceWithDash
+  },
+  watchQuery({ page }) {
+    this.getProductsByCategory(this.categoryObj.id, page);
+  },
+  watch: {
+    async subcategory(newValue, oldValue) {
+      const subcategoryObj = this.subcategories.find(
+        subcategory => subcategory.name === newValue
+      );
+      const { data } = await this.$productsAPI.productsBySubcategory(
+        subcategoryObj.id
+      );
+      this.productsData = data;
+    }
+  },
   head() {
     return {
       title: this.title,
@@ -174,120 +286,6 @@ export default {
       link: [
         { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
-    };
-  },
-
-  watch: {
-    async subcategory(newValue, oldValue) {
-      const subcategoryObj = this.subcategories.find(
-        subcategory => subcategory.name === newValue
-      );
-      const { data } = await this.$productsAPI.productsBySubcategory(
-        subcategoryObj.id
-      );
-      this.productsData = data;
-    }
-  },
-
-  watchQuery({ page }) {
-    this.getProductsByCategory(this.categoryObj.id, page);
-  },
-
-  components: {
-    "app-section": sectionVue,
-    "product-card": ProductCardVue,
-    "app-pagination": Paginate
-  },
-
-  computed: {
-    page: {
-      get() {
-        return Number(this.productsData.current_page) || this.default_page;
-      },
-      set(page) {
-        if (this.page === page) return;
-        // this.getProductsByCategory(this.categoryObj.id, page);
-        scrolledContent.scrollTo(0, 0);
-      }
-    },
-    title() {
-      return `✔ ${this.replaceWithSpace(
-        this.category
-      ).toUpperCase()} в Запорожье`;
-    },
-    description() {
-      return `${this.replaceWithSpace(
-        this.category
-      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка`;
-    },
-    heading() {
-      return this.categoryObj.name;
-    }
-  },
-
-  methods: {
-    async getProductsByCategory(id, page) {
-      const { data } = await this.$productsAPI.productsByCategory(id, page);
-      this.productsData = data;
-    },
-
-    changePage(direction) {
-      const page = this.$route.query.page || 1;
-      if (direction === ">" && page < this.productsData.last_page) {
-        this.$router.push(this.$route.path + "?page=" + (+page + 1));
-      }
-      if (direction === "<" && page > 1) {
-        this.$router.push(this.$route.path + "?page=" + (page - 1));
-      }
-    },
-    replaceWithSpace,
-    replaceWithDash
-  },
-
-  async fetch() {
-    try {
-      const { data: categoryData } = await this.$categoriesAPI.categories();
-      const categoryObj = categoryData.find(
-        category => this.replaceWithDash(category.name) === this.category
-      );
-      this.categoryObj = categoryObj;
-
-      const {
-        data: subcategories
-      } = await this.$subcategoriesAPI.subcategoriesByCategory(categoryObj.id);
-      this.subcategories = subcategories;
-
-      const { data: productsData } = await this.$productsAPI.productsByCategory(
-        categoryObj.id
-      );
-      this.productsData = productsData;
-    } catch (error) {
-      redirect("/error");
-    }
-  },
-
-  data() {
-    return {
-      subcategory: "",
-      category: this.$route.params.category,
-      productsData: {
-        last_page: "",
-        current_page: "",
-        data: Array(6).fill({
-          img_set: [""],
-          img_alt: "",
-          category: { name: "" },
-          name: "",
-          option: "",
-          price: ""
-        })
-      },
-      categories: [{}],
-      subcategories: [{}],
-      categoryObj: {},
-      subcategoryObj: {},
-      ogImage,
-      DOMAIN
     };
   }
 };

@@ -1,11 +1,7 @@
 ﻿<template>
   <header class="header">
     <div class="header-padding header-location">
-      <icon-base
-        :iconColor="'#ff5b00'"
-        :width="18"
-        :height="18"
-      >
+      <icon-base :iconColor="'#ff5b00'" :width="18" :height="18">
         <icon-location />
       </icon-base>
       <span>{{ location }}</span>
@@ -21,14 +17,8 @@
             </svg>
           </span>
           <span class="text">
-            <a
-              title="Телефон"
-              :href="`tel:${PHONE}`"
-            >{{ PHONE }}</a> <br />
-            <a
-              title="Телефон"
-              :href="`tel:${PHONE1}`"
-            >{{ PHONE1 }}</a>
+            <a title="Телефон" :href="`tel:${PHONE}`">{{ PHONE }}</a> <br />
+            <a title="Телефон" :href="`tel:${PHONE1}`">{{ PHONE1 }}</a>
           </span>
         </div>
 
@@ -39,13 +29,11 @@
             </svg>
           </span>
           <span class="text">
-            <a
-              title="Почта"
-              :href="`mailto:${EMAIL}`"
-            >{{ EMAIL }}</a>
+            <a title="Почта" :href="`mailto:${EMAIL}`">{{ EMAIL }}</a>
           </span>
         </div>
       </div>
+
       <div class="menu">
         <menu-btn
           :isMenuOpen="$store.state.common.isMenuOpen"
@@ -55,6 +43,27 @@
         ></menu-btn>
       </div>
     </div>
+
+    <ul
+      class="header-breadcrumbs"
+      v-if="links[1]"
+      itemscope
+      itemtype="https://schema.org/BreadcrumbList"
+    >
+      <li
+        v-for="(link, idx) in links"
+        :key="idx"
+        itemprop="itemListElement"
+        itemscope
+        itemtype="https://schema.org/ListItem"
+      >
+        <nuxt-link :to="getPath(idx) || '/'">
+          <span v-if="idx > 0">&ensp;/&ensp;</span>
+          {{ idx === 0 ? "главная" : getPathName(link) }}
+        </nuxt-link>
+        <meta itemprop="position" :content="idx + 1" />
+      </li>
+    </ul>
   </header>
 </template>
 
@@ -75,6 +84,21 @@
   @media (min-width: 1024px) {
     height: 105px;
     position: relative;
+  }
+
+  &-breadcrumbs {
+    position: absolute;
+    display: flex;
+    top: 100%;
+    padding: 4px 20px;
+    color: #555;
+    background-color: #eee;
+    box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.2);
+    border-radius: 0 0 10px 0;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   &-icon {
@@ -149,6 +173,7 @@ import IconLocationVue from "../icons/IconLocation.vue";
 import MenuButtonVue from "../common/MenuButton.vue";
 import { PHONE, EMAIL, LOCATION, PHONE1 } from "../../config";
 import sprite from "../../assets/icons/sprite.svg";
+import { replaceWithSpace } from "../../static/utils";
 
 export default {
   name: "header.vue",
@@ -169,6 +194,38 @@ export default {
       isMenuOpen: false,
       sprite
     };
+  },
+  computed: {
+    links() {
+      return this.$route.path.split("/");
+    }
+  },
+  methods: {
+    replaceWithSpace,
+    getPath(index) {
+      return this.$route.path
+        .split("/")
+        .slice(0, index + 1)
+        .join("/");
+    },
+    getPathName(name) {
+      const pages = {
+        services: "услуги",
+        zamer: "замер",
+        dostavka: "доставка",
+        fundament: "заливка фундамента",
+        pokraska: "покраска заборов",
+        montazh: "установка заборов",
+        faq: "вопросы",
+        prices: "цены",
+        contact: "контакты",
+        expo: "выставки",
+        blog: "новости",
+        karta: "карта сайта"
+      };
+
+      return pages[name] || this.replaceWithSpace(name);
+    }
   }
 };
 </script>

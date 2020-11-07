@@ -145,7 +145,7 @@ export default {
   z-index: 5;
   display: flex;
   justify-content: center;
-  margin: 20px 16px -20px;
+  margin: 40px 16px -20px;
   &::before {
     background-color: var(--green);
   }
@@ -155,7 +155,7 @@ export default {
     line-height: 1;
   }
   @media (min-width: 1024px) {
-    margin: 20px 32px -20px;
+    margin: 40px 32px -20px;
   }
 }
 </style>

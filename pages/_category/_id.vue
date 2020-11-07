@@ -1,16 +1,13 @@
 ﻿<template>
   <main>
-    <product-page
-      :product='productData||{}'
-      :popular='popular||[]'
-    />
+    <product-page :product="productData || {}" :popular="popular || []" />
   </main>
 </template>
- 
+
 <script>
 import ProductPage from "~/components/pages/ProductPage";
-import { replaceWithDash } from "../../../static/utils";
-import { BASE_URL, DOMAIN } from "../../../config";
+import { replaceWithDash } from "~/static/utils";
+import { BASE_URL, DOMAIN } from "~/config";
 
 export default {
   name: "product.vue",
@@ -21,20 +18,20 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.productData.name} с ценой и описанием, ${this.productData.category.name}, ${this.productData.subcategory.name}, ${this.productData.subcategory.name} фото`,
+          content: `${this.productData.name} с ценой и описанием, ${this.productData.category.name}, ${this.productData.subcategory.name}, ${this.productData.subcategory.name} фото`
         },
         {
           property: "og:title",
-          content: this.title,
+          content: this.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
@@ -44,19 +41,19 @@ export default {
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title,
+          content: this.title
         },
         {
           name: "twitter:description",
-          content: this.description,
+          content: this.description
         },
         { name: "twitter:image", content: this.image },
-        { name: "twitter:image:alt", content: this.productData.name },
+        { name: "twitter:image:alt", content: this.productData.name }
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.fullPath }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ],
-      script: [{ type: "application/ld+json", json: this.productMicrodata }],
+      script: [{ type: "application/ld+json", json: this.productMicrodata }]
     };
   },
   data() {
@@ -69,22 +66,22 @@ export default {
         option: {},
         category: {
           name: "",
-          id: "",
-        },
+          id: ""
+        }
       },
-      popular: [],
+      popular: []
     };
   },
 
   components: {
-    "product-page": ProductPage,
+    "product-page": ProductPage
   },
 
   methods: {
     getPrice(priceStr) {
       const [price] = priceStr.match(/\d+/g) || ["0"];
       return price;
-    },
+    }
   },
 
   computed: {
@@ -111,24 +108,24 @@ export default {
         mpn: "null",
         brand: {
           "@type": "Brand",
-          name: "ograda.zp.ua",
+          name: "ograda.zp.ua"
         },
         review: {
           "@type": "Review",
           reviewRating: {
             "@type": "Rating",
             ratingValue: "5",
-            bestRating: "5",
+            bestRating: "5"
           },
           author: {
             "@type": "Person",
-            name: "Olena Volyk",
-          },
+            name: "Olena Volyk"
+          }
         },
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: "5",
-          reviewCount: "20",
+          reviewCount: "20"
         },
         offers: {
           "@type": "Offer",
@@ -145,32 +142,37 @@ export default {
           availability: "https://schema.org/InStock",
           seller: {
             "@type": "Organization",
-            name: "Oграда",
-          },
-        },
+            name: "Oграда"
+          }
+        }
       };
-    },
+    }
   },
 
   async asyncData({ params, store, redirect, $productsAPI }) {
+    console.log({ params });
     try {
       const { data: pricesData } = await $productsAPI.productsPrices();
       const categoryArr = pricesData.find(
-        (category) => replaceWithDash(category.name) === params.category
+        category => replaceWithDash(category.name) === params.category
       );
       const product =
         categoryArr.products.find(
-          (product) => replaceWithDash(product.name) === params.id
+          product => replaceWithDash(product.name) === params.id
         ) || {};
+
+      if (!product) {
+        redirect("/error");
+      }
 
       const { data: productData } = await $productsAPI.product(product.id);
       const { data: popular } = await $productsAPI.productsPopular();
       return { productData, popular };
     } catch (error) {
-      // redirect("/error");
+      redirect("/error");
       // () => alert("Невозможно загрузить данные");
     }
-  },
+  }
 };
 </script>
 
