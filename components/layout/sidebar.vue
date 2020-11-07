@@ -4,12 +4,7 @@
 
     <ul class="sidebar-nav">
       <li @click="$store.dispatch('common/closeMenu')">
-        <router-link
-          exact
-          to="/"
-          class="nav-link"
-          title="Главная страница"
-        >
+        <router-link exact to="/" class="nav-link" title="Главная страница">
           <span>Главная</span>
         </router-link>
       </li>
@@ -21,7 +16,7 @@
       >
         <router-link
           class="nav-link"
-          :to='`/products/${replaceWithDash(category.name)}`'
+          :to="`/products/${replaceWithDash(category.name)}`"
           title="На страницу товаров"
         >
           <span>{{ category.name }}</span>
@@ -62,10 +57,10 @@ export default {
       static_menu_list: [
         { name: "Вопрос-ответ", path: "/faq" },
         { name: "Цены", path: "/prices" },
-        { name: "Контакты", path: "/contact" },
-      ],
+        { name: "Контакты", path: "/contact" }
+      ]
     };
-  },
+  }
 };
 </script>
 
@@ -78,7 +73,7 @@ export default {
   flex-direction: column;
   position: fixed;
   width: 260px;
-  border: 1px solid;
+  border-right: 1px solid;
 }
 
 .logo {

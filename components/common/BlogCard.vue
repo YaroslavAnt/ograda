@@ -3,7 +3,7 @@
     <app-image
       :img_src="
         `https://cdn.statically.io/img/${CDN_URL +
-          (card.image || '')}?w=600&f=auto `
+          (card.image || '')}?w=500&f=auto `
       "
       :img_alt="card.title"
     />
@@ -98,6 +98,9 @@ export default {
   transition-duration: 0.3s;
   display: flex;
   flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+
   &:hover {
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
     transform: translateY(-4px);
