@@ -112,7 +112,7 @@ if (process.client) {
 export default {
   data() {
     return {
-      subcategory: "",
+      subcategory: this.$route.query.subcategory || "",
       // category: this.$route.params.category,
       productsData: {
         last_page: "",
@@ -144,34 +144,35 @@ export default {
     $categoriesAPI,
     $subcategoriesAPI,
     $productsAPI,
-    params
+    params,
+    query
   }) {
-    console.log({ params });
     try {
       const { data: categoryData } = await $categoriesAPI.categories();
-      console.log({ params });
       const categoryObj = categoryData.find(
         category => replaceWithDash((category || {}).name) === params.category
       );
-
-      console.log({ categoryObj });
-
-      // if (!categoryObj) {
-      //   redirect("/error");
-      // }
-      // this.categoryObj = categoryObj;
-
       const {
         data: subcategories
       } = await $subcategoriesAPI.subcategoriesByCategory(categoryObj.id);
-      // this.subcategories = subcategories;
 
-      const { data: productsData } = await $productsAPI.productsByCategory(
-        categoryObj.id
-      );
-      // this.productsData = productsData;
+      if (query.subcategory) {
+        console.log("from sub");
+        const subcategoryObj = subcategories.find(
+          subcategory => subcategory.name === query.subcategory
+        );
+        const { data: productsData } = await $productsAPI.productsBySubcategory(
+          subcategoryObj.id
+        );
 
-      return { categoryObj, subcategories, productsData };
+        return { categoryObj, subcategories, productsData };
+      } else {
+        const { data: productsData } = await $productsAPI.productsByCategory(
+          categoryObj.id
+        );
+
+        return { categoryObj, subcategories, productsData };
+      }
     } catch (error) {
       console.log({ error });
       redirect("/error");
@@ -210,8 +211,12 @@ export default {
     replaceWithSpace,
     replaceWithDash
   },
-  watchQuery({ page }) {
-    this.getProductsByCategory(this.categoryObj.id, page);
+  watchQuery({ page, subcategory }) {
+    if (subcategory) {
+      this.subcategory = subcategory;
+    } else {
+      this.getProductsByCategory(this.categoryObj.id, page);
+    }
   },
   watch: {
     async subcategory(newValue, oldValue) {

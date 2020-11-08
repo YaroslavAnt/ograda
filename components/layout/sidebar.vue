@@ -13,14 +13,35 @@
         v-for="(category, idx) in $store.state.categories.list"
         :key="idx"
         @click="$store.dispatch('common/closeMenu')"
+        class="nav-link"
+        :class="{ 'with-submenu': category.subcategories.length > 1 }"
       >
+        <!-- class="" -->
         <router-link
-          class="nav-link"
           :to="`/${replaceWithDash(category.name)}`"
           title="На страницу товаров"
         >
           <span>{{ category.name }}</span>
         </router-link>
+        <ul
+          class="sidebar-subnav"
+          v-if="category.subcategories && category.subcategories.length > 1"
+        >
+          <li
+            class="subnav-link"
+            v-for="(subcategory, idx) in category.subcategories"
+            :key="idx"
+            @click="
+              $router.push(
+                `/${replaceWithDash(category.name)}?subcategory=${
+                  subcategory.name
+                }`
+              )
+            "
+          >
+            {{ subcategory.name }}
+          </li>
+        </ul>
       </li>
 
       <li
@@ -131,6 +152,7 @@ export default {
     text-transform: uppercase;
 
     &.with-submenu {
+      position: relative;
       &::after {
         transition-duration: 0.2s;
         content: "";

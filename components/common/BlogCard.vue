@@ -17,14 +17,14 @@
         <time :datetime="dateTime">{{ date }}</time>
       </span>
 
-      <h4
+      <h3
         class="card-name"
         :class="{ 'base-font': !isWhole, 'medium-font': isWhole }"
       >
         <nuxt-link :to="`/blog/${card.id}`">
           {{ card.title }}
         </nuxt-link>
-      </h4>
+      </h3>
 
       <span
         class="small-font red card-link"

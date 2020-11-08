@@ -122,10 +122,10 @@ export default {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
           let dynRoutes = [];
           data.data.forEach(priceObj => {
-            dynRoutes.push(replaceWithDash(`products/${priceObj.name}`));
+            dynRoutes.push(replaceWithDash(`${priceObj.name}`));
             return priceObj.products.forEach(product =>
               dynRoutes.push(
-                replaceWithDash(`products/${priceObj.name}/${product.name}`)
+                replaceWithDash(`${priceObj.name}/${product.name}`)
               )
             );
           });
