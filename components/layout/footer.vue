@@ -19,7 +19,6 @@
         </ShareNetwork>
       </div>
 
-      <script src="https://apps.elfsight.com/p/platform.js" defer></script>
       <div class="footer-rating">
         <div class="elfsight-app-34771295-8af0-4459-87cc-2af7e7b87bc4"></div>
       </div>

@@ -44,6 +44,11 @@ export default {
       //     "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js",
       //   async: ""
       // }
+      // <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+      {
+        src: "https://apps.elfsight.com/p/platform.js",
+        defer: true
+      }
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
