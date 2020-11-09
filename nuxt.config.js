@@ -45,10 +45,10 @@ export default {
       //   async: ""
       // }
       // <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-      {
-        src: "https://apps.elfsight.com/p/platform.js",
-        defer: true
-      }
+      // {
+      //   src: "https://apps.elfsight.com/p/platform.js",
+      //   defer: true
+      // }
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },

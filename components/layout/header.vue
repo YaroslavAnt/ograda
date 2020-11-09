@@ -57,9 +57,16 @@
         itemscope
         itemtype="https://schema.org/ListItem"
       >
-        <nuxt-link :to="getPath(idx) || '/'">
+        <nuxt-link
+          :to="getPath(idx) || '/'"
+          itemscope
+          itemtype="https://schema.org/WebPage"
+          itemprop="item"
+        >
           <span v-if="idx > 0">&ensp;/&ensp;</span>
-          {{ idx === 0 ? "главная" : getPathName(link) }}
+          <span itemprop="name">{{
+            idx === 0 ? "главная" : getPathName(link)
+          }}</span>
         </nuxt-link>
         <meta itemprop="position" :content="idx + 1" />
       </li>
@@ -200,6 +207,7 @@ export default {
       return this.$route.path.split("/");
     }
   },
+
   methods: {
     replaceWithSpace,
     getPath(index) {

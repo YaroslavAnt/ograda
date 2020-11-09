@@ -165,6 +165,7 @@
 .footer {
   font-weight: 500;
   position: relative;
+  overflow: hidden;
 
   @media (min-width: 500px) {
     flex-direction: row;

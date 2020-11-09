@@ -167,6 +167,17 @@ export default {
   async fetch() {
     const { data } = await this.$categoriesAPI.categories();
     this.$store.commit("categories/SET_CATEGORIES", data);
+
+    const res = await fetch(
+      "https://service-reviews-ultimate.elfsight.com/data/sources?&uris[]=ChIJFXQjS-Fd3EARnqYNByz5yuc&with_text_only=1&min_rating=3&order=date&page_length=100"
+    );
+    if (res.ok) {
+      let { result } = (await res.json()) || {};
+
+      const { rating, reviews_number } = result.data[0] || {};
+      this.$store.commit("common/SET_RATING", rating);
+      this.$store.commit("common/SET_REVIEWS", reviews_number);
+    }
   }
 };
 </script>

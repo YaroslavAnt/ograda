@@ -145,7 +145,8 @@ export default {
     $subcategoriesAPI,
     $productsAPI,
     params,
-    query
+    query,
+    error
   }) {
     try {
       const { data: categoryData } = await $categoriesAPI.categories();
@@ -173,9 +174,10 @@ export default {
 
         return { categoryObj, subcategories, productsData };
       }
-    } catch (error) {
-      console.log({ error });
-      redirect("/error");
+    } catch (err) {
+      console.log({ err });
+      error({ message: "Page not found", statusCode: 404 });
+      // redirect("/error");
     }
   },
   computed: {

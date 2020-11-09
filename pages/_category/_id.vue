@@ -149,8 +149,7 @@ export default {
     }
   },
 
-  async asyncData({ params, store, redirect, $productsAPI }) {
-    console.log({ params });
+  async asyncData({ params, store, redirect, $productsAPI, error }) {
     try {
       const { data: pricesData } = await $productsAPI.productsPrices();
       const categoryArr = pricesData.find(
@@ -162,14 +161,14 @@ export default {
         ) || {};
 
       if (!product) {
-        redirect("/error");
+        error({ message: "Page not found", statusCode: 404 });
       }
 
       const { data: productData } = await $productsAPI.product(product.id);
       const { data: popular } = await $productsAPI.productsPopular();
       return { productData, popular };
-    } catch (error) {
-      redirect("/error");
+    } catch (err) {
+      error({ message: "Page not found", statusCode: 404 });
       // () => alert("Невозможно загрузить данные");
     }
   }
