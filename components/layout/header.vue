@@ -51,28 +51,27 @@
       itemtype="https://schema.org/BreadcrumbList"
     >
       <li
-        v-for="(link, idx) in links"
+        v-for="(link, idx) in links.slice(0, links.length - 1)"
         :key="idx"
         itemprop="itemListElement"
         itemscope
         itemtype="https://schema.org/ListItem"
       >
-        <nuxt-link
-          :to="getPath(idx) || '/'"
-          itemscope
-          itemtype="https://schema.org/WebPage"
-          itemprop="item"
-        >
-          <span v-if="idx > 0">&ensp;/&ensp;</span>
+        <nuxt-link :to="getPath(idx) || '/'" itemprop="item">
           <span itemprop="name">{{
             idx === 0 ? "главная" : getPathName(link)
           }}</span>
-          <meta
-            itemprop="id"
-            :content="idx === 0 ? 'главная' : getPathName(link)"
-          />
+          <span>&ensp;/&ensp;</span>
         </nuxt-link>
         <meta itemprop="position" :content="idx + 1" />
+      </li>
+      <li
+        itemprop="itemListElement"
+        itemscope
+        itemtype="https://schema.org/ListItem"
+      >
+        <span itemprop="name">{{ links[links.length - 1] }}</span>
+        <meta itemprop="position" content="3" />
       </li>
     </ul>
   </header>
