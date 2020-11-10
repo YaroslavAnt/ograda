@@ -64,7 +64,7 @@
           itemprop="item"
         >
           <span v-if="idx > 0">&ensp;/&ensp;</span>
-          <span itemprop="name">{{
+          <span itemprop="name" id="ograda.zp.ua">{{
             idx === 0 ? "главная" : getPathName(link)
           }}</span>
         </nuxt-link>

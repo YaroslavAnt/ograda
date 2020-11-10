@@ -21,6 +21,23 @@
 
       <div class="footer-rating">
         <div class="elfsight-app-34771295-8af0-4459-87cc-2af7e7b87bc4"></div>
+        <div class="footer-rating-box">
+          <svg class="footer-icon footer-icon--rating">
+            <use xlink:href="../../assets/icons/sprite_s.svg#google" />
+          </svg>
+          <span class="medium-font">Google ретинг</span>
+          <div>
+            <b class="big-font">{{ Number(rating).toFixed(1) }}</b>
+            <v-rating :rating="rating"></v-rating>
+          </div>
+          <a
+            rel="noreferrer noopener"
+            target="_blank"
+            href="https://www.google.com/maps/place/%D0%95%D0%B2%D1%80%D0%BE%D0%B7%D0%B0%D0%B1%D0%BE%D1%80+%D0%97%D0%B0%D0%BF%D0%BE%D1%80%D0%BE%D0%B6%D1%8C%D0%B5.+%D0%92%D0%BE%D1%80%D0%BE%D1%82%D0%B0+%D0%BA%D0%B0%D0%BB%D0%B8%D1%82%D0%BA%D0%B8.+%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0.+%D0%94%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0./@47.8484007,35.257578,17z/data=!3m1!4b1!4m7!3m6!1s0x0:0xe7caf92c070da69e!8m2!3d47.8484007!4d35.2597667!9m1!1b1?hl=ru"
+            class="small-font footer-rating-link"
+            >Смотреть отзывы ({{ reviews_number }})</a
+          >
+        </div>
       </div>
     </div>
 
@@ -181,6 +198,22 @@
 
   &-rating {
     display: inline-block;
+
+    &-box {
+      margin-top: 24px;
+      background-color: #fff;
+      padding: 24px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-link {
+      margin-top: 12px;
+      color: var(--red);
+      text-decoration: underline;
+    }
   }
 
   &-navitems {
@@ -219,6 +252,11 @@
   &-icon {
     width: 36px;
     height: 36px;
+
+    &--rating {
+      height: 70px;
+      margin-top: -30px;
+    }
   }
 
   &-share-link {
@@ -255,12 +293,17 @@ import {
   SOCIAL_SHARE
 } from "../../config";
 import { replaceWithDash } from "../../static/utils";
+import vRating from "../common/Rating/Rating.vue";
 // import SocialSharing from "vue-social-sharing";
+
 export default {
   name: "footer.vue",
 
   methods: {
     replaceWithDash
+  },
+  components: {
+    vRating
   },
   computed: {
     dynamicLinks() {
@@ -286,6 +329,8 @@ export default {
       TWITTER,
       PINTEREST,
       SOCIAL_SHARE,
+      rating: this.$store.state.common.rating,
+      reviews_number: this.$store.state.common.reviews_number,
       menu_list: [
         {
           name: "Информация",

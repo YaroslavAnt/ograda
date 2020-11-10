@@ -170,58 +170,21 @@ export default {
     return { slides, popularProducts, posts };
   },
 
-  // async fetch() {
-  //   const res = await fetch(
-  //     "https://service-reviews-ultimate.elfsight.com/data/sources?&uris[]=ChIJFXQjS-Fd3EARnqYNByz5yuc&with_text_only=1&min_rating=3&order=date&page_length=100"
-  //   );
-  //   if (res.ok) {
-  //     let { result } = (await res.json()) || {};
+  async fetch() {
+    const res = await fetch(
+      "https://service-reviews-ultimate.elfsight.com/data/sources?&uris[]=ChIJFXQjS-Fd3EARnqYNByz5yuc&with_text_only=1&min_rating=3&order=date&page_length=100"
+    );
+    if (res.ok) {
+      let { result } = (await res.json()) || {};
 
-  //     const { rating, reviews_number } = result.data[0] || {};
+      const { rating, reviews_number } = result.data[0] || {};
 
-  //     this.organisationMicrodata = {
-  //       "@context": "http://www.schema.org",
-  //       "@type": "ProfessionalService",
-  //       currenciesAccepted: "UAH",
-  //       aggregateRating: {
-  //         "@type": "AggregateRating",
-  //         ratingValue: rating || 5,
-  //         reviewCount: reviews_number || 32
-  //       },
-  //       name: "Ограда",
-  //       url: "https://ograda.zp.ua/",
-  //       sameAs: [
-  //         "https://www.instagram.com/ograda_zp/",
-  //         "https://twitter.com/OgradaZ?s=09",
-  //         "https://www.pinterest.com/ograda_zp0599/",
-  //         "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
-  //       ],
-  //       logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png",
-  //       priceRange: "$$",
-  //       image:
-  //         "https://ograda.zp.ua/_nuxt/assets/img/services/zvetnoi_zabor2.jpg",
-  //       description:
-  //         "Производство и продажа еврозаборов. Установка бетонных заборов и заборов из профнастила. Изготовление ворот и калиток",
-  //       address: {
-  //         "@type": "PostalAddress",
-  //         streetAddress: "Стартова вулиця, 1ж",
-  //         addressLocality: "Запоріжжя",
-  //         addressRegion: "Запорізька область",
-  //         postalCode: "69013",
-  //         addressCountry: "Україна"
-  //       },
-  //       geo: {
-  //         "@type": "GeoCoordinates",
-  //         latitude: "47.847385",
-  //         longitude: "35.258344"
-  //       },
-  //       openingHours: "Mo-Sa 08:00-18:00",
-  //       telephone: "+38(098)030-5010"
-  //     };
-  //   } else {
-  //     console.log("Ошибка HTTP: " + res.status);
-  //   }
-  // },
+      this.$store.commit("common/SET_RATING", rating);
+      this.$store.commit("common/SET_REVIEWS", reviews_number);
+    } else {
+      console.log("Ошибка HTTP: " + res.status);
+    }
+  },
 
   async mounted() {
     this.$store.commit("common/CLOSE_MENU");
