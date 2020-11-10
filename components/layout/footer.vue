@@ -25,7 +25,7 @@
           <svg class="footer-icon footer-icon--rating">
             <use xlink:href="../../assets/icons/sprite_s.svg#google" />
           </svg>
-          <span class="medium-font">Google ретинг</span>
+          <span class="medium-font">Google рейтинг</span>
           <div>
             <b class="big-font">{{ Number(rating).toFixed(1) }}</b>
             <v-rating :rating="rating"></v-rating>
