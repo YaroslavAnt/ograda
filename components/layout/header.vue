@@ -64,11 +64,15 @@
           itemprop="item"
         >
           <span v-if="idx > 0">&ensp;/&ensp;</span>
-          <span itemprop="name" id="ograda.zp.ua">{{
+          <span itemprop="name">{{
             idx === 0 ? "главная" : getPathName(link)
           }}</span>
         </nuxt-link>
         <meta itemprop="position" :content="idx + 1" />
+        <meta
+          itemprop="@id"
+          :content="idx === 0 ? 'главная' : getPathName(link)"
+        />
       </li>
     </ul>
   </header>
