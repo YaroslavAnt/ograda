@@ -67,12 +67,12 @@
           <span itemprop="name">{{
             idx === 0 ? "главная" : getPathName(link)
           }}</span>
+          <meta
+            itemprop="id"
+            :content="idx === 0 ? 'главная' : getPathName(link)"
+          />
         </nuxt-link>
         <meta itemprop="position" :content="idx + 1" />
-        <meta
-          itemprop="@id"
-          :content="idx === 0 ? 'главная' : getPathName(link)"
-        />
       </li>
     </ul>
   </header>
