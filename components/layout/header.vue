@@ -71,7 +71,7 @@
         itemtype="https://schema.org/ListItem"
       >
         <span itemprop="name">{{ getPathName(links[links.length - 1]) }}</span>
-        <meta itemprop="position" content="3" />
+        <meta itemprop="position" :content="links.length" />
       </li>
     </ul>
   </header>
@@ -195,6 +195,7 @@ export default {
     "icon-location": IconLocationVue,
     "menu-btn": MenuButtonVue
   },
+
   data() {
     return {
       PHONE,
@@ -234,7 +235,6 @@ export default {
         blog: "новости",
         karta: "карта сайта"
       };
-      console.log({ name });
 
       return pages[name] || this.replaceWithSpace(name);
     }
