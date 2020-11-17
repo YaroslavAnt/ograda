@@ -8,25 +8,6 @@
     >
       <div class="slider-filterbox" :class="{ 'with-filter': withFilter }">
         <div class="picture">
-          <!-- <picture> -->
-          <!-- <source
-              :srcSet="`${BASE_URL + getImageName(slide.image) }.webp`"
-              type="image/webp"
-            /> -->
-          <!--<source
-              :srcSet="`${BASE_URL + slide.image}`"
-              type="image/jpeg"
-
-https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
-
-            />
-             <source :srcSet="require('~/assets/my-image.jpg')" type="image/jpeg" /> 
-            <img
-              :srcset="`../../assets/icons/img-placeholder.png, ${BASE_URL + getImageName(slide.image) }.webp`"
-              :src="`${BASE_URL + slide.image}`"
-              :alt="slide.img_alt"
-              class="picture-img"
-            />-->
           <img
             :srcset="
               `https://cdn.statically.io/img/${CDN_URL +
@@ -43,26 +24,11 @@ https://cdn.statically.io/img/${BASE_URL + slide.image}?w=450&h=300&f=auto
             :src="`${BASE_URL + slide.image}`"
             :alt="slide.img_alt"
           />
-          <!-- </picture> -->
-          <!-- {{}} -->
         </div>
       </div>
 
       <div class="slider-content section-padding">
-        <nuxt-link
-          v-if="slide.short_body && slide.short_body !== 'null' && slide.title"
-          :to="'/'"
-          :title="slide.title"
-        >
-          <h2
-            v-if="slide.title"
-            class="slider-heading app-button huge-font slider-btn "
-          >
-            {{ String(slide.title).toUpperCase() }}
-          </h2>
-        </nuxt-link>
-
-        <h2 v-else class="slider-heading app-button huge-font slider-btn ">
+        <h2 class="slider-heading app-button huge-font slider-btn ">
           {{ String(slide.title).toUpperCase() }}
         </h2>
 

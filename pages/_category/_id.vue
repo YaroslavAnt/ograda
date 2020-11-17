@@ -124,8 +124,8 @@ export default {
         },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "5",
-          reviewCount: "20"
+          ratingValue: this.$store.state.common.rating || 5,
+          reviewCount: this.$store.state.common.reviews_number || "20"
         },
         offers: {
           "@type": "Offer",
