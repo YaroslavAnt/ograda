@@ -72,10 +72,7 @@
       >
         <span itemprop="item">
           {{ getPathName(links[links.length - 1]) }}
-          <meta
-            itemprop="name"
-            :content="getPathName(links[links.length - 1])"
-          />
+          <meta itemprop="name" :content="$route.path" />
         </span>
         <meta itemprop="position" :content="links.length" />
       </li>
