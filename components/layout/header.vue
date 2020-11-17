@@ -70,9 +70,9 @@
         itemscope
         itemtype="https://schema.org/ListItem"
       >
-        <span itemprop="item">
+        <span itemprop="name">
           {{ getPathName(links[links.length - 1]) }}
-          <meta itemprop="name" :content="$route.path" />
+          <meta itemprop="item" :content="DOMAIN + $route.path" />
         </span>
         <meta itemprop="position" :content="links.length" />
       </li>
@@ -184,7 +184,7 @@ import IconMailVue from "../icons/IconMail.vue";
 import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
 import MenuButtonVue from "../common/MenuButton.vue";
-import { PHONE, EMAIL, LOCATION, PHONE1 } from "../../config";
+import { PHONE, EMAIL, LOCATION, PHONE1, DOMAIN } from "../../config";
 import sprite from "../../assets/icons/sprite.svg";
 import { replaceWithSpace } from "../../static/utils";
 
@@ -204,6 +204,7 @@ export default {
       PHONE,
       PHONE1,
       EMAIL,
+      DOMAIN,
       location: LOCATION,
       isMenuOpen: false,
       sprite
