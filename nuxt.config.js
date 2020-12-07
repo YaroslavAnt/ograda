@@ -137,6 +137,24 @@ export default {
           return dynRoutes;
         }
       },
+      // {
+      //   path: "/sitemap-posts.xml",
+      //   routes: async () => {
+      //     const {
+      //       data: { data: posts }
+      //     } = await axios.get(BASE_URL + "api/posts");
+      //     let pages = [];
+      //     for (let page = 1; page <= posts.last_page; page++) {
+      //       const {
+      //         data: { data: paginatedPosts }
+      //       } = await axios.get(BASE_URL + "api/posts?page=" + page);
+      //       paginatedPosts.data.forEach(post => {
+      //         pages.push(`/blog/${post.id}`);
+      //       });
+      //     }
+      //     return pages;
+      //   }
+      // },
       {
         path: "/sitemap-posts.xml",
         routes: async () => {
@@ -149,7 +167,15 @@ export default {
               data: { data: paginatedPosts }
             } = await axios.get(BASE_URL + "api/posts?page=" + page);
             paginatedPosts.data.forEach(post => {
-              pages.push(`/blog/${post.id}`);
+              // pages.push(`/blog/${post.id}`);
+              pages.push({
+                url: `/blog/${post.id}`,
+                img: [
+                  {
+                    url: BASE_URL + post.image
+                  }
+                ]
+              });
             });
           }
           return pages;
