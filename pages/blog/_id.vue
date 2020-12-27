@@ -194,6 +194,10 @@ export default {
   margin-bottom: 12px;
 }
 
+.intro-text {
+  white-space: pre-line;
+}
+
 .box {
   display: flex;
   flex-direction: column;

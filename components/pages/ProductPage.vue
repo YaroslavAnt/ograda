@@ -383,7 +383,7 @@ article {
   }
 
   &-description {
-    white-space: pre-wrap;
+    white-space: pre-line;
   }
 
   &-option {

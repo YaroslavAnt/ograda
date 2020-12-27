@@ -160,9 +160,9 @@ export default {
     };
   },
 
-  middleware({ error }) {
-    console.log({ error: error() });
-  },
+  // middleware({ error }) {
+  //   console.log({ error1: error() });
+  // },
 
   async fetch() {
     const { data } = await this.$categoriesAPI.categories();

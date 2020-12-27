@@ -103,7 +103,7 @@ export default {
     return {
       title: "✔ Еврозаборы в Запорожье",
       description:
-        "Бетонные заборы, заборы из профнастила в Запорожье с ценами от производителя. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
+        "Бетонные заборы цена 160грн, заборы из профнастила цена 800грн в Запорожье. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
       popularProducts: [],
       slides: [],
       posts: [],
@@ -149,6 +149,18 @@ export default {
         },
         openingHours: "Mo-Sa 08:00-18:00",
         telephone: "+38(098)030-5010"
+      },
+      websiteMicrodata: {
+        "@context": "http:\/\/schema.org",
+        "@type": "WebSite",
+        "@id": "#website",
+        url: "https:\/\/ograda.zp.ua\/",
+        name: "Ограда",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https:\/\/ograda.zp.ua\/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
     };
   },
@@ -242,7 +254,8 @@ export default {
         { rel: "canonical", href: this.DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ],
       script: [
-        { type: "application/ld+json", json: this.organisationMicrodata }
+        { type: "application/ld+json", json: this.organisationMicrodata },
+        { type: "application/ld+json", json: this.websiteMicrodata }
       ]
     };
   }
