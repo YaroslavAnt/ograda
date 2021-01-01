@@ -1,31 +1,14 @@
 ﻿<template>
   <main class="section-padding">
-
-    <h1 class="with-skewed-bg">{{title}}</h1>
-    <section
-      v-for="(question, idx) in questions"
-      :key="idx"
-      itemscope
-      itemprop="mainEntity"
-      itemtype="https://schema.org/Question"
-    >
-      <h2
-        itemprop="name"
-        class="question medium-font"
-      >{{idx+1}}. {{question.question}}</h2>
-      <img
-        v-if="question.img"
-        :src="question.img"
-        alt="image"
-        class="image"
-      >
-      <p
-        itemscope
-        itemprop="acceptedAnswer"
-        itemtype="https://schema.org/Answer"
-        class="answer base-font"
-        v-if="question.answer"
-      > <span itemprop="text">{{question.answer}}</span></p>
+    <h1 class="with-skewed-bg">{{ title }}</h1>
+    <section v-for="(question, idx) in questions" :key="idx">
+      <h2 itemprop="name" class="question medium-font">
+        {{ idx + 1 }}. {{ question.question }}
+      </h2>
+      <img v-if="question.img" :src="question.img" alt="image" class="image" />
+      <p class="answer base-font" v-if="question.answer">
+        <span itemprop="text">{{ question.answer }}</span>
+      </p>
     </section>
   </main>
 </template>
@@ -43,49 +26,49 @@ export default {
       // title:
       ogImage,
       DOMAIN,
-
       questions: [
         {
           question: "Нужно ли красить бетонные заборы?",
           answer: `Не обязательно. Но если вы хотите придать индивидуальности вашему ограждению, то этот вид работ предоставляет возможность сделать забор намного красивее а также продлить срок службы. 
             После покраски наносится специальный лак, который придает глянец поверхности.
-            Есть большой выбор цветов. Работы выполняются за один день`,
+            Есть большой выбор цветов. Работы выполняются за один день`
         },
         {
           question: "Возможна ли доставка заборов за пределы города?",
           answer:
-            "Да, возможна. Выполняем доставку продукции и материалов по всей Запорожской области. Компания имеет транспорт, подходящий под любые объемы заказов. Услуги по доставке оплачиваются отдельно",
+            "Да, возможна. Выполняем доставку продукции и материалов по всей Запорожской области. Компания имеет транспорт, подходящий под любые объемы заказов. Услуги по доставке оплачиваются отдельно"
         },
         {
           question: "Для чего нужна замазка щелей между плитами?",
           img: eye,
+          answer: "Чтобы гарантировать отсутствие посторонних взглядов"
         },
         {
           question: "Заливать фундамент обязательно?",
           answer:
-            "Только в случае просадки грунта или при большом уклоне участка.",
+            "Только в случае просадки грунта или при большом уклоне участка."
         },
         {
           question: "Как рассчитать необходимое количество плит еврозаборов?",
           answer: `Необходимо длину периметра умножить на высоту забора в метрах. Например участок 10м х 15м, высота забора 1,5м: 
           - периметр равен 50м (10м + 15м + 10м + 15м) 
-          - необходимое количество плит 75 (50м умножить на 1,5м)`,
+          - необходимое количество плит 75 (50м умножить на 1,5м)`
         },
         {
           question: "В течение какого времени устанавливается забор?",
           answer: `Еврозабор - до 40 метров в день
           Заборы из профнастила - до 20 метров в день
-          Сетка рабица - до 80 метров в день.`,
+          Сетка рабица - до 80 метров в день.`
         },
         {
           question: "Какие бывают цвета забора из профнастила?",
           img: ral,
           answer: `Основные цвета представлены в таблице выше. При выборе оттенка необходимо учитывать, что в наличии могут быть только популярные цвета, а более редкие необходимо заказывать заранее. 
           Как правило не очень распространенные оттенки стоят дороже.
-          Хорошо зарекомендовали себя заборы из профнастила с узором "под дерево".`,
-        },
+          Хорошо зарекомендовали себя заборы из профнастила с узором "под дерево".`
+        }
       ],
-      fetchedVars: {},
+      fetchedVars: {}
     };
   },
   computed: {
@@ -98,6 +81,21 @@ export default {
     keywords() {
       return "faq, монтаж заборов, покраска еврозаборов, как оформить заказ на еврозабор, скидки, акции";
     },
+    faqMicrodata() {
+      const mapCB = ({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: answer
+        }
+      });
+      return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: this.questions.map(mapCB)
+      };
+    }
   },
 
   head() {
@@ -107,50 +105,51 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.keywords}`,
+          content: `${this.keywords}`
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title,
+          content: this.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title,
+          content: this.title
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
         {
           name: "twitter:description",
-          content: this.description,
-        },
+          content: this.description
+        }
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ],
+      script: [{ type: "application/ld+json", json: this.faqMicrodata }]
     };
-  },
+  }
 };
 </script>
 

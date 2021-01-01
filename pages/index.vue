@@ -71,7 +71,7 @@ import popularVue from "../components/sections/home/popular.vue";
 
 import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
 
-import { DOMAIN } from "../config";
+import { BACKLINKS_SCRIPTS, DOMAIN } from "../config";
 
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../static/utils";
@@ -165,20 +165,6 @@ export default {
     };
   },
 
-  // async asyncData({ $slidesAPI, $productsAPI, $postsAPI }) {
-  //   const {
-  //     data: { data: slides }
-  //   } = await $slidesAPI.slides();
-
-  //   const { data: popularProducts } = await $productsAPI.productsPopular();
-
-  //   const {
-  //     data: { data: posts }
-  //   } = await $postsAPI.posts();
-
-  //   return { slides, popularProducts, posts };
-  // },
-
   async fetch() {
     const {
       data: { data: slides }
@@ -210,6 +196,28 @@ export default {
 
   async mounted() {
     this.$store.commit("common/CLOSE_MENU");
+
+    const myScripts = document.getElementById("my-scripts");
+    if (!myScripts) {
+      const container = document.createElement("div");
+      container.setAttribute("id", "my-scripts");
+      let innerHtmlString = "";
+
+      for (const key in BACKLINKS_SCRIPTS) {
+        if (Object.hasOwnProperty.call(BACKLINKS_SCRIPTS, key)) {
+          const scriptString = BACKLINKS_SCRIPTS[key];
+          console.log({ scriptString });
+          innerHtmlString += scriptString;
+        }
+      }
+      container.innerHTML = innerHtmlString;
+      document.body.appendChild(container);
+    }
+  },
+
+  beforeDestroy() {
+    const myScripts = document.getElementById("my-scripts");
+    myScripts.remove();
   },
 
   head() {

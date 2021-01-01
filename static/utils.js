@@ -19,3 +19,6 @@ export const replaceWithSpace = string => {
 //   const [cyrylic] = string.split("#");
 //   return cyrylic;
 // };
+export const addHtmlAfterBody = string => {
+  document.body.appendChild(string);
+};
