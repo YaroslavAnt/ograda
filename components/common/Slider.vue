@@ -137,6 +137,16 @@ export default {
   color: var(--white);
   height: 100%;
 
+  min-height: 250px;
+
+  @media (min-width: 425px) {
+    min-height: 300px;
+  }
+  @media (min-width: 768px) {
+    min-height: 400px;
+    // padding-bottom: 45%;
+  }
+
   &-item {
     opacity: 0;
     height: 100%;

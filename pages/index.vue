@@ -103,7 +103,7 @@ export default {
     return {
       title: "✔ Еврозаборы в Запорожье",
       description:
-        "Бетонные заборы цена 160грн, заборы из профнастила цена 800грн в Запорожье. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
+        "Бетонные заборы цена 160 грн/плита, заборы из профнастила цена 800 грн/м.п. в Запорожье. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
       popularProducts: [],
       slides: [],
       posts: [],
@@ -165,21 +165,34 @@ export default {
     };
   },
 
-  async asyncData({ $slidesAPI, $productsAPI, $postsAPI }) {
+  // async asyncData({ $slidesAPI, $productsAPI, $postsAPI }) {
+  //   const {
+  //     data: { data: slides }
+  //   } = await $slidesAPI.slides();
+
+  //   const { data: popularProducts } = await $productsAPI.productsPopular();
+
+  //   const {
+  //     data: { data: posts }
+  //   } = await $postsAPI.posts();
+
+  //   return { slides, popularProducts, posts };
+  // },
+
+  async fetch() {
     const {
       data: { data: slides }
-    } = await $slidesAPI.slides();
+    } = await this.$slidesAPI.slides();
+    this.slides = slides;
 
-    const { data: popularProducts } = await $productsAPI.productsPopular();
+    const { data: popularProducts } = await this.$productsAPI.productsPopular();
+    this.popularProducts = popularProducts;
 
     const {
       data: { data: posts }
-    } = await $postsAPI.posts();
+    } = await this.$postsAPI.posts();
+    this.posts = posts;
 
-    return { slides, popularProducts, posts };
-  },
-
-  async fetch() {
     const res = await fetch(
       "https://service-reviews-ultimate.elfsight.com/data/sources?&uris[]=ChIJFXQjS-Fd3EARnqYNByz5yuc&with_text_only=1&min_rating=3&order=date&page_length=100"
     );

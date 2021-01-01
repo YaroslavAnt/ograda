@@ -1,7 +1,9 @@
 ﻿<template>
   <div class="box">
-    <p class="huge-font msg">Страница не найдена</p>
-    <ul class="pages">
+    <p v-if="error.statusCode === 404" class="huge-font msg">
+      Страница не найдена
+    </p>
+    <ul v-if="error.statusCode === 404" class="pages">
       <p class="big-font">Доступные страницы:</p>
       <li v-for="(link, pageIdx) in staticLinks" :key="pageIdx">
         <nuxt-link
@@ -18,7 +20,7 @@
         <ul class="subpages" v-if="link.children">
           <li
             v-for="(sublink, subpageIdx) in link.children"
-            :key="`${pageIdx}${subpageIdx}`"
+            :key="subpageIdx + 'sub'"
           >
             <nuxt-link
               class="subpage base-font"
@@ -77,14 +79,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .page {
+//   min-height: 100vh;
+// }
 .box {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
   flex-direction: column;
   text-align: center;
+  min-height: 100vh;
 }
 .msg {
   color: var(--red);

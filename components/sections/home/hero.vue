@@ -1,9 +1,5 @@
 <template>
-  <section
-    class="section"
-    v-if="slides.length > 0"
-  >
-
+  <section class="section">
     <slider
       class="section-slider"
       :slider_items="slides"
@@ -19,14 +15,14 @@ import SliderVue from "~/components/common/Slider.vue";
 export default {
   name: "hero.vue",
   components: {
-    slider: SliderVue,
+    slider: SliderVue
   },
   props: {
     slides: {
       type: Array,
-      default: [],
-    },
-  },
+      default: []
+    }
+  }
 };
 </script>
 
@@ -79,4 +75,3 @@ export default {
   // }
 }
 </style>
-

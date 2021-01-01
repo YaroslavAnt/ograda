@@ -12,7 +12,6 @@
             :key="idx"
             @click="subcategory = tab.name"
           >
-            <!-- v-on:click="$router.push(`/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`)" -->
             <span
               class="switch-tab"
               :class="{ 'switch-tab-active': subcategory === tab.name }"
@@ -21,10 +20,6 @@
           </div>
         </div>
       </div>
-      <!-- <p
-        class="large-font section-placeholder"
-        v-if="productsData.data.length === 0"
-      >Товары еще не загружены...</p> -->
 
       <div class="section-grid" v-if="productsData.data.length > 0">
         <product-card
@@ -140,7 +135,6 @@ export default {
     "app-pagination": Paginate
   },
   async asyncData({
-    redirect,
     $categoriesAPI,
     $subcategoriesAPI,
     $productsAPI,
@@ -153,31 +147,42 @@ export default {
       const categoryObj = categoryData.find(
         category => replaceWithDash((category || {}).name) === params.category
       );
-      const {
-        data: subcategories
-      } = await $subcategoriesAPI.subcategoriesByCategory(categoryObj.id);
+      if (!categoryObj) {
+        console.log("no category");
+        return error({ message: "Page not found", statusCode: 404 });
+      }
 
       if (query.subcategory) {
-        console.log("from sub");
-        const subcategoryObj = subcategories.find(
+        const subcategoryObj = categoryObj.subcategories.find(
           subcategory => subcategory.name === query.subcategory
         );
+        if (!subcategoryObj) {
+          console.log("no subcategory");
+          return error({ message: "Page not found", statusCode: 404 });
+        }
         const { data: productsData } = await $productsAPI.productsBySubcategory(
           subcategoryObj.id
         );
 
-        return { categoryObj, subcategories, productsData };
+        return {
+          categoryObj,
+          subcategories: categoryObj.subcategories,
+          productsData
+        };
       } else {
         const { data: productsData } = await $productsAPI.productsByCategory(
           categoryObj.id
         );
 
-        return { categoryObj, subcategories, productsData };
+        return {
+          categoryObj,
+          subcategories: categoryObj.subcategories,
+          productsData
+        };
       }
     } catch (err) {
       console.log({ err });
-      error({ message: "Page not found", statusCode: 404 });
-      // redirect("/error");
+      // error({ message: "Page not found", statusCode: 404 });
     }
   },
   computed: {
