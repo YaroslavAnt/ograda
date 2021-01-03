@@ -100,6 +100,7 @@ export default {
   flex-direction: column;
   max-width: 500px;
   margin: 0 auto;
+  width: 100%;
 
   &:hover {
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);

@@ -57,7 +57,7 @@ export const BACKLINKS_SCRIPTS = {
     <!-- END Top100 (Kraken) Counter -->`,
   hit_ua: `
     <!-- hit.ua -->
-    <a href='http://hit.ua/?x=35673' target='_blank'>
+    <a href='http://hit.ua/?x=35632' target='_blank'>
     <script language="javascript" type="text/javascript"><!--
     Cd=document;Cr="&"+Math.random();Cp="&s=1";
     Cd.cookie="b=b";if(Cd.cookie)Cp+="&c=1";
@@ -72,12 +72,12 @@ export const BACKLINKS_SCRIPTS = {
     screen.height+"&d="+(screen.colorDepth?screen.colorDepth:screen.pixelDepth);
     //--></script>
     <script language="javascript" type="text/javascript"><!--
-    Cd.write("<img src='//c.hit.ua/hit?i=35673&g=0&x=2"+Cp+Cr+
+    Cd.write("<img src='//c.hit.ua/hit?i=35632&g=0&x=2"+Cp+Cr+
     "&r="+escape(Cd.referrer)+"&u="+escape(window.location.href)+
     "' border='0' wi"+"dth='1' he"+"ight='1'/>");
     //--></script>
     <noscript>
-    <img src='//c.hit.ua/hit?i=35673&amp;g=0&amp;x=2' border='0'/>
+    <img src='//c.hit.ua/hit?i=35632&amp;g=0&amp;x=2' border='0'/>
     </noscript></a>
     <!-- / hit.ua -->`,
   hotlog: `

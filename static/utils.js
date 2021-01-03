@@ -4,7 +4,7 @@
 export const replaceWithDash = string => {
   return String(string)
     .replace(/\s/g, "-")
-    .replace(/\"|\'/g, "")
+    .replace(/\"|\'|,/g, "")
     .toLowerCase();
 };
 export const replaceWithSpace = string => {
