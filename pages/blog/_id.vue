@@ -41,10 +41,14 @@
               >
             </span>
 
-            <div itemprop="articleBody">
-              <p class="intro-text base-font">
+            <div
+              itemprop="articleBody"
+              v-html="blog.body"
+              class="intro-text base-font blog-content"
+            >
+              <!-- <p class="intro-text base-font">
                 {{ blog.body }}
-              </p>
+              </p> -->
             </div>
 
             <nuxt-link to="/blog" title="Подробнее" class="link red small-font"
@@ -195,7 +199,11 @@ export default {
 }
 
 .intro-text {
-  white-space: pre-line;
+  // white-space: pre-line;
+}
+
+ul {
+  margin: 12px 0;
 }
 
 .box {

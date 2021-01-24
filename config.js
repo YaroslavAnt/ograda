@@ -84,16 +84,18 @@ export const BACKLINKS_SCRIPTS = {
     <!-- HotLog -->
     <span id="hotlog_counter"></span>
     <span id="hotlog_dyn"></span>
-    <script type="text/javascript"> var hot_s = document.createElement('script');
-    hot_s.type = 'text/javascript'; hot_s.async = true;
-    hot_s.src = 'http://js.hotlog.ru/dcounter/2593079.js';
-    hot_d = document.getElementById('hotlog_dyn');
-    hot_d.appendChild(hot_s);
+    <script type="text/javascript">
+        var hot_s = document.createElement('script'); hot_s.type = 'text/javascript'; hot_s.async = true;
+        hot_s.src = 'http://js.hotlog.ru/dcounter/2593147.js';
+        hot_d = document.getElementById('hotlog_dyn');
+        hot_d.appendChild(hot_s);
     </script>
+    
     <noscript>
-    <a href="http://click.hotlog.ru/?2593079" target="_blank">
-    <img src="http://hit5.hotlog.ru/cgi-bin/hotlog/count?s=2593079&im=43" border="0"
-    title="HotLog" alt="HotLog"></a>
+    <a href="http://click.hotlog.ru/?2593147" target="_blank">
+    <img src="http://hit5.hotlog.ru/cgi-bin/hotlog/count?s=2593147&im=43" border="0"
+    alt="HotLog" title="HotLog">
+    </a>
     </noscript>
     <!-- /HotLog -->`
 };

@@ -15,7 +15,7 @@
 <script>
 import IntroVue from "~/components/common/Intro.vue";
 import sectionVue from "~/components/layout/section.vue";
-import delivery from "~/assets/img/services/delivery.png";
+import delivery from "~/assets/img/services/delivery.jpg";
 import { DOMAIN } from "../../../config";
 
 export default {
