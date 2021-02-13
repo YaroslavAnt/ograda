@@ -100,10 +100,6 @@ import { replaceWithDash, replaceWithSpace } from "~/static/utils";
 import { BASE_URL, DOMAIN } from "~/config";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 
-let Paginate;
-if (process.client) {
-  Paginate = require("vuejs-paginate");
-}
 export default {
   data() {
     return {
@@ -131,8 +127,7 @@ export default {
   },
   components: {
     "app-section": sectionVue,
-    "product-card": ProductCardVue,
-    "app-pagination": Paginate
+    "product-card": ProductCardVue
   },
   async asyncData({
     $categoriesAPI,
@@ -222,6 +217,12 @@ export default {
     if (subcategory) {
       this.subcategory = subcategory;
     } else {
+      if (window) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
       this.getProductsByCategory(this.categoryObj.id, page);
     }
   },

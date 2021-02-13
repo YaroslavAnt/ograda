@@ -1,45 +1,40 @@
 ﻿<template>
   <main class="section-padding">
-    <h1 class="heading with-skewed-bg">{{section_heading}}</h1>
-    <p
-      class="huge-font"
-      v-if="posts.data.length === 0"
-    >Еще нет новостей...</p>
+    <h1 class="heading with-skewed-bg">{{ section_heading }}</h1>
+    <p class="huge-font" v-if="posts.data.length === 0">Еще нет новостей...</p>
 
-    <section
-      class="section"
-      v-if="posts.data.length > 0"
-    >
+    <section class="section" v-if="posts.data.length > 0">
       <blog-card
-        :isWhole='false'
-        v-for="(card) in posts.data"
+        :isWhole="false"
+        v-for="card in posts.data"
         :key="card.id"
         :card="card"
       />
     </section>
 
     <div class="container-paginate">
-
       <ul class="pagination">
         <li class="disabled">
           <span
             tabindex="-1"
             class="prev-link pagination-btn"
             @click="changePage('<')"
-          >&lt;</span>
+            >&lt;</span
+          >
         </li>
 
         <li
-          v-for="page in (posts.last_page)"
-          :key='page'
-          :class="{active: +currentPage===+page}"
+          v-for="page in posts.last_page"
+          :key="page"
+          :class="{ active: +currentPage === +page }"
         >
           <nuxt-link
             tabindex="0"
             class="pagination-btn"
-            title='листать'
-            :to="`/blog?page=${(page)}`"
-          >{{page}}</nuxt-link>
+            title="листать"
+            :to="`/blog?page=${page}`"
+            >{{ page }}</nuxt-link
+          >
         </li>
 
         <li class="disabled">
@@ -47,7 +42,8 @@
             tabindex="0"
             class="next-link pagination-btn"
             @click="changePage('>')"
-          >&gt;</span>
+            >&gt;</span
+          >
         </li>
       </ul>
     </div>
@@ -60,11 +56,6 @@ import BlogCardVue from "~/components/common/BlogCard.vue";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 import { DOMAIN } from "../../config";
 
-let Paginate;
-if (process.client) {
-  Paginate = require("vuejs-paginate");
-}
-
 export default {
   name: "blog",
   head() {
@@ -74,59 +65,64 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords,
+          content: this.keywords
         },
         // Open Graph
         {
           property: "og:title",
-          content: this.title,
+          content: this.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title,
+          content: this.title
         },
         {
           name: "twitter:description",
-          content: this.description,
+          content: this.description
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
         {
           name: "twitter:image:alt",
-          content: "установка еврозабора в Запорожье",
-        },
+          content: "установка еврозабора в Запорожье"
+        }
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ],
+        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
     };
   },
   components: {
     "app-section": sectionVue,
-    "blog-card": BlogCardVue,
-    "app-pagination": Paginate,
+    "blog-card": BlogCardVue
   },
   watch: {
     async $route(from, to) {
+      if (window) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
       try {
         const { data: posts } = await this.$postsAPI.posts(
           this.$route.query.page
@@ -135,7 +131,7 @@ export default {
       } catch (error) {
         () => alert("Невозможно загрузить данные");
       }
-    },
+    }
   },
   data() {
     return {
@@ -150,8 +146,8 @@ export default {
       posts: {
         last_page: "",
         current_page: "",
-        data: [],
-      },
+        data: []
+      }
       // currentPage: this.$route.query.page || 1
     };
   },
@@ -168,7 +164,7 @@ export default {
   computed: {
     currentPage() {
       return this.$route.query.page || 1;
-    },
+    }
   },
 
   methods: {
@@ -180,8 +176,8 @@ export default {
       if (direction === "<" && page > 1) {
         this.$router.push(this.$route.path + "?page=" + (page - 1));
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
