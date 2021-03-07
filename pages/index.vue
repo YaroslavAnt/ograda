@@ -29,7 +29,7 @@
             :to="`/${replaceWithDash(category.name)}`"
             :title="category.name"
             class="category-link"
-            >{{ category.name.toUpperCase() }}</nuxt-link
+            >{{ getCategoryName(category.name) }}</nuxt-link
           >
         </li>
       </ul>
@@ -88,7 +88,13 @@ export default {
   },
 
   methods: {
-    replaceWithDash
+    replaceWithDash,
+    getCategoryName(name) {
+      const uppercasedName = name.toUpperCase();
+      return uppercasedName === "ЗАБОРЫ"
+        ? "ЕВРОЗАБОРЫ, ЗАБОРЫ ИЗ ПРОФНАСТИЛА"
+        : uppercasedName;
+    }
   },
 
   computed: {
@@ -103,7 +109,7 @@ export default {
     return {
       title: "✔ Еврозаборы в Запорожье",
       description:
-        "Бетонные заборы цена 160 грн/плита, заборы из профнастила цена 800 грн/м.п. в Запорожье. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
+        "Бетонные заборы (еврозаборы) цена 170 грн/плита, заборы из профнастила цена 800 грн/м.п. в Запорожье. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
       popularProducts: [],
       slides: [],
       posts: [],
@@ -206,7 +212,6 @@ export default {
       for (const key in BACKLINKS_SCRIPTS) {
         if (Object.hasOwnProperty.call(BACKLINKS_SCRIPTS, key)) {
           const scriptString = BACKLINKS_SCRIPTS[key];
-          console.log({ scriptString });
           innerHtmlString += scriptString;
         }
       }

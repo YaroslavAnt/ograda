@@ -57,7 +57,7 @@ export const BACKLINKS_SCRIPTS = {
     <!-- END Top100 (Kraken) Counter -->`,
   hit_ua: `
     <!-- hit.ua -->
-    <a href='http://hit.ua/?x=35632' target='_blank'>
+    <a href='http://hit.ua/?x=35632' target='_blank' rel="noopener" rel="noreferrer">
     <script language="javascript" type="text/javascript"><!--
     Cd=document;Cr="&"+Math.random();Cp="&s=1";
     Cd.cookie="b=b";if(Cd.cookie)Cp+="&c=1";
@@ -92,7 +92,7 @@ export const BACKLINKS_SCRIPTS = {
     </script>
     
     <noscript>
-    <a href="http://click.hotlog.ru/?2593147" target="_blank">
+    <a href="http://click.hotlog.ru/?2593147" target="_blank" rel="noopener" rel="noreferrer">
     <img src="http://hit5.hotlog.ru/cgi-bin/hotlog/count?s=2593147&im=43" border="0"
     alt="HotLog" title="HotLog">
     </a>

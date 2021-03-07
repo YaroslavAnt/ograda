@@ -184,12 +184,16 @@ export default {
     title() {
       return `✔ ${this.replaceWithSpace(
         this.$route.params.category
-      ).toUpperCase()} в Запорожье`;
+      ).toUpperCase()} в Запорожье ${
+        this.$route.query.page ? "| Старница " + this.$route.query.page : ""
+      }`;
     },
     description() {
       return `${this.replaceWithSpace(
         this.$route.params.category
-      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка`;
+      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка ${
+        this.$route.query.page ? "| Старница " + this.$route.query.page : ""
+      }`;
     },
     heading() {
       return (this.categoryObj || {}).name;
