@@ -1,5 +1,5 @@
 ﻿<template>
-  <footer class="footer  base-font">
+  <footer class="footer base-font">
     <div class="share footer-padding align-center">
       <span class="medium-font">Поделиться:</span>
 
@@ -9,7 +9,7 @@
           :network="network.network"
           :key="network.name"
           :style="{
-            backgroundColor: network.color
+            backgroundColor: network.color,
           }"
           :url="currentURL"
           class="footer-share-link"
@@ -291,7 +291,7 @@ import {
   YOUTUBE,
   TWITTER,
   PINTEREST,
-  SOCIAL_SHARE
+  SOCIAL_SHARE,
 } from "../../config";
 import { replaceWithDash } from "../../static/utils";
 import vRating from "../common/Rating/Rating.vue";
@@ -301,22 +301,22 @@ export default {
   name: "footer.vue",
 
   methods: {
-    replaceWithDash
+    replaceWithDash,
   },
   components: {
-    vRating
+    vRating,
   },
   computed: {
     dynamicLinks() {
-      const links = this.$store.state.categories.list.map(category => ({
+      const links = this.$store.state.categories.list.map((category) => ({
         name: category.name,
-        id: category.id
+        id: category.id,
       }));
       return links;
     },
     currentURL() {
       return DOMAIN + this.$route.path;
-    }
+    },
   },
   data() {
     return {
@@ -338,20 +338,20 @@ export default {
           links: [
             { name: "выставки", path: "/expo" },
             { name: "цены", path: "/prices" },
-            { name: "новости", path: "/blog" },
+            { name: "нашы работы", path: "/blog" },
             { name: "вопросы", path: "/faq" },
-            { name: "карта сайта", path: "/karta" }
-          ]
-        }
+            { name: "карта сайта", path: "/karta" },
+          ],
+        },
       ],
       contact_list: {
         name: "Контакты",
         links: [
           { name: PHONE, path: "/contact" },
-          { name: EMAIL, path: "/contact" }
-        ]
-      }
+          { name: EMAIL, path: "/contact" },
+        ],
+      },
     };
-  }
+  },
 };
 </script>

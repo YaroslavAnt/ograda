@@ -37,7 +37,7 @@
       <p class="base-font">
         В разделе
         <nuxt-link to="/blog" class="category-link" title="Наши отчеты"
-          >&rarr; новостей</nuxt-link
+          >&rarr; "Наши работы"</nuxt-link
         >
         опубликованы отчеты о выполненных работах
       </p>
@@ -84,7 +84,7 @@ export default {
     services: servicesVue,
     news: newsVue,
     "app-section": sectionVue,
-    popular: popularVue
+    popular: popularVue,
   },
 
   methods: {
@@ -94,15 +94,15 @@ export default {
       return uppercasedName === "ЗАБОРЫ"
         ? "ЕВРОЗАБОРЫ, ЗАБОРЫ ИЗ ПРОФНАСТИЛА"
         : uppercasedName;
-    }
+    },
   },
 
   computed: {
     ...mapGetters({
       categories: "categories/getAllCategories",
       rating: "common/getRating",
-      greviews_number: "common/getReviews"
-    })
+      greviews_number: "common/getReviews",
+    }),
   },
 
   data() {
@@ -124,7 +124,7 @@ export default {
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: this.rating || 5,
-          reviewCount: this.greviews_number || 32
+          reviewCount: this.greviews_number || 32,
         },
         name: "Ограда",
         url: "https://ograda.zp.ua/",
@@ -132,7 +132,7 @@ export default {
           "https://www.instagram.com/ograda_zp/",
           "https://twitter.com/OgradaZ?s=09",
           "https://www.pinterest.com/ograda_zp0599/",
-          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/"
+          "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/",
         ],
         logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png",
         priceRange: "$$",
@@ -146,15 +146,15 @@ export default {
           addressLocality: "Запоріжжя",
           addressRegion: "Запорізька область",
           postalCode: "69013",
-          addressCountry: "Україна"
+          addressCountry: "Україна",
         },
         geo: {
           "@type": "GeoCoordinates",
           latitude: "47.847385",
-          longitude: "35.258344"
+          longitude: "35.258344",
         },
         openingHours: "Mo-Sa 08:00-18:00",
-        telephone: "+38(098)030-5010"
+        telephone: "+38(098)030-5010",
       },
       websiteMicrodata: {
         "@context": "http:\/\/schema.org",
@@ -165,15 +165,15 @@ export default {
         potentialAction: {
           "@type": "SearchAction",
           target: "https:\/\/ograda.zp.ua\/?s={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }
+          "query-input": "required name=search_term_string",
+        },
+      },
     };
   },
 
   async fetch() {
     const {
-      data: { data: slides }
+      data: { data: slides },
     } = await this.$slidesAPI.slides();
     this.slides = slides;
 
@@ -181,7 +181,7 @@ export default {
     this.popularProducts = popularProducts;
 
     const {
-      data: { data: posts }
+      data: { data: posts },
     } = await this.$postsAPI.posts();
     this.posts = posts;
 
@@ -232,28 +232,28 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords
+          content: this.keywords,
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title
+          content: this.title,
         },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
 
         // Twitter Card
@@ -261,30 +261,30 @@ export default {
         { name: "twitter:site", content: "@OgradaZ" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.title,
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
-          content: this.title
-        }
+          content: this.title,
+        },
       ],
       link: [
-        { rel: "canonical", href: this.DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+        { rel: "canonical", href: this.DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ],
       script: [
         { type: "application/ld+json", json: this.organisationMicrodata },
-        { type: "application/ld+json", json: this.websiteMicrodata }
-      ]
+        { type: "application/ld+json", json: this.websiteMicrodata },
+      ],
     };
-  }
+  },
 };
 </script>
 
