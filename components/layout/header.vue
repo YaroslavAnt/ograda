@@ -34,14 +34,14 @@
         </div>
       </div>
 
-      <div class="menu">
+      <button class="menu">
         <menu-btn
           :isMenuOpen="$store.state.common.isMenuOpen"
           @click.native="
             $store.commit('common/SET_MENU', !$store.state.common.isMenuOpen)
           "
         ></menu-btn>
-      </div>
+      </button>
     </div>
 
     <ul
@@ -196,7 +196,7 @@ export default {
     "icon-mail": IconMailVue,
     "icon-phone": IconPhoneVue,
     "icon-location": IconLocationVue,
-    "menu-btn": MenuButtonVue
+    "menu-btn": MenuButtonVue,
   },
 
   data() {
@@ -207,13 +207,13 @@ export default {
       DOMAIN,
       location: LOCATION,
       isMenuOpen: false,
-      sprite
+      sprite,
     };
   },
   computed: {
     links() {
       return this.$route.path.split("/");
-    }
+    },
   },
 
   methods: {
@@ -237,11 +237,11 @@ export default {
         contact: "контакты",
         expo: "выставки",
         blog: "новости",
-        karta: "карта сайта"
+        karta: "карта сайта",
       };
 
       return pages[name] || this.replaceWithSpace(name);
-    }
-  }
+    },
+  },
 };
 </script>

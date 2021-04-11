@@ -2,7 +2,7 @@
   <div
     id="menu-button"
     class="menu-button"
-    :class="{'menu-is-open': isMenuOpen}"
+    :class="{ 'menu-is-open': isMenuOpen }"
   >
     <span></span>
     <span></span>
@@ -17,9 +17,9 @@ export default {
   props: {
     isMenuOpen: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

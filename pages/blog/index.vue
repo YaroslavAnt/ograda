@@ -37,6 +37,17 @@
           >
         </li>
 
+        <!-- <li v-if="posts.last_page > 4">
+          ...
+          <nuxt-link
+            tabindex="0"
+            class="pagination-btn"
+            title="листать"
+            :to="`/blog?page=${posts.last_page}`"
+            >{{ posts.last_page }}</nuxt-link
+          >
+        </li> -->
+
         <li class="disabled">
           <span
             tabindex="0"
@@ -65,62 +76,62 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords
+          content: this.keywords,
         },
         // Open Graph
         {
           property: "og:title",
-          content: this.title
+          content: this.title,
         },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.title,
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage
+          content: DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
-          content: "установка еврозабора в Запорожье"
-        }
+          content: "установка еврозабора в Запорожье",
+        },
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.path } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ]
+        { rel: "canonical", href: DOMAIN + this.$route.path }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ],
     };
   },
   components: {
     "app-section": sectionVue,
-    "blog-card": BlogCardVue
+    "blog-card": BlogCardVue,
   },
   watch: {
     async $route(from, to) {
       if (window) {
         window.scrollTo({
           top: 0,
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }
       try {
@@ -131,7 +142,7 @@ export default {
       } catch (error) {
         () => alert("Невозможно загрузить данные");
       }
-    }
+    },
   },
   data() {
     return {
@@ -146,8 +157,8 @@ export default {
       posts: {
         last_page: "",
         current_page: "",
-        data: []
-      }
+        data: [],
+      },
       // currentPage: this.$route.query.page || 1
     };
   },
@@ -164,7 +175,10 @@ export default {
   computed: {
     currentPage() {
       return this.$route.query.page || 1;
-    }
+    },
+    maxPage() {
+      return +this.posts.last_page > 4 ? 4 : this.posts.last_page;
+    },
   },
 
   methods: {
@@ -176,8 +190,8 @@ export default {
       if (direction === "<" && page > 1) {
         this.$router.push(this.$route.path + "?page=" + (page - 1));
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -231,5 +245,16 @@ main {
   // @media (min-width: 768px) {
   //   padding: 20px 16px;
   // }
+}
+
+.container-paginate {
+  overflow: auto;
+  /* max-width: 90vw; */
+  position: relative;
+  height: 60px;
+
+  .pagination {
+    position: absolute;
+  }
 }
 </style>
