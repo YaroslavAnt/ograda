@@ -1,4 +1,4 @@
-import { BASE_URL, DOMAIN } from "./config";
+import { BASE_URL } from "./config";
 
 import axios from "axios";
 import { replaceWithDash } from "./static/utils";

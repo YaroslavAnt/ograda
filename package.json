@@ -29,8 +29,6 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
-    "@aceforth/nuxt-optimized-images": "^1.0.1",
-    "@nuxtjs/vuetify": "^1.9.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
