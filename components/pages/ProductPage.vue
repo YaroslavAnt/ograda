@@ -53,77 +53,6 @@
         </div>
 
         <div class="info-box">
-          <ul
-            class="info-box-breadcrumbs"
-            itemscope
-            itemtype="https://schema.org/BreadcrumbList"
-          >
-            <li
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-              class="crumb"
-            >
-              <nuxt-link itemprop="item" to="/" title="Главная страница"
-                >&#8962; ГЛАВНАЯ ></nuxt-link
-              >
-              <meta itemprop="name" content="ГЛАВНАЯ" />
-              <meta itemprop="position" content="1" />
-            </li>
-            <li
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-              class="crumb"
-            >
-              <nuxt-link
-                itemprop="item"
-                title="Смотреть все категории товаров"
-                :to="{ path: `/products` }"
-                >КАТЕГОРИИ ></nuxt-link
-              >
-              <meta itemprop="name" content="КАТЕГОРИИ" />
-              <meta itemprop="position" content="2" />
-            </li>
-            <li
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-              class="crumb"
-            >
-              <nuxt-link
-                itemprop="item"
-                title="Смотреть категорию товара"
-                :to="{
-                  path: `/products/${replaceWithDash(product.category.name)}`
-                }"
-                >{{ product.category.name }} ></nuxt-link
-              >
-              <meta itemprop="name" :content="product.category.name" />
-              <meta itemprop="position" content="3" />
-            </li>
-            <li
-              itemprop="itemListElement"
-              itemscope
-              class="crumb"
-              itemtype="https://schema.org/ListItem"
-            >
-              <nuxt-link
-                itemprop="item"
-                title="Смотреть подкатегорию товара"
-                :to="{
-                  path: `/products/${replaceWithDash(
-                    product.category.name
-                  )}?subcategory=${replaceWithDash(product.subcategory.name)}`
-                }"
-              >
-                {{ product.subcategory.name }}
-              </nuxt-link>
-              <meta itemprop="name" :content="product.subcategory.name" />
-              <meta itemprop="position" content="4" />
-            </li>
-          </ul>
-
           <h1 class="info-box-name big-font bold">{{ product.name }}</h1>
 
           <p class="info-box-price medium-font">
@@ -454,7 +383,7 @@ article {
   }
 
   &-description {
-    white-space: pre-wrap;
+    white-space: pre-line;
   }
 
   &-option {

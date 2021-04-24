@@ -4,9 +4,9 @@
       class="card-img-box"
       @click="
         $router.push(
-          `/products/${replaceWithDash(
-            product.category.name
-          )}/${replaceWithDash(product.name)}`
+          `/${replaceWithDash(product.category.name)}/${replaceWithDash(
+            product.name
+          )}`
         )
       "
     >
@@ -25,9 +25,9 @@
     <div class="card-text">
       <nuxt-link
         :to="
-          `/products/${replaceWithDash(
-            product.category.name
-          )}/${replaceWithDash(product.name)}`
+          `/${replaceWithDash(product.category.name)}/${replaceWithDash(
+            product.name
+          )}`
         "
         class="card-name base-font"
         :title="product.name"
@@ -122,6 +122,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
   &-label {
     display: block;

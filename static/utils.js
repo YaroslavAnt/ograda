@@ -4,7 +4,7 @@
 export const replaceWithDash = string => {
   return String(string)
     .replace(/\s/g, "-")
-    .replace(/\"|\'/g, "")
+    .replace(/\"|\'|,/g, "")
     .toLowerCase();
 };
 export const replaceWithSpace = string => {
@@ -19,3 +19,6 @@ export const replaceWithSpace = string => {
 //   const [cyrylic] = string.split("#");
 //   return cyrylic;
 // };
+export const addHtmlAfterBody = string => {
+  document.body.appendChild(string);
+};

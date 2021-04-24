@@ -3,14 +3,14 @@
     <!-- v-if="popularProducts.length>0" -->
     <div class="section-grid">
       <product-card
-        v-for="(product,idx) in popularProducts"
+        v-for="(product, idx) in popularProducts"
         :key="idx"
         :product="product"
       />
     </div>
   </app-section>
 </template>
-  
+
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
@@ -20,14 +20,14 @@ export default {
   name: "popular.vue",
   components: {
     "app-section": sectionVue,
-    "product-card": ProductPreviewVue,
+    "product-card": ProductPreviewVue
   },
   props: {
     popularProducts: {
       type: Array,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 
@@ -36,6 +36,8 @@ export default {
   &-grid {
     display: grid;
     grid-gap: 24px;
+    justify-content: center;
+
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, 1fr);
     }

@@ -1,16 +1,17 @@
 ﻿<template>
   <main>
-    <h1 class="heading with-skewed-bg">{{title}}</h1>
+    <h1 class="heading with-skewed-bg">{{ title }}</h1>
     <app-section class="section">
       <ul class="subpages">
         <li
           v-for="(sublink, subpageIdx) in this.services"
-          :key='`${subpageIdx}`'
+          :key="`${subpageIdx}`"
         >
           <nuxt-link
             class="subpage base-font"
-            :to='"/services/"+(sublink.path||sublink.name)'
-          >{{subpageIdx+1}}. {{sublink.name}}</nuxt-link>
+            :to="'/services/' + (sublink.path || sublink.name)"
+            >{{ subpageIdx + 1 }}. {{ sublink.name }}</nuxt-link
+          >
         </li>
       </ul>
     </app-section>
@@ -31,52 +32,52 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description,
+          content: this.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.keywords,
+          content: this.keywords
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title,
+          content: this.title
         },
         {
           property: "og:description",
-          content: this.description,
+          content: this.description
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.path },
         {
           property: "og:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title,
+          content: this.title
         },
         {
           name: "twitter:image",
-          content: DOMAIN + this.ogImage,
+          content: DOMAIN + this.ogImage
         },
         {
           name: "twitter:description",
-          content: this.description,
-        },
+          content: this.description
+        }
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.fullPath }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ],
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ]
     };
   },
   components: {
-    "app-section": sectionVue,
+    "app-section": sectionVue
   },
   computed: {},
   // mounted() {
@@ -97,10 +98,10 @@ export default {
         { name: "Доставка", path: "dostavka" },
         { name: "Заливка фундамента", path: "fundament" },
         { name: "Установка забора", path: "montazh" },
-        { name: "Покраска еврозабора", path: "pokraska" },
-      ],
+        { name: "Покраска еврозабора", path: "pokraska" }
+      ]
     };
-  },
+  }
 };
 </script>
 
@@ -117,7 +118,7 @@ export default {
   z-index: 5;
   display: flex;
   justify-content: center;
-  margin: 20px 16px -20px;
+  margin: 40px 16px -20px;
   &::before {
     background-color: var(--green);
   }
@@ -127,7 +128,7 @@ export default {
     line-height: 1;
   }
   @media (min-width: 1024px) {
-    margin: 20px 32px -20px;
+    margin: 40px 32px -20px;
   }
 }
 </style>

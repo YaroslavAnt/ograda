@@ -1,9 +1,9 @@
 ﻿<template>
-  <app-section
-    :heading="'Услуги'"
-    class="section"
-  >
-    <p class="base-font">Установка еврозаборов это довольно трудоемкий процесс, состоящий из отдельных этапов:</p>
+  <app-section :heading="'Услуги'" class="section">
+    <p class="base-font">
+      Установка еврозаборов это довольно трудоемкий процесс, состоящий из
+      отдельных этапов:
+    </p>
     <ul>
       <li
         v-for="service in services"
@@ -11,24 +11,21 @@
         class="color-orange base-font bold"
         title="Подробнее об услуге"
       >
-        <nuxt-link :to='service.to'>→ {{service.name}}</nuxt-link>
+        <nuxt-link :to="service.to">→ {{ service.name }}</nuxt-link>
       </li>
     </ul>
-    <p class="base-font">Мы предоставляем услуги по каждому из перечисленных пунктов.
-      По желанию заказчика любой из этапов установки еврозабора он может выполнить самостоятельно,
-      что даст возможность оградить участок по более низкой цене
+    <p class="base-font">
+      Мы предоставляем услуги по каждому из перечисленных пунктов. По желанию
+      заказчика любой из этапов установки еврозабора он может выполнить
+      самостоятельно, что даст возможность оградить участок по более низкой цене
     </p>
-    <p class="base-font">Более подробно ознакомиться с предоставляемыми услугами Вы можете перейдя по ссылке:</p>
+    <p class="base-font">
+      Более подробно ознакомиться с предоставляемыми услугами Вы можете перейдя
+      по ссылке:
+    </p>
     <div class="card-grid">
-      <article
-        class="card-item"
-        v-for="(card, idx) in card_list"
-        :key="idx"
-      >
-        <nuxt-link
-          :title="card.heading"
-          :to="{ path: card.link }"
-        >
+      <article class="card-item" v-for="(card, idx) in card_list" :key="idx">
+        <nuxt-link :title="card.heading" :to="{ path: card.link }">
           <icon-card
             :icon_id="card.id"
             :heading="card.heading"
@@ -90,7 +87,7 @@ export default {
       ],
       services: [
         { name: "Замер участка под установку", to: "/services/zamer" },
-        { name: "Демонтаж старого ограждения", to: "/" }, //TODO page
+        { name: "Демонтаж старого ограждения", to: "/services/montazh" }, //TODO page
         {
           name: "Доставка материалов и комплектов бетонных плит",
           to: "/services/dostavka"
@@ -102,7 +99,7 @@ export default {
         { name: "Заливка фундаментной ленты", to: "/services/fundament" },
         {
           name: "Изготовление и монтаж калитки и ворот",
-          to: "/products/ворота-и-калитки"
+          to: "/ворота-и-калитки"
         }, //TODO page
         { name: "Покраска еврозабора", to: "/services/pokraska" }
       ]

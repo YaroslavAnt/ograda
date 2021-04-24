@@ -4,12 +4,7 @@
 
     <ul class="sidebar-nav">
       <li @click="$store.dispatch('common/closeMenu')">
-        <router-link
-          exact
-          to="/"
-          class="nav-link"
-          title="Главная страница"
-        >
+        <router-link exact to="/" class="nav-link" title="Главная страница">
           <span>Главная</span>
         </router-link>
       </li>
@@ -18,14 +13,35 @@
         v-for="(category, idx) in $store.state.categories.list"
         :key="idx"
         @click="$store.dispatch('common/closeMenu')"
+        class="nav-link"
+        :class="{ 'with-submenu': category.subcategories.length > 1 }"
       >
+        <!-- class="" -->
         <router-link
-          class="nav-link"
-          :to='`/products/${replaceWithDash(category.name)}`'
+          :to="`/${replaceWithDash(category.name)}`"
           title="На страницу товаров"
         >
           <span>{{ category.name }}</span>
         </router-link>
+        <ul
+          class="sidebar-subnav"
+          v-if="category.subcategories && category.subcategories.length > 1"
+        >
+          <li
+            class="subnav-link"
+            v-for="(subcategory, idx) in category.subcategories"
+            :key="idx"
+            @click="
+              $router.push(
+                `/${replaceWithDash(category.name)}?subcategory=${
+                  subcategory.name
+                }`
+              )
+            "
+          >
+            {{ subcategory.name }}
+          </li>
+        </ul>
       </li>
 
       <li
@@ -42,6 +58,24 @@
         >
           <span>{{ nav_item.name }}</span>
         </router-link>
+        <span v-else @click.stop="nav_item_active = nav_item">{{
+          nav_item.name
+        }}</span>
+
+        <ul
+          class="sidebar-subnav"
+          :class="{ 'sidebar-subnav-active': nav_item === nav_item_active }"
+          v-if="nav_item.children"
+        >
+          <li
+            class="subnav-link"
+            v-for="(subcategory, idx) in nav_item.children"
+            :key="idx"
+            @click="$router.push(subcategory.path)"
+          >
+            {{ subcategory.name }}
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -51,6 +85,13 @@
 import { replaceWithDash } from "../../static/utils";
 export default {
   name: "sidebar.vue",
+  watch: {
+    isMenuActive(newValue) {
+      if (!newValue) {
+        this.nav_item_active = null;
+      }
+    },
+  },
 
   methods: { replaceWithDash },
 
@@ -60,10 +101,23 @@ export default {
     return {
       categories: [],
       static_menu_list: [
-        { name: "Вопрос-ответ", path: "/faq" },
+        // { name: "Вопрос-ответ", path: "/faq" },
+        {
+          name: "Услуги",
+          path: "/services",
+          children: [
+            { name: "Замер", path: "/services/zamer" },
+            { name: "Доставка", path: "/services/dostavka" },
+            { name: "Заливка фундамента", path: "/services/fundament" },
+            { name: "Установка забора", path: "/services/montazh" },
+            { name: "Покраска еврозабора", path: "/services/pokraska" },
+          ],
+        },
         { name: "Цены", path: "/prices" },
+        { name: "Нашы работы", path: "/blog" },
         { name: "Контакты", path: "/contact" },
       ],
+      nav_item_active: null,
     };
   },
 };
@@ -78,7 +132,7 @@ export default {
   flex-direction: column;
   position: fixed;
   width: 260px;
-  border: 1px solid;
+  border-right: 1px solid;
 }
 
 .logo {
@@ -117,15 +171,15 @@ export default {
   }
   .nav-link {
     font-size: 18px;
-    padding: 12px 32px 12px 16px;
-    min-height: 50px;
+    padding: 10px 32px 10px 16px;
+    // min-height: 50px;
     a {
       display: block;
     }
   }
   .subnav-link {
     font-size: 16px;
-    padding: 12px 16px;
+    padding: 10px 16px;
   }
   .nav-link,
   .subnav-link {
@@ -136,6 +190,7 @@ export default {
     text-transform: uppercase;
 
     &.with-submenu {
+      position: relative;
       &::after {
         transition-duration: 0.2s;
         content: "";

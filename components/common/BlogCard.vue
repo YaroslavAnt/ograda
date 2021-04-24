@@ -3,7 +3,7 @@
     <app-image
       :img_src="
         `https://cdn.statically.io/img/${CDN_URL +
-          (card.image || '')}?w=600&f=auto `
+          (card.image || '')}?w=500&f=auto `
       "
       :img_alt="card.title"
     />
@@ -17,14 +17,14 @@
         <time :datetime="dateTime">{{ date }}</time>
       </span>
 
-      <h4
+      <h3
         class="card-name"
         :class="{ 'base-font': !isWhole, 'medium-font': isWhole }"
       >
         <nuxt-link :to="`/blog/${card.id}`">
           {{ card.title }}
         </nuxt-link>
-      </h4>
+      </h3>
 
       <span
         class="small-font red card-link"
@@ -98,6 +98,10 @@ export default {
   transition-duration: 0.3s;
   display: flex;
   flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+
   &:hover {
     box-shadow: 0px 10px 18px rgba(26, 41, 74, 0.5);
     transform: translateY(-4px);

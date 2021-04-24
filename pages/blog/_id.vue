@@ -41,11 +41,11 @@
               >
             </span>
 
-            <div itemprop="articleBody">
-              <p class="intro-text base-font">
-                {{ blog.body }}
-              </p>
-            </div>
+            <div
+              itemprop="articleBody"
+              v-html="blog.body"
+              class="intro-text base-font blog-content"
+            ></div>
 
             <nuxt-link to="/blog" title="Подробнее" class="link red small-font"
               >&rarr; Смотреть все новости</nuxt-link
@@ -54,17 +54,9 @@
 
           <div class="zoom" v-if="isZoomActive">
             <div class="zoom-content">
-              <!-- <app-close
-                color='#fff'
-                :width='40'
-                :isMenuOpen='true'
-                class="zoom-close"
-                @click.native="isZoomActive=false"
-              ></app-close> -->
               <span @click="isZoomActive = false" class="zoom-close"
                 >&#10006;</span
               >
-              <!-- :src="BASE_URL + blog.image" -->
               <img
                 class="zoom-image"
                 :src="
@@ -107,7 +99,7 @@ export default {
       // return { blog };
       this.blog = blog;
       this.title = blog.title;
-      this.description = blog.body;
+      this.description = blog.short_body;
     } catch (error) {
       () => alert("Невозможно загрузить данные");
     }
@@ -192,6 +184,14 @@ export default {
 .card-label,
 .slider-box {
   margin-bottom: 12px;
+}
+
+.intro-text {
+  // white-space: pre-line;
+}
+
+ul {
+  margin: 12px 0;
 }
 
 .box {

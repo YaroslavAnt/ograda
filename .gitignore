@@ -91,3 +91,5 @@ sw.*
 
 *.rar
 *.zip
+.vscode
+git

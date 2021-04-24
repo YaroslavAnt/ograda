@@ -12,7 +12,6 @@
             :key="idx"
             @click="subcategory = tab.name"
           >
-            <!-- v-on:click="$router.push(`/products/${replaceWithDash(category ) }?subcategory=${replaceWithDash(tab.name ) }`)" -->
             <span
               class="switch-tab"
               :class="{ 'switch-tab-active': subcategory === tab.name }"
@@ -21,10 +20,6 @@
           </div>
         </div>
       </div>
-      <!-- <p
-        class="large-font section-placeholder"
-        v-if="productsData.data.length === 0"
-      >Товары еще не загружены...</p> -->
 
       <div class="section-grid" v-if="productsData.data.length > 0">
         <product-card
@@ -55,7 +50,7 @@
             tabindex="0"
             class="pagination-btn"
             title="листать"
-            :to="`/products/${replaceWithDash(category)}?page=${page}`"
+            :to="`/${replaceWithDash($route.params.category)}?page=${page}`"
             >{{ page }}</nuxt-link
           >
         </li>
@@ -74,23 +69,24 @@
     <p
       class="base-font section-description"
       v-html="categoryObj.description"
-      v-if="categoryObj.description"
+      v-if="categoryObj && categoryObj.description"
     ></p>
 
     <p
       class="section-description section-description--small"
-      v-if="subcategories[0].name"
+      v-if="subcategories[0].name && subcategories.length > 1"
     >
       Категорию <strong>{{ categoryObj.name }}</strong> можно разделить на:
     </p>
 
     <div v-for="(subcategory, idx) in subcategories" :key="subcategory.id">
       <h2 v-if="subcategory.name" class="medium-font subheading">
-        {{ idx + 1 }}. {{ subcategory.name }}
+        <span v-if="subcategories.length > 1">{{ idx + 1 }}.</span>
+        {{ subcategory.name }}
       </h2>
       <p
         class="base-font section-description"
-        v-if="subcategory.description"
+        v-if="subcategory && subcategory.description"
         v-html="subcategory.description"
       ></p>
     </div>
@@ -100,18 +96,151 @@
 <script>
 import sectionVue from "~/components/layout/section.vue";
 import ProductCardVue from "~/components/common/ProductCard.vue";
-let Paginate;
-if (process.client) {
-  Paginate = require("vuejs-paginate");
-}
-
 import { replaceWithDash, replaceWithSpace } from "~/static/utils";
-import { BASE_URL, DOMAIN } from "../../../config";
+import { BASE_URL, DOMAIN } from "~/config";
 import ogImage from "~/assets/img/services/zvetnoi_zabor2.jpg";
 
 export default {
-  name: "productPage.vue",
+  data() {
+    return {
+      subcategory: this.$route.query.subcategory || "",
+      // category: this.$route.params.category,
+      productsData: {
+        last_page: "",
+        current_page: "",
+        data: Array(6).fill({
+          img_set: [""],
+          img_alt: "",
+          category: { name: "" },
+          name: "",
+          option: "",
+          price: ""
+        })
+      },
+      categories: [{}],
+      subcategories: [{}],
+      categoryObj: {},
+      subcategoryObj: {},
+      ogImage,
+      DOMAIN
+    };
+  },
+  components: {
+    "app-section": sectionVue,
+    "product-card": ProductCardVue
+  },
+  async asyncData({
+    $categoriesAPI,
+    $subcategoriesAPI,
+    $productsAPI,
+    params,
+    query,
+    error
+  }) {
+    try {
+      const { data: categoryData } = await $categoriesAPI.categories();
+      const categoryObj = categoryData.find(
+        category => replaceWithDash((category || {}).name) === params.category
+      );
+      if (!categoryObj) {
+        console.log("no category");
+        return error({ message: "Page not found", statusCode: 404 });
+      }
 
+      if (query.subcategory) {
+        const subcategoryObj = categoryObj.subcategories.find(
+          subcategory => subcategory.name === query.subcategory
+        );
+        if (!subcategoryObj) {
+          console.log("no subcategory");
+          return error({ message: "Page not found", statusCode: 404 });
+        }
+        const { data: productsData } = await $productsAPI.productsBySubcategory(
+          subcategoryObj.id
+        );
+
+        return {
+          categoryObj,
+          subcategories: categoryObj.subcategories,
+          productsData
+        };
+      } else {
+        const { data: productsData } = await $productsAPI.productsByCategory(
+          categoryObj.id
+        );
+
+        return {
+          categoryObj,
+          subcategories: categoryObj.subcategories,
+          productsData
+        };
+      }
+    } catch (err) {
+      console.log({ err });
+      // error({ message: "Page not found", statusCode: 404 });
+    }
+  },
+  computed: {
+    title() {
+      return `✔ ${this.replaceWithSpace(
+        this.$route.params.category
+      ).toUpperCase()} в Запорожье ${
+        this.$route.query.page ? "| Старница " + this.$route.query.page : ""
+      }`;
+    },
+    description() {
+      return `${this.replaceWithSpace(
+        this.$route.params.category
+      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка ${
+        this.$route.query.page ? "| Старница " + this.$route.query.page : ""
+      }`;
+    },
+    heading() {
+      return (this.categoryObj || {}).name;
+    }
+  },
+  methods: {
+    async getProductsByCategory(id, page) {
+      const { data } = await this.$productsAPI.productsByCategory(id, page);
+      this.productsData = data;
+    },
+
+    changePage(direction) {
+      const page = this.$route.query.page || 1;
+      if (direction === ">" && page < this.productsData.last_page) {
+        this.$router.push(this.$route.path + "?page=" + (+page + 1));
+      }
+      if (direction === "<" && page > 1) {
+        this.$router.push(this.$route.path + "?page=" + (page - 1));
+      }
+    },
+    replaceWithSpace,
+    replaceWithDash
+  },
+  watchQuery({ page, subcategory }) {
+    if (subcategory) {
+      this.subcategory = subcategory;
+    } else {
+      if (window) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+      this.getProductsByCategory(this.categoryObj.id, page);
+    }
+  },
+  watch: {
+    async subcategory(newValue, oldValue) {
+      const subcategoryObj = this.subcategories.find(
+        subcategory => subcategory.name === newValue
+      );
+      const { data } = await this.$productsAPI.productsBySubcategory(
+        subcategoryObj.id
+      );
+      this.productsData = data;
+    }
+  },
   head() {
     return {
       title: this.title,
@@ -174,120 +303,6 @@ export default {
       link: [
         { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
       ]
-    };
-  },
-
-  watch: {
-    async subcategory(newValue, oldValue) {
-      const subcategoryObj = this.subcategories.find(
-        subcategory => subcategory.name === newValue
-      );
-      const { data } = await this.$productsAPI.productsBySubcategory(
-        subcategoryObj.id
-      );
-      this.productsData = data;
-    }
-  },
-
-  watchQuery({ page }) {
-    this.getProductsByCategory(this.categoryObj.id, page);
-  },
-
-  components: {
-    "app-section": sectionVue,
-    "product-card": ProductCardVue,
-    "app-pagination": Paginate
-  },
-
-  computed: {
-    page: {
-      get() {
-        return Number(this.productsData.current_page) || this.default_page;
-      },
-      set(page) {
-        if (this.page === page) return;
-        // this.getProductsByCategory(this.categoryObj.id, page);
-        scrolledContent.scrollTo(0, 0);
-      }
-    },
-    title() {
-      return `✔ ${this.replaceWithSpace(
-        this.category
-      ).toUpperCase()} в Запорожье`;
-    },
-    description() {
-      return `${this.replaceWithSpace(
-        this.category
-      ).toUpperCase()} с ценами от производителя, описанием и фотографиями. Большой ассортимент. Доставка и установка`;
-    },
-    heading() {
-      return this.categoryObj.name;
-    }
-  },
-
-  methods: {
-    async getProductsByCategory(id, page) {
-      const { data } = await this.$productsAPI.productsByCategory(id, page);
-      this.productsData = data;
-    },
-
-    changePage(direction) {
-      const page = this.$route.query.page || 1;
-      if (direction === ">" && page < this.productsData.last_page) {
-        this.$router.push(this.$route.path + "?page=" + (+page + 1));
-      }
-      if (direction === "<" && page > 1) {
-        this.$router.push(this.$route.path + "?page=" + (page - 1));
-      }
-    },
-    replaceWithSpace,
-    replaceWithDash
-  },
-
-  async fetch() {
-    try {
-      const { data: categoryData } = await this.$categoriesAPI.categories();
-      const categoryObj = categoryData.find(
-        category => this.replaceWithDash(category.name) === this.category
-      );
-      this.categoryObj = categoryObj;
-
-      const {
-        data: subcategories
-      } = await this.$subcategoriesAPI.subcategoriesByCategory(categoryObj.id);
-      this.subcategories = subcategories;
-
-      const { data: productsData } = await this.$productsAPI.productsByCategory(
-        categoryObj.id
-      );
-      this.productsData = productsData;
-    } catch (error) {
-      redirect("/error");
-    }
-  },
-
-  data() {
-    return {
-      subcategory: "",
-      category: this.$route.params.category,
-      productsData: {
-        last_page: "",
-        current_page: "",
-        data: Array(6).fill({
-          img_set: [""],
-          img_alt: "",
-          category: { name: "" },
-          name: "",
-          option: "",
-          price: ""
-        })
-      },
-      categories: [{}],
-      subcategories: [{}],
-      categoryObj: {},
-      subcategoryObj: {},
-      ogImage,
-      DOMAIN
     };
   }
 };

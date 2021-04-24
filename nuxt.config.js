@@ -44,6 +44,11 @@ export default {
       //     "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js",
       //   async: ""
       // }
+      // <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+      // {
+      //   src: "https://apps.elfsight.com/p/platform.js",
+      //   defer: true
+      // }
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
@@ -122,16 +127,34 @@ export default {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
           let dynRoutes = [];
           data.data.forEach(priceObj => {
-            dynRoutes.push(replaceWithDash(`products/${priceObj.name}`));
+            dynRoutes.push(replaceWithDash(`${priceObj.name}`));
             return priceObj.products.forEach(product =>
               dynRoutes.push(
-                replaceWithDash(`products/${priceObj.name}/${product.name}`)
+                replaceWithDash(`${priceObj.name}/${product.name}`)
               )
             );
           });
           return dynRoutes;
         }
       },
+      // {
+      //   path: "/sitemap-posts.xml",
+      //   routes: async () => {
+      //     const {
+      //       data: { data: posts }
+      //     } = await axios.get(BASE_URL + "api/posts");
+      //     let pages = [];
+      //     for (let page = 1; page <= posts.last_page; page++) {
+      //       const {
+      //         data: { data: paginatedPosts }
+      //       } = await axios.get(BASE_URL + "api/posts?page=" + page);
+      //       paginatedPosts.data.forEach(post => {
+      //         pages.push(`/blog/${post.id}`);
+      //       });
+      //     }
+      //     return pages;
+      //   }
+      // },
       {
         path: "/sitemap-posts.xml",
         routes: async () => {
@@ -144,7 +167,15 @@ export default {
               data: { data: paginatedPosts }
             } = await axios.get(BASE_URL + "api/posts?page=" + page);
             paginatedPosts.data.forEach(post => {
-              pages.push(`/blog/${post.id}`);
+              // pages.push(`/blog/${post.id}`);
+              pages.push({
+                url: `/blog/${post.id}`,
+                img: [
+                  {
+                    url: BASE_URL + post.image
+                  }
+                ]
+              });
             });
           }
           return pages;

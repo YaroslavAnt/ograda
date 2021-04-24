@@ -2,29 +2,25 @@
   <table class="table base-font">
     <thead>
       <tr>
-        <th
-          class="table-head medium-font"
-          colspan="2"
-        >{{category.toUpperCase()}}</th>
+        <th class="table-head medium-font" colspan="2">
+          {{ category.toUpperCase() }}
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        class="table-row"
-        v-for="(item,idx) in items"
-        :key="idx"
-      >
+      <tr class="table-row" v-for="(item, idx) in items" :key="idx">
         <td class="table-cell table-cell-name">
-
           <nuxt-link
             v-if="withLinks"
-            :to='`products/${replaceWithDash(category)}/${replaceWithDash(item.name) }`'
-            title='На страницу товара'
-          >{{item.name}}</nuxt-link>
-          <span v-else>{{item.name}}</span>
+            :to="`/${replaceWithDash(category)}/${replaceWithDash(item.name)}`"
+            title="На страницу товара"
+            >{{ item.name }}</nuxt-link
+          >
+          <span v-else>{{ item.name }}</span>
         </td>
-        <td class="table-cell table-cell-price"><span>&#8372;</span> {{item.price}}</td>
-
+        <td class="table-cell table-cell-price">
+          <span>&#8372;</span> {{ item.price }}
+        </td>
       </tr>
     </tbody>
   </table>

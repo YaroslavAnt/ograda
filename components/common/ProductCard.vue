@@ -14,7 +14,7 @@
 
     <nuxt-link
       :to="
-        `/products/${replaceWithDash(product.category.name)}/${replaceWithDash(
+        `/${replaceWithDash(product.category.name)}/${replaceWithDash(
           product.name
         )}`
       "
@@ -92,6 +92,8 @@ export default {
   overflow: hidden;
   max-width: 500px;
   border: 1px solid #ddd;
+  margin: 0 auto;
+  width: 100%;
 
   &-img-box {
     width: 100%;

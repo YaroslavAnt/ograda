@@ -1,21 +1,19 @@
 <template>
   <main>
     <h1 class="heading heading-page with-skewed-bg">{{ title }}</h1>
-    <hero :slides='slides'></hero>
+    <hero :slides="slides"></hero>
     <section class="about section-padding">
       <!-- <h2 class="heading heading-section with-skewed-bg">О нас</h2> -->
       <p class="about-paragraph base-font">
         Наше предприятие основано в 2010 году и является одним из основных
         изготовителей секционных
         <strong>
-          <nuxt-link
-            title="бетонные заборы"
-            to="/products/заборы?subcategory=бетонные-заборы"
+          <nuxt-link title="бетонные заборы" to="/заборы">
+            еврозаборов</nuxt-link
           >
-            бетонных заборов</nuxt-link>
         </strong>
         в Запорожье. Предоставляем широкий <strong>перечень услуг</strong>,
-        связанных с установкой еврозабора 'под ключ' от замера участка до
+        связанных с установкой заборов 'под ключ' от замера участка до
         <strong>покраски плит</strong> после окончания строительных работ.
         Принимаем заказы на монтаж ограждений и ворот по всей Запорожской
         области.
@@ -26,40 +24,33 @@
         и описанием в категориях:
       </p>
       <ul class="medium-font about-categories">
-        <li
-          v-for="(category,idx) in categories"
-          :key="idx"
-          class="category"
-        >
+        <li v-for="(category, idx) in categories" :key="idx" class="category">
           &rarr;&ensp;<nuxt-link
-            :to="`/products/${replaceWithDash(category.name)}`"
+            :to="`/${replaceWithDash(category.name)}`"
             :title="category.name"
             class="category-link"
-          >{{ category.name.toUpperCase() }}</nuxt-link>
+            >{{ getCategoryName(category.name) }}</nuxt-link
+          >
         </li>
       </ul>
 
       <p class="base-font">
         В разделе
-        <nuxt-link
-          to="/blog"
-          class="category-link"
-          title="Наши отчеты"
-        >&rarr; новостей</nuxt-link>
+        <nuxt-link to="/blog" class="category-link" title="Наши отчеты"
+          >&rarr; "Наши работы"</nuxt-link
+        >
         опубликованы отчеты о выполненных работах
       </p>
 
-      <p
-        id="services"
-        class="about-paragraph base-font"
-      >
+      <p id="services" class="about-paragraph base-font">
         Чтобы вы могли убедиться в качестве нашых <strong>еврозаборов</strong>,
         организованы
         <nuxt-link
           to="/expo"
           class="category-link"
           title="натурные выставки ограждений"
-        >&rarr; натурные выставки</nuxt-link>
+          >&rarr; натурные выставки</nuxt-link
+        >
         ограждений. В них представлены основные образцы бетонных плит с
         применением покраски и без.
       </p>
@@ -67,7 +58,7 @@
     <popular :popularProducts="popularProducts"></popular>
 
     <services></services>
-    <news :lastPosts='posts.slice(0,3)'></news>
+    <news :lastPosts="posts.slice(0, 3)"></news>
   </main>
 </template>
 
@@ -80,7 +71,7 @@ import popularVue from "../components/sections/home/popular.vue";
 
 import ogImage from "../assets/img/services/zvetnoi_zabor2.jpg";
 
-import { DOMAIN } from "../config";
+import { BACKLINKS_SCRIPTS, DOMAIN } from "../config";
 
 import { mapGetters } from "vuex";
 import { replaceWithDash } from "../static/utils";
@@ -98,29 +89,44 @@ export default {
 
   methods: {
     replaceWithDash,
+    getCategoryName(name) {
+      const uppercasedName = name.toUpperCase();
+      return uppercasedName === "ЗАБОРЫ"
+        ? "ЕВРОЗАБОРЫ, ЗАБОРЫ ИЗ ПРОФНАСТИЛА"
+        : uppercasedName;
+    },
   },
 
   computed: {
     ...mapGetters({
       categories: "categories/getAllCategories",
+      rating: "common/getRating",
+      greviews_number: "common/getReviews",
     }),
   },
 
   data() {
     return {
-      title: "✔ Секционные бетонные Еврозаборы в Запорожье",
+      title: "✔ Еврозаборы в Запорожье",
       description:
-        "Бетонные секционные заборы в Запорожье от производителя в большом ассортименте. Весь перечень работ по установке ограждений",
+        "Бетонные заборы (еврозаборы) цена 170 грн/плита, заборы из профнастила цена 800 грн/м.п. в Запорожье. Установка ограждений, ворот и калиток под ключ. Доставка стройматериалов",
       popularProducts: [],
       slides: [],
       posts: [],
       keywords:
-        "еврозабор в запорожье, купить еврозабор, глянцевые еврозаборы, бетонный забор, забор из профнастила",
+        "еврозабор в запорожье, купить еврозабор, бетонный забор, забор из профнастила, доставка стройматериалов, цветной еврозабор",
       ogImage,
       DOMAIN,
       organisationMicrodata: {
-        "@context": "http://schema.org",
-        "@type": "Organization",
+        "@context": "http://www.schema.org",
+        "@type": "ProfessionalService",
+        currenciesAccepted: "UAH",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: this.rating || 5,
+          reviewCount: this.greviews_number || 32,
+        },
+        name: "Ограда",
         url: "https://ograda.zp.ua/",
         sameAs: [
           "https://www.instagram.com/ograda_zp/",
@@ -128,34 +134,100 @@ export default {
           "https://www.pinterest.com/ograda_zp0599/",
           "https://www.facebook.com/%D0%9E%D0%B3%D1%80%D0%B0%D0%B4%D0%B0-103254474643177/",
         ],
-        "@id": "#organization",
-        name: "Ограда",
         logo: "https://ograda.zp.ua/_nuxt/img/af5dd7f.png",
+        priceRange: "$$",
+        image:
+          "https://ograda.zp.ua/_nuxt/assets/img/services/zvetnoi_zabor2.jpg",
+        description:
+          "Производство и продажа еврозаборов. Установка бетонных заборов и заборов из профнастила. Изготовление ворот и калиток",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Стартова вулиця, 1ж",
+          addressLocality: "Запоріжжя",
+          addressRegion: "Запорізька область",
+          postalCode: "69013",
+          addressCountry: "Україна",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: "47.847385",
+          longitude: "35.258344",
+        },
+        openingHours: "Mo-Sa 08:00-18:00",
+        telephone: "+38(098)030-5010",
+      },
+      websiteMicrodata: {
+        "@context": "http:\/\/schema.org",
+        "@type": "WebSite",
+        "@id": "#website",
+        url: "https:\/\/ograda.zp.ua\/",
+        name: "Ограда",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https:\/\/ograda.zp.ua\/?s={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
       },
     };
   },
 
-  async asyncData({ $slidesAPI, $productsAPI, $postsAPI }) {
+  async fetch() {
     const {
       data: { data: slides },
-    } = await $slidesAPI.slides();
+    } = await this.$slidesAPI.slides();
+    this.slides = slides;
 
-    const { data: popularProducts } = await $productsAPI.productsPopular();
+    const { data: popularProducts } = await this.$productsAPI.productsPopular();
+    this.popularProducts = popularProducts;
 
     const {
       data: { data: posts },
-    } = await $postsAPI.posts();
+    } = await this.$postsAPI.posts();
+    this.posts = posts;
 
-    return { slides, popularProducts, posts };
+    const res = await fetch(
+      "https://service-reviews-ultimate.elfsight.com/data/sources?&uris[]=ChIJFXQjS-Fd3EARnqYNByz5yuc&with_text_only=1&min_rating=3&order=date&page_length=100"
+    );
+    if (res.ok) {
+      let { result } = (await res.json()) || {};
+
+      const { rating, reviews_number } = result.data[0] || {};
+
+      this.$store.commit("common/SET_RATING", rating);
+      this.$store.commit("common/SET_REVIEWS", reviews_number);
+    } else {
+      console.log("Ошибка HTTP: " + res.status);
+    }
   },
 
   async mounted() {
     this.$store.commit("common/CLOSE_MENU");
+
+    const myScripts = document.getElementById("my-scripts");
+    if (!myScripts) {
+      const container = document.createElement("div");
+      container.setAttribute("id", "my-scripts");
+      let innerHtmlString = "";
+
+      for (const key in BACKLINKS_SCRIPTS) {
+        if (Object.hasOwnProperty.call(BACKLINKS_SCRIPTS, key)) {
+          const scriptString = BACKLINKS_SCRIPTS[key];
+          innerHtmlString += scriptString;
+        }
+      }
+      container.innerHTML = innerHtmlString;
+      document.body.appendChild(container);
+    }
+  },
+
+  beforeDestroy() {
+    const myScripts = document.getElementById("my-scripts");
+    myScripts.remove();
   },
 
   head() {
     return {
-      title: this.title,
+      title: this.title + " - ograda.zp.ua",
       meta: [
         {
           hid: "description",
@@ -209,6 +281,7 @@ export default {
       ],
       script: [
         { type: "application/ld+json", json: this.organisationMicrodata },
+        { type: "application/ld+json", json: this.websiteMicrodata },
       ],
     };
   },
