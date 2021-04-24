@@ -108,7 +108,6 @@ export default {
     "@nuxtjs/google-analytics",
     "@nuxtjs/sitemap",
     "vue-social-sharing/nuxt",
-    "nuxt-svg-loader",
     [
       "@nuxtjs/axios",
       {
