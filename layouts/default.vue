@@ -16,31 +16,35 @@
     <div class="content" ref="scrolledContent" id="scrolledContent">
       <app-header></app-header>
       <nuxt />
-      <app-footer></app-footer>
+      <LazyHydrate when-visible>
+        <app-footer></app-footer>
+      </LazyHydrate>
 
-      <div class="connect">
-        <div class="numbers-box" v-if="isPhoneActive">
-          <img src="../assets/icons/vf.png" alt="icon" width="36px" />
-          <a
-            class="base-font"
-            :href="`tel:${PHONE}`"
-            @click="isPhoneActive = false"
-          >
-            {{ PHONE }}</a
-          >
-          <img src="../assets/icons/ks100.png" alt="icon" width="36px" />
-          <a
-            class="base-font"
-            :href="`tel:${PHONE1}`"
-            @click="isPhoneActive = false"
-          >
-            {{ PHONE1 }}</a
-          >
+      <LazyHydrate when-visible>
+        <div class="connect">
+          <div class="numbers-box" v-if="isPhoneActive">
+            <img src="../assets/icons/vf.png" alt="icon" width="36px" />
+            <a
+              class="base-font"
+              :href="`tel:${PHONE}`"
+              @click="isPhoneActive = false"
+            >
+              {{ PHONE }}</a
+            >
+            <img src="../assets/icons/ks100.png" alt="icon" width="36px" />
+            <a
+              class="base-font"
+              :href="`tel:${PHONE1}`"
+              @click="isPhoneActive = false"
+            >
+              {{ PHONE1 }}</a
+            >
+          </div>
+          <div class="icon-box" @click="isPhoneActive = !isPhoneActive">
+            <icon-phone />
+          </div>
         </div>
-        <div class="icon-box" @click="isPhoneActive = !isPhoneActive">
-          <icon-phone />
-        </div>
-      </div>
+      </LazyHydrate>
     </div>
   </div>
 </template>
@@ -127,6 +131,8 @@
 </style>
 
 <script>
+import LazyHydrate from "vue-lazy-hydration";
+
 import sidebarVue from "../components/layout/sidebar.vue";
 import headerVue from "../components/layout/header.vue";
 import footerVue from "../components/layout/footer.vue";
@@ -139,24 +145,25 @@ export default {
     "app-sidebar": sidebarVue,
     "app-header": headerVue,
     "app-footer": footerVue,
-    "icon-phone": IconPhoneBlueVue
+    "icon-phone": IconPhoneBlueVue,
+    LazyHydrate,
   },
   watch: {
     $route(to) {
       this.$refs.scrolledContent.scrollTo(0, 0);
-    }
+    },
   },
   props: {
     error: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
       PHONE,
       PHONE1,
       isPhoneActive: false,
-      categories: []
+      categories: [],
     };
   },
 
@@ -178,6 +185,6 @@ export default {
       this.$store.commit("common/SET_RATING", rating);
       this.$store.commit("common/SET_REVIEWS", reviews_number);
     }
-  }
+  },
 };
 </script>

@@ -6,6 +6,7 @@
         v-for="(product, idx) in popularProducts"
         :key="idx"
         :product="product"
+        :withLazyLoad="true"
       />
     </div>
   </app-section>
@@ -13,21 +14,20 @@
 
 <script>
 import sectionVue from "~/components/layout/section.vue";
-import ProductCardVue from "~/components/common/ProductCard.vue";
 import ProductPreviewVue from "../../common/ProductPreview.vue";
 
 export default {
   name: "popular.vue",
   components: {
     "app-section": sectionVue,
-    "product-card": ProductPreviewVue
+    "product-card": ProductPreviewVue,
   },
   props: {
     popularProducts: {
       type: Array,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 

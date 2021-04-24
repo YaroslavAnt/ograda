@@ -12,9 +12,10 @@
       <div class="contact">
         <div class="contact-item contact-item-phones">
           <span>
-            <svg class="header-icon">
+            <!-- <svg class="header-icon">
               <use :xlink:href="sprite + '#phone-svg'"></use>
-            </svg>
+            </svg> -->
+            <icon-phone class="header-icon" />
           </span>
           <span class="text">
             <a title="Телефон" :href="`tel:${PHONE}`">{{ PHONE }}</a> <br />
@@ -24,9 +25,10 @@
 
         <div class="contact-item">
           <span>
-            <svg class="header-icon">
+            <!-- <svg class="header-icon">
               <use :xlink:href="sprite + '#mail-svg'"></use>
-            </svg>
+            </svg> -->
+            <icon-mail class="header-icon" />
           </span>
           <span class="text">
             <a title="Почта" :href="`mailto:${EMAIL}`">{{ EMAIL }}</a>
@@ -185,9 +187,9 @@ import IconPhoneVue from "../icons/IconPhone.vue";
 import IconLocationVue from "../icons/IconLocation.vue";
 import MenuButtonVue from "../common/MenuButton.vue";
 import { PHONE, EMAIL, LOCATION, PHONE1, DOMAIN } from "../../config";
-import sprite from "../../assets/icons/sprite.svg";
 import { replaceWithSpace } from "../../static/utils";
-
+import SvgMail from "../../assets/icons/mail.svg?inline";
+import SvgPhone from "../../assets/icons/phone.svg?inline";
 export default {
   name: "header.vue",
   components: {
@@ -207,7 +209,6 @@ export default {
       DOMAIN,
       location: LOCATION,
       isMenuOpen: false,
-      sprite,
     };
   },
   computed: {

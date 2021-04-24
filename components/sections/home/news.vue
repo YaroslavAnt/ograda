@@ -6,16 +6,16 @@
   >
     <div class="news-grid">
       <blog-card
-        v-for="(post,idx) in lastPosts"
+        v-for="(post, idx) in lastPosts"
         :key="idx"
         :card="post"
+        :withLazyLoading="true"
       />
     </div>
-    <nuxt-link
-      title="Смотреть больше новостей"
-      to='/blog'
-    >
-      <span class="section-link base-font">&rarr; Смотреть больше новостей </span>
+    <nuxt-link title="Смотреть больше новостей" to="/blog">
+      <span class="section-link base-font"
+        >&rarr; Смотреть больше новостей
+      </span>
     </nuxt-link>
   </app-secion>
 </template>
@@ -59,4 +59,3 @@ export default {
   }
 }
 </style>
-

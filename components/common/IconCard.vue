@@ -6,37 +6,37 @@
       class="card-icon lazyload"
     /> -->
     <span class="card-icon">
-      <svg>
-        <use :xlink:href="sprite + '#' + icon_id"></use>
-      </svg>
+      <component :is="`${icon_id}`" />
     </span>
     <h3 class="card-heading medium-font">{{ heading }}</h3>
-    <p
-      v-if="text"
-      class="card-text small-font"
-    >{{ text }}</p>
-    <span
-      v-if="link"
-      class="card-link base-font"
-    >Подробнее &rarr;</span>
+    <p v-if="text" class="card-text small-font">{{ text }}</p>
+    <span v-if="link" class="card-link base-font">Подробнее &rarr;</span>
   </div>
 </template>
 
 <script>
 import IconBaseVue from "./IconBase.vue";
-import sprite from "../../assets/icons/sprite.svg";
+
+import IconMailVue from "../icons/IconMail.vue";
+import IconCargoVue from "../icons/IconCargo.vue";
+import IconFenceVue from "../icons/IconFence.vue";
+import IconMeasureVue from "../icons/IconMeasure.vue";
+import IconBrushVue from "../icons/IconBrush.vue";
 
 export default {
   name: "IconCard.vue",
   data() {
-    return {
-      sprite
-    };
+    return {};
   },
   components: {
-    "icon-base": IconBaseVue
+    "icon-base": IconBaseVue,
+    mailSvg: IconMailVue,
+    cargoSvg: IconCargoVue,
+    fenceSvg: IconFenceVue,
+    measureSvg: IconMeasureVue,
+    brushSvg: IconBrushVue,
   },
-  props: ["icon_id", "heading", "text", "link"]
+  props: ["icon_id", "heading", "text", "link"],
 };
 </script>
 

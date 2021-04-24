@@ -14,6 +14,7 @@
         class="card-image"
         :src="getImageUrl(product)"
         :alt="product.img_alt"
+        :loading="loading"
       />
       <span :content="getImageUrl(product)"></span>
     </div>
@@ -24,11 +25,9 @@
 
     <div class="card-text">
       <nuxt-link
-        :to="
-          `/${replaceWithDash(product.category.name)}/${replaceWithDash(
-            product.name
-          )}`
-        "
+        :to="`/${replaceWithDash(product.category.name)}/${replaceWithDash(
+          product.name
+        )}`"
         class="card-name base-font"
         :title="product.name"
       >
@@ -49,7 +48,7 @@ export default {
   data() {
     return {
       BASE_URL,
-      CDN_URL
+      CDN_URL,
     };
   },
 
@@ -60,28 +59,39 @@ export default {
       default: {
         price: "",
         category: {
-          name: ""
+          name: "",
         },
         subcategory: {
-          name: ""
-        }
-      }
-    }
+          name: "",
+        },
+      },
+    },
+    withLazyLoad: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     getImageUrl(product) {
       return product.img_set.length > 0
-        ? `https://cdn.statically.io/img/${this.CDN_URL +
-            product.img_set[0]}?w=500&f=auto`
+        ? `https://cdn.statically.io/img/${
+            this.CDN_URL + product.img_set[0]
+          }?w=500&f=auto`
         : "";
       // ? this.BASE_URL + product.img_set[0]
     },
-    replaceWithDash: replaceWithDash,
+    replaceWithDash,
     getPrice(priceStr) {
       const [price] = priceStr.match(/\d+/g);
       return price;
-    }
-  }
+    },
+  },
+  computed: {
+    loading() {
+      console.log(this.withLazyLoad);
+      return this.withLazyLoad ? "lazy" : "eager";
+    },
+  },
 };
 </script>
 

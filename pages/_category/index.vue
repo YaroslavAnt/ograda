@@ -23,9 +23,10 @@
 
       <div class="section-grid" v-if="productsData.data.length > 0">
         <product-card
-          v-for="product in productsData.data"
+          v-for="(product, idx) in productsData.data"
           :key="product.id"
           :product="product"
+          :withLazyLoad="idx > 2"
         />
       </div>
     </app-section>
@@ -114,20 +115,20 @@ export default {
           category: { name: "" },
           name: "",
           option: "",
-          price: ""
-        })
+          price: "",
+        }),
       },
       categories: [{}],
       subcategories: [{}],
       categoryObj: {},
       subcategoryObj: {},
       ogImage,
-      DOMAIN
+      DOMAIN,
     };
   },
   components: {
     "app-section": sectionVue,
-    "product-card": ProductCardVue
+    "product-card": ProductCardVue,
   },
   async asyncData({
     $categoriesAPI,
@@ -135,12 +136,12 @@ export default {
     $productsAPI,
     params,
     query,
-    error
+    error,
   }) {
     try {
       const { data: categoryData } = await $categoriesAPI.categories();
       const categoryObj = categoryData.find(
-        category => replaceWithDash((category || {}).name) === params.category
+        (category) => replaceWithDash((category || {}).name) === params.category
       );
       if (!categoryObj) {
         console.log("no category");
@@ -149,7 +150,7 @@ export default {
 
       if (query.subcategory) {
         const subcategoryObj = categoryObj.subcategories.find(
-          subcategory => subcategory.name === query.subcategory
+          (subcategory) => subcategory.name === query.subcategory
         );
         if (!subcategoryObj) {
           console.log("no subcategory");
@@ -162,7 +163,7 @@ export default {
         return {
           categoryObj,
           subcategories: categoryObj.subcategories,
-          productsData
+          productsData,
         };
       } else {
         const { data: productsData } = await $productsAPI.productsByCategory(
@@ -172,7 +173,7 @@ export default {
         return {
           categoryObj,
           subcategories: categoryObj.subcategories,
-          productsData
+          productsData,
         };
       }
     } catch (err) {
@@ -197,7 +198,7 @@ export default {
     },
     heading() {
       return (this.categoryObj || {}).name;
-    }
+    },
   },
   methods: {
     async getProductsByCategory(id, page) {
@@ -215,7 +216,7 @@ export default {
       }
     },
     replaceWithSpace,
-    replaceWithDash
+    replaceWithDash,
   },
   watchQuery({ page, subcategory }) {
     if (subcategory) {
@@ -224,7 +225,7 @@ export default {
       if (window) {
         window.scrollTo({
           top: 0,
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }
       this.getProductsByCategory(this.categoryObj.id, page);
@@ -233,13 +234,13 @@ export default {
   watch: {
     async subcategory(newValue, oldValue) {
       const subcategoryObj = this.subcategories.find(
-        subcategory => subcategory.name === newValue
+        (subcategory) => subcategory.name === newValue
       );
       const { data } = await this.$productsAPI.productsBySubcategory(
         subcategoryObj.id
       );
       this.productsData = data;
-    }
+    },
   },
   head() {
     return {
@@ -248,22 +249,22 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content: this.description,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье, ${this.subcategoryObj.name} цена, ${this.categoryObj.name}`
+          content: `${this.subcategoryObj.name} в Запорожье, ${this.categoryObj.name} в Запорожье, ${this.subcategoryObj.name} цена, ${this.categoryObj.name}`,
         },
 
         //Open Graph
         {
           property: "og:title",
-          content: this.title
+          content: this.title,
         },
         {
           property: "og:description",
-          content: this.description
+          content: this.description,
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: DOMAIN + this.$route.fullPath },
@@ -272,39 +273,39 @@ export default {
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
-              : DOMAIN + this.ogImage
+              : DOMAIN + this.ogImage,
         },
 
         // Twitter Card
         { name: "twitter:card", content: "summary" },
         {
           name: "twitter:title",
-          content: this.title
+          content: this.title,
         },
         {
           name: "twitter:description",
-          content: this.description
+          content: this.description,
         },
         {
           name: "twitter:image",
           content:
             this.productsData.data.length > 0
               ? BASE_URL + this.productsData.data[0].img_set[0]
-              : DOMAIN + this.ogImage
+              : DOMAIN + this.ogImage,
         },
         {
           name: "twitter:image:alt",
           content:
             this.productsData.data.length > 0
               ? this.productsData.data[0].img_alt
-              : "Заборы"
-        }
+              : "Заборы",
+        },
       ],
       link: [
-        { rel: "canonical", href: DOMAIN + this.$route.fullPath } //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
-      ]
+        { rel: "canonical", href: DOMAIN + this.$route.fullPath }, //<link rel="canonical" href="https://example.com/dresses/green-dresses" />
+      ],
     };
-  }
+  },
 };
 </script>
 

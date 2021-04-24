@@ -22,9 +22,7 @@
       <div class="footer-rating">
         <div class="elfsight-app-34771295-8af0-4459-87cc-2af7e7b87bc4"></div>
         <div class="footer-rating-box">
-          <svg class="footer-icon footer-icon--rating">
-            <use xlink:href="../../assets/icons/sprite_s.svg#google" />
-          </svg>
+          <IconGoogle class="footer-rating-icon" />
           <span class="medium-font">Google рейтинг</span>
           <div>
             <b class="big-font">{{ Number(rating).toFixed(1) }}</b>
@@ -110,65 +108,15 @@
 
           <div>
             <a
-              :content="FACEBOOK"
-              :href="FACEBOOK"
+              v-for="{ href, component } in socialLinks"
+              :key="href"
+              :content="href"
+              :href="href"
               target="_blank"
               rel="noreferrer noopener"
               title="Наша страничка в соцсетях"
             >
-              <svg class="footer-icon">
-                <use xlink:href="../../assets/icons/sprite_s.svg#facebook" />
-              </svg>
-            </a>
-            <a
-              :content="INSTAGRAM"
-              :href="INSTAGRAM"
-              target="_blank"
-              rel="noreferrer noopener"
-              title="Наша страничка в соцсетях"
-            >
-              <!-- <img
-                src="../../assets/icons/instagram.svg"
-                alt="fb-icon"
-                class="footer-icon lazyload"
-              /> -->
-
-              <svg class="footer-icon">
-                <use xlink:href="../../assets/icons/sprite_s.svg#instagram" />
-              </svg>
-            </a>
-            <a
-              :content="TWITTER"
-              :href="TWITTER"
-              target="_blank"
-              rel="noreferrer noopener"
-              title="Наша страничка в соцсетях"
-            >
-              <svg class="footer-icon">
-                <use xlink:href="../../assets/icons/sprite_s.svg#twitter" />
-              </svg>
-            </a>
-            <a
-              :content="YOUTUBE"
-              :href="YOUTUBE"
-              target="_blank"
-              rel="noreferrer noopener"
-              title="Наша страничка в соцсетях"
-            >
-              <svg class="footer-icon">
-                <use xlink:href="../../assets/icons/sprite_s.svg#youtube" />
-              </svg>
-            </a>
-            <a
-              :content="PINTEREST"
-              :href="PINTEREST"
-              target="_blank"
-              rel="noreferrer noopener"
-              title="Наша страничка в соцсетях"
-            >
-              <svg class="footer-icon">
-                <use xlink:href="../../assets/icons/sprite_s.svg#pinterest" />
-              </svg>
+              <component class="footer-icon" :is="component" />
             </a>
           </div>
 
@@ -178,6 +126,103 @@
     </div>
   </footer>
 </template>
+
+<script>
+import {
+  DOMAIN,
+  BASE_URL,
+  PHONE,
+  EMAIL,
+  PHONE1,
+  FACEBOOK,
+  INSTAGRAM,
+  YOUTUBE,
+  TWITTER,
+  PINTEREST,
+  SOCIAL_SHARE,
+} from "../../config";
+import { replaceWithDash } from "../../static/utils";
+import vRating from "../common/Rating/Rating.vue";
+// import SocialSharing from "vue-social-sharing";
+
+import IconGoogle from "../icons/IconGoogle.vue";
+import IconFacebook from "../icons/IconFacebook.vue";
+import IconPinterest from "../icons/IconPinterest.vue";
+import IconYoutube from "../icons/IconYoutube.vue";
+import IconTwitter from "../icons/IconTwitter.vue";
+import IconInstagram from "../icons/IconInstagram.vue";
+
+export default {
+  name: "footer.vue",
+
+  methods: {
+    replaceWithDash,
+  },
+  components: {
+    vRating,
+    IconFacebook,
+    IconPinterest,
+    IconYoutube,
+    IconTwitter,
+    IconGoogle,
+    IconInstagram,
+  },
+  computed: {
+    dynamicLinks() {
+      const links = this.$store.state.categories.list.map((category) => ({
+        name: category.name,
+        id: category.id,
+      }));
+      return links;
+    },
+    currentURL() {
+      return DOMAIN + this.$route.path;
+    },
+  },
+  data() {
+    return {
+      DOMAIN,
+      PHONE,
+      PHONE1,
+      EMAIL,
+      FACEBOOK,
+      INSTAGRAM,
+      YOUTUBE,
+      TWITTER,
+      PINTEREST,
+      SOCIAL_SHARE,
+      rating: this.$store.state.common.rating,
+      reviews_number: this.$store.state.common.reviews_number,
+      socialLinks: [
+        { component: "IconFacebook", href: FACEBOOK },
+        { component: "IconInstagram", href: INSTAGRAM },
+        { component: "IconTwitter", href: TWITTER },
+        { component: "IconYoutube", href: YOUTUBE },
+        { component: "IconPinterest", href: PINTEREST },
+      ],
+      menu_list: [
+        {
+          name: "Информация",
+          links: [
+            { name: "выставки", path: "/expo" },
+            { name: "цены", path: "/prices" },
+            { name: "наши работы", path: "/blog" },
+            { name: "вопросы", path: "/faq" },
+            { name: "карта сайта", path: "/karta" },
+          ],
+        },
+      ],
+      contact_list: {
+        name: "Контакты",
+        links: [
+          { name: PHONE, path: "/contact" },
+          { name: EMAIL, path: "/contact" },
+        ],
+      },
+    };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .footer {
@@ -199,6 +244,11 @@
 
   &-rating {
     display: inline-block;
+
+    &-icon {
+      height: 40px;
+      width: 40px;
+    }
 
     &-box {
       margin-top: 24px;
@@ -253,6 +303,7 @@
   &-icon {
     width: 36px;
     height: 36px;
+    margin-right: 10px;
 
     &--rating {
       height: 70px;
@@ -278,80 +329,3 @@
   }
 }
 </style>
-
-<script>
-import {
-  DOMAIN,
-  BASE_URL,
-  PHONE,
-  EMAIL,
-  PHONE1,
-  FACEBOOK,
-  INSTAGRAM,
-  YOUTUBE,
-  TWITTER,
-  PINTEREST,
-  SOCIAL_SHARE,
-} from "../../config";
-import { replaceWithDash } from "../../static/utils";
-import vRating from "../common/Rating/Rating.vue";
-// import SocialSharing from "vue-social-sharing";
-
-export default {
-  name: "footer.vue",
-
-  methods: {
-    replaceWithDash,
-  },
-  components: {
-    vRating,
-  },
-  computed: {
-    dynamicLinks() {
-      const links = this.$store.state.categories.list.map((category) => ({
-        name: category.name,
-        id: category.id,
-      }));
-      return links;
-    },
-    currentURL() {
-      return DOMAIN + this.$route.path;
-    },
-  },
-  data() {
-    return {
-      DOMAIN,
-      PHONE,
-      PHONE1,
-      EMAIL,
-      FACEBOOK,
-      INSTAGRAM,
-      YOUTUBE,
-      TWITTER,
-      PINTEREST,
-      SOCIAL_SHARE,
-      rating: this.$store.state.common.rating,
-      reviews_number: this.$store.state.common.reviews_number,
-      menu_list: [
-        {
-          name: "Информация",
-          links: [
-            { name: "выставки", path: "/expo" },
-            { name: "цены", path: "/prices" },
-            { name: "нашы работы", path: "/blog" },
-            { name: "вопросы", path: "/faq" },
-            { name: "карта сайта", path: "/karta" },
-          ],
-        },
-      ],
-      contact_list: {
-        name: "Контакты",
-        links: [
-          { name: PHONE, path: "/contact" },
-          { name: EMAIL, path: "/contact" },
-        ],
-      },
-    };
-  },
-};
-</script>

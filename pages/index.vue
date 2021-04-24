@@ -43,7 +43,7 @@
       </p>
 
       <p id="services" class="about-paragraph base-font">
-        Чтобы вы могли убедиться в качестве нашых <strong>еврозаборов</strong>,
+        Чтобы вы могли убедиться в качестве наших <strong>еврозаборов</strong>,
         организованы
         <nuxt-link
           to="/expo"
@@ -55,14 +55,20 @@
         применением покраски и без.
       </p>
     </section>
-    <popular :popularProducts="popularProducts"></popular>
+    <LazyHydrate when-visible>
+      <popular :popularProducts="popularProducts"></popular>
+    </LazyHydrate>
 
-    <services></services>
-    <news :lastPosts="posts.slice(0, 3)"></news>
+    <LazyHydrate when-visible><services></services></LazyHydrate>
+    <LazyHydrate when-visible>
+      <news :lastPosts="posts.slice(0, 3)"></news>
+    </LazyHydrate>
   </main>
 </template>
 
 <script>
+import LazyHydrate from "vue-lazy-hydration";
+
 import heroVue from "../components/sections/home/hero";
 import servicesVue from "../components/sections/home/services.vue";
 import newsVue from "../components/sections/home/news.vue";
@@ -85,6 +91,7 @@ export default {
     news: newsVue,
     "app-section": sectionVue,
     popular: popularVue,
+    LazyHydrate,
   },
 
   methods: {
@@ -203,27 +210,27 @@ export default {
   async mounted() {
     this.$store.commit("common/CLOSE_MENU");
 
-    const myScripts = document.getElementById("my-scripts");
-    if (!myScripts) {
-      const container = document.createElement("div");
-      container.setAttribute("id", "my-scripts");
-      let innerHtmlString = "";
+    // const myScripts = document.getElementById("my-scripts");
+    // if (!myScripts) {
+    //   const container = document.createElement("div");
+    //   container.setAttribute("id", "my-scripts");
+    //   let innerHtmlString = "";
 
-      for (const key in BACKLINKS_SCRIPTS) {
-        if (Object.hasOwnProperty.call(BACKLINKS_SCRIPTS, key)) {
-          const scriptString = BACKLINKS_SCRIPTS[key];
-          innerHtmlString += scriptString;
-        }
-      }
-      container.innerHTML = innerHtmlString;
-      document.body.appendChild(container);
-    }
+    //   for (const key in BACKLINKS_SCRIPTS) {
+    //     if (Object.hasOwnProperty.call(BACKLINKS_SCRIPTS, key)) {
+    //       const scriptString = BACKLINKS_SCRIPTS[key];
+    //       innerHtmlString += scriptString;
+    //     }
+    //   }
+    //   container.innerHTML = innerHtmlString;
+    //   document.body.appendChild(container);
+    // }
   },
 
-  beforeDestroy() {
-    const myScripts = document.getElementById("my-scripts");
-    myScripts.remove();
-  },
+  // beforeDestroy() {
+  //   const myScripts = document.getElementById("my-scripts");
+  //   myScripts.remove();
+  // },
 
   head() {
     return {

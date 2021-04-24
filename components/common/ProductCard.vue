@@ -1,54 +1,58 @@
 ﻿<template>
-  <article class="card">
-    <div class="card-img-box">
-      <img
-        class="card-image"
-        v-if="product.img_set[0]"
-        :src="
-          `https://cdn.statically.io/img/${CDN_URL +
-            product.img_set[0]}?w=450&f=auto `
-        "
-        :alt="product.img_alt"
-      />
-    </div>
+  <LazyHydrate when-visible>
+    <article class="card">
+      <div class="card-img-box">
+        <img
+          class="card-image"
+          v-if="product.img_set[0]"
+          :src="`https://cdn.statically.io/img/${
+            CDN_URL + product.img_set[0]
+          }?w=450&f=auto `"
+          :alt="product.img_alt"
+          :loading="loading"
+        />
+      </div>
 
-    <nuxt-link
-      :to="
-        `/${replaceWithDash(product.category.name)}/${replaceWithDash(
+      <nuxt-link
+        :to="`/${replaceWithDash(product.category.name)}/${replaceWithDash(
           product.name
-        )}`
-      "
-      class="card-name base-font"
-      :title="product.name"
-      ><span>{{ product.name }}</span>
-    </nuxt-link>
+        )}`"
+        class="card-name base-font"
+        :title="product.name"
+        ><span>{{ product.name }}</span>
+      </nuxt-link>
 
-    <span
-      v-if="product.option && product.option.label"
-      class="card-label small-font"
-      >{{ product.option.label }}</span
-    >
+      <span
+        v-if="product.option && product.option.label"
+        class="card-label small-font"
+        >{{ product.option.label }}</span
+      >
 
-    <div class="card-text">
-      <p class="card-price medium-font">
-        Цена:
-        <span>&#8372; </span>
-        <span>{{ product.price }}</span>
-      </p>
-    </div>
-  </article>
+      <div class="card-text">
+        <p class="card-price medium-font">
+          Цена:
+          <span>&#8372; </span>
+          <span>{{ product.price }}</span>
+        </p>
+      </div>
+    </article>
+  </LazyHydrate>
 </template>
 
 <script>
-import ImageBaseVue from "./ImageBase.vue";
 import { BASE_URL, CDN_URL } from "~/config";
 import { replaceWithDash } from "../../static/utils";
+import LazyHydrate from "vue-lazy-hydration";
+
 export default {
   data() {
     return {
       BASE_URL,
-      CDN_URL
+      CDN_URL,
     };
+  },
+  components: {
+    LazyHydrate,
   },
 
   name: "ProductCard.vue",
@@ -58,13 +62,17 @@ export default {
       default: {
         price: "",
         category: {
-          name: ""
+          name: "",
         },
         subcategory: {
-          name: ""
-        }
-      }
-    }
+          name: "",
+        },
+      },
+    },
+    withLazyLoad: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     // getImageUrl(product) {
@@ -76,11 +84,14 @@ export default {
     getPrice(priceStr) {
       const [price] = priceStr.match(/\d+/g);
       return price;
-    }
+    },
   },
-  components: {
-    "app-image": ImageBaseVue
-  }
+  computed: {
+    loading() {
+      console.log(this.withLazyLoad);
+      return this.withLazyLoad ? "lazy" : "eager";
+    },
+  },
 };
 </script>
 

@@ -6,9 +6,10 @@
     <section class="section" v-if="posts.data.length > 0">
       <blog-card
         :isWhole="false"
-        v-for="card in posts.data"
+        v-for="(card, idx) in posts.data"
         :key="card.id"
         :card="card"
+        :withLazyLoading="idx > 4"
       />
     </section>
 

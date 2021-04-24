@@ -2,10 +2,11 @@
   <div class="picture" :style="{ 'padding-bottom': `${ratio}%` }">
     <img
       v-if="lazy"
-      :data-src="img_src"
+      :src="img_src"
       :alt="img_alt || 'image'"
       class="picture-img"
-      :class="{ lazyload: lazy, square: ratio > 70 }"
+      :class="{ square: ratio > 70 }"
+      loading="lazy"
     />
     <img
       v-if="!lazy"
@@ -49,27 +50,27 @@ export default {
   props: {
     img_src: {
       type: String,
-      default: "img_src"
+      default: "img_src",
     },
     img_alt: {
       type: String,
-      default: "image"
+      default: "image",
     },
     lazy: {
       type: Boolean,
-      default: false
+      default: false,
     },
     ratio: {
       type: Number,
-      default: 67
-    }
+      default: 67,
+    },
   },
   computed: {
     URL() {
       return this.img_src.includes("undefined")
         ? "../../assets/icons/img-placeholder.png"
         : this.img_src;
-    }
-  }
+    },
+  },
 };
 </script>

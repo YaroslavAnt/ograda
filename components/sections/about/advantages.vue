@@ -1,30 +1,16 @@
 ﻿<template>
-  <app-section
-    :heading="'Наши приемущества'"
-    class="section"
-  >
+  <app-section :heading="'Наши приемущества'" class="section">
     <div class="grid">
-      <div
-        class="grid-item"
-        v-for="(card,idx) in card_list"
-        :key="idx"
-      >
+      <div class="grid-item" v-for="(card, idx) in card_list" :key="idx">
         <!-- <img
           class="grid-item-icon"
           :src="card.icon"
           alt="icon"
           width="70px"
         /> -->
-        <span class="grid-item-icon">
-          <svg
-            width="70px"
-            height="70px"
-          >
-            <use :xlink:href="sprite + '#' + card.icon"></use>
-          </svg>
-        </span>
+        <span class="grid-item-icon"> </span>
 
-        <p class="grid-item-text medium-font">{{card.heading}}</p>
+        <p class="grid-item-text medium-font">{{ card.heading }}</p>
       </div>
     </div>
   </app-section>
@@ -32,46 +18,43 @@
 
 <script>
 import sectionVue from "~/components/layout/section.vue";
-import sprite from "../../../assets/icons/sprite_c.svg";
 
 export default {
   name: "advantages.vue",
   components: {
-    "app-section": sectionVue
+    "app-section": sectionVue,
   },
   data() {
     return {
-      sprite,
-
       card_list: [
         {
           icon: "case",
           heading:
-            "10+ лет опыта производства ограждений. \n500+ обьектов выполненных работ"
+            "10+ лет опыта производства ограждений. \n500+ обьектов выполненных работ",
         },
         {
           icon: "recycle",
-          heading: "Полный перечень услуг по установке заборов и ворот"
+          heading: "Полный перечень услуг по установке заборов и ворот",
         },
         {
           icon: "time",
-          heading: "Выполнение работ в сжатые сроки"
+          heading: "Выполнение работ в сжатые сроки",
         },
         {
           icon: "prices",
-          heading: "Товар по цене произврдителя"
+          heading: "Товар по цене произврдителя",
         },
         {
           icon: "garanty",
-          heading: "Высокое качество и гарантия работ"
+          heading: "Высокое качество и гарантия работ",
         },
         {
           icon: "choise",
-          heading: "Большой асортимент продукции"
-        }
-      ]
+          heading: "Большой асортимент продукции",
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

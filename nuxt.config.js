@@ -17,7 +17,7 @@ export default {
   //},
   head: {
     htmlAttrs: {
-      lang: "ru"
+      lang: "ru",
     },
     meta: [
       { charset: "utf-8" },
@@ -25,18 +25,18 @@ export default {
       // Pinterest <meta name="p:domain_verify" content="6af9e360d6bb7aabcaeeb6735c8d5f6e"/>
       {
         name: "p:domain_verify",
-        content: "6af9e360d6bb7aabcaeeb6735c8d5f6e"
+        content: "6af9e360d6bb7aabcaeeb6735c8d5f6e",
       },
       // Search Console <meta name="google-site-verification" content="..." /> og:site_name
       {
         property: "og:site_name",
-        content: "ograda.zp.ua"
+        content: "ograda.zp.ua",
       },
       // search console google-site-verification=GfuhtdrpgdSYOTTXhX_YqpKrQnMPw6Eyoz9h02s7lv8
       {
         name: "google-site-verification",
-        content: "GfuhtdrpgdSYOTTXhX_YqpKrQnMPw6Eyoz9h02s7lv8"
-      }
+        content: "GfuhtdrpgdSYOTTXhX_YqpKrQnMPw6Eyoz9h02s7lv8",
+      },
     ],
     script: [
       // {
@@ -61,29 +61,29 @@ export default {
       //<link rel="apple-touch-icon" size="120x120" href="/apple-touch-icon.png">
       {
         rel: "apple-touch-icon",
-        href: "/appletouch.png"
+        href: "/appletouch.png",
       },
       // rel="preconnect" href="https://example.com"
       {
         rel: "preconnect",
-        href: "https://back.ograda.zp.ua"
+        href: "https://back.ograda.zp.ua",
       },
       {
         rel: "preload",
         href: "https://back.ograda.zp.ua/api/categories",
-        as: "fetch"
-      } //<link rel="preload" href="/test.json" as="fetch">
-    ]
+        as: "fetch",
+      }, //<link rel="preload" href="/test.json" as="fetch">
+    ],
   },
   /*
    ** Customize the progress-bar color
    */
   loading: { color: "#b11030", height: "5px" },
   router: {
-    prefetchLinks: false
+    prefetchLinks: false,
   },
   render: {
-    resourceHints: false
+    resourceHints: false,
   },
   /*
    ** Global CSS
@@ -99,7 +99,7 @@ export default {
   buildModules: ["@aceforth/nuxt-optimized-images", "@nuxtjs/dotenv"],
   optimizedImages: {
     optimizeImages: true,
-    defaultImageLoader: "img-loader"
+    defaultImageLoader: "img-loader",
   },
   /*
    **  Nuxt.js modules
@@ -108,12 +108,13 @@ export default {
     "@nuxtjs/google-analytics",
     "@nuxtjs/sitemap",
     "vue-social-sharing/nuxt",
+    "nuxt-svg-loader",
     [
       "@nuxtjs/axios",
       {
-        baseURL: process.env.VUE_APP_API_URL
-      }
-    ]
+        baseURL: process.env.VUE_APP_API_URL,
+      },
+    ],
   ],
 
   sitemap: {
@@ -126,16 +127,16 @@ export default {
         routes: async () => {
           const { data } = await axios.get(BASE_URL + "api/products-prices");
           let dynRoutes = [];
-          data.data.forEach(priceObj => {
+          data.data.forEach((priceObj) => {
             dynRoutes.push(replaceWithDash(`${priceObj.name}`));
-            return priceObj.products.forEach(product =>
+            return priceObj.products.forEach((product) =>
               dynRoutes.push(
                 replaceWithDash(`${priceObj.name}/${product.name}`)
               )
             );
           });
           return dynRoutes;
-        }
+        },
       },
       // {
       //   path: "/sitemap-posts.xml",
@@ -159,29 +160,29 @@ export default {
         path: "/sitemap-posts.xml",
         routes: async () => {
           const {
-            data: { data: posts }
+            data: { data: posts },
           } = await axios.get(BASE_URL + "api/posts");
           let pages = [];
           for (let page = 1; page <= posts.last_page; page++) {
             const {
-              data: { data: paginatedPosts }
+              data: { data: paginatedPosts },
             } = await axios.get(BASE_URL + "api/posts?page=" + page);
-            paginatedPosts.data.forEach(post => {
+            paginatedPosts.data.forEach((post) => {
               // pages.push(`/blog/${post.id}`);
               pages.push({
                 url: `/blog/${post.id}`,
                 img: [
                   {
-                    url: BASE_URL + post.image
-                  }
-                ]
+                    url: BASE_URL + post.image,
+                  },
+                ],
               });
             });
           }
           return pages;
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   /*
    ** Build configuration
@@ -196,15 +197,15 @@ export default {
         vue.transformAssetUrls.img = ["data-src", "src"];
         vue.transformAssetUrls.source = ["data-srcset", "srcset"];
       }
-    }
+    },
   },
 
   cache: true,
 
   googleAnalytics: {
     id: "UA-158653896-1",
-    dev: false
-  }
+    dev: false,
+  },
 
   // router: {
   //   extendRoutes(routes, resolve) {

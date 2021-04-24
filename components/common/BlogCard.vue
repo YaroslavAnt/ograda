@@ -1,46 +1,48 @@
 ﻿<template>
-  <article class="card">
-    <app-image
-      :img_src="
-        `https://cdn.statically.io/img/${CDN_URL +
-          (card.image || '')}?w=500&f=auto `
-      "
-      :img_alt="card.title"
-    />
+  <LazyHydrate when-visible>
+    <article class="card">
+      <app-image
+        :img_src="`https://cdn.statically.io/img/${
+          CDN_URL + (card.image || '')
+        }?w=500&f=auto `"
+        :img_alt="card.title"
+        :lazy="withLazyLoading"
+      />
 
-    <div class="card-text">
-      <span class="card-label base-font">
-        <icon-base>
-          <icon-calendar />
-        </icon-base>
+      <div class="card-text">
+        <span class="card-label base-font">
+          <icon-base>
+            <icon-calendar />
+          </icon-base>
 
-        <time :datetime="dateTime">{{ date }}</time>
-      </span>
+          <time :datetime="dateTime">{{ date }}</time>
+        </span>
 
-      <h3
-        class="card-name"
-        :class="{ 'base-font': !isWhole, 'medium-font': isWhole }"
-      >
-        <nuxt-link :to="`/blog/${card.id}`">
-          {{ card.title }}
-        </nuxt-link>
-      </h3>
+        <h3
+          class="card-name"
+          :class="{ 'base-font': !isWhole, 'medium-font': isWhole }"
+        >
+          <nuxt-link :to="`/blog/${card.id}`">
+            {{ card.title }}
+          </nuxt-link>
+        </h3>
 
-      <span
-        class="small-font red card-link"
-        @click="$router.push(`/blog/${card.id}`)"
-        >&rarr; Подробнее...</span
-      >
-      <!-- <p
-        v-if="!isWhole"
-        class="card-price small-font"
-      >{{card.short_body}}</p>
-      <p
-        v-if="isWhole"
-        class="card-price base-font"
-      >{{card.body}}</p> -->
-    </div>
-  </article>
+        <span
+          class="small-font red card-link"
+          @click="$router.push(`/blog/${card.id}`)"
+          >&rarr; Подробнее...</span
+        >
+        <!-- <p
+          v-if="!isWhole"
+          class="card-price small-font"
+        >{{card.short_body}}</p>
+        <p
+          v-if="isWhole"
+          class="card-price base-font"
+        >{{card.body}}</p> -->
+      </div>
+    </article>
+  </LazyHydrate>
 </template>
 
 <script>
@@ -48,44 +50,44 @@ import ImageBaseVue from "./ImageBase.vue";
 import IconBaseVue from "~/components/common/IconBase.vue";
 import IconCalendarVue from "~/components/icons/IconCalendar.vue";
 import { BASE_URL, CDN_URL } from "../../config";
-import sprite from "../../assets/icons/sprite.svg";
+import LazyHydrate from "vue-lazy-hydration";
 
 export default {
   name: "BlogCard",
   components: {
     "app-image": ImageBaseVue,
     "icon-base": IconBaseVue,
-    "icon-calendar": IconCalendarVue
+    "icon-calendar": IconCalendarVue,
+    LazyHydrate,
   },
   computed: {
     date() {
-      return this.card.created_at
-        .split(" ")[0]
-        .split("-")
-        .reverse()
-        .join(".");
+      return this.card.created_at.split(" ")[0].split("-").reverse().join(".");
     },
     dateTime() {
       const [dashedDate] = this.card.created_at.split(" ");
       return dashedDate;
-    }
+    },
   },
   props: {
     card: {
       type: Object,
-      default: {}
+      default: {},
     },
     isWhole: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
+    withLazyLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       BASE_URL,
       CDN_URL,
-      sprite
     };
-  }
+  },
 };
 </script>
 
