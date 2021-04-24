@@ -64,15 +64,15 @@ export default {
         href: "/appletouch.png",
       },
       // rel="preconnect" href="https://example.com"
-      {
-        rel: "preconnect",
-        href: "https://back.ograda.zp.ua",
-      },
-      {
-        rel: "preload",
-        href: "https://back.ograda.zp.ua/api/categories",
-        as: "fetch",
-      }, //<link rel="preload" href="/test.json" as="fetch">
+      // {
+      //   rel: "preconnect",
+      //   href: "https://back.ograda.zp.ua",
+      // },
+      // {
+      //   rel: "preload",
+      //   href: "https://back.ograda.zp.ua/api/categories",
+      //   as: "fetch",
+      // }, //<link rel="preload" href="/test.json" as="fetch">
     ],
   },
   /*
@@ -92,15 +92,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: "./plugins/vue-lazysizes.js", ssr: false }, "~/plugins/api"],
+  plugins: ["~/plugins/api"],
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ["@aceforth/nuxt-optimized-images", "@nuxtjs/dotenv"],
-  optimizedImages: {
-    optimizeImages: true,
-    defaultImageLoader: "img-loader",
-  },
+  buildModules: ["@nuxtjs/dotenv"],
+
   /*
    **  Nuxt.js modules
    */
@@ -191,12 +188,12 @@ export default {
      ** You can extend webpack config here
      */
     // extend(config, ctx) {},
-    extend(config, { isDev, isClient, loaders: { vue } }) {
-      if (isClient) {
-        vue.transformAssetUrls.img = ["data-src", "src"];
-        vue.transformAssetUrls.source = ["data-srcset", "srcset"];
-      }
-    },
+    // extend(config, { isDev, isClient, loaders: { vue } }) {
+    //   if (isClient) {
+    //     vue.transformAssetUrls.img = ["data-src", "src"];
+    //     vue.transformAssetUrls.source = ["data-srcset", "srcset"];
+    //   }
+    // },
   },
 
   cache: true,

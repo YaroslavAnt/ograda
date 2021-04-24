@@ -88,7 +88,6 @@ export default {
   },
   computed: {
     loading() {
-      console.log(this.withLazyLoad);
       return this.withLazyLoad ? "lazy" : "eager";
     },
   },

@@ -188,8 +188,6 @@ import IconLocationVue from "../icons/IconLocation.vue";
 import MenuButtonVue from "../common/MenuButton.vue";
 import { PHONE, EMAIL, LOCATION, PHONE1, DOMAIN } from "../../config";
 import { replaceWithSpace } from "../../static/utils";
-import SvgMail from "../../assets/icons/mail.svg?inline";
-import SvgPhone from "../../assets/icons/phone.svg?inline";
 export default {
   name: "header.vue",
   components: {
