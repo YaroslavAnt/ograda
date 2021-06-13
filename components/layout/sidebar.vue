@@ -114,7 +114,7 @@ export default {
           ],
         },
         { name: "Цены", path: "/prices" },
-        { name: "Нашы работы", path: "/blog" },
+        { name: "Наши работы", path: "/blog" },
         { name: "Контакты", path: "/contact" },
       ],
       nav_item_active: null,
